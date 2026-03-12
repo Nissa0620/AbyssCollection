@@ -392,11 +392,15 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
   const pvRange = band.passiveValue?.[passiveType] ?? { min: 1, max: 10 };
   const maxPassiveValue = Math.floor(pvRange.max * mult);
 
-  // 究極個体・極個体の場合は全ステータスを最大値に固定
+  // 究極個体・極個体は全ステータス最大、レジェンダリーはスキル値最大
   let power, hp, passiveValue;
   if (isLegendUltimate || isElite) {
     power = petPowerMax;
     hp = petHpMax;
+    passiveValue = maxPassiveValue;
+  } else if (isLegendary) {
+    power = Math.floor(Math.random() * (petPowerMax - petPowerMin + 1) + petPowerMin);
+    hp = Math.floor(Math.random() * (petHpMax - petHpMin + 1) + petHpMin);
     passiveValue = maxPassiveValue;
   } else {
     power = Math.floor(Math.random() * (petPowerMax - petPowerMin + 1) + petPowerMin);
@@ -416,6 +420,7 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
     titleId,
     isLegendary: isLegendary ?? false,
     isLegendUltimate: isLegendUltimate ?? false,
+    isElite: isElite ?? false,
     titleGroup: def.titleGroup ?? null,
     name: def.name,
     basePower: power,
