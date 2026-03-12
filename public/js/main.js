@@ -111,7 +111,15 @@ const attackBtn = document.getElementById("attackBtn");
 
 let attackInterval = null;
 
+function isAppearanceModalOpen() {
+  return ["eliteOverlay", "legendaryOverlay", "legendUltimateOverlay"].some((id) => {
+    const el = document.getElementById(id);
+    return el && !el.classList.contains("hidden") && el.dataset.mode === "appear";
+  });
+}
+
 function doAttack() {
+  if (isAppearanceModalOpen()) return;
   handlePhase();
   refreshUI();
 }
