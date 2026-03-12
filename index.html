@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>アビスコレクション</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <div class="title-area">
+        <div class="floor-jump">
+          <select id="floorJumpSelect"></select>
+          <button id="floorJumpBtn">移動</button>
+          <label class="stay-label">
+            <input type="checkbox" id="stayOnFloorChk">
+            とどまる
+          </label>
+        </div>
+        <div id="floorDisplay">地下 : 1階</div>
+      </div>
+      <div id="playerLevelExp">
+        <span id="playerLevel">Lv.1</span>
+        <div id="expContainer">
+          <div id="expBar"></div>
+        </div>
+      </div>
+      <div class="status-panel">
+        <button id="resetBtn" style="color: black">リセット</button>
+        <div class="status-grid">
+          <div class="player-status status-card">
+            <div class="status-card-label">PLAYER</div>
+            <p id="playerHp"></p>
+            <p id="playerAttack"></p>
+            <div id="nextExp"></div>
+          </div>
+          <div class="enemy-status status-card">
+            <div class="status-card-label">ENEMY</div>
+            <p id="enemyName"></p>
+            <p id="enemyHp"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-panel">
+        <div class="action-row action-row-attack">
+          <button id="attackBtn">攻撃</button>
+        </div>
+        <div class="action-row">
+          <button id="bookBtn">図鑑</button>
+          <button id="statusBtn">ステータス</button>
+          <button id="achievementBtn">実績</button>
+          <button id="helpBtn">説明</button>
+        </div>
+        <div class="action-row">
+          <button id="inventoryToggleBtn">インベントリ</button>
+          <button id="petToggleBtn">ペット</button>
+        </div>
+      </div>
+
+      <div id="log" class="log-panel"></div>
+
+      <div class="inventory-panel hidden" id="inventoryPanel">
+        <h2>インベントリ</h2>
+        <div class="inv-tabs">
+          <button id="invTabWeapon" class="inv-tab active">⚔️ 武器</button>
+          <button id="invTabGem"    class="inv-tab">💎 宝玉</button>
+        </div>
+
+        <!-- 武器タブ -->
+        <div id="invWeaponSection">
+          <div id="equippedWeaponInfo" class="equipped-pet-info"></div>
+          <div class="inventory-toolbar">
+            <select id="inventoryFilterSelect">
+            <option value="">すべて</option>
+            <option value="captureRate">捕獲率増加</option>
+            <option value="expBoost">経験値増加</option>
+            <option value="atkBoost">攻撃力増加</option>
+            <option value="dropBoost">ドロップ率増加</option>
+            <option value="doubleAttack">2回攻撃</option>
+            <option value="survive">根性</option>
+            </select>
+            <button id="sortBtn">ソート</button>
+            <button id="selectAllBtn">一括選択</button>
+            <button id="synthesizeBtn">合成する</button>
+          </div>
+          <div id="synthesisInfo" class="synth-hint hidden"></div>
+          <div id="synthesisPreview"></div>
+          <ul id="inventoryList"></ul>
+        </div>
+
+        <!-- 宝玉タブ -->
+        <div id="invGemSection" class="hidden">
+          <div id="gemBonusSummary" class="gem-bonus-summary"></div>
+          <ul id="gemList"></ul>
+        </div>
+      </div>
+
+      <div class="inventory-panel hidden" id="petPanel">
+        <h2>ペット</h2>
+        <div id="equippedPetInfo" class="equipped-pet-info"></div>
+        <div class="inventory-toolbar">
+          <select id="petFilterSelect">
+          <option value="">すべて</option>
+          <option value="captureRate">捕獲率増加</option>
+          <option value="expBoost">経験値増加</option>
+          <option value="atkBoost">攻撃力増加</option>
+          <option value="dropBoost">ドロップ率増加</option>
+          <option value="doubleAttack">2回攻撃</option>
+          <option value="survive">1で耐える</option>
+          </select>
+          <button id="petSortBtn">ソート</button>
+          <button id="petSelectAllBtn">一括選択</button>
+          <button id="petSynthesizeBtn">合成する</button>
+        </div>
+        <div id="petSynthesisHint" class="synth-hint-text"></div>
+        <div id="petSynthesisPreview" class="synth-preview-text"></div>
+        <ul id="petList"></ul>
+      </div>
+    </div>
+
+    <!-- 図鑑ポップアップ -->
+    <div id="bookOverlay" class="book-overlay hidden">
+      <div class="book-modal">
+        <div class="book-header">
+          <h2>図鑑</h2>
+          <button id="bookCloseBtn">✕</button>
+        </div>
+        <div class="book-tabs">
+          <button class="book-tab active" data-tab="enemies">敵</button>
+          <button class="book-tab" data-tab="weapons">武器</button>
+        </div>
+        <div id="bookBuffSummary" class="book-buff-summary"></div>
+        <div id="bookContent" class="book-content"></div>
+      </div>
+    </div>
+
+    <!-- ステータスポップアップ -->
+    <div id="statusOverlay" class="book-overlay hidden">
+      <div class="book-modal">
+        <div class="book-header">
+          <span>ステータス</span>
+          <button id="statusCloseBtn">✕</button>
+        </div>
+        <div id="statusContent" class="status-detail-content"></div>
+      </div>
+    </div>
+
+
+    <!-- 実績ポップアップ -->
+    <div id="achievementOverlay" class="book-overlay hidden">
+      <div class="book-modal">
+        <div class="book-header">
+          <h2>🏆 実績</h2>
+          <button id="achievementCloseBtn">✕</button>
+        </div>
+        <div id="achievementContent" class="book-content"></div>
+      </div>
+    </div>
+
+    <!-- 実績達成通知 -->
+    <div id="achievementPopup" class="achievement-popup hidden">
+      <div class="achievement-popup-inner">
+        <div class="achievement-popup-title">🏆 実績解除！</div>
+        <div class="achievement-popup-label" id="achievementPopupLabel"></div>
+        <div class="achievement-popup-desc" id="achievementPopupDesc"></div>
+      </div>
+    </div>
+
+    <!-- 極個体ポップアップ -->
+    <div id="ultimateOverlay" class="ultimate-overlay hidden">
+      <div class="ultimate-modal">
+        <div class="ultimate-modal-label">【極】</div>
+        <div class="ultimate-modal-sub" id="ultimateSub"></div>
+        <div class="ultimate-modal-name" id="ultimateName"></div>
+        <div class="ultimate-modal-stats" id="ultimateStats"></div>
+        <div class="ultimate-modal-hint">タップして閉じる</div>
+      </div>
+    </div>
+
+    <div id="legendaryOverlay" class="legendary-overlay hidden">
+      <div class="legendary-modal">
+        <div class="legendary-modal-label">✨伝説✨</div>
+        <div class="legendary-modal-sub" id="legendarySub"></div>
+        <div class="legendary-modal-name" id="legendaryName"></div>
+        <div class="legendary-modal-skill" id="legendarySkill"></div>
+        <div class="legendary-modal-hint">タップして閉じる</div>
+      </div>
+    </div>
+
+    <!-- 究極個体ポップアップ（赤） -->
+    <div id="legendUltimateOverlay" class="legend-ultimate-overlay hidden">
+      <div class="legend-ultimate-modal">
+        <div class="legend-ultimate-modal-label">🔴 究極個体 🔴</div>
+        <div class="legend-ultimate-modal-sub" id="legendUltimateSub"></div>
+        <div class="legend-ultimate-modal-name" id="legendUltimateName"></div>
+        <div class="legend-ultimate-modal-skill" id="legendUltimateSkill"></div>
+        <div class="legend-ultimate-modal-hint">タップして閉じる</div>
+      </div>
+    </div>
+
+    <!-- 説明モーダル -->
+    <div id="helpOverlay" class="book-overlay hidden">
+      <div class="book-modal">
+        <div class="book-header">
+          <span>説明</span>
+          <button id="helpCloseBtn">✕</button>
+        </div>
+        <div class="book-content">
+
+          <!-- ステータスについて -->
+          <div class="accordion-item">
+            <button class="accordion-btn" data-target="helpStatusContent">ステータスについて <span class="accordion-arrow">▼</span></button>
+            <div id="helpStatusContent" class="accordion-body hidden">
+              <dl class="help-list">
+                <dt>ATK（攻撃力）</dt>
+                <dd>装備武器・宝玉・スキルの効果を反映した実際の攻撃力。</dd>
+                <dt>HP</dt>
+                <dd>現在HP / 最大HP。0になると戦闘不能。スキルや図鑑バフで最大値を増加できる。</dd>
+                <dt>クリティカル率</dt>
+                <dd>攻撃がクリティカルになる確率（%）。100%を超えた分は超過%がクリティカルダメージ増加に変換される。</dd>
+                <dt>クリティカルダメージ</dt>
+                <dd>クリティカル時のダメージ倍率。基本1.5倍。強化スキルや超過クリ率で上昇する。</dd>
+                <dt>与ダメ上昇</dt>
+                <dd>全攻撃のダメージに乗算するボーナス。複数のスキルは掛け算で重複する。</dd>
+                <dt>被ダメ減少</dt>
+                <dd>受けるダメージを減少させる割合（%）。上限は99%。複数のスキルは掛け算で重複する。</dd>
+                <dt>図鑑バフ</dt>
+                <dd>図鑑登録数に応じてHP・ATKがボーナス加算される。敵図鑑とアイテム図鑑で別々に加算。</dd>
+              </dl>
+            </div>
+          </div>
+
+          <!-- スキルについて -->
+          <div class="accordion-item">
+            <button class="accordion-btn" data-target="helpSkillContent">スキルについて <span class="accordion-arrow">▼</span></button>
+            <div id="helpSkillContent" class="accordion-body hidden">
+              <p class="help-section-label">■ 通常スキル</p>
+              <dl class="help-list">
+                <dt>捕獲率上昇</dt><dd>捕獲成功率が上昇する。</dd>
+                <dt>経験値上昇</dt><dd>獲得経験値が増加する。</dd>
+                <dt>攻撃力増加</dt><dd>攻撃力が増加する。</dd>
+                <dt>ドロップ率上昇</dt><dd>武器ドロップ率が上昇する。</dd>
+                <dt>与ダメ上昇</dt><dd>全攻撃の与ダメージが増加する。</dd>
+                <dt>被ダメ減少</dt><dd>受けるダメージが減少する。上限99%。</dd>
+                <dt>HP増加</dt><dd>最大HPが増加する。</dd>
+                <dt>2回攻撃</dt><dd>確率で攻撃が2回になる。</dd>
+                <dt>根性</dt><dd>確率でHP0になるダメージを1で耐える（1戦闘1回）。</dd>
+                <dt>被ダメ時反射</dt><dd>確率で受けたダメージの50%を敵に反射する。</dd>
+                <dt>与ダメ時回復</dt><dd>確率で与えたダメージの30%を回復する。</dd>
+                <dt>クリティカル率上昇</dt><dd>攻撃がクリティカルになる確率が上昇する。100%超過分はクリダメ増加に変換。</dd>
+                <dt>クリティカル強化</dt><dd>クリティカル時のダメージ倍率が上昇する。</dd>
+                <dt>追撃</dt><dd>確率で攻撃後に追加ダメージ（通常攻撃の50%）を与える。</dd>
+                <dt>巨人殺し</dt><dd>敵HPが自分の最大HPより高い時、与ダメが増加する。</dd>
+                <dt>ボス特効</dt><dd>ボス戦闘時の与ダメが増加する。</dd>
+                <dt>回避</dt><dd>確率で敵の攻撃を完全回避する。</dd>
+                <dt>背水の陣</dt><dd>自分のHPが低いほど与ダメが増加する。</dd>
+                <dt>再生</dt><dd>毎ターン最大HPの一定%を回復する。</dd>
+                <dt>復活</dt><dd>戦闘不能時に確率でHP50%で復活する（1戦闘1回）。</dd>
+              </dl>
+              <p class="help-section-label">■ レジェンダリースキル</p>
+              <dl class="help-list">
+                <dt>【捕縛者】</dt><dd>捕獲率を大幅に上昇させる。</dd>
+                <dt>【賢者】</dt><dd>獲得経験値を大幅に増加させる。</dd>
+                <dt>【破壊神】</dt><dd>攻撃力を大幅に増加させる。</dd>
+                <dt>【財宝王】</dt><dd>ドロップ率を大幅に上昇させる。</dd>
+                <dt>【剛力】</dt><dd>与ダメを大幅に上昇させる。</dd>
+                <dt>【鉄壁】</dt><dd>被ダメを大幅に減少させる。上限99%。</dd>
+                <dt>【巨人】</dt><dd>最大HPを大幅に増加させる。</dd>
+                <dt>【連撃王】</dt><dd>確率で攻撃が3回になる。</dd>
+                <dt>【不死身】</dt><dd>複数回、HP0になるダメージを1で耐える。</dd>
+                <dt>【鏡盾】</dt><dd>確率で被ダメを100%反射する。</dd>
+                <dt>【吸血鬼】</dt><dd>確率で与ダメの60%を回復する。</dd>
+                <dt>【致命眼】</dt><dd>クリティカル率を大幅に上昇させる。100%超過分はクリダメに変換。</dd>
+                <dt>【覇者】</dt><dd>クリティカル時のダメージを大幅に強化する。</dd>
+                <dt>【乱打】</dt><dd>確率で2回追撃（各通常攻撃の50%）する。</dd>
+                <dt>【下剋上】</dt><dd>敵HPが自分の最大HPより高い時、与ダメが大幅に増加する。</dd>
+                <dt>【覇王討伐】</dt><dd>ボス戦闘時の与ダメが大幅に増加する。</dd>
+                <dt>【幻影】</dt><dd>確率で敵の攻撃を完全回避する。回避後は1ターン完全無敵になる。</dd>
+                <dt>【挑戦者】</dt><dd>HP50%以下で与ダメを大幅強化する。</dd>
+                <dt>【不滅】</dt><dd>毎ターン大量のHPを回復する。</dd>
+                <dt>【輪廻転生】</dt><dd>戦闘不能時に複数回HP50%で復活する。</dd>
+              </dl>
+            </div>
+          </div>
+
+          <!-- 称号ランク（敵・ペット）について -->
+          <div class="accordion-item">
+            <button class="accordion-btn" data-target="helpTitleContent">称号ランク（敵・ペット）について <span class="accordion-arrow">▼</span></button>
+            <div id="helpTitleContent" class="accordion-body hidden">
+              <dl class="help-list">
+                <dt>称号ランクとは</dt>
+                <dd>敵・ペットにはランク1〜5の称号がある。ランクが高いほどステータス、スキル効果値が高くなる。</dd>
+                <dt>極個体</dt>
+                <dd>ステータス、スキル値が全て最高値。稀に出現する強力な個体。</dd>
+                <dt>究極個体</dt>
+                <dd>極個体のうちレジェンダリースキルを持つ個体。ごく稀に出現する最強の個体。</dd>
+              </dl>
+            </div>
+          </div>
+
+          <!-- 武器の進化について -->
+          <div class="accordion-item">
+            <button class="accordion-btn" data-target="helpWeaponContent">武器の進化について <span class="accordion-arrow">▼</span></button>
+            <div id="helpWeaponContent" class="accordion-body hidden">
+              <dl class="help-list">
+                <dt>進化とは</dt>
+                <dd>武器には進化レベル1〜4の段階がある。合成を重ねることで進化する。</dd>
+              </dl>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
