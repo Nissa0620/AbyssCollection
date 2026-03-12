@@ -1,0 +1,83 @@
+import { state } from "./state.js";
+import { addLog } from "./log.js";
+import { recalcDexBuff } from "./dexBuff.js";
+import { isUltimatePet } from "./pet.js";
+import { isUltimateWeapon } from "./drop.js";
+
+function bookKey(enemyId, isBoss) {
+  return isBoss ? `boss_${enemyId}` : `normal_${enemyId}`;
+}
+
+// 出現時に敵の情報を登録・seenCountを加算
+export function registerEnemySeen(enemyId, enemyName, isBoss = false) {
+  const enemiesBook = state.book.enemies;
+  const key = bookKey(enemyId, isBoss);
+
+  if (!enemiesBook[key]) {
+    enemiesBook[key] = {
+      name: enemyName,
+      appearFloor: null,
+      seenCount: 0,
+      defeatedCount: 0,
+      titles: {},
+    };
+  }
+
+  enemiesBook[key].seenCount++;
+}
+
+// 撃破時に敵の情報を登録・更新
+export function registerEnemyDefeated(enemyId, titleId, enemyName, titleName, isBoss = false) {
+  const enemiesBook = state.book.enemies;
+  const key = bookKey(enemyId, isBoss);
+
+  if (!enemiesBook[key]) {
+    enemiesBook[key] = {
+      name: enemyName,
+      appearFloor: null,
+      seenCount: 0,
+      defeatedCount: 0,
+      titles: {},
+    };
+  }
+
+  const entry = enemiesBook[key];
+  entry.defeatedCount++;
+
+  if (!entry.titles[titleId]) {
+    entry.titles[titleId] = { seen: true, defeated: false };
+    addLog(`📘 ${titleName}${enemyName}を図鑑に登録した`);
+  }
+
+  entry.titles[titleId].seen = true;
+  entry.titles[titleId].defeated = true;
+  recalcDexBuff(state);
+}
+
+// 捕獲済ペットの究極フラグを更新（捕獲・合成後に呼ぶ）
+export function updateBookUltimate() {
+  const enemiesBook = state.book.enemies;
+  for (const key of Object.keys(enemiesBook)) {
+    const entry = enemiesBook[key];
+    // この敵の捕獲済ペットの中に究極個体があるか確認
+    const isBoss = key.startsWith("boss_");
+    const enemyId = parseInt(key.replace("boss_", "").replace("normal_", ""));
+    const hasUltimate = state.player.petList.some(
+      (p) => p.enemyId === enemyId && !!p.isBoss === isBoss && isUltimatePet(p)
+    );
+    entry.hasUltimate = hasUltimate;
+  }
+}
+
+// 武器図鑑の究極フラグを更新
+export function updateWeaponBookUltimate() {
+  const weaponBook = state.book.weapons;
+  for (const key of Object.keys(weaponBook)) {
+    const isBossDrop = key.startsWith("boss_");
+    const templateId = parseInt(key.replace("boss_", "").replace("normal_", ""));
+    const hasUltimate = state.player.inventory.some(
+      (w) => w.templateId === templateId && !!w.isBossDrop === isBossDrop && isUltimateWeapon(w)
+    );
+    if (weaponBook[key]) weaponBook[key].hasUltimate = hasUltimate;
+  }
+}

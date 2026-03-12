@@ -1,0 +1,400 @@
+// 戦闘ロジック
+
+import { getDropWeapon } from "./drop.js";
+import { rollBossGems } from "./data/gems.js";
+import { normalEnemies, bossEnemies, floorTable, enemyTitles, bossTitles, bossFloorMap, legendaryTitles, getCurrentAreaKey } from "./data/index.js";import { state } from "./state.js";
+import { addLog, clearLogs } from "./log.js";
+import { saveGame } from "./saveLoad.js";
+import { registerEnemyDefeated, registerEnemySeen, updateBookUltimate, updateWeaponBookUltimate } from "./book.js";
+import { isUltimateWeapon } from "./drop.js";
+import { showUltimatePopup, showLegendaryPopup, showLegendUltimatePopup } from "./ui.js";
+import { checkAchievements } from "./achievements.js";
+import { registerWeaponDropped } from "./weaponBook.js";
+import { tryCatch, hasDoubleAttack, hasTripleAttack, hasSurvivePassive, hasLegendSurvive, hasResurrection, hasLegendResurrection, getDropMultiplier, getDmgBoostMultiplier, getDmgReduceMultiplier, getReflectDamage, getLegendReflectDamage, getDrainHeal, getLegendDrainHeal, getCritMultiplier, getExtraHitDamage, getLegendExtraHitDamage, getGiantKillerMultiplier, getBossSlayerMultiplier, tryEvade, tryLegendEvade, getLastStandMultiplier, getLegendLastStandMultiplier, getRegenHeal } from "./pet.js";
+
+let enemy;
+
+// 外部から取得
+export function getEnemy() {
+  return enemy;
+}
+
+function applyDamage(attacker, target) {
+  const min = Math.floor(attacker.totalPower * 0.6);
+  const max = attacker.totalPower;
+  const damage = Math.floor(Math.random() * (max - min + 1)) + min;
+
+  target.hp -= damage;
+  if (target.hp < 0) target.hp = 0;
+
+  return damage;
+}
+
+export function playerAttack() {
+  if (!state.enemy) return { type: "none" };
+
+  // 各種倍率を計算
+  const dmgMult = getDmgBoostMultiplier();
+  const critMult = getCritMultiplier();
+  const giantMult = getGiantKillerMultiplier();
+  const bossMult = getBossSlayerMultiplier();
+  const lastStandMult = Math.max(getLastStandMultiplier(), getLegendLastStandMultiplier());
+  const totalMult = dmgMult * critMult * giantMult * bossMult * lastStandMult;
+
+  let damage = applyDamage(state.player, state.enemy);
+  damage = Math.floor(damage * totalMult);
+  state.enemy.hp -= Math.floor(damage * (totalMult - 1));
+  if (state.enemy.hp < 0) state.enemy.hp = 0;
+
+  const critText = critMult > 1 ? " ⚡クリティカル！" : "";
+  addLog("▶ " + damage + " ダメージ" + critText);
+
+  // ドレイン（通常 or 吸血鬼）
+  const heal = getDrainHeal(damage) || getLegendDrainHeal(damage);
+  if (heal > 0) {
+    state.player.hp = Math.min(state.player.hp + heal, state.player.totalHp);
+    addLog("💚 " + state.player.equippedPet.name + " の吸収で " + heal + " 回復！");
+  }
+
+  // 追撃（通常 or 乱打：2回追撃）
+  if (state.enemy.hp > 0) {
+    const extraDmg = getExtraHitDamage(damage);
+    if (extraDmg > 0) {
+      state.enemy.hp = Math.max(0, state.enemy.hp - extraDmg);
+      addLog("▶ 追撃 " + extraDmg + " ダメージ");
+    } else {
+      // 乱打：2回追撃
+      const extra1 = getLegendExtraHitDamage(damage);
+      if (extra1 > 0) {
+        state.enemy.hp = Math.max(0, state.enemy.hp - extra1);
+        addLog("▶ 追撃1 " + extra1 + " ダメージ");
+        const extra2 = getLegendExtraHitDamage(damage);
+        if (extra2 > 0 && state.enemy.hp > 0) {
+          state.enemy.hp = Math.max(0, state.enemy.hp - extra2);
+          addLog("▶ 追撃2 " + extra2 + " ダメージ");
+        }
+      }
+    }
+  }
+
+  // 2回攻撃 or 3回攻撃（連撃王）
+  const attackCount = hasTripleAttack() ? 2 : (hasDoubleAttack() ? 1 : 0);
+  for (let i = 0; i < attackCount && state.enemy.hp > 0; i++) {
+    let dmg = applyDamage(state.player, state.enemy);
+    dmg = Math.floor(dmg * totalMult);
+    state.enemy.hp -= Math.floor(dmg * (totalMult - 1));
+    if (state.enemy.hp < 0) state.enemy.hp = 0;
+    addLog("▶ " + (i === 0 && attackCount === 1 ? "2回目" : `${i + 2}回目`) + " " + dmg + " ダメージ");
+    const h = getDrainHeal(dmg) || getLegendDrainHeal(dmg);
+    if (h > 0) {
+      state.player.hp = Math.min(state.player.hp + h, state.player.totalHp);
+      addLog("💚 " + h + " 回復！");
+    }
+  }
+
+  if (state.enemy.hp <= 0) {
+    defeatEnemy();
+    return { type: "victory" };
+  }
+  return { type: "enemyTurn" };
+}
+
+export function enemyAttack() {
+  if (!state.enemy) return { type: "none" };
+
+  // 再生
+  const regenHeal = getRegenHeal();
+  if (regenHeal > 0) {
+    state.player.hp = Math.min(state.player.hp + regenHeal, state.player.totalHp);
+    addLog("💚 再生で " + regenHeal + " 回復");
+  }
+
+  // 幻影：前ターンに完全無敵が発動中なら無効化
+  if (state.legendEvadeActive) {
+    state.legendEvadeActive = false;
+    addLog("✨ 幻影の加護で攻撃を無効化！");
+    return { type: "battle" };
+  }
+
+  // 通常回避判定
+  if (tryEvade()) {
+    addLog("✨ " + state.player.equippedPet.name + " が攻撃を回避！");
+    return { type: "battle" };
+  }
+
+  // 幻影：今ターンに発動したら次ターン無敵（今ターンはダメージ受ける）
+  tryLegendEvade();
+
+  let damage = applyDamage(state.enemy, state.player);
+
+  // 被ダメ減少
+  const reduceMult = getDmgReduceMultiplier();
+  if (reduceMult < 1) {
+    const reduced = Math.floor(damage * reduceMult);
+    const diff = damage - reduced;
+    state.player.hp = Math.min(state.player.hp + diff, state.player.totalHp);
+    damage = reduced;
+  }
+
+  addLog("◀ " + state.enemy.name + "の攻撃 " + damage + " ダメージ");
+
+  // 反射（通常 or 鏡盾100%）
+  const reflectDmg = getReflectDamage(damage) || getLegendReflectDamage(damage);
+  if (reflectDmg > 0) {
+    state.enemy.hp = Math.max(0, state.enemy.hp - reflectDmg);
+    addLog("🔄 " + state.player.equippedPet.name + " が " + reflectDmg + " ダメージを反射！");
+    if (state.enemy.hp <= 0) {
+      defeatEnemy();
+      return { type: "victory" };
+    }
+  }
+
+  if (state.player.hp <= 0) {
+    // 転生（複数回HP50%復活）
+    if (hasLegendResurrection()) {
+      state.player.hp = Math.floor(state.player.totalHp * 0.5);
+      addLog("✨ " + state.player.equippedPet.name + " の転生でHP50%で復活！");
+      return { type: "battle" };
+    }
+    // 不屈（1戦1回HP50%復活）
+    if (hasResurrection() && !state.resurrectionUsed) {
+      state.player.hp = Math.floor(state.player.totalHp * 0.5);
+      state.resurrectionUsed = true;
+      addLog("💫 " + state.player.equippedPet.name + " の不屈でHP50%で復活！");
+      return { type: "battle" };
+    }
+    // 不死身（複数回1HP）
+    if (hasLegendSurvive()) {
+      state.player.hp = 1;
+      addLog("💀 " + state.player.equippedPet.name + " の不死身で生き残った！");
+      return { type: "battle" };
+    }
+    // 通常survive（1戦1回1HP）
+    if (hasSurvivePassive() && !state.surviveUsed) {
+      state.player.hp = 1;
+      state.surviveUsed = true;
+      addLog("🛡️ " + state.player.equippedPet.name + " の加護で生き残った！");
+      return { type: "battle" };
+    }
+    addLog("ゲームオーバー...");
+    return { type: "gameover" };
+  }
+  return { type: "battle" };
+}
+
+function defeatEnemy() {
+  addLog(state.enemy.name + " を撃破");
+  registerEnemyDefeated(state.enemy.enemyId, state.enemy.titleId, state.enemy.baseName, state.enemy.titleName, state.enemy.isBoss);
+
+  // 捕獲判定
+  tryCatch(state.enemy.enemyId, state.enemy.isBoss, state.enemy.titleId, state.enemy.isLegendary ?? false, state.enemy.isLegendUltimate ?? false);
+
+  // ドロップ判定（ドロップ率上昇パッシブを反映）
+  const isBoss = state.enemy.isBoss;
+  const dropMult = getDropMultiplier();
+
+  if (isBoss) {
+    // ボス：宝玉をドロップ
+    const gems = rollBossGems(state.floor);
+    if (!state.player.gems) state.player.gems = [];
+    gems.forEach((gem) => {
+      state.player.gems.push(gem);
+      addLog("💎 " + gem.icon + gem.name + " を手に入れた！(ATK +" + gem.atkBonus + ")");
+    });
+  } else {
+    // 通常敵：武器をドロップ
+    const dropped = getDropWeapon(dropMult);
+    if (dropped) {
+      state.player.inventory.push(dropped);
+      addLog("⚔️" + dropped.name + " を手に入れた");
+      registerWeaponDropped(dropped.templateId, false);
+      updateWeaponBookUltimate();
+      if (isUltimateWeapon(dropped)) {
+        const alreadyHas = state.player.inventory
+          .filter((w) => w.uid !== dropped.uid)
+          .some((w) => w.templateId === dropped.templateId && !!w.isBossDrop === !!dropped.isBossDrop && isUltimateWeapon(w));
+        if (!state.achievements) state.achievements = {};
+        state.achievements.ultimateWeaponCount = (state.achievements.ultimateWeaponCount ?? 0) + 1;
+        if (!alreadyHas) showUltimatePopup(dropped, "weapon");
+      }
+    } else {
+      addLog("何も落ちなかった...");
+    }
+  }
+  checkAchievements();
+  saveGame();
+}
+
+function getCurrentArea(floor) {
+  return Object.values(floorTable).find(
+    (band) => band.min != null && floor >= band.min && floor <= band.max
+  ) ?? null;
+}
+
+// 重み付きで1つ選ぶ
+function pickWeighted(items, getWeight) {
+  const total = items.reduce((sum, it) => sum + getWeight(it), 0);
+  if (total <= 0) return null;
+
+  let r = Math.random() * total;
+  for (const it of items) {
+    r -= getWeight(it);
+    if (r < 0) return it;
+  }
+  return items[items.length - 1] ?? null;
+}
+
+export function getRandomTitleForEnemy(titleGroup) {
+  const fallbackGroup = Object.values(enemyTitles)[0] ?? [];
+  const group = enemyTitles[titleGroup] ?? fallbackGroup;
+  if (group.length === 0) return fallbackGroup[0];
+  return pickWeighted(group, (t) => t.weight ?? 1);
+}
+
+export function createEnemy() {
+  // ボスフロア判定
+  const bossEnemyId = bossFloorMap[state.floor];
+  if (bossEnemyId) {
+    return createBossEnemy(bossEnemyId);
+  }
+
+  const area = getCurrentArea(state.floor);
+  if (!area) {
+    console.error("対応するフロアテーブルがありません");
+    return null;
+  }
+
+  const floorBandKey = getCurrentAreaKey(state.floor);
+  const possibleEnemies = normalEnemies.filter((e) => e.floorBand === floorBandKey);
+  const base = possibleEnemies[Math.floor(Math.random() * possibleEnemies.length)];
+
+  // レジェンダリー出現判定（0.1%）、究極個体はlegendary中の10%（実質0.01%）
+  const isLegendary = base.passive && legendaryTitles[base.passive] && Math.random() < 0.001;
+  const isLegendUltimate = isLegendary && Math.random() < 0.1;
+
+  const bossBonus = Math.floor(state.floor / 10) * 3;
+  const hpScale = 1 + state.floor * 0.3 + bossBonus;
+  const atkScale = 1 + state.floor * 0.4 + bossBonus;
+
+  // フロア帯基準値 × 敵比率
+  const band = floorTable[base.floorBand] ?? floorTable["1-99"];
+  const titleGroup = base.titleGroup ?? band.titleGroup;
+  const baseHp = Math.floor(band.baseHp * (base.hpRate ?? 1.0));
+  const basePower = Math.floor(band.basePower * (base.powerRate ?? 1.0));
+
+  let title, titleId, titleName;
+  if (isLegendary) {
+    const legend = legendaryTitles[base.passive];
+    title = legend;
+    titleId = 5;
+    titleName = legend.name;
+  } else {
+    title = getRandomTitleForEnemy(titleGroup);
+    titleId = title.id;
+    titleName = title.name;
+  }
+
+  const totalHp = Math.floor(baseHp * hpScale * title.hpRate);
+  const totalPower = Math.floor(basePower * atkScale * title.atkRate);
+  const enemyExp =
+    Math.floor((5 + state.floor * 5) * 1.5 * title.expRate) +
+    Math.floor(state.floor / 50) * 200;
+
+  state.enemy = {
+    enemyId: base.id,
+    titleId,
+    name: `${titleName}・深淵の${base.name}`,
+    baseName: base.name,
+    titleName,
+    totalHp,
+    hp: totalHp,
+    totalPower,
+    exp: enemyExp,
+    isBoss: false,
+    isLegendary,
+    isLegendUltimate,
+  };
+
+  if (!isLegendary) {
+    state.enemy.name = `${titleName}${base.name}`;
+  }
+
+  clearLogs();
+  registerEnemySeen(base.id, base.name, false);
+  if (isLegendUltimate) {
+    addLog("🔴【究極個体】" + state.enemy.name + " が出現した！");
+    showLegendUltimatePopup({ name: state.enemy.name, passive: base.passive, isBoss: false });
+  } else if (isLegendary) {
+    addLog("✨【伝説】" + state.enemy.name + " が出現した！");
+    showLegendaryPopup({ name: state.enemy.name, passive: base.passive, isBoss: false });
+  } else {
+    addLog(state.enemy.name + " が出現した！");
+  }
+  return state.enemy;
+}
+
+function createBossEnemy(bossEnemyId) {
+  const base = bossEnemies.find((e) => e.id === bossEnemyId);
+  if (!base) return null;
+
+  // レジェンダリー出現判定（0.05%）、究極個体はlegendary中の10%（実質0.005%）
+  const isLegendary = base.passive && legendaryTitles[base.passive] && Math.random() < 0.0005;
+  const isLegendUltimate = isLegendary && Math.random() < 0.1;
+
+  // フロア帯基準値 × 敵比率（titleGroupの参照より先に宣言）
+  const band = floorTable[base.floorBand];
+  const titleGroup = base.titleGroup ?? band.titleGroup;
+
+  let title, titleId, titleName;
+  if (isLegendary) {
+    const legend = legendaryTitles[base.passive];
+    title = legend;
+    titleId = 5;
+    titleName = legend.name;
+  } else {
+    const titlePool = bossTitles[titleGroup] ?? [];
+    title = pickWeighted(titlePool, (t) => t.weight ?? 1) ?? titlePool[0];
+    titleId = title.id;
+    titleName = title.name;
+  }
+
+  const hpScale = 1 + state.floor * 0.5;
+  const atkScale = 1 + state.floor * 0.6;
+  const baseHp = Math.floor(band.baseHp * (base.hpRate ?? 1.0));
+  const basePower = Math.floor(band.basePower * (base.powerRate ?? 1.0));
+
+  const totalHp = Math.floor(baseHp * hpScale * title.hpRate);
+  const totalPower = Math.floor(basePower * atkScale * title.atkRate);
+  const enemyExp = Math.floor((5 + state.floor * 10) * 2.0 * title.expRate);
+
+  const displayName = isLegendary
+    ? `${titleName}・支配者の${base.name}`
+    : `${titleName}${base.name}`;
+
+  state.enemy = {
+    enemyId: base.id,
+    titleId,
+    name: displayName,
+    baseName: base.name,
+    titleName,
+    totalHp,
+    hp: totalHp,
+    totalPower,
+    exp: enemyExp,
+    isBoss: true,
+    isLegendary,
+    isLegendUltimate,
+  };
+  clearLogs();
+  registerEnemySeen(base.id, base.name, true);
+  if (isLegendUltimate) {
+    addLog("🔴【究極個体ボス】" + state.enemy.name + " が出現した！");
+    showLegendUltimatePopup({ name: state.enemy.name, passive: base.passive, isBoss: true });
+  } else if (isLegendary) {
+    addLog("✨⚠️【伝説ボス】" + state.enemy.name + " が出現した！");
+    showLegendaryPopup({ name: state.enemy.name, passive: base.passive, isBoss: true });
+  } else {
+    addLog("⚠️ ボス " + state.enemy.name + " が出現した！");
+  }
+  return state.enemy;
+}
