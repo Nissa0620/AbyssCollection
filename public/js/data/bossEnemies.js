@@ -9,7 +9,7 @@ export const bossEnemies = [
     bossFloors: [100],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0800,
+    captureRate: 0.2800,
     passive: "atkBoost", passiveType: "buff",
   },
   {
@@ -21,7 +21,7 @@ export const bossEnemies = [
     bossFloors: [200],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0492,
+    captureRate: 0.2492,
     passive: "expBoost", passiveType: "buff",
   },
   {
@@ -33,7 +33,7 @@ export const bossEnemies = [
     bossFloors: [300],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0371,
+    captureRate: 0.2371,
     passive: "dropBoost", passiveType: "buff",
   },
   {
@@ -45,7 +45,7 @@ export const bossEnemies = [
     bossFloors: [400],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0303,
+    captureRate: 0.2303,
     passive: "captureBoost", passiveType: "buff",
   },
   {
@@ -57,7 +57,7 @@ export const bossEnemies = [
     bossFloors: [500],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0259,
+    captureRate: 0.2259,
     passive: "doubleAttack", passiveType: "trigger",
   },
   {
@@ -69,7 +69,7 @@ export const bossEnemies = [
     bossFloors: [600],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0228,
+    captureRate: 0.2228,
     passive: "survive", passiveType: "trigger",
   },
   {
@@ -81,7 +81,7 @@ export const bossEnemies = [
     bossFloors: [700],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0205,
+    captureRate: 0.2205,
     passive: "dmgBoost", passiveType: "buff",
   },
   {
@@ -93,7 +93,7 @@ export const bossEnemies = [
     bossFloors: [800],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0187,
+    captureRate: 0.2187,
     passive: "dmgReduce", passiveType: "buff",
   },
   {
@@ -105,7 +105,7 @@ export const bossEnemies = [
     bossFloors: [900],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0172,
+    captureRate: 0.2172,
     passive: "hpBoost", passiveType: "buff",
   },
   {
@@ -117,7 +117,7 @@ export const bossEnemies = [
     bossFloors: [1000],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0160,
+    captureRate: 0.2160,
     passive: "reflect", passiveType: "trigger",
   },
   {
@@ -129,7 +129,7 @@ export const bossEnemies = [
     bossFloors: [1100],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0149,
+    captureRate: 0.2149,
     passive: "drain", passiveType: "trigger",
   },
   {
@@ -141,7 +141,7 @@ export const bossEnemies = [
     bossFloors: [1200],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0140,
+    captureRate: 0.2140,
     passive: "critRate", passiveType: "trigger",
   },
   {
@@ -153,7 +153,7 @@ export const bossEnemies = [
     bossFloors: [1300],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0133,
+    captureRate: 0.2133,
     passive: "critDamage", passiveType: "buff",
   },
   {
@@ -165,7 +165,7 @@ export const bossEnemies = [
     bossFloors: [1400],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0126,
+    captureRate: 0.2126,
     passive: "extraHit", passiveType: "trigger",
   },
   {
@@ -177,7 +177,7 @@ export const bossEnemies = [
     bossFloors: [1500],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0120,
+    captureRate: 0.2120,
     passive: "giantKiller", passiveType: "buff",
   },
   {
@@ -189,7 +189,7 @@ export const bossEnemies = [
     bossFloors: [1600],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0115,
+    captureRate: 0.2115,
     passive: "bossSlayer", passiveType: "buff",
   },
   {
@@ -201,7 +201,7 @@ export const bossEnemies = [
     bossFloors: [1700],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0110,
+    captureRate: 0.2110,
     passive: "evade", passiveType: "trigger",
   },
   {
@@ -213,7 +213,7 @@ export const bossEnemies = [
     bossFloors: [1800],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0106,
+    captureRate: 0.2106,
     passive: "lastStand", passiveType: "buff",
   },
   {
@@ -225,7 +225,7 @@ export const bossEnemies = [
     bossFloors: [1900],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0102,
+    captureRate: 0.2102,
     passive: "regen", passiveType: "buff",
   },
   {
@@ -237,7 +237,7 @@ export const bossEnemies = [
     bossFloors: [2000],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0098,
+    captureRate: 0.2098,
     passive: "resurrection", passiveType: "trigger",
   },
   {
@@ -249,7 +249,7 @@ export const bossEnemies = [
     bossFloors: [2100],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0095,
+    captureRate: 0.2095,
     passive: "atkBoost", passiveType: "buff",
   },
   {
@@ -261,7 +261,7 @@ export const bossEnemies = [
     bossFloors: [2200],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0092,
+    captureRate: 0.2092,
     passive: "expBoost", passiveType: "buff",
   },
   {
@@ -273,7 +273,7 @@ export const bossEnemies = [
     bossFloors: [2300],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0089,
+    captureRate: 0.2089,
     passive: "dropBoost", passiveType: "buff",
   },
   {
@@ -285,7 +285,7 @@ export const bossEnemies = [
     bossFloors: [2400],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0086,
+    captureRate: 0.2086,
     passive: "captureBoost", passiveType: "buff",
   },
   {
@@ -297,7 +297,7 @@ export const bossEnemies = [
     bossFloors: [2500],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0084,
+    captureRate: 0.2084,
     passive: "doubleAttack", passiveType: "trigger",
   },
   {
@@ -309,7 +309,7 @@ export const bossEnemies = [
     bossFloors: [2600],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0082,
+    captureRate: 0.2082,
     passive: "survive", passiveType: "trigger",
   },
   {
@@ -321,7 +321,7 @@ export const bossEnemies = [
     bossFloors: [2700],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0080,
+    captureRate: 0.2080,
     passive: "dmgBoost", passiveType: "buff",
   },
   {
@@ -333,7 +333,7 @@ export const bossEnemies = [
     bossFloors: [2800],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0078,
+    captureRate: 0.2078,
     passive: "dmgReduce", passiveType: "buff",
   },
   {
@@ -345,7 +345,7 @@ export const bossEnemies = [
     bossFloors: [2900],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0076,
+    captureRate: 0.2076,
     passive: "hpBoost", passiveType: "buff",
   },
   {
@@ -357,7 +357,7 @@ export const bossEnemies = [
     bossFloors: [3000],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0074,
+    captureRate: 0.2074,
     passive: "reflect", passiveType: "trigger",
   },
   {
@@ -369,7 +369,7 @@ export const bossEnemies = [
     bossFloors: [3100],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0072,
+    captureRate: 0.2072,
     passive: "drain", passiveType: "trigger",
   },
   {
@@ -381,7 +381,7 @@ export const bossEnemies = [
     bossFloors: [3200],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0071,
+    captureRate: 0.2071,
     passive: "critRate", passiveType: "trigger",
   },
   {
@@ -393,7 +393,7 @@ export const bossEnemies = [
     bossFloors: [3300],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0069,
+    captureRate: 0.2069,
     passive: "critDamage", passiveType: "buff",
   },
   {
@@ -405,7 +405,7 @@ export const bossEnemies = [
     bossFloors: [3400],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0068,
+    captureRate: 0.2068,
     passive: "extraHit", passiveType: "trigger",
   },
   {
@@ -417,7 +417,7 @@ export const bossEnemies = [
     bossFloors: [3500],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0066,
+    captureRate: 0.2066,
     passive: "giantKiller", passiveType: "buff",
   },
   {
@@ -429,7 +429,7 @@ export const bossEnemies = [
     bossFloors: [3600],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0065,
+    captureRate: 0.2065,
     passive: "bossSlayer", passiveType: "buff",
   },
   {
@@ -441,7 +441,7 @@ export const bossEnemies = [
     bossFloors: [3700],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0064,
+    captureRate: 0.2064,
     passive: "evade", passiveType: "trigger",
   },
   {
@@ -453,7 +453,7 @@ export const bossEnemies = [
     bossFloors: [3800],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0063,
+    captureRate: 0.2063,
     passive: "lastStand", passiveType: "buff",
   },
   {
@@ -465,7 +465,7 @@ export const bossEnemies = [
     bossFloors: [3900],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0062,
+    captureRate: 0.2062,
     passive: "regen", passiveType: "buff",
   },
   {
@@ -477,7 +477,7 @@ export const bossEnemies = [
     bossFloors: [4000],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0060,
+    captureRate: 0.2060,
     passive: "resurrection", passiveType: "trigger",
   },
   {
@@ -489,7 +489,7 @@ export const bossEnemies = [
     bossFloors: [4100],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0059,
+    captureRate: 0.2059,
     passive: "atkBoost", passiveType: "buff",
   },
   {
@@ -501,7 +501,7 @@ export const bossEnemies = [
     bossFloors: [4200],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0058,
+    captureRate: 0.2058,
     passive: "expBoost", passiveType: "buff",
   },
   {
@@ -513,7 +513,7 @@ export const bossEnemies = [
     bossFloors: [4300],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0057,
+    captureRate: 0.2057,
     passive: "dropBoost", passiveType: "buff",
   },
   {
@@ -525,7 +525,7 @@ export const bossEnemies = [
     bossFloors: [4400],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0057,
+    captureRate: 0.2057,
     passive: "captureBoost", passiveType: "buff",
   },
   {
@@ -537,7 +537,7 @@ export const bossEnemies = [
     bossFloors: [4500],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0056,
+    captureRate: 0.2056,
     passive: "doubleAttack", passiveType: "trigger",
   },
   {
@@ -549,7 +549,7 @@ export const bossEnemies = [
     bossFloors: [4600],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0055,
+    captureRate: 0.2055,
     passive: "survive", passiveType: "trigger",
   },
   {
@@ -561,7 +561,7 @@ export const bossEnemies = [
     bossFloors: [4700],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0054,
+    captureRate: 0.2054,
     passive: "dmgBoost", passiveType: "buff",
   },
   {
@@ -573,7 +573,7 @@ export const bossEnemies = [
     bossFloors: [4800],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0053,
+    captureRate: 0.2053,
     passive: "dmgReduce", passiveType: "buff",
   },
   {
@@ -585,7 +585,7 @@ export const bossEnemies = [
     bossFloors: [4900],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0052,
+    captureRate: 0.2052,
     passive: "hpBoost", passiveType: "buff",
   },
   {
@@ -597,7 +597,7 @@ export const bossEnemies = [
     bossFloors: [5000],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0052,
+    captureRate: 0.2052,
     passive: "reflect", passiveType: "trigger",
   },
   {
@@ -609,7 +609,7 @@ export const bossEnemies = [
     bossFloors: [5100],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0051,
+    captureRate: 0.2051,
     passive: "drain", passiveType: "trigger",
   },
   {
@@ -621,7 +621,7 @@ export const bossEnemies = [
     bossFloors: [5200],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0050,
+    captureRate: 0.2050,
     passive: "critRate", passiveType: "trigger",
   },
   {
@@ -633,7 +633,7 @@ export const bossEnemies = [
     bossFloors: [5300],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0050,
+    captureRate: 0.2050,
     passive: "critDamage", passiveType: "buff",
   },
   {
@@ -645,7 +645,7 @@ export const bossEnemies = [
     bossFloors: [5400],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0049,
+    captureRate: 0.2049,
     passive: "extraHit", passiveType: "trigger",
   },
   {
@@ -657,7 +657,7 @@ export const bossEnemies = [
     bossFloors: [5500],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0048,
+    captureRate: 0.2048,
     passive: "giantKiller", passiveType: "buff",
   },
   {
@@ -669,7 +669,7 @@ export const bossEnemies = [
     bossFloors: [5600],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0048,
+    captureRate: 0.2048,
     passive: "bossSlayer", passiveType: "buff",
   },
   {
@@ -681,7 +681,7 @@ export const bossEnemies = [
     bossFloors: [5700],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0047,
+    captureRate: 0.2047,
     passive: "evade", passiveType: "trigger",
   },
   {
@@ -693,7 +693,7 @@ export const bossEnemies = [
     bossFloors: [5800],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0047,
+    captureRate: 0.2047,
     passive: "lastStand", passiveType: "buff",
   },
   {
@@ -705,7 +705,7 @@ export const bossEnemies = [
     bossFloors: [5900],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0046,
+    captureRate: 0.2046,
     passive: "regen", passiveType: "buff",
   },
   {
@@ -717,7 +717,7 @@ export const bossEnemies = [
     bossFloors: [6000],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0046,
+    captureRate: 0.2046,
     passive: "resurrection", passiveType: "trigger",
   },
   {
@@ -729,7 +729,7 @@ export const bossEnemies = [
     bossFloors: [6100],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0045,
+    captureRate: 0.2045,
     passive: "atkBoost", passiveType: "buff",
   },
   {
@@ -741,7 +741,7 @@ export const bossEnemies = [
     bossFloors: [6200],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0045,
+    captureRate: 0.2045,
     passive: "expBoost", passiveType: "buff",
   },
   {
@@ -753,7 +753,7 @@ export const bossEnemies = [
     bossFloors: [6300],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0044,
+    captureRate: 0.2044,
     passive: "dropBoost", passiveType: "buff",
   },
   {
@@ -765,7 +765,7 @@ export const bossEnemies = [
     bossFloors: [6400],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0044,
+    captureRate: 0.2044,
     passive: "captureBoost", passiveType: "buff",
   },
   {
@@ -777,7 +777,7 @@ export const bossEnemies = [
     bossFloors: [6500],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0043,
+    captureRate: 0.2043,
     passive: "doubleAttack", passiveType: "trigger",
   },
   {
@@ -789,7 +789,7 @@ export const bossEnemies = [
     bossFloors: [6600],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0043,
+    captureRate: 0.2043,
     passive: "survive", passiveType: "trigger",
   },
   {
@@ -801,7 +801,7 @@ export const bossEnemies = [
     bossFloors: [6700],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0042,
+    captureRate: 0.2042,
     passive: "dmgBoost", passiveType: "buff",
   },
   {
@@ -813,7 +813,7 @@ export const bossEnemies = [
     bossFloors: [6800],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0042,
+    captureRate: 0.2042,
     passive: "dmgReduce", passiveType: "buff",
   },
   {
@@ -825,7 +825,7 @@ export const bossEnemies = [
     bossFloors: [6900],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0041,
+    captureRate: 0.2041,
     passive: "hpBoost", passiveType: "buff",
   },
   {
@@ -837,7 +837,7 @@ export const bossEnemies = [
     bossFloors: [7000],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0041,
+    captureRate: 0.2041,
     passive: "reflect", passiveType: "trigger",
   },
   {
@@ -849,7 +849,7 @@ export const bossEnemies = [
     bossFloors: [7100],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0040,
+    captureRate: 0.2040,
     passive: "drain", passiveType: "trigger",
   },
   {
@@ -861,7 +861,7 @@ export const bossEnemies = [
     bossFloors: [7200],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0040,
+    captureRate: 0.2040,
     passive: "critRate", passiveType: "trigger",
   },
   {
@@ -873,7 +873,7 @@ export const bossEnemies = [
     bossFloors: [7300],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0040,
+    captureRate: 0.2040,
     passive: "critDamage", passiveType: "buff",
   },
   {
@@ -885,7 +885,7 @@ export const bossEnemies = [
     bossFloors: [7400],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0039,
+    captureRate: 0.2039,
     passive: "extraHit", passiveType: "trigger",
   },
   {
@@ -897,7 +897,7 @@ export const bossEnemies = [
     bossFloors: [7500],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0039,
+    captureRate: 0.2039,
     passive: "giantKiller", passiveType: "buff",
   },
   {
@@ -909,7 +909,7 @@ export const bossEnemies = [
     bossFloors: [7600],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0039,
+    captureRate: 0.2039,
     passive: "bossSlayer", passiveType: "buff",
   },
   {
@@ -921,7 +921,7 @@ export const bossEnemies = [
     bossFloors: [7700],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0038,
+    captureRate: 0.2038,
     passive: "evade", passiveType: "trigger",
   },
   {
@@ -933,7 +933,7 @@ export const bossEnemies = [
     bossFloors: [7800],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0038,
+    captureRate: 0.2038,
     passive: "lastStand", passiveType: "buff",
   },
   {
@@ -945,7 +945,7 @@ export const bossEnemies = [
     bossFloors: [7900],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0038,
+    captureRate: 0.2038,
     passive: "regen", passiveType: "buff",
   },
   {
@@ -957,7 +957,7 @@ export const bossEnemies = [
     bossFloors: [8000],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0037,
+    captureRate: 0.2037,
     passive: "resurrection", passiveType: "trigger",
   },
   {
@@ -969,7 +969,7 @@ export const bossEnemies = [
     bossFloors: [8100],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0037,
+    captureRate: 0.2037,
     passive: "atkBoost", passiveType: "buff",
   },
   {
@@ -981,7 +981,7 @@ export const bossEnemies = [
     bossFloors: [8200],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0037,
+    captureRate: 0.2037,
     passive: "expBoost", passiveType: "buff",
   },
   {
@@ -993,7 +993,7 @@ export const bossEnemies = [
     bossFloors: [8300],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0036,
+    captureRate: 0.2036,
     passive: "dropBoost", passiveType: "buff",
   },
   {
@@ -1005,7 +1005,7 @@ export const bossEnemies = [
     bossFloors: [8400],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0036,
+    captureRate: 0.2036,
     passive: "captureBoost", passiveType: "buff",
   },
   {
@@ -1017,7 +1017,7 @@ export const bossEnemies = [
     bossFloors: [8500],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0036,
+    captureRate: 0.2036,
     passive: "doubleAttack", passiveType: "trigger",
   },
   {
@@ -1029,7 +1029,7 @@ export const bossEnemies = [
     bossFloors: [8600],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0035,
+    captureRate: 0.2035,
     passive: "survive", passiveType: "trigger",
   },
   {
@@ -1041,7 +1041,7 @@ export const bossEnemies = [
     bossFloors: [8700],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0035,
+    captureRate: 0.2035,
     passive: "dmgBoost", passiveType: "buff",
   },
   {
@@ -1053,7 +1053,7 @@ export const bossEnemies = [
     bossFloors: [8800],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0035,
+    captureRate: 0.2035,
     passive: "dmgReduce", passiveType: "buff",
   },
   {
@@ -1065,7 +1065,7 @@ export const bossEnemies = [
     bossFloors: [8900],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0035,
+    captureRate: 0.2035,
     passive: "atkBoost", passiveType: "buff",
   },
   {
@@ -1077,7 +1077,7 @@ export const bossEnemies = [
     bossFloors: [9000],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0034,
+    captureRate: 0.2034,
     passive: "expBoost", passiveType: "buff",
   },
   {
@@ -1089,7 +1089,7 @@ export const bossEnemies = [
     bossFloors: [9100],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0034,
+    captureRate: 0.2034,
     passive: "dropBoost", passiveType: "buff",
   },
   {
@@ -1101,7 +1101,7 @@ export const bossEnemies = [
     bossFloors: [9200],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0034,
+    captureRate: 0.2034,
     passive: "captureBoost", passiveType: "buff",
   },
   {
@@ -1113,7 +1113,7 @@ export const bossEnemies = [
     bossFloors: [9300],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0034,
+    captureRate: 0.2034,
     passive: "doubleAttack", passiveType: "trigger",
   },
   {
@@ -1125,7 +1125,7 @@ export const bossEnemies = [
     bossFloors: [9400],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0033,
+    captureRate: 0.2033,
     passive: "survive", passiveType: "trigger",
   },
   {
@@ -1137,7 +1137,7 @@ export const bossEnemies = [
     bossFloors: [9500],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0033,
+    captureRate: 0.2033,
     passive: "dmgBoost", passiveType: "buff",
   },
   {
@@ -1149,7 +1149,7 @@ export const bossEnemies = [
     bossFloors: [9600],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0033,
+    captureRate: 0.2033,
     passive: "dmgReduce", passiveType: "buff",
   },
   {
@@ -1161,7 +1161,7 @@ export const bossEnemies = [
     bossFloors: [9700],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0033,
+    captureRate: 0.2033,
     passive: "hpBoost", passiveType: "buff",
   },
   {
@@ -1173,7 +1173,7 @@ export const bossEnemies = [
     bossFloors: [9800],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0032,
+    captureRate: 0.2032,
     passive: "reflect", passiveType: "trigger",
   },
   {
@@ -1185,7 +1185,7 @@ export const bossEnemies = [
     bossFloors: [9900],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0032,
+    captureRate: 0.2032,
     passive: "drain", passiveType: "trigger",
   },
   {
@@ -1197,7 +1197,7 @@ export const bossEnemies = [
     bossFloors: [10000],
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 1.0, petHpRate: 1.0,
-    captureRate: 0.0032,
+    captureRate: 0.2032,
     passive: "critRate", passiveType: "trigger",
   },
 ];

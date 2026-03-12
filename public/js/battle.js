@@ -268,8 +268,8 @@ export function createEnemy() {
   const possibleEnemies = normalEnemies.filter((e) => e.floorBand === floorBandKey);
   const base = possibleEnemies[Math.floor(Math.random() * possibleEnemies.length)];
 
-  // レジェンダリー出現判定（0.1%）、究極個体はlegendary中の10%（実質0.01%）
-  const isLegendary = base.passive && legendaryTitles[base.passive] && Math.random() < 0.001;
+  // レジェンダリー出現判定（2%）、究極個体はlegendary中の10%（実質0.2%）
+  const isLegendary = base.passive && legendaryTitles[base.passive] && Math.random() < 0.02;
   const isLegendUltimate = isLegendary && Math.random() < 0.1;
 
   const bossBonus = Math.floor(state.floor / 10) * 3;
@@ -337,8 +337,8 @@ function createBossEnemy(bossEnemyId) {
   const base = bossEnemies.find((e) => e.id === bossEnemyId);
   if (!base) return null;
 
-  // レジェンダリー出現判定（0.05%）、究極個体はlegendary中の10%（実質0.005%）
-  const isLegendary = base.passive && legendaryTitles[base.passive] && Math.random() < 0.0005;
+  // レジェンダリー出現判定（1%）、究極個体はlegendary中の10%（実質0.1%）
+  const isLegendary = base.passive && legendaryTitles[base.passive] && Math.random() < 0.01;
   const isLegendUltimate = isLegendary && Math.random() < 0.1;
 
   // フロア帯基準値 × 敵比率（titleGroupの参照より先に宣言）

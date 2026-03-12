@@ -135,7 +135,7 @@ export function getDmgReduceMultiplier() {
   let mult = 1;
   if (pet?.passive === "dmgReduce" || pet?.passive === "legendDmgReduce") mult *= (1 - (pet.passiveValue ?? 0) / 100);
   if (weapon?.passive === "dmgReduce" || weapon?.passive === "legendDmgReduce") mult *= (1 - (weapon.passiveValue ?? 0) / 100);
-  return Math.max(mult, 0.01); // 上限99%減少（最低1%は受ける）
+  return Math.max(mult, 0.2); // 上限80%減少（最低20%は受ける）
 }
 
 // HP増加倍率を取得
