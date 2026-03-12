@@ -1,8 +1,8 @@
-// passiveType: "buff"=å¼·åç³»ï¼å¸¸æï¼/ "trigger"=çºåç³»ï¼ç¢ºçï¼
+// passiveType: "buff"=強化系（常時）/ "trigger"=発動系（確率）
 export const bossEnemies = [
   {
     id: 1,
-    name: "ã°ãªãã©ã³",
+    name: "グリフォン",
     isBoss: true,
     floorBand: "boss-100",
     titleGroup: "boss_1",
@@ -14,7 +14,7 @@ export const bossEnemies = [
   },
   {
     id: 2,
-    name: "ãªã´ã¡ã¤ã¢ãµã³",
+    name: "リヴァイアサン",
     isBoss: true,
     floorBand: "boss-200",
     titleGroup: "boss_2",
@@ -26,7 +26,7 @@ export const bossEnemies = [
   },
   {
     id: 3,
-    name: "ã¤ããªã¼ã",
+    name: "イフリート",
     isBoss: true,
     floorBand: "boss-300",
     titleGroup: "boss_3",
@@ -38,7 +38,7 @@ export const bossEnemies = [
   },
   {
     id: 4,
-    name: "ãã¥ãã©",
+    name: "ヒュドラ",
     isBoss: true,
     floorBand: "boss-400",
     titleGroup: "boss_4",
@@ -50,7 +50,7 @@ export const bossEnemies = [
   },
   {
     id: 5,
-    name: "éåç«¥å­",
+    name: "酒呑童子",
     isBoss: true,
     floorBand: "boss-500",
     titleGroup: "boss_5",
@@ -62,7 +62,7 @@ export const bossEnemies = [
   },
   {
     id: 6,
-    name: "ãã¼ã¹ãã­ã³ã°",
+    name: "ビーストキング",
     isBoss: true,
     floorBand: "boss-600",
     titleGroup: "boss_6",
@@ -74,7 +74,7 @@ export const bossEnemies = [
   },
   {
     id: 7,
-    name: "ã´ã¡ã³ãã¤ã¢ã­ã¼ã",
+    name: "ヴァンパイアロード",
     isBoss: true,
     floorBand: "boss-700",
     titleGroup: "boss_7",
@@ -86,7 +86,7 @@ export const bossEnemies = [
   },
   {
     id: 8,
-    name: "ã¢ãã©ãã¯ï¼ããã£",
+    name: "アトラック＝ナチャ",
     isBoss: true,
     floorBand: "boss-800",
     titleGroup: "boss_8",
@@ -98,7 +98,7 @@ export const bossEnemies = [
   },
   {
     id: 9,
-    name: "ããã¼ã¢ã¹",
+    name: "ベヒーモス",
     isBoss: true,
     floorBand: "boss-900",
     titleGroup: "boss_9",
@@ -110,7 +110,7 @@ export const bossEnemies = [
   },
   {
     id: 10,
-    name: "ãã§ããã¯ã¹",
+    name: "フェニックス",
     isBoss: true,
     floorBand: "boss-1000",
     titleGroup: "boss_10",
@@ -122,7 +122,7 @@ export const bossEnemies = [
   },
   {
     id: 11,
-    name: "ãã¢ã«",
+    name: "バアル",
     isBoss: true,
     floorBand: "boss-1100",
     titleGroup: "boss_11",
@@ -134,7 +134,7 @@ export const bossEnemies = [
   },
   {
     id: 12,
-    name: "ã¢ããã£ã¨ã«",
+    name: "アブディエル",
     isBoss: true,
     floorBand: "boss-1200",
     titleGroup: "boss_12",
@@ -146,7 +146,7 @@ export const bossEnemies = [
   },
   {
     id: 13,
-    name: "ããªã¢ã«",
+    name: "ベリアル",
     isBoss: true,
     floorBand: "boss-1300",
     titleGroup: "boss_13",
@@ -158,7 +158,7 @@ export const bossEnemies = [
   },
   {
     id: 14,
-    name: "ã¼ã¦ã¹",
+    name: "ゼウス",
     isBoss: true,
     floorBand: "boss-1400",
     titleGroup: "boss_14",
@@ -170,7 +170,7 @@ export const bossEnemies = [
   },
   {
     id: 15,
-    name: "ã³ã­ã¥ã¼ãã¹",
+    name: "コキュートス",
     isBoss: true,
     floorBand: "boss-1500",
     titleGroup: "boss_15",
@@ -182,7 +182,7 @@ export const bossEnemies = [
   },
   {
     id: 16,
-    name: "ã¢ã³ãã£ã¹ãã¨ã",
+    name: "アンフィスバエナ",
     isBoss: true,
     floorBand: "boss-1600",
     titleGroup: "boss_16",
@@ -194,7 +194,7 @@ export const bossEnemies = [
   },
   {
     id: 17,
-    name: "ã¤ã´ã¼ã­ãã¯",
+    name: "イゴーロナク",
     isBoss: true,
     floorBand: "boss-1700",
     titleGroup: "boss_17",
@@ -206,7 +206,7 @@ export const bossEnemies = [
   },
   {
     id: 18,
-    name: "ã¨ã°ï¼ã½ãã¼ã¹",
+    name: "ヨグ＝ソトース",
     isBoss: true,
     floorBand: "boss-1800",
     titleGroup: "boss_18",
@@ -218,7 +218,7 @@ export const bossEnemies = [
   },
   {
     id: 19,
-    name: "ããã ã¼ã",
+    name: "バハムート",
     isBoss: true,
     floorBand: "boss-1900",
     titleGroup: "boss_19",
@@ -230,7 +230,7 @@ export const bossEnemies = [
   },
   {
     id: 20,
-    name: "ã¨ã³ã·ã§ã³ããã©ã´ã³",
+    name: "エンシェントドラゴン",
     isBoss: true,
     floorBand: "boss-2000",
     titleGroup: "boss_20",
@@ -242,7 +242,7 @@ export const bossEnemies = [
   },
   {
     id: 21,
-    name: "ã°ã¬ã³ãã«",
+    name: "グレンデル",
     isBoss: true,
     floorBand: "boss-2100",
     titleGroup: "boss_21",
@@ -254,7 +254,7 @@ export const bossEnemies = [
   },
   {
     id: 22,
-    name: "ã¤ã¿ã¯ã¡",
+    name: "イタクァ",
     isBoss: true,
     floorBand: "boss-2200",
     titleGroup: "boss_22",
@@ -266,7 +266,7 @@ export const bossEnemies = [
   },
   {
     id: 23,
-    name: "ã¢ã¡ããã",
+    name: "アメミット",
     isBoss: true,
     floorBand: "boss-2300",
     titleGroup: "boss_23",
@@ -278,7 +278,7 @@ export const bossEnemies = [
   },
   {
     id: 24,
-    name: "ã¹ãã¥ã¯ã¹",
+    name: "ステュクス",
     isBoss: true,
     floorBand: "boss-2400",
     titleGroup: "boss_24",
@@ -290,7 +290,7 @@ export const bossEnemies = [
   },
   {
     id: 25,
-    name: "ããã«ãã¤ã¹ã",
+    name: "ニブルヘイスト",
     isBoss: true,
     floorBand: "boss-2500",
     titleGroup: "boss_25",
@@ -302,7 +302,7 @@ export const bossEnemies = [
   },
   {
     id: 26,
-    name: "ã«ããã¬ãã¹",
+    name: "カトブレパス",
     isBoss: true,
     floorBand: "boss-2600",
     titleGroup: "boss_26",
@@ -314,7 +314,7 @@ export const bossEnemies = [
   },
   {
     id: 27,
-    name: "ãã«",
+    name: "ヘル",
     isBoss: true,
     floorBand: "boss-2700",
     titleGroup: "boss_27",
@@ -326,7 +326,7 @@ export const bossEnemies = [
   },
   {
     id: 28,
-    name: "ããã¹",
+    name: "ハデス",
     isBoss: true,
     floorBand: "boss-2800",
     titleGroup: "boss_28",
@@ -338,7 +338,7 @@ export const bossEnemies = [
   },
   {
     id: 29,
-    name: "ã¢ããªã¼ã",
+    name: "アフリート",
     isBoss: true,
     floorBand: "boss-2900",
     titleGroup: "boss_29",
@@ -350,7 +350,7 @@ export const bossEnemies = [
   },
   {
     id: 30,
-    name: "ã¢ã³ãºã¼",
+    name: "アンズー",
     isBoss: true,
     floorBand: "boss-3000",
     titleGroup: "boss_30",
@@ -362,7 +362,7 @@ export const bossEnemies = [
   },
   {
     id: 31,
-    name: "ãã¼ãã³ã¹",
+    name: "ノーデンス",
     isBoss: true,
     floorBand: "boss-3100",
     titleGroup: "boss_31",
@@ -374,7 +374,7 @@ export const bossEnemies = [
   },
   {
     id: 32,
-    name: "ãã©ã¢ã¼ã«",
+    name: "フォモール",
     isBoss: true,
     floorBand: "boss-3200",
     titleGroup: "boss_32",
@@ -386,7 +386,7 @@ export const bossEnemies = [
   },
   {
     id: 33,
-    name: "ã¨ã°ï¼ã·ã¥ã¬",
+    name: "ヨグ＝シュガ",
     isBoss: true,
     floorBand: "boss-3300",
     titleGroup: "boss_33",
@@ -398,7 +398,7 @@ export const bossEnemies = [
   },
   {
     id: 34,
-    name: "ãã°ãã¢",
+    name: "バグベア",
     isBoss: true,
     floorBand: "boss-3400",
     titleGroup: "boss_34",
@@ -410,7 +410,7 @@ export const bossEnemies = [
   },
   {
     id: 35,
-    name: "ã«ãã½ãã",
+    name: "カマソッツ",
     isBoss: true,
     floorBand: "boss-3500",
     titleGroup: "boss_35",
@@ -422,7 +422,7 @@ export const bossEnemies = [
   },
   {
     id: 36,
-    name: "ãã¹ã¿ã¼",
+    name: "ハスター",
     isBoss: true,
     floorBand: "boss-3600",
     titleGroup: "boss_36",
@@ -434,7 +434,7 @@ export const bossEnemies = [
   },
   {
     id: 37,
-    name: "ããã¯ã©ã´ã£ã¼",
+    name: "ナックラヴィー",
     isBoss: true,
     floorBand: "boss-3700",
     titleGroup: "boss_37",
@@ -446,7 +446,7 @@ export const bossEnemies = [
   },
   {
     id: 38,
-    name: "ã±ã¼ãã¹",
+    name: "ケートス",
     isBoss: true,
     floorBand: "boss-3800",
     titleGroup: "boss_38",
@@ -458,7 +458,7 @@ export const bossEnemies = [
   },
   {
     id: 39,
-    name: "ã¨ã­ãã",
+    name: "エキドナ",
     isBoss: true,
     floorBand: "boss-3900",
     titleGroup: "boss_39",
@@ -470,7 +470,7 @@ export const bossEnemies = [
   },
   {
     id: 40,
-    name: "ãã¡ã¢ã®çå­",
+    name: "ネメアの獅子",
     isBoss: true,
     floorBand: "boss-4000",
     titleGroup: "boss_40",
@@ -482,7 +482,7 @@ export const bossEnemies = [
   },
   {
     id: 41,
-    name: "ã«ãªã¥ããã£ã¹",
+    name: "カリュブディス",
     isBoss: true,
     floorBand: "boss-4100",
     titleGroup: "boss_41",
@@ -494,7 +494,7 @@ export const bossEnemies = [
   },
   {
     id: 42,
-    name: "ãã¤ã¢ã¯ãã¼",
+    name: "バイアクヘー",
     isBoss: true,
     floorBand: "boss-4200",
     titleGroup: "boss_42",
@@ -506,7 +506,7 @@ export const bossEnemies = [
   },
   {
     id: 43,
-    name: "ãã¯ã©ã°",
+    name: "ボクラグ",
     isBoss: true,
     floorBand: "boss-4300",
     titleGroup: "boss_43",
@@ -518,7 +518,7 @@ export const bossEnemies = [
   },
   {
     id: 44,
-    name: "ã¿ã­ã¹",
+    name: "タロス",
     isBoss: true,
     floorBand: "boss-4400",
     titleGroup: "boss_44",
@@ -530,7 +530,7 @@ export const bossEnemies = [
   },
   {
     id: 45,
-    name: "ãªã­ã",
+    name: "オロチ",
     isBoss: true,
     floorBand: "boss-4500",
     titleGroup: "boss_45",
@@ -542,7 +542,7 @@ export const bossEnemies = [
   },
   {
     id: 46,
-    name: "ã©ã°ãã­ã¯",
+    name: "ラグナロク",
     isBoss: true,
     floorBand: "boss-4600",
     titleGroup: "boss_46",
@@ -554,7 +554,7 @@ export const bossEnemies = [
   },
   {
     id: 47,
-    name: "ã«ã¼ãã³ã¯ã«",
+    name: "カーバンクル",
     isBoss: true,
     floorBand: "boss-4700",
     titleGroup: "boss_47",
@@ -566,7 +566,7 @@ export const bossEnemies = [
   },
   {
     id: 48,
-    name: "ãã¤ã¢ã«ã©ãããã",
+    name: "ナイアルラトテップ",
     isBoss: true,
     floorBand: "boss-4800",
     titleGroup: "boss_48",
@@ -578,7 +578,7 @@ export const bossEnemies = [
   },
   {
     id: 49,
-    name: "ãã£ã¿ã¼ã³",
+    name: "ティターン",
     isBoss: true,
     floorBand: "boss-4900",
     titleGroup: "boss_49",
@@ -590,7 +590,7 @@ export const bossEnemies = [
   },
   {
     id: 50,
-    name: "ãã­ã¡ãã¦ã¹",
+    name: "プロメテウス",
     isBoss: true,
     floorBand: "boss-5000",
     titleGroup: "boss_50",
@@ -602,7 +602,7 @@ export const bossEnemies = [
   },
   {
     id: 51,
-    name: "ãªããªã¹ã¯",
+    name: "オベリスク",
     isBoss: true,
     floorBand: "boss-5100",
     titleGroup: "boss_51",
@@ -614,7 +614,7 @@ export const bossEnemies = [
   },
   {
     id: 52,
-    name: "é­ç¥",
+    name: "魔神",
     isBoss: true,
     floorBand: "boss-5200",
     titleGroup: "boss_52",
@@ -626,7 +626,7 @@ export const bossEnemies = [
   },
   {
     id: 53,
-    name: "éªç«",
+    name: "邪竜",
     isBoss: true,
     floorBand: "boss-5300",
     titleGroup: "boss_53",
@@ -638,7 +638,7 @@ export const bossEnemies = [
   },
   {
     id: 54,
-    name: "ãªã¼ãã£ã³",
+    name: "オーディン",
     isBoss: true,
     floorBand: "boss-5400",
     titleGroup: "boss_54",
@@ -650,7 +650,7 @@ export const bossEnemies = [
   },
   {
     id: 55,
-    name: "ã¨ã¬ãã¹",
+    name: "エレボス",
     isBoss: true,
     floorBand: "boss-5500",
     titleGroup: "boss_55",
@@ -662,7 +662,7 @@ export const bossEnemies = [
   },
   {
     id: 56,
-    name: "ã¬ã¿ãã½ã¢",
+    name: "ガタノソア",
     isBoss: true,
     floorBand: "boss-5600",
     titleGroup: "boss_56",
@@ -674,7 +674,7 @@ export const bossEnemies = [
   },
   {
     id: 57,
-    name: "ã¿ããã¹",
+    name: "タナトス",
     isBoss: true,
     floorBand: "boss-5700",
     titleGroup: "boss_57",
@@ -686,7 +686,7 @@ export const bossEnemies = [
   },
   {
     id: 58,
-    name: "ã¢ã«ã´ã¹",
+    name: "アルゴス",
     isBoss: true,
     floorBand: "boss-5800",
     titleGroup: "boss_58",
@@ -698,7 +698,7 @@ export const bossEnemies = [
   },
   {
     id: 59,
-    name: "ãã­ã¼ã«",
+    name: "バロール",
     isBoss: true,
     floorBand: "boss-5900",
     titleGroup: "boss_59",
@@ -710,7 +710,7 @@ export const bossEnemies = [
   },
   {
     id: 60,
-    name: "ãªã³ãã´ã«ã ",
+    name: "リンドヴルム",
     isBoss: true,
     floorBand: "boss-6000",
     titleGroup: "boss_60",
@@ -722,7 +722,7 @@ export const bossEnemies = [
   },
   {
     id: 61,
-    name: "ã¨ã³ãã¥ã¼ãµ",
+    name: "エンピューサ",
     isBoss: true,
     floorBand: "boss-6100",
     titleGroup: "boss_61",
@@ -734,7 +734,7 @@ export const bossEnemies = [
   },
   {
     id: 62,
-    name: "ã¯ãã¥ã°ã¡",
+    name: "クトゥグァ",
     isBoss: true,
     floorBand: "boss-6200",
     titleGroup: "boss_62",
@@ -746,7 +746,7 @@ export const bossEnemies = [
   },
   {
     id: 63,
-    name: "ãã«ãã¥ã¯",
+    name: "マルドゥク",
     isBoss: true,
     floorBand: "boss-6300",
     titleGroup: "boss_63",
@@ -758,7 +758,7 @@ export const bossEnemies = [
   },
   {
     id: 64,
-    name: "ãã¡ã·ã¹",
+    name: "ネメシス",
     isBoss: true,
     floorBand: "boss-6400",
     titleGroup: "boss_64",
@@ -770,7 +770,7 @@ export const bossEnemies = [
   },
   {
     id: 65,
-    name: "ãã¡ãã¥ã°ã¡",
+    name: "ツァトゥグァ",
     isBoss: true,
     floorBand: "boss-6500",
     titleGroup: "boss_65",
@@ -782,7 +782,7 @@ export const bossEnemies = [
   },
   {
     id: 66,
-    name: "ã©ãã³",
+    name: "ラドン",
     isBoss: true,
     floorBand: "boss-6600",
     titleGroup: "boss_66",
@@ -794,7 +794,7 @@ export const bossEnemies = [
   },
   {
     id: 67,
-    name: "ã¹ã«ãã«",
+    name: "スルトル",
     isBoss: true,
     floorBand: "boss-6700",
     titleGroup: "boss_67",
@@ -806,7 +806,7 @@ export const bossEnemies = [
   },
   {
     id: 68,
-    name: "ã°ã©ã¼ã­",
+    name: "グラーキ",
     isBoss: true,
     floorBand: "boss-6800",
     titleGroup: "boss_68",
@@ -818,7 +818,7 @@ export const bossEnemies = [
   },
   {
     id: 69,
-    name: "ã´ã¡ã«ã³ã©ã¯",
+    name: "ヴァルコラク",
     isBoss: true,
     floorBand: "boss-6900",
     titleGroup: "boss_69",
@@ -830,7 +830,7 @@ export const bossEnemies = [
   },
   {
     id: 70,
-    name: "ã«ã³ãã¼",
+    name: "カンペー",
     isBoss: true,
     floorBand: "boss-7000",
     titleGroup: "boss_70",
@@ -842,7 +842,7 @@ export const bossEnemies = [
   },
   {
     id: 71,
-    name: "ã«ã·ãã§ã«",
+    name: "ルシフェル",
     isBoss: true,
     floorBand: "boss-7100",
     titleGroup: "boss_71",
@@ -854,7 +854,7 @@ export const bossEnemies = [
   },
   {
     id: 72,
-    name: "ãã©ã¢ãªã¢ã³",
+    name: "フォモリアン",
     isBoss: true,
     floorBand: "boss-7200",
     titleGroup: "boss_72",
@@ -866,7 +866,7 @@ export const bossEnemies = [
   },
   {
     id: 73,
-    name: "ã·ã ã«ã°",
+    name: "シムルグ",
     isBoss: true,
     floorBand: "boss-7300",
     titleGroup: "boss_73",
@@ -878,7 +878,7 @@ export const bossEnemies = [
   },
   {
     id: 74,
-    name: "ãã¬ã¹ãã«ã°",
+    name: "フレスベルグ",
     isBoss: true,
     floorBand: "boss-7400",
     titleGroup: "boss_74",
@@ -890,7 +890,7 @@ export const bossEnemies = [
   },
   {
     id: 75,
-    name: "ãµã¿ã³",
+    name: "サタン",
     isBoss: true,
     floorBand: "boss-7500",
     titleGroup: "boss_75",
@@ -902,7 +902,7 @@ export const bossEnemies = [
   },
   {
     id: 76,
-    name: "ã·ã¥ãï¼ãã°ã©ã¹",
+    name: "シュブ＝ニグラス",
     isBoss: true,
     floorBand: "boss-7600",
     titleGroup: "boss_76",
@@ -914,7 +914,7 @@ export const bossEnemies = [
   },
   {
     id: 77,
-    name: "ãã´ã³",
+    name: "ダゴン",
     isBoss: true,
     floorBand: "boss-7700",
     titleGroup: "boss_77",
@@ -926,7 +926,7 @@ export const bossEnemies = [
   },
   {
     id: 78,
-    name: "ã«ã¼ãªã¼",
+    name: "カーリー",
     isBoss: true,
     floorBand: "boss-7800",
     titleGroup: "boss_78",
@@ -938,7 +938,7 @@ export const bossEnemies = [
   },
   {
     id: 79,
-    name: "ã¸ã£ãã¦ã©ãã¯",
+    name: "ジャバウォック",
     isBoss: true,
     floorBand: "boss-7900",
     titleGroup: "boss_79",
@@ -950,7 +950,7 @@ export const bossEnemies = [
   },
   {
     id: 80,
-    name: "ã·ã¥ã ã",
+    name: "シュムナ",
     isBoss: true,
     floorBand: "boss-8000",
     titleGroup: "boss_80",
@@ -962,7 +962,7 @@ export const bossEnemies = [
   },
   {
     id: 81,
-    name: "ãã«ã¹",
+    name: "ホルス",
     isBoss: true,
     floorBand: "boss-8100",
     titleGroup: "boss_81",
@@ -974,7 +974,7 @@ export const bossEnemies = [
   },
   {
     id: 82,
-    name: "ãã£ã¢ãã",
+    name: "ティアマト",
     isBoss: true,
     floorBand: "boss-8200",
     titleGroup: "boss_82",
@@ -986,7 +986,7 @@ export const bossEnemies = [
   },
   {
     id: 83,
-    name: "ãã¥ãã¼ã³",
+    name: "テュポーン",
     isBoss: true,
     floorBand: "boss-8300",
     titleGroup: "boss_83",
@@ -998,7 +998,7 @@ export const bossEnemies = [
   },
   {
     id: 84,
-    name: "ã¢ã¶ãã¼ã¹",
+    name: "アザトース",
     isBoss: true,
     floorBand: "boss-8400",
     titleGroup: "boss_84",
@@ -1010,7 +1010,7 @@ export const bossEnemies = [
   },
   {
     id: 85,
-    name: "ã¹ã­ã¥ã©",
+    name: "スキュラ",
     isBoss: true,
     floorBand: "boss-8500",
     titleGroup: "boss_85",
@@ -1022,7 +1022,7 @@ export const bossEnemies = [
   },
   {
     id: 86,
-    name: "ãã¨ã¼ã¯",
+    name: "ダエーワ",
     isBoss: true,
     floorBand: "boss-8600",
     titleGroup: "boss_86",
@@ -1034,7 +1034,7 @@ export const bossEnemies = [
   },
   {
     id: 87,
-    name: "ã®ã¬ã¼ã¹",
+    name: "ギガース",
     isBoss: true,
     floorBand: "boss-8700",
     titleGroup: "boss_87",
@@ -1046,7 +1046,7 @@ export const bossEnemies = [
   },
   {
     id: 88,
-    name: "ã¢ãªã¬ã³",
+    name: "モリガン",
     isBoss: true,
     floorBand: "boss-8800",
     titleGroup: "boss_88",
@@ -1058,7 +1058,7 @@ export const bossEnemies = [
   },
   {
     id: 89,
-    name: "éªå¸ãã¥ã«ã¼ã ",
+    name: "邪帝トゥルーム",
     isBoss: true,
     floorBand: "boss-8900",
     titleGroup: "boss_89",
@@ -1070,7 +1070,7 @@ export const bossEnemies = [
   },
   {
     id: 90,
-    name: "çä¹±é¾ã«ã«ã¶ã ",
+    name: "狂乱龍カルザム",
     isBoss: true,
     floorBand: "boss-9000",
     titleGroup: "boss_90",
@@ -1082,7 +1082,7 @@ export const bossEnemies = [
   },
   {
     id: 91,
-    name: "æ··æ²é¾ãã¥ã«ã¬ã³",
+    name: "混沌龍ドゥルガン",
     isBoss: true,
     floorBand: "boss-9100",
     titleGroup: "boss_91",
@@ -1094,7 +1094,7 @@ export const bossEnemies = [
   },
   {
     id: 92,
-    name: "é»æ³ã®ãã«ãã£ã¢",
+    name: "黄泉のバルディア",
     isBoss: true,
     floorBand: "boss-9200",
     titleGroup: "boss_92",
@@ -1106,7 +1106,7 @@ export const bossEnemies = [
   },
   {
     id: 93,
-    name: "ççã®æ¯éèã®ã«ãã¼ã¯",
+    name: "煉獄の支配者ギルナーク",
     isBoss: true,
     floorBand: "boss-9300",
     titleGroup: "boss_93",
@@ -1118,7 +1118,7 @@ export const bossEnemies = [
   },
   {
     id: 94,
-    name: "å¥è½é¾ãã´ã©ãªã¢",
+    name: "奈落龍ネヴォリア",
     isBoss: true,
     floorBand: "boss-9400",
     titleGroup: "boss_94",
@@ -1130,7 +1130,7 @@ export const bossEnemies = [
   },
   {
     id: 95,
-    name: "ç ´å£ç¥ã¼ã«ã«ãã£ã¢",
+    name: "破壊神ゼルカディア",
     isBoss: true,
     floorBand: "boss-9500",
     titleGroup: "boss_95",
@@ -1142,7 +1142,7 @@ export const bossEnemies = [
   },
   {
     id: 96,
-    name: "è¶è¶é¾ãã«ã°ã",
+    name: "超越龍ベルグド",
     isBoss: true,
     floorBand: "boss-9600",
     titleGroup: "boss_96",
@@ -1154,7 +1154,7 @@ export const bossEnemies = [
   },
   {
     id: 97,
-    name: "èç¡ç¥ã´ã¡ã«ã´ã©ã ",
+    name: "虚無神ヴァルゴラム",
     isBoss: true,
     floorBand: "boss-9700",
     titleGroup: "boss_97",
@@ -1166,7 +1166,7 @@ export const bossEnemies = [
   },
   {
     id: 98,
-    name: "æ·±æ·µçã¬ã«ãã¯ã",
+    name: "深淵王ガルナクト",
     isBoss: true,
     floorBand: "boss-9800",
     titleGroup: "boss_98",
@@ -1178,7 +1178,7 @@ export const bossEnemies = [
   },
   {
     id: 99,
-    name: "æ¬¡åé¾ãã«ã«ã¹",
+    name: "次元龍ダルカス",
     isBoss: true,
     floorBand: "boss-9900",
     titleGroup: "boss_99",
@@ -1190,7 +1190,7 @@ export const bossEnemies = [
   },
   {
     id: 100,
-    name: "çµæ«ç¥ã¢ãã«ãªãã¹",
+    name: "終末神アポカリプス",
     isBoss: true,
     floorBand: "boss-10000",
     titleGroup: "boss_100",
