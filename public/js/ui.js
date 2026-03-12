@@ -77,15 +77,19 @@ export function renderInventory(player, onItemClick, onEquip) {
       ? `${weaponPassiveLabel(item.passive)}${item.passiveValue != null ? `(${item.passiveValue}%)` : ""}`
       : "";
     li.innerHTML = `
-      <span class="pet-name">⚔️ ${displayName}${item.level > 0 ? ` <span class="weapon-level">+${item.level}</span>` : ""}</span>
-      <span class="pet-atk">ATK ${item.totalAtk}(${item.baseAtk})</span>
-      <span class="pet-atk">HP +${item.totalHp ?? 0}(${item.baseHp ?? 0})</span>
-      ${weaponPassiveText ? `<span class="pet-passive">${weaponPassiveText}</span>` : ""}
-      <div class="pet-actions">
-        ${isEquipped
-          ? `<button class="weapon-unequip-btn" data-uid="${item.uid}">外す</button>`
-          : `<button class="weapon-equip-btn" data-uid="${item.uid}">装備</button>`
-        }
+      <div class="item-row-1">
+        <span class="pet-name">⚔️ ${displayName}${item.level > 0 ? ` <span class="weapon-level">+${item.level}</span>` : ""}</span>
+        <div class="pet-actions">
+          ${isEquipped
+            ? `<button class="weapon-unequip-btn" data-uid="${item.uid}">外す</button>`
+            : `<button class="weapon-equip-btn" data-uid="${item.uid}">装備</button>`
+          }
+        </div>
+      </div>
+      <div class="item-row-2">
+        <span class="pet-atk">ATK ${item.totalAtk}(${item.baseAtk})</span>
+        <span class="pet-atk">HP +${item.totalHp ?? 0}(${item.baseHp ?? 0})</span>
+        ${weaponPassiveText ? `<span class="pet-passive">${weaponPassiveText}</span>` : ""}
       </div>
     `;
 
@@ -671,15 +675,19 @@ export function updatePetPanel(onPetClick) {
     else if (isMaterial) li.classList.add("synth-material");
 
     li.innerHTML = `
-      <span class="pet-name">🐾 ${getTitleName(pet)}${pet.name}${(pet.bonusPower ?? 0) > 0 ? ` <span class="weapon-level">+${pet.bonusPower}</span>` : ""}</span>
-      <span class="pet-atk">ATK ${pet.power}(${pet.basePower ?? pet.power})</span>
-      <span class="pet-atk">HP ${pet.hp ?? 0}(${pet.baseHp ?? 0})</span>
-      <span class="pet-passive">${passiveLabelText(pet)}${valueText}</span>
-      <div class="pet-actions">
-        ${isEquipped
-          ? `<button class="pet-unequip-btn" data-uid="${pet.uid}">外す</button>`
-          : `<button class="pet-equip-btn" data-uid="${pet.uid}">装備</button>`
-        }
+      <div class="item-row-1">
+        <span class="pet-name">🐾 ${getTitleName(pet)}${pet.name}${(pet.bonusPower ?? 0) > 0 ? ` <span class="weapon-level">+${pet.bonusPower}</span>` : ""}</span>
+        <div class="pet-actions">
+          ${isEquipped
+            ? `<button class="pet-unequip-btn" data-uid="${pet.uid}">外す</button>`
+            : `<button class="pet-equip-btn" data-uid="${pet.uid}">装備</button>`
+          }
+        </div>
+      </div>
+      <div class="item-row-2">
+        <span class="pet-atk">ATK ${pet.power}(${pet.basePower ?? pet.power})</span>
+        <span class="pet-atk">HP ${pet.hp ?? 0}(${pet.baseHp ?? 0})</span>
+        <span class="pet-passive">${passiveLabelText(pet)}${valueText}</span>
       </div>
     `;
 

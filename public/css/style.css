@@ -728,15 +728,14 @@ button {
 .pet-item {
   list-style: none;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 4px;
   padding: 8px 10px;
   background: #2a2a2a;
   border: 1px solid #383838;
   border-radius: 6px;
   margin-bottom: 6px;
   font-size: 13px;
-  flex-wrap: wrap;
 }
 
 .pet-item.equipped {
@@ -744,14 +743,33 @@ button {
   background: #1a2820;
 }
 
+/* 1行目: 名前 + ボタン */
+.item-row-1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 2行目: ステータス + スキル */
+.item-row-2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .pet-name {
   flex: 1;
-  min-width: 80px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pet-atk {
   color: #f39c12;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .pet-passive {
@@ -762,6 +780,7 @@ button {
 .pet-actions {
   display: flex;
   gap: 4px;
+  flex-shrink: 0;
 }
 
 .pet-equip-btn,
