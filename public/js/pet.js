@@ -3,7 +3,7 @@ import { normalEnemies, bossEnemies, floorTable } from "./data/index.js";
 import { addLog } from "./log.js";
 import { getTitleName, legendaryTitles, normalPassiveOf, isLegendaryPassive } from "./data/index.js";
 import { updateBookUltimate } from "./book.js";
-import { showUltimatePopup } from "./ui.js";
+import { showUltimatePopup, showElitePopup, showLegendaryPopup, showLegendUltimatePopup } from "./ui.js";
 import { checkAchievements } from "./achievements.js";
 
 const allEnemyDefs = [...normalEnemies, ...bossEnemies];
@@ -357,14 +357,19 @@ export function getLegendLastStandMultiplier() {
 }
 
 // 捕獲を試みる（撃破後に呼ぶ）
-export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLegendUltimate = false) {
+export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLegendUltimate = false, isElite = false) {
   const def = allEnemyDefs.find(
     (e) => e.id === enemyId && !!e.isBoss === isBoss
   );
   if (!def) return;
 
   const effectiveRate = getEffectiveCaptureRate(def.captureRate ?? 0);
-  if (Math.random() > effectiveRate) return;
+  if (Math.random() > effectiveRate) {
+    if (isLegendUltimate) addLog("💔 究極個体を捕獲できなかった...");
+    else if (isLegendary) addLog("💔 伝説個体を捕獲できなかった...");
+    else if (isElite) addLog("💔 極個体を捕獲できなかった...");
+    return;
+  }
 
   // フロア帯基準値 × 敵比率でpetPower/petHpを計算
   const band = floorTable[def.floorBand] ?? floorTable["1-99"];
@@ -387,9 +392,9 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
   const pvRange = band.passiveValue?.[passiveType] ?? { min: 1, max: 10 };
   const maxPassiveValue = Math.floor(pvRange.max * mult);
 
-  // 究極個体の場合は全ステータスを最大値に固定
+  // 究極個体・極個体の場合は全ステータスを最大値に固定
   let power, hp, passiveValue;
-  if (isLegendUltimate) {
+  if (isLegendUltimate || isElite) {
     power = petPowerMax;
     hp = petHpMax;
     passiveValue = maxPassiveValue;
@@ -426,15 +431,25 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
   state.player.petList.push(pet);
   const label = passiveLabels[pet.passive] ?? pet.passive;
   const valueText = passiveValue != null ? `(${passiveValue}%)` : "";
-  const legendMark = isLegendUltimate ? "🔴" : isLegendary ? "✨" : "";
+  const legendMark = isLegendUltimate ? "🔴" : isLegendary ? "✨" : isElite ? "⭐" : "";
   addLog(`🐾${legendMark} ${def.name} を捕獲した！ ATK:${power} HP:${hp} [${label}${valueText}]`);
   updateBookUltimate();
 
+  const enemyFullName = state.enemy?.name ?? def.name;
   if (isLegendUltimate) {
     if (!state.achievements) state.achievements = {};
     state.achievements.legendUltimatePetCount = (state.achievements.legendUltimatePetCount ?? 0) + 1;
     checkAchievements();
-    showUltimatePopup(pet, "legendPet");
+    showLegendUltimatePopup({ name: enemyFullName, passive: def.passive, isBoss }, "captured", pet);
+  } else if (isLegendary) {
+    if (!state.achievements) state.achievements = {};
+    checkAchievements();
+    showLegendaryPopup({ name: enemyFullName, passive: def.passive, isBoss }, "captured", pet);
+  } else if (isElite) {
+    if (!state.achievements) state.achievements = {};
+    state.achievements.ultimatePetCount = (state.achievements.ultimatePetCount ?? 0) + 1;
+    checkAchievements();
+    showElitePopup({ name: enemyFullName }, "captured", pet);
   } else if (isUltimatePet(pet)) {
     if (!state.achievements) state.achievements = {};
     state.achievements.ultimatePetCount = (state.achievements.ultimatePetCount ?? 0) + 1;
@@ -460,7 +475,9 @@ export function equipPet(uid) {
 // ペットを外す
 export function unequipPet() {
   if (!state.player.equippedPet) return;
-  addLog(`🐾 ${state.player.equippedPet.name} を外した`);
+  const pet = state.player.equippedPet;
+  const titleName = getTitleName(pet);
+  addLog(`🐾 ${titleName}${pet.name} を外した`);
   state.player.equippedPet = null;
 }
 

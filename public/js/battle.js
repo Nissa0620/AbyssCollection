@@ -7,7 +7,7 @@ import { addLog, clearLogs } from "./log.js";
 import { saveGame } from "./saveLoad.js";
 import { registerEnemyDefeated, registerEnemySeen, updateBookUltimate, updateWeaponBookUltimate } from "./book.js";
 import { isUltimateWeapon } from "./drop.js";
-import { showUltimatePopup, showLegendaryPopup, showLegendUltimatePopup } from "./ui.js";
+import { showUltimatePopup, showElitePopup, showLegendaryPopup, showLegendUltimatePopup } from "./ui.js";
 import { checkAchievements } from "./achievements.js";
 import { registerWeaponDropped } from "./weaponBook.js";
 import { tryCatch, hasDoubleAttack, hasTripleAttack, hasSurvivePassive, hasLegendSurvive, hasResurrection, hasLegendResurrection, getDropMultiplier, getDmgBoostMultiplier, getDmgReduceMultiplier, getReflectDamage, getLegendReflectDamage, getDrainHeal, getLegendDrainHeal, getCritMultiplier, getExtraHitDamage, getLegendExtraHitDamage, getGiantKillerMultiplier, getBossSlayerMultiplier, tryEvade, tryLegendEvade, getLastStandMultiplier, getLegendLastStandMultiplier, getRegenHeal } from "./pet.js";
@@ -187,7 +187,7 @@ function defeatEnemy() {
   registerEnemyDefeated(state.enemy.enemyId, state.enemy.titleId, state.enemy.baseName, state.enemy.titleName, state.enemy.isBoss, state.enemy.name);
 
   // 捕獲判定
-  tryCatch(state.enemy.enemyId, state.enemy.isBoss, state.enemy.titleId, state.enemy.isLegendary ?? false, state.enemy.isLegendUltimate ?? false);
+  tryCatch(state.enemy.enemyId, state.enemy.isBoss, state.enemy.titleId, state.enemy.isLegendary ?? false, state.enemy.isLegendUltimate ?? false, state.enemy.isElite ?? false);
 
   // ドロップ判定（ドロップ率上昇パッシブを反映）
   const isBoss = state.enemy.isBoss;
@@ -268,9 +268,10 @@ export function createEnemy() {
   const possibleEnemies = normalEnemies.filter((e) => e.floorBand === floorBandKey);
   const base = possibleEnemies[Math.floor(Math.random() * possibleEnemies.length)];
 
-  // レジェンダリー出現判定（2%）、究極個体はlegendary中の10%（実質0.2%）
+  // レジェンダリー出現判定（2%）、究極個体はlegendary中の10%（実質0.2%）、極個体（0.5%）
   const isLegendary = base.passive && legendaryTitles[base.passive] && Math.random() < 0.02;
   const isLegendUltimate = isLegendary && Math.random() < 0.1;
+  const isElite = !isLegendary && Math.random() < 0.005;
 
   const bossBonus = Math.floor(state.floor / 10) * 3;
   const hpScale = 1 + state.floor * 0.3 + bossBonus;
@@ -313,6 +314,7 @@ export function createEnemy() {
     isBoss: false,
     isLegendary,
     isLegendUltimate,
+    isElite,
   };
 
   if (!isLegendary) {
@@ -323,10 +325,13 @@ export function createEnemy() {
   registerEnemySeen(base.id, base.name, false);
   if (isLegendUltimate) {
     addLog("🔴【究極個体】" + state.enemy.name + " が出現した！");
-    showLegendUltimatePopup({ name: state.enemy.name, passive: base.passive, isBoss: false });
+    showLegendUltimatePopup({ name: state.enemy.name, passive: base.passive, isBoss: false }, "appear");
   } else if (isLegendary) {
     addLog("✨【伝説】" + state.enemy.name + " が出現した！");
-    showLegendaryPopup({ name: state.enemy.name, passive: base.passive, isBoss: false });
+    showLegendaryPopup({ name: state.enemy.name, passive: base.passive, isBoss: false }, "appear");
+  } else if (isElite) {
+    addLog("⭐【極個体】" + state.enemy.name + " が出現した！");
+    showElitePopup({ name: state.enemy.name }, "appear");
   } else {
     addLog(state.enemy.name + " が出現した！");
   }
@@ -337,9 +342,10 @@ function createBossEnemy(bossEnemyId) {
   const base = bossEnemies.find((e) => e.id === bossEnemyId);
   if (!base) return null;
 
-  // レジェンダリー出現判定（1%）、究極個体はlegendary中の10%（実質0.1%）
+  // レジェンダリー出現判定（1%）、究極個体はlegendary中の10%（実質0.1%）、極個体（0.25%）
   const isLegendary = base.passive && legendaryTitles[base.passive] && Math.random() < 0.01;
   const isLegendUltimate = isLegendary && Math.random() < 0.1;
+  const isElite = !isLegendary && Math.random() < 0.0025;
 
   // フロア帯基準値 × 敵比率（titleGroupの参照より先に宣言）
   const band = floorTable[base.floorBand];
@@ -384,15 +390,19 @@ function createBossEnemy(bossEnemyId) {
     isBoss: true,
     isLegendary,
     isLegendUltimate,
+    isElite,
   };
   clearLogs();
   registerEnemySeen(base.id, base.name, true);
   if (isLegendUltimate) {
     addLog("🔴【究極個体ボス】" + state.enemy.name + " が出現した！");
-    showLegendUltimatePopup({ name: state.enemy.name, passive: base.passive, isBoss: true });
+    showLegendUltimatePopup({ name: state.enemy.name, passive: base.passive, isBoss: true }, "appear");
   } else if (isLegendary) {
     addLog("✨⚠️【伝説ボス】" + state.enemy.name + " が出現した！");
-    showLegendaryPopup({ name: state.enemy.name, passive: base.passive, isBoss: true });
+    showLegendaryPopup({ name: state.enemy.name, passive: base.passive, isBoss: true }, "appear");
+  } else if (isElite) {
+    addLog("⭐⚠️【極個体ボス】" + state.enemy.name + " が出現した！");
+    showElitePopup({ name: state.enemy.name, isBoss: true }, "appear");
   } else {
     addLog("⚠️ ボス " + state.enemy.name + " が出現した！");
   }

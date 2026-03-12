@@ -35,8 +35,8 @@ export function updateDisplay(player, enemy) {
   document.getElementById("playerAttack").textContent =
     "攻撃力 : " + player.totalPower;
 
-  document.getElementById("nextExp").textContent =
-    "次のレベルまで：" + player.nextExp;
+  const nextExpEl = document.getElementById("nextExp");
+  if (nextExpEl) nextExpEl.textContent = "";
 }
 
 // インベントリ表示処理
@@ -445,17 +445,33 @@ function renderEnemyBook(buffEl, contentEl) {
     contentEl.appendChild(section);
   }
 
-  addSectionHeader("通常の敵");
-  normalEnemies.forEach((enemyDef) => {
-    const titlePool = enemyTitles[enemyDef.titleGroup] ?? Object.values(enemyTitles)[0] ?? [];
-    renderEnemyEntry(enemyDef, titlePool);
-  });
+  // 通常/ボス サブタブ
+  const subTab = state.ui.bookEnemySubTab ?? "normal";
+  const tabBar = document.createElement("div");
+  tabBar.className = "book-enemy-subtabs";
+  const tabNormal = document.createElement("button");
+  tabNormal.className = "book-enemy-subtab" + (subTab === "normal" ? " active" : "");
+  tabNormal.textContent = "通常の敵";
+  const tabBoss = document.createElement("button");
+  tabBoss.className = "book-enemy-subtab" + (subTab === "boss" ? " active" : "");
+  tabBoss.textContent = "ボス";
+  tabNormal.addEventListener("click", () => { state.ui.bookEnemySubTab = "normal"; renderBook("enemies"); });
+  tabBoss.addEventListener("click",   () => { state.ui.bookEnemySubTab = "boss";   renderBook("enemies"); });
+  tabBar.appendChild(tabNormal);
+  tabBar.appendChild(tabBoss);
+  contentEl.appendChild(tabBar);
 
-  addSectionHeader("ボス");
-  bossEnemies.forEach((enemyDef) => {
-    const titlePool = bossTitles[enemyDef.titleGroup] ?? [];
-    renderEnemyEntry(enemyDef, titlePool);
-  });
+  if (subTab === "normal") {
+    normalEnemies.forEach((enemyDef) => {
+      const titlePool = enemyTitles[enemyDef.titleGroup] ?? Object.values(enemyTitles)[0] ?? [];
+      renderEnemyEntry(enemyDef, titlePool);
+    });
+  } else {
+    bossEnemies.forEach((enemyDef) => {
+      const titlePool = bossTitles[enemyDef.titleGroup] ?? [];
+      renderEnemyEntry(enemyDef, titlePool);
+    });
+  }
 }
 
 function renderWeaponBook(buffEl, contentEl) {
@@ -914,33 +930,93 @@ export function showUltimatePopup(entity, type) {
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
 }
-export function showLegendaryPopup(enemy) {
-  const overlay = document.getElementById("legendaryOverlay");
-  const subEl   = document.getElementById("legendarySub");
-  const nameEl  = document.getElementById("legendaryName");
-  const skillEl = document.getElementById("legendarySkill");
+export function showLegendaryPopup(enemy, mode = "appear", pet = null) {
+  const overlay  = document.getElementById("legendaryOverlay");
+  const subEl    = document.getElementById("legendarySub");
+  const nameEl   = document.getElementById("legendaryName");
+  const skillEl  = document.getElementById("legendarySkill");
+  const statsEl  = document.getElementById("legendaryCaptureStats");
   if (!overlay || !nameEl || !skillEl) return;
 
   const legendTitleName = legendaryTitles[enemy.passive]?.name ?? "";
-  subEl.textContent  = enemy.isBoss ? "伝説のボスが現れた！" : "伝説の個体が現れた！";
-  nameEl.textContent = enemy.name;
-  skillEl.textContent = legendTitleName ? `【${legendTitleName}】の加護を持つ` : "";
+  overlay.dataset.mode = mode;
+
+  if (mode === "captured") {
+    subEl.textContent = enemy.isBoss ? "🎉 伝説のボスを捕獲した！" : "🎉 伝説の個体を捕獲した！";
+    nameEl.textContent = enemy.name;
+    skillEl.textContent = legendTitleName ? `【${legendTitleName}】の加護を持つ` : "";
+    if (statsEl && pet) {
+      const passive = passiveLabelText(pet);
+      const pval = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
+      statsEl.textContent = `ATK ${pet.power} ／ HP ${pet.hp} ／ ${passive}${pval}`;
+      statsEl.classList.remove("hidden");
+    }
+  } else {
+    subEl.textContent = enemy.isBoss ? "伝説のボスが現れた！" : "伝説の個体が現れた！";
+    nameEl.textContent = enemy.name;
+    skillEl.textContent = legendTitleName ? `【${legendTitleName}】の加護を持つ` : "";
+    if (statsEl) statsEl.classList.add("hidden");
+  }
 
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
 }
 
-export function showLegendUltimatePopup(enemy) {
-  const overlay = document.getElementById("legendUltimateOverlay");
-  const subEl   = document.getElementById("legendUltimateSub");
-  const nameEl  = document.getElementById("legendUltimateName");
-  const skillEl = document.getElementById("legendUltimateSkill");
+export function showLegendUltimatePopup(enemy, mode = "appear", pet = null) {
+  const overlay  = document.getElementById("legendUltimateOverlay");
+  const subEl    = document.getElementById("legendUltimateSub");
+  const nameEl   = document.getElementById("legendUltimateName");
+  const skillEl  = document.getElementById("legendUltimateSkill");
+  const statsEl  = document.getElementById("legendUltimateCaptureStats");
   if (!overlay || !nameEl || !skillEl) return;
 
   const legendTitleName = legendaryTitles[enemy.passive]?.name ?? "";
-  subEl.textContent  = enemy.isBoss ? "究極のボスが現れた！" : "究極個体が現れた！";
-  nameEl.textContent = enemy.name;
-  skillEl.textContent = legendTitleName ? `【${legendTitleName}】の加護を持つ` : "";
+  overlay.dataset.mode = mode;
+
+  if (mode === "captured") {
+    subEl.textContent = enemy.isBoss ? "🎉 究極のボスを捕獲した！" : "🎉 究極個体を捕獲した！";
+    nameEl.textContent = enemy.name;
+    skillEl.textContent = legendTitleName ? `【${legendTitleName}】の加護を持つ` : "";
+    if (statsEl && pet) {
+      const passive = passiveLabelText(pet);
+      const pval = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
+      statsEl.textContent = `ATK ${pet.power} ／ HP ${pet.hp} ／ ${passive}${pval}`;
+      statsEl.classList.remove("hidden");
+    }
+  } else {
+    subEl.textContent = enemy.isBoss ? "究極のボスが現れた！" : "究極個体が現れた！";
+    nameEl.textContent = enemy.name;
+    skillEl.textContent = legendTitleName ? `【${legendTitleName}】の加護を持つ` : "";
+    if (statsEl) statsEl.classList.add("hidden");
+  }
+
+  overlay.classList.remove("hidden");
+  overlay.onclick = () => overlay.classList.add("hidden");
+}
+
+export function showElitePopup(enemy, mode = "appear", pet = null) {
+  const overlay = document.getElementById("eliteOverlay");
+  const subEl   = document.getElementById("eliteSub");
+  const nameEl  = document.getElementById("eliteName");
+  const statsEl = document.getElementById("eliteStats");
+  if (!overlay || !nameEl) return;
+
+  overlay.dataset.mode = mode;
+
+  if (mode === "captured") {
+    subEl.textContent = enemy.isBoss ? "🎉 極個体のボスを捕獲した！" : "🎉 極個体を捕獲した！";
+    nameEl.textContent = enemy.name;
+    if (statsEl && pet) {
+      const passive = passiveLabelText(pet);
+      const pval = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
+      statsEl.textContent = `ATK ${pet.power} ／ HP ${pet.hp} ／ ${passive}${pval}`;
+      statsEl.classList.remove("hidden");
+    }
+  } else {
+    subEl.textContent = enemy.isBoss ? "極個体のボスが現れた！" : "極個体が現れた！";
+    nameEl.textContent = enemy.name;
+    if (statsEl) statsEl.classList.add("hidden");
+  }
 
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");

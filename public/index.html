@@ -32,7 +32,6 @@
             <div class="status-card-label">PLAYER</div>
             <p id="playerHp"></p>
             <p id="playerAttack"></p>
-            <div id="nextExp"></div>
           </div>
           <div class="enemy-status status-card">
             <div class="status-card-label">ENEMY</div>
@@ -184,6 +183,7 @@
         <div class="legendary-modal-sub" id="legendarySub"></div>
         <div class="legendary-modal-name" id="legendaryName"></div>
         <div class="legendary-modal-skill" id="legendarySkill"></div>
+        <div class="legendary-modal-capture-stats hidden" id="legendaryCaptureStats"></div>
         <div class="legendary-modal-hint">タップして閉じる</div>
       </div>
     </div>
@@ -195,7 +195,19 @@
         <div class="legend-ultimate-modal-sub" id="legendUltimateSub"></div>
         <div class="legend-ultimate-modal-name" id="legendUltimateName"></div>
         <div class="legend-ultimate-modal-skill" id="legendUltimateSkill"></div>
+        <div class="legend-ultimate-modal-capture-stats hidden" id="legendUltimateCaptureStats"></div>
         <div class="legend-ultimate-modal-hint">タップして閉じる</div>
+      </div>
+    </div>
+
+    <!-- 極個体ポップアップ（琥珀） -->
+    <div id="eliteOverlay" class="elite-overlay hidden">
+      <div class="elite-modal">
+        <div class="elite-modal-label">⭐ 極個体 ⭐</div>
+        <div class="elite-modal-sub" id="eliteSub"></div>
+        <div class="elite-modal-name" id="eliteName"></div>
+        <div class="elite-modal-stats hidden" id="eliteStats"></div>
+        <div class="elite-modal-hint">タップして閉じる</div>
       </div>
     </div>
 
