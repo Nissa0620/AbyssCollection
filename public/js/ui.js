@@ -662,7 +662,11 @@ export function updatePetPanel(onPetClick) {
 
     const li = document.createElement("li");
     const isUltP = isUltimatePet(pet);
-    li.className = "pet-item" + (isEquipped ? " equipped" : "") + (isUltP ? " ultimate" : "");
+    li.className = "pet-item" + (isEquipped ? " equipped" : "");
+    if (pet.isLegendUltimate) li.classList.add("pet-legend-ultimate");
+    else if (pet.isLegendary)  li.classList.add("pet-legendary");
+    else if (pet.isElite)      li.classList.add("pet-elite");
+    else if (isUltP)           li.classList.add("ultimate");
     if (isBase) li.classList.add("synth-base");
     else if (isMaterial) li.classList.add("synth-material");
 
