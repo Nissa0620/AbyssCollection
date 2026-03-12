@@ -362,8 +362,14 @@ function renderEnemyBook(buffEl, contentEl) {
     const area = Object.entries(floorTable).find(
       ([bandKey]) => bandKey === enemyDef.floorBand
     )?.[1];
-    const hasDefeatedAny = entry && titlePool.some((title) => entry.titles?.[title.id]?.defeated);
-    const floorText = hasDefeatedAny && area ? `${area.min}〜${area.max}階` : "不明";
+    const legendDef = enemyDef.passive ? legendaryTitles[enemyDef.passive] : null;
+    const hasDefeatedAny = entry && (
+      titlePool.some((title) => entry.titles?.[title.id]?.defeated) ||
+      !!entry.titles?.[5]?.defeated
+    );
+    const floorText = hasDefeatedAny
+      ? (enemyDef.isBoss ? `${enemyDef.bossFloors?.[0]}階` : (area ? `${area.min}〜${area.max}階` : "不明"))
+      : "不明";
 
     const section = document.createElement("div");
     section.className = "book-enemy";
@@ -406,9 +412,25 @@ function renderEnemyBook(buffEl, contentEl) {
         })
         .join("");
 
+      const legendEntry = entry.titles?.[5];
+      const legendHtml = legendDef && legendEntry?.seen ? (() => {
+        const displayName = enemyDef.isBoss
+          ? `✨ ${legendDef.name}・支配者の${entry.name}`
+          : `✨ ${legendDef.name}・深淵の${entry.name}`;
+        const isCaught = state.player.petList.some(
+          (p) => p.enemyId === enemyDef.id && p.isBoss === !!enemyDef.isBoss && p.isLegendary
+        );
+        const caughtBadge = isCaught ? ` <span class="book-caught">捕獲済</span>` : "";
+        if (legendEntry.defeated) {
+          return `<div class="book-title-row defeated legendary-row"><span>${displayName}</span><span class="book-title-buff"></span><span>撃破済${caughtBadge}</span></div>`;
+        } else {
+          return `<div class="book-title-row seen legendary-row"><span>${displayName}</span><span class="book-title-buff"></span><span>遭遇済${caughtBadge}</span></div>`;
+        }
+      })() : "";
+
       detail.innerHTML = `
         <div class="book-enemy-meta">出現：${floorText}　遭遇：${entry.seenCount} / 撃破：${entry.defeatedCount}</div>
-        ${titlesHtml}
+        ${titlesHtml}${legendHtml}
       `;
     }
 
