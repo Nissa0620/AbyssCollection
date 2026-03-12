@@ -27,7 +27,7 @@ export function registerEnemySeen(enemyId, enemyName, isBoss = false) {
 }
 
 // 撃破時に敵の情報を登録・更新
-export function registerEnemyDefeated(enemyId, titleId, enemyName, titleName, isBoss = false) {
+export function registerEnemyDefeated(enemyId, titleId, enemyName, titleName, isBoss = false, fullDisplayName = null) {
   const enemiesBook = state.book.enemies;
   const key = bookKey(enemyId, isBoss);
 
@@ -46,7 +46,7 @@ export function registerEnemyDefeated(enemyId, titleId, enemyName, titleName, is
 
   if (!entry.titles[titleId]) {
     entry.titles[titleId] = { seen: true, defeated: false };
-    addLog(`📘 ${titleName}${enemyName}を図鑑に登録した`);
+    addLog(`📘 ${fullDisplayName ?? (titleName + enemyName)}を図鑑に登録した`);
   }
 
   entry.titles[titleId].seen = true;

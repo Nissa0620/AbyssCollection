@@ -184,7 +184,7 @@ export function enemyAttack() {
 
 function defeatEnemy() {
   addLog(state.enemy.name + " を撃破");
-  registerEnemyDefeated(state.enemy.enemyId, state.enemy.titleId, state.enemy.baseName, state.enemy.titleName, state.enemy.isBoss);
+  registerEnemyDefeated(state.enemy.enemyId, state.enemy.titleId, state.enemy.baseName, state.enemy.titleName, state.enemy.isBoss, state.enemy.name);
 
   // 捕獲判定
   tryCatch(state.enemy.enemyId, state.enemy.isBoss, state.enemy.titleId, state.enemy.isLegendary ?? false, state.enemy.isLegendUltimate ?? false);
