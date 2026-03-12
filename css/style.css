@@ -1,0 +1,1345 @@
+/* ===== 基本設定 ===== */
+body {
+  margin: 0;
+  background: #0e0e0e;
+  font-family: "Segoe UI", sans-serif;
+  color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+/* 全体コンテナ */
+.game-container {
+  width: 100%;
+  max-width: 480px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: #1a1a1a;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* 隠す用 */
+.hidden {
+  display: none;
+}
+
+/* タイトル */
+.title-area {
+  position: relative; /* floorDisplayの基準 */
+  padding: 8px 0;
+  text-align: center;
+}
+
+/* ===== ステータスエリア ===== */
+.status-panel {
+  background: #242424;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  position: relative;
+  border: 1px solid #404040;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.status-card {
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 10px 12px;
+  min-height: 80px;
+  border: 1px solid #333;
+}
+
+.status-card-label {
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #404040;
+}
+
+.player-status .status-card-label {
+  color: #6ab0ff;
+}
+
+.enemy-status .status-card-label {
+  color: #ff7070;
+}
+
+.player-status p,
+.enemy-status p {
+  margin: 3px 0;
+  font-size: 13px;
+  color: #ddd;
+}
+
+/* プレイヤーレベル + EXPバー */
+#playerLevelExp {
+  display: block;
+  margin-bottom: 8px;
+}
+
+#playerLevel {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+#expContainer {
+  width: 100%;
+  height: 12px;
+  border: 1px solid #555;
+  background: #222;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#expBar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(to right, #0a6d0a, #094d09); /* 暗めの緑グラデ */
+  transition: width 0.3s ease;
+}
+
+/* HP / 攻撃表示 */
+#playerHp,
+#enemyHp,
+#playerAttack,
+#enemyName {
+  margin: 3px 0;
+  font-size: 13px;
+  color: #ddd;
+}
+
+#enemyName {
+  font-weight: bold;
+  color: #fff;
+}
+
+#nextExp {
+  font-size: 11px;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* 階層表示 */
+#floorDisplay {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: #333; /* 少し暗めに */
+  border: 1px solid #555;
+  color: #ddd; /* 文字を柔らかく */
+  padding: 2px 6px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+
+.floor-jump {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* プルダウン */
+#floorJumpSelect {
+  background: #2b2b2b;
+  border: 1px solid #444;
+  color: #ddd;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 4px;
+  outline: none;
+}
+
+/* フォーカス時 */
+#floorJumpSelect:focus {
+  border-color: #777;
+}
+
+/* ボタン */
+#floorJumpBtn {
+  background: #323232;
+  border: 1px solid #505050;
+  color: #dddddd;
+  padding: 6px 14px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* ホバー */
+#floorJumpBtn:hover {
+  background: #3a3a3a;
+  border-color: #777;
+}
+
+/* 押したとき */
+#floorJumpBtn:active {
+  background: #2a2a2a;
+}
+
+/* ===== ボタン ===== */
+button {
+  border: 1px solid #484848;
+  border-radius: 8px;
+  background: #323232;
+  color: #cccccc;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* メインアクションボタン */
+.action-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.action-row {
+  display: flex;
+  gap: 6px;
+}
+
+.action-row button {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.action-row-attack button {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 10px;
+}
+
+.stay-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #aaa;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+
+.stay-label input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: #5a9aff;
+  cursor: pointer;
+}
+
+#attackBtn {
+  background: #5a1a1a;
+  color: #ffcccc;
+  border: 1px solid #7a2a2a;
+}
+
+#attackBtn:active {
+  transform: translateY(2px);
+}
+
+#inventoryToggleBtn {
+  background: #323232;
+  color: #cccccc;
+  border: 1px solid #484848;
+}
+
+#petToggleBtn {
+  background: #323232;
+  color: #cccccc;
+  border: 1px solid #484848;
+}
+
+#bookBtn {
+  background: #323232;
+  color: #cccccc;
+  border: 1px solid #484848;
+}
+
+#statusBtn {
+  background: #323232;
+  color: #cccccc;
+  border: 1px solid #484848;
+}
+
+.action-panel button:hover {
+  filter: brightness(1.2);
+}
+
+.action-panel button:active {
+  transform: scale(0.96);
+  filter: brightness(0.85);
+}
+
+/* ===== ログパネル ===== */
+.log-panel {
+  background: #0e0e0e;
+  border: 1px solid #383838;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 14px;
+  color: #ccc;
+  transition: height 0.3s ease;
+}
+
+.log-panel.log-compact {
+  height: 100px;
+}
+
+.log-panel div {
+  margin-bottom: 4px;
+}
+
+.log-normal {
+  color: #aaa;
+}
+.log-damage {
+  color: #ff4d4d;
+  font-weight: bold;
+}
+.log-hit {
+  color: #ff944d;
+}
+.log-drop {
+  color: #d4af37;
+}
+
+/* ===== インベントリ ===== */
+.inventory-panel {
+  margin-top: 15px;
+}
+
+.inventory-panel ul {
+  list-style: none;
+  padding: 0;
+}
+
+.inventory-panel li {
+  background: #2e2e2e;
+  padding: 5px;
+  margin: 3px 0;
+  border-radius: 5px;
+  border: 1px solid #3e3e3e;
+}
+
+/* インベントリ上の操作ボタン */
+.inventory-panel button {
+  background: #323232;
+  border: 1px solid #505050;
+  color: #dddddd;
+  padding: 6px 12px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.inventory-panel button:hover {
+  background: #404040;
+  color: #ffffff;
+}
+
+/* 合成ボタン */
+#synthesizeBtn {
+  display: none;
+}
+
+/* インベントリツールバー */
+.inventory-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.inventory-toolbar button,
+.inventory-toolbar select {
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+/* 合成ヒントテキスト */
+#synthesisInfo {
+  margin-bottom: 8px;
+}
+
+.synth-hint-text {
+  display: block;
+  font-size: 12px;
+  color: #aaa;
+  padding: 6px 10px;
+  background: #181818;
+  border-radius: 6px;
+  border-left: 3px solid #505050;
+}
+
+/* 合成元（ベース）: ダーク青 */
+.synth-base {
+  border: none;
+  background: #1e2a3a;
+  box-shadow: 0 0 0 1px #3a5878;
+}
+
+/* 合成素材: ダーク赤 */
+.synth-material {
+  border: none;
+  background: #2e1a1a;
+  box-shadow: 0 0 0 1px #6a3030;
+}
+
+/* 合成ボタン（アクティブ時） */
+#synthesizeBtn:not(:disabled) {
+  background: #3a3a3a;
+  color: #dddddd;
+  border: 1px solid #585858;
+}
+
+#synthesizeBtn:disabled {
+  background: #242424;
+  color: #505050;
+  cursor: not-allowed;
+}
+
+/* ===== 図鑑ポップアップ ===== */
+.book-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.book-overlay.hidden {
+  display: none;
+}
+
+.book-modal {
+  background: #1e1e1e;
+  border: 1px solid #484848;
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 400px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.book-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #444;
+}
+
+.book-header h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.book-header button {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.book-buff-summary {
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #aad4ff;
+  border-bottom: 1px solid #444;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.book-buff-summary div:first-child {
+  font-size: 13px;
+  font-weight: normal;
+  color: #fff;
+}
+
+.book-content {
+  overflow-y: auto;
+  padding: 12px 16px;
+  flex: 1;
+}
+
+.book-enemy {
+  margin-bottom: 16px;
+}
+
+/* ===== 説明モーダル アコーディオン ===== */
+.accordion-item {
+  border-bottom: 1px solid #333;
+}
+
+.accordion-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #e0e0e0;
+  text-align: left;
+  padding: 10px 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-btn:hover {
+  color: #aad4ff;
+}
+
+.accordion-arrow {
+  font-size: 12px;
+  color: #888;
+}
+
+.accordion-body {
+  padding: 4px 4px 12px;
+}
+
+.accordion-body.hidden {
+  display: none;
+}
+
+.help-section-label {
+  color: #aad4ff;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 10px 0 4px;
+}
+
+.help-list {
+  margin: 0;
+  padding: 0;
+}
+
+.help-list dt {
+  color: #ffe082;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+.help-list dd {
+  color: #bbb;
+  font-size: 11px;
+  margin: 2px 0 0 8px;
+}
+
+.book-enemy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  padding: 6px 8px;
+  background: #2e2e2e;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+
+.book-enemy-header.completed {
+  background: #3a3000;
+  border: 1px solid #8a6d00;
+  color: #f5c842;
+}
+
+.book-enemy-header.completed:hover {
+  background: #443600;
+}
+
+.book-enemy-header:not(.completed):hover {
+  background: #3a3a3a;
+}
+
+.book-toggle {
+  font-size: 11px;
+  color: #888;
+}
+
+.book-enemy-detail {
+  padding: 6px 8px 10px;
+  border-left: 2px solid #444;
+  margin-left: 8px;
+  margin-bottom: 8px;
+}
+
+.book-enemy-meta {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+.book-title-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  background: #2a2a2a;
+  color: #cccccc;
+}
+
+.book-title-row.seen {
+  color: #fff;
+}
+
+.book-title-row.defeated {
+  color: #f5c842;
+}
+
+.book-title-unknown {
+  font-size: 12px;
+  padding: 3px 8px;
+  color: #555;
+  background: #2a2a2a;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+
+.book-title-buff {
+  font-size: 11px;
+  color: #aad4ff;
+  margin: 0 8px;
+}
+
+.book-section-header {
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #888;
+  padding: 8px 4px 4px;
+  border-bottom: 1px solid #3a3a3a;
+  margin-bottom: 8px;
+  margin-top: 4px;
+}
+
+.book-enemy-header.boss {
+  border-left: 3px solid #c0392b;
+}
+
+.book-enemy-header.boss.completed {
+  border-left: 3px solid #f39c12;
+}
+/* ===== 図鑑タブ ===== */
+.book-tabs {
+  display: flex;
+  border-bottom: 1px solid #444;
+}
+
+.book-tab {
+  flex: 1;
+  padding: 8px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #888;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.book-tab.active {
+  color: #fff;
+  border-bottom: 2px solid #aad4ff;
+}
+
+/* ===================== */
+/* ペットパネル           */
+/* ===================== */
+.equipped-pet-info {
+  margin-bottom: 8px;
+}
+
+.equipped-pet {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: #1a2820;
+  border: 1px solid #2e4a36;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.equipped-pet.ultimate {
+  background: #1e1a0e;
+  border: 1px solid #3e3520;
+  border-left: 3px solid #c8a030;
+}
+
+.equipped-pet > button {
+  align-self: flex-start;
+}
+
+.equipped-pet-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 1em;
+}
+
+.equipped-pet-empty {
+  color: #666;
+  font-size: 12px;
+  padding: 6px 0;
+}
+
+.pet-item {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #2a2a2a;
+  border: 1px solid #383838;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.pet-item.equipped {
+  border: 1px solid #304a38;
+  background: #1a2820;
+}
+
+.pet-name {
+  flex: 1;
+  min-width: 80px;
+}
+
+.pet-atk {
+  color: #f39c12;
+  font-size: 12px;
+}
+
+.pet-passive {
+  color: #aad4ff;
+  font-size: 12px;
+}
+
+.pet-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.pet-equip-btn,
+.pet-unequip-btn,
+.pet-release-btn {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.pet-equip-btn {
+  background: #2d6a4f;
+  color: #fff;
+}
+
+.pet-unequip-btn {
+  background: #555;
+  color: #fff;
+}
+
+.pet-release-btn {
+  background: #7b2d2d;
+  color: #fff;
+}
+
+.weapon-level {
+  color: #7ab0d0;
+  font-size: 11px;
+  margin-left: 2px;
+}
+
+.weapon-unequip-btn {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  background: #555;
+  color: #fff;
+}
+
+/* ペット合成プレビュー */
+.synth-preview-text {
+  font-size: 13px;
+  color: #f5c842;
+  padding: 4px 10px;
+  min-height: 20px;
+}
+
+/* ペット強化値 */
+.pet-bonus {
+  color: #7ab8e0;
+  font-size: 11px;
+}
+
+/* ペット強化称号 */
+.pet-bonus-title {
+  font-size: 10px;
+  color: #c8a030;
+  margin-left: 4px;
+}
+
+/* 図鑑：捕獲済バッジ */
+.book-caught {
+  color: #5a9e6a;
+  font-size: 11px;
+  margin-left: 6px;
+}
+
+/* ペット称号バッジ */
+.pet-title-badge {
+  font-size: 10px;
+  color: #c8a030;
+  margin-left: 4px;
+}
+
+/* 装備中ペット：名前行とステータス行 */
+.equipped-pet-name {
+  font-size: 13px;
+}
+.equipped-pet-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 1.2em;
+}
+.equipped-pet-stats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #f39c12;
+  flex: 1;
+}
+
+/* ステータス画面 */
+.status-detail-content {
+  padding: 8px 4px;
+}
+.status-detail-section {
+  margin-bottom: 16px;
+}
+.status-detail-heading {
+  font-size: 13px;
+  font-weight: bold;
+  color: #aad4ff;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #2a4060;
+}
+.status-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 4px 0;
+  font-size: 13px;
+  border-bottom: 1px solid #1a2a3a;
+}
+.status-detail-label {
+  color: #aaa;
+}
+.status-detail-value {
+  color: #fff;
+  text-align: right;
+}
+.status-detail-sub {
+  font-size: 10px;
+  color: #666;
+  margin-left: 6px;
+}
+
+/* フィルタセレクト */
+.inventory-toolbar select {
+  background: #2a2a2a;
+  border: 1px solid #484848;
+  color: #cccccc;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  outline: none;
+}
+
+.inventory-toolbar select:focus {
+  border-color: #686868;
+}
+
+/* 究極個体 */
+.pet-item.ultimate {
+  background: #1e1a0e;
+  border: 1px solid #3e3520;
+  border-left: 3px solid #c8a030;
+}
+
+.pet-item.ultimate.equipped {
+  background: #1a2010;
+  border: 1px solid #304020;
+  border-left: 3px solid #c8a030;
+}
+
+/* 図鑑 究極バッジ */
+.book-ultimate {
+  font-size: 14px;
+  color: #c8a030;
+  margin-left: 6px;
+  letter-spacing: 0;
+}
+
+/* 極個体ポップアップ */
+.ultimate-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  cursor: pointer;
+  animation: ultimate-bg-in 0.3s ease;
+}
+
+.ultimate-overlay.hidden {
+  display: none;
+}
+
+@keyframes ultimate-bg-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.ultimate-modal {
+  background: #1a1508;
+  border: 1px solid #8a6a20;
+  border-radius: 10px;
+  padding: 28px 32px;
+  text-align: center;
+  min-width: 260px;
+  max-width: 340px;
+  animation: ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 16px rgba(200, 160, 48, 0.5), 0 0 40px rgba(200, 160, 48, 0.2), 0 0 80px rgba(0,0,0,0.8);
+}
+
+@keyframes ultimate-modal-in {
+  from { transform: scale(0.8); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.ultimate-modal-label {
+  font-size: 22px;
+  font-weight: bold;
+  color: #c8a030;
+  letter-spacing: 4px;
+  margin-bottom: 6px;
+}
+
+.ultimate-modal-sub {
+  font-size: 12px;
+  color: #8a7040;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.ultimate-modal-name {
+  font-size: 18px;
+  color: #e8c86a;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.ultimate-modal-stats {
+  font-size: 13px;
+  color: #f39c12;
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.ultimate-modal-hint {
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 1px;
+}
+
+/* =====================
+   レジェンダリー出現モーダル
+   ===================== */
+
+.legendary-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 0, 40, 0.82);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 210;
+  cursor: pointer;
+  animation: ultimate-bg-in 0.3s ease;
+}
+
+.legendary-overlay.hidden {
+  display: none;
+}
+
+.legendary-modal {
+  background: #120820;
+  border: 1px solid #8b40c8;
+  border-radius: 10px;
+  padding: 28px 32px;
+  text-align: center;
+  min-width: 260px;
+  max-width: 340px;
+  animation: ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 16px rgba(160, 80, 240, 0.6), 0 0 40px rgba(120, 40, 200, 0.3), 0 0 80px rgba(0,0,0,0.8);
+}
+
+.legendary-modal-label {
+  font-size: 22px;
+  font-weight: bold;
+  color: #c080ff;
+  letter-spacing: 4px;
+  margin-bottom: 6px;
+}
+
+.legendary-modal-sub {
+  font-size: 12px;
+  color: #7a50a0;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.legendary-modal-name {
+  font-size: 18px;
+  color: #e0a8ff;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.legendary-modal-skill {
+  font-size: 13px;
+  color: #c080ff;
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.legendary-modal-hint {
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 1px;
+}
+/* =====================
+   究極個体オーバーレイ（赤）
+   ===================== */
+
+.legend-ultimate-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(40, 0, 0, 0.88);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 215;
+  cursor: pointer;
+  animation: ultimate-bg-in 0.3s ease;
+}
+
+.legend-ultimate-overlay.hidden {
+  display: none;
+}
+
+.legend-ultimate-modal {
+  background: #1a0000;
+  border: 2px solid #c82020;
+  border-radius: 10px;
+  padding: 28px 32px;
+  text-align: center;
+  min-width: 260px;
+  max-width: 340px;
+  animation: ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 20px rgba(220, 40, 40, 0.7), 0 0 50px rgba(180, 0, 0, 0.4), 0 0 80px rgba(0,0,0,0.8);
+}
+
+.legend-ultimate-modal-label {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ff4444;
+  letter-spacing: 4px;
+  margin-bottom: 6px;
+}
+
+.legend-ultimate-modal-sub {
+  font-size: 12px;
+  color: #883333;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+.legend-ultimate-modal-name {
+  font-size: 18px;
+  color: #ffaaaa;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.legend-ultimate-modal-skill {
+  font-size: 13px;
+  color: #ff6666;
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.legend-ultimate-modal-hint {
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 1px;
+}
+
+/* =====================
+   実績システム
+   ===================== */
+
+.achievement-summary {
+  text-align: center;
+  padding: 8px;
+  font-size: 0.9rem;
+  color: #aaa;
+  border-bottom: 1px solid #333;
+  margin-bottom: 8px;
+}
+
+.achievement-category-label {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #f0c040;
+  padding: 10px 12px 4px;
+  letter-spacing: 0.05em;
+}
+
+.achievement-list {
+  list-style: none;
+  padding: 0 8px;
+  margin: 0 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #1e1e2e;
+  border: 1px solid #333;
+}
+
+.achievement-item.achievement-done {
+  border-color: #f0c040;
+  background: #1e1a0e;
+}
+
+.achievement-item.achievement-locked {
+  opacity: 0.6;
+}
+
+.achievement-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.achievement-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.achievement-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.achievement-item.achievement-done .achievement-label {
+  color: #f0c040;
+}
+
+.achievement-desc {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* 実績達成通知ポップアップ */
+.achievement-popup {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  pointer-events: none;
+  width: min(90vw, 340px);
+}
+
+.achievement-popup-inner {
+  background: linear-gradient(135deg, #1a1208, #2a2010);
+  border: 2px solid #f0c040;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 4px 20px rgba(240,192,64,0.4);
+  text-align: center;
+}
+
+.achievement-popup-title {
+  font-size: 0.75rem;
+  color: #f0c040;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.achievement-popup-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.achievement-popup-desc {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+@keyframes achievementSlideIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes achievementSlideOut {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+.achievement-popup.achievement-show {
+  animation: achievementSlideIn 0.3s ease forwards;
+}
+
+.achievement-popup.achievement-hide {
+  animation: achievementSlideOut 0.4s ease forwards;
+}
+
+/* =====================
+   インベントリ タブ
+   ===================== */
+.inv-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.inv-tab {
+  flex: 1;
+  padding: 6px 10px;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 8px 8px 0 0;
+  color: #aaa;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.inv-tab.active {
+  background: #3a3a3a;
+  color: #fff;
+  border-bottom-color: #3a3a3a;
+  font-weight: bold;
+}
+
+/* =====================
+   宝玉リスト
+   ===================== */
+.gem-bonus-summary {
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gem-total-atk {
+  font-size: 1.0rem;
+  font-weight: bold;
+  color: #f0c040;
+}
+
+.gem-counts {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.gem-item {
+  cursor: default !important;
+}
+
+.gem-item.gem-copper {
+  border-left: 3px solid #b87333;
+}
+
+.gem-item.gem-silver {
+  border-left: 3px solid #c0c0c0;
+}
+
+.gem-item.gem-gold {
+  border-left: 3px solid #ffd700;
+  background: linear-gradient(90deg, #2a2505 0%, #1e1e1e 100%);
+}
+}
