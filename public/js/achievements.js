@@ -12,17 +12,14 @@ import { normalEnemies, bossEnemies, weaponTemplates, floorTable, legendaryTitle
 
 export const achievementDefs = [
   // --- レベル達成 ---
-  { id: "lv10",   category: "level",   label: "駆け出しの冒険者",   desc: "Lv.10 に到達する",    check: (s) => s.player.level >= 10  },
-  { id: "lv30",   category: "level",   label: "一人前の冒険者",     desc: "Lv.30 に到達する",    check: (s) => s.player.level >= 30  },
-  { id: "lv50",   category: "level",   label: "熟練の冒険者",       desc: "Lv.50 に到達する",    check: (s) => s.player.level >= 50  },
   { id: "lv100",  category: "level",   label: "伝説の冒険者",       desc: "Lv.100 に到達する",   check: (s) => s.player.level >= 100 },
   { id: "lv200",  category: "level",   label: "神域の冒険者",       desc: "Lv.200 に到達する",   check: (s) => s.player.level >= 200 },
 
-  // --- フロア到達 ---
-  { id: "floor50",  category: "floor", label: "深淵の入り口",   desc: "地下50階に到達する",   check: (s) => s.maxFloor >= 50  },
-  { id: "floor100", category: "floor", label: "深淵の探索者",   desc: "地下100階に到達する",  check: (s) => s.maxFloor >= 100 },
-  { id: "floor200", category: "floor", label: "深淵の征服者",   desc: "地下200階に到達する",  check: (s) => s.maxFloor >= 200 },
-  { id: "floor300", category: "floor", label: "深淵の支配者",   desc: "地下300階に到達する",  check: (s) => s.maxFloor >= 300 },
+  // --- ボス突破 ---
+  { id: "floor50",  category: "floor", label: "深淵の入り口",   desc: "地下50階のボスを突破する",   check: (s) => s.maxFloor > 50  },
+  { id: "floor100", category: "floor", label: "深淵の探索者",   desc: "地下100階のボスを突破する",  check: (s) => s.maxFloor > 100 },
+  { id: "floor200", category: "floor", label: "深淵の征服者",   desc: "地下200階のボスを突破する",  check: (s) => s.maxFloor > 200 },
+  { id: "floor300", category: "floor", label: "深淵の支配者",   desc: "地下300階のボスを突破する",  check: (s) => s.maxFloor > 300 },
 
   // --- 敵の捕獲（フロア帯別 全捕獲） ---
   ...buildCaptureAchievements(),
@@ -213,7 +210,7 @@ function processPopupQueue() {
 
 const categoryLabel = {
   level:     "🧑‍🦯 レベル達成",
-  floor:     "🏔️ フロア到達",
+  floor:     "🏔️ ボス突破",
   capture:   "🐾 捕獲コレクション",
   weapon:    "⚔️ 武器コレクション",
   synthesis: "🔨 合成記録",
