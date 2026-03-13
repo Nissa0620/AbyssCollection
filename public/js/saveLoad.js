@@ -45,6 +45,25 @@ export function loadGame() {
     state.player.gems = [];
   }
 
+  // 古いセーブデータ対応：有効でないフィルター値をリセット
+  const validPassives = new Set([
+    "", "captureBoost", "expBoost", "atkBoost", "dropBoost",
+    "dmgBoost", "dmgReduce", "hpBoost", "doubleAttack", "survive",
+    "reflect", "drain", "critRate", "critDamage", "extraHit",
+    "giantKiller", "bossSlayer", "evade", "lastStand", "regen", "resurrection",
+    "legendCaptureBoost", "legendExpBoost", "legendAtkBoost", "legendDropBoost",
+    "legendDmgBoost", "legendDmgReduce", "legendHpBoost", "tripleAttack",
+    "legendSurvive", "legendReflect", "legendDrain", "legendCritRate",
+    "legendCritDamage", "legendExtraHit", "legendGiantKiller", "legendBossSlayer",
+    "legendEvade", "legendLastStand", "legendRegen", "legendResurrection",
+  ]);
+  if (!validPassives.has(state.ui?.inventoryFilter)) {
+    if (state.ui) state.ui.inventoryFilter = "";
+  }
+  if (!validPassives.has(state.ui?.petFilter)) {
+    if (state.ui) state.ui.petFilter = "";
+  }
+
   // 古いセーブデータ対応：achievementsが無ければ初期化
   if (!state.achievements) {
     state.achievements = {
