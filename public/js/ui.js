@@ -774,15 +774,19 @@ export function renderStatusScreen() {
   // HP
   const totalHp = player.totalHp;
 
-  // 経験値増加（ペット＋武器）
+  // 経験値増加（ペット＋武器、レジェンダリー含む）
   let expBoost = 0;
   if (pet?.passive === "expBoost") expBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "expBoost") expBoost += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendExpBoost") expBoost += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendExpBoost") expBoost += weapon.passiveValue ?? 0;
 
-  // 捕獲率増加（ペット＋武器）
+  // 捕獲率増加（ペット＋武器、レジェンダリー含む）
   let captureBoost = 0;
   if (pet?.passive === "captureBoost") captureBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "captureBoost") captureBoost += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendCaptureBoost") captureBoost += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendCaptureBoost") captureBoost += weapon.passiveValue ?? 0;
 
   // 2回攻撃確率（ペット・武器どちらかが持つ確率。両方あれば高い方を表示）
   let doubleRate = 0;
@@ -798,62 +802,93 @@ export function renderStatusScreen() {
   let dmgBoost = 0;
   if (pet?.passive === "dmgBoost") dmgBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "dmgBoost") dmgBoost += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendDmgBoost") dmgBoost += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendDmgBoost") dmgBoost += weapon.passiveValue ?? 0;
 
   // 被ダメ減少
   let dmgReduce = 0;
   if (pet?.passive === "dmgReduce") dmgReduce += pet.passiveValue ?? 0;
   if (weapon?.passive === "dmgReduce") dmgReduce += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendDmgReduce") dmgReduce += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendDmgReduce") dmgReduce += weapon.passiveValue ?? 0;
 
   // HP増加
   let hpBoost = 0;
   if (pet?.passive === "hpBoost") hpBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "hpBoost") hpBoost += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendHpBoost") hpBoost += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendHpBoost") hpBoost += weapon.passiveValue ?? 0;
 
   // 反射確率
   let reflectRate = 0;
   if (pet?.passive === "reflect") reflectRate = Math.max(reflectRate, pet.passiveValue ?? 0);
+  if (pet?.passive === "legendReflect") reflectRate = Math.max(reflectRate, pet.passiveValue ?? 0);
 
   // 吸収確率
   let drainRate = 0;
   if (pet?.passive === "drain") drainRate = Math.max(drainRate, pet.passiveValue ?? 0);
+  if (pet?.passive === "legendDrain") drainRate = Math.max(drainRate, pet.passiveValue ?? 0);
 
   // クリティカル率
   let critRate = 0;
   if (pet?.passive === "critRate") critRate += pet.passiveValue ?? 0;
   if (weapon?.passive === "critRate") critRate += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendCritRate") critRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendCritRate") critRate += weapon.passiveValue ?? 0;
 
   // クリティカル強化
   let critDmg = 0;
   if (pet?.passive === "critDamage") critDmg += pet.passiveValue ?? 0;
   if (weapon?.passive === "critDamage") critDmg += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendCritDamage") critDmg += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendCritDamage") critDmg += weapon.passiveValue ?? 0;
 
   // 追撃
   let extraHitRate = 0;
   if (pet?.passive === "extraHit") extraHitRate = Math.max(extraHitRate, pet.passiveValue ?? 0);
+  if (pet?.passive === "legendExtraHit") extraHitRate = Math.max(extraHitRate, pet.passiveValue ?? 0);
 
   // 巨人殺し
   let giantKiller = 0;
   if (pet?.passive === "giantKiller") giantKiller += pet.passiveValue ?? 0;
   if (weapon?.passive === "giantKiller") giantKiller += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendGiantKiller") giantKiller += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendGiantKiller") giantKiller += weapon.passiveValue ?? 0;
 
   // ボス特効
   let bossSlayer = 0;
   if (pet?.passive === "bossSlayer") bossSlayer += pet.passiveValue ?? 0;
   if (weapon?.passive === "bossSlayer") bossSlayer += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendBossSlayer") bossSlayer += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendBossSlayer") bossSlayer += weapon.passiveValue ?? 0;
 
   // 回避
   let evadeRate = 0;
   if (pet?.passive === "evade") evadeRate = Math.max(evadeRate, pet.passiveValue ?? 0);
+  if (pet?.passive === "legendEvade") evadeRate = Math.max(evadeRate, pet.passiveValue ?? 0);
 
   // 背水
   let lastStand = 0;
   if (pet?.passive === "lastStand") lastStand += pet.passiveValue ?? 0;
   if (weapon?.passive === "lastStand") lastStand += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendLastStand") lastStand += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendLastStand") lastStand += weapon.passiveValue ?? 0;
 
   // 再生
   let regenRate = 0;
   if (pet?.passive === "regen") regenRate += pet.passiveValue ?? 0;
   if (weapon?.passive === "regen") regenRate += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendRegen") regenRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendRegen") regenRate += weapon.passiveValue ?? 0;
+
+  // レジェンダリー専用スキル（装備中のみ表示）
+  const hasTripleAttack = pet?.passive === "tripleAttack" || weapon?.passive === "tripleAttack";
+  const hasLegendSurvive = pet?.passive === "legendSurvive" || weapon?.passive === "legendSurvive";
+  const hasLegendResurrection = pet?.passive === "legendResurrection" || weapon?.passive === "legendResurrection";
+  const legendAtkBoostVal = (pet?.passive === "legendAtkBoost" ? (pet.passiveValue ?? 0) : 0)
+                          + (weapon?.passive === "legendAtkBoost" ? (weapon.passiveValue ?? 0) : 0);
+  const legendDropBoostVal = (pet?.passive === "legendDropBoost" ? (pet.passiveValue ?? 0) : 0)
+                           + (weapon?.passive === "legendDropBoost" ? (weapon.passiveValue ?? 0) : 0);
 
   // 図鑑バフ
   const dexHp = Math.round((state.dexBuff.hp - 1) * 100);
@@ -886,7 +921,9 @@ export function renderStatusScreen() {
       ${row("被ダメ減少", dmgReduce > 0 ? `${dmgReduce}%` : "なし")}
       ${row("HP増加", hpBoost > 0 ? `+${hpBoost}%` : "なし")}
       ${row("2回攻撃", doubleRate > 0 ? `${doubleRate}%` : "なし")}
+      ${hasTripleAttack ? row("✨連撃王", "3回攻撃") : ""}
       ${row("根性", surviveRate > 0 ? `${surviveRate}%` : "なし")}
+      ${hasLegendSurvive ? row("✨不死身", "常時発動") : ""}
       ${row("ダメージ反射", reflectRate > 0 ? `${reflectRate}%` : "なし")}
       ${row("与ダメ吸収", drainRate > 0 ? `${drainRate}%` : "なし")}
       ${row("クリティカル率", critRate > 0 ? `${critRate}%` : "なし")}
@@ -897,6 +934,9 @@ export function renderStatusScreen() {
       ${row("回避", evadeRate > 0 ? `${evadeRate}%` : "なし")}
       ${row("背水の陣", lastStand > 0 ? `+${lastStand}%` : "なし")}
       ${row("再生", regenRate > 0 ? `${regenRate}%/ターン` : "なし")}
+      ${hasLegendResurrection ? row("✨輪廻転生", "復活") : ""}
+      ${legendAtkBoostVal > 0 ? row("✨破壊神", `+${legendAtkBoostVal}%`) : ""}
+      ${legendDropBoostVal > 0 ? row("✨財宝王", `+${legendDropBoostVal}%`) : ""}
     </div>
     <div class="status-detail-section">
       <div class="status-detail-heading">📘 図鑑バフ合計</div>
