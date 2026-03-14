@@ -211,8 +211,8 @@ export function getGiantKillerMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
   let bonus = 0;
-  if (pet?.passive === "giantKiller") bonus += (pet.passiveValue ?? 0);
-  if (weapon?.passive === "giantKiller") bonus += (weapon.passiveValue ?? 0);
+  if (pet?.passive === "giantKiller" || pet?.passive === "legendGiantKiller") bonus += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "giantKiller" || weapon?.passive === "legendGiantKiller") bonus += (weapon.passiveValue ?? 0);
   if (bonus <= 0) return 1;
   if ((state.enemy?.hp ?? 0) > state.player.hp) {
     return 1 + bonus / 100;
@@ -225,8 +225,8 @@ export function getBossSlayerMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
   let bonus = 0;
-  if (pet?.passive === "bossSlayer") bonus += (pet.passiveValue ?? 0);
-  if (weapon?.passive === "bossSlayer") bonus += (weapon.passiveValue ?? 0);
+  if (pet?.passive === "bossSlayer" || pet?.passive === "legendBossSlayer") bonus += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "bossSlayer" || weapon?.passive === "legendBossSlayer") bonus += (weapon.passiveValue ?? 0);
   if (bonus <= 0 || !state.enemy?.isBoss) return 1;
   return 1 + bonus / 100;
 }
