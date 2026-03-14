@@ -84,8 +84,16 @@ export function synthesize(base, material) {
   }
 
   const newLevel = base.level + material.level + 1;
-  const newTotalAtk = Math.floor(base.baseAtk * (1 + newLevel * 0.5));
-  const newTotalHp = Math.floor((base.baseHp ?? 0) * (1 + newLevel * 0.3));
+  const K_ATK = 7.5 / Math.sqrt(15);
+  const K_HP  = 4.5 / Math.sqrt(15);
+  const atkMult = newLevel <= 15
+    ? (1 + newLevel * 0.5)
+    : (1 + Math.sqrt(newLevel) * K_ATK);
+  const hpMult = newLevel <= 15
+    ? (1 + newLevel * 0.3)
+    : (1 + Math.sqrt(newLevel) * K_HP);
+  const newTotalAtk = Math.floor(base.baseAtk * atkMult);
+  const newTotalHp  = Math.floor((base.baseHp ?? 0) * hpMult);
 
   // パッシブ：進化通過時のみpassiveMultを適用
   const basePassiveValue = base.basePassiveValue ?? base.passiveValue ?? null;
@@ -214,9 +222,17 @@ export function getSynthesisPreview() {
   const oldLevel = base.level;
   const newLevel = base.level + totalLevelGain;
   const oldTotalAtk = base.totalAtk;
-  const newTotalAtk = Math.floor(base.baseAtk * (1 + newLevel * 0.5));
+  const K_ATK = 7.5 / Math.sqrt(15);
+  const K_HP  = 4.5 / Math.sqrt(15);
+  const atkMult = newLevel <= 15
+    ? (1 + newLevel * 0.5)
+    : (1 + Math.sqrt(newLevel) * K_ATK);
+  const hpMult = newLevel <= 15
+    ? (1 + newLevel * 0.3)
+    : (1 + Math.sqrt(newLevel) * K_HP);
   const oldTotalHp = base.totalHp ?? 0;
-  const newTotalHp = Math.floor((base.baseHp ?? 0) * (1 + newLevel * 0.3));
+  const newTotalAtk = Math.floor(base.baseAtk * atkMult);
+  const newTotalHp  = Math.floor((base.baseHp ?? 0) * hpMult);
 
   return {
     levelGain: totalLevelGain,

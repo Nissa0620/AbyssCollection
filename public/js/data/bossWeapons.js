@@ -11,8 +11,9 @@ export const bossWeaponTemplates = [
     maxHp: 60,
     dropRate: 1.0,
     evolutions: [
-      { level: 5,  name: "巨岩の剣", dexBuff: { hp: 0.2, power: 0.2 }, passiveMult: 1.3 },
-      { level: 10, name: "大地の剣", dexBuff: { hp: 0.3, power: 0.3 }, passiveMult: 1.6 },
+      { level: 100,  name: "巨岩の剣", dexBuff: { hp: 0.43, power: 0.43 }, passiveMult: 1.3 },
+      { level: 500,  name: "大地の剣", dexBuff: { hp: 0.85, power: 0.85 }, passiveMult: 1.6 },
+      { level: 1000, name: "神地の剣", dexBuff: { hp: 1.42, power: 1.42 }, passiveMult: 2.0 },
     ],
   },
   {
@@ -27,8 +28,9 @@ export const bossWeaponTemplates = [
     maxHp: 120,
     dropRate: 1.0,
     evolutions: [
-      { level: 5,  name: "竜牙の剣", dexBuff: { hp: 0.3, power: 0.3 }, passiveMult: 1.3 },
-      { level: 10, name: "竜王の剣", dexBuff: { hp: 0.5, power: 0.5 }, passiveMult: 1.6 },
+      { level: 100,  name: "竜牙の剣", dexBuff: { hp: 0.71, power: 0.71 }, passiveMult: 1.3 },
+      { level: 500,  name: "竜王の剣", dexBuff: { hp: 1.42, power: 1.42 }, passiveMult: 1.6 },
+      { level: 1000, name: "竜神の剣", dexBuff: { hp: 2.37, power: 2.37 }, passiveMult: 2.0 },
     ],
   },
   {
@@ -43,8 +45,9 @@ export const bossWeaponTemplates = [
     maxHp: 250,
     dropRate: 1.0,
     evolutions: [
-      { level: 5,  name: "魔王の剣", dexBuff: { hp: 0.5, power: 0.5 }, passiveMult: 1.3 },
-      { level: 10, name: "神滅の剣", dexBuff: { hp: 1.0, power: 1.0 }, passiveMult: 1.6 },
+      { level: 100,  name: "魔王の剣", dexBuff: { hp: 1.42, power: 1.42 }, passiveMult: 1.3 },
+      { level: 500,  name: "神滅の剣", dexBuff: { hp: 2.85, power: 2.85 }, passiveMult: 1.6 },
+      { level: 1000, name: "覇神の剣", dexBuff: { hp: 4.75, power: 4.75 }, passiveMult: 2.0 },
     ],
   },
 ];
