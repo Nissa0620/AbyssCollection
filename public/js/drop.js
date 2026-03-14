@@ -1,34 +1,19 @@
-import { weaponTemplates, floorTable, bossFloorMap, getCurrentArea } from "./data/index.js";
+import { weaponTemplates } from "./data/index.js";
 import { state } from "./state.js";
 
-export function getDropWeapon(dropMult = 1) {
-  const area = getCurrentArea(state.floor);
-  if (!area) return null;
+export function getDropWeapon(dropMult = 1, enemyId = null) {
+  // 敵IDに対応した武器テンプレートを1:1で取得
+  const template = enemyId != null
+    ? weaponTemplates.find((w) => !w.isBossDrop && w.id === enemyId)
+    : null;
 
-  const possibleWeapons = weaponTemplates.filter(
-    (w) => !w.isBossDrop && w.id >= area.weaponIdRange[0] && w.id <= area.weaponIdRange[1],
-  );
-  if (possibleWeapons.length === 0) return null;
+  if (!template) return null;
 
-  const totalRate = possibleWeapons.reduce((sum, t) => sum + t.dropRate, 0) * dropMult;
-  if (totalRate <= 0) return null;
+  // ドロップ率判定（dropMultを乗算、上限1）
+  const dropChance = Math.min(template.dropRate * dropMult, 1);
+  if (Math.random() > dropChance) return null;
 
-  const rand = Math.random();
-  // dropMultを反映：合計ドロップ率が1を超えることもあるので判定を分ける
-  const scaledRate = Math.min(totalRate, 1);
-  if (rand > scaledRate) return null;
-
-  // どの武器が落ちるか抽選
-  const r2 = Math.random() * possibleWeapons.reduce((sum, t) => sum + t.dropRate, 0);
-  let cumulative = 0;
-  for (const template of possibleWeapons) {
-    cumulative += template.dropRate;
-    if (r2 < cumulative) {
-      return createWeapon(template);
-    }
-  }
-
-  return null;
+  return createWeapon(template);
 }
 
 // ボスドロップ（ボスのenemyIdに対応する専用武器を返す）

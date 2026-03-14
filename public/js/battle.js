@@ -203,7 +203,7 @@ function defeatEnemy() {
     });
   } else {
     // 通常敵：武器をドロップ
-    const dropped = getDropWeapon(dropMult);
+    const dropped = getDropWeapon(dropMult, state.enemy.enemyId);
     if (dropped) {
       state.player.inventory.push(dropped);
       addLog("⚔️" + dropped.name + " を手に入れた");
