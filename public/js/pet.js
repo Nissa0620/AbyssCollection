@@ -463,23 +463,23 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
   updateBookUltimate();
 
   const enemyFullName = state.enemy?.name ?? def.name;
+  if (!state.achievements) state.achievements = {};
+
   if (isLegendUltimate) {
-    if (!state.achievements) state.achievements = {};
     state.achievements.legendUltimatePetCount = (state.achievements.legendUltimatePetCount ?? 0) + 1;
     checkAchievements();
     showLegendUltimatePopup({ name: enemyFullName, passive: def.passive, isBoss }, "captured", pet);
   } else if (isLegendary) {
-    if (!state.achievements) state.achievements = {};
+    state.achievements.legendaryPetCount = (state.achievements.legendaryPetCount ?? 0) + 1;
     checkAchievements();
     showLegendaryPopup({ name: enemyFullName, passive: def.passive, isBoss }, "captured", pet);
   } else if (isElite) {
-    if (!state.achievements) state.achievements = {};
-    state.achievements.ultimatePetCount = (state.achievements.ultimatePetCount ?? 0) + 1;
+    state.achievements.elitePetCount = (state.achievements.elitePetCount ?? 0) + 1;
     checkAchievements();
     showElitePopup({ name: enemyFullName }, "captured", pet);
   } else if (isUltimatePet(pet)) {
-    if (!state.achievements) state.achievements = {};
-    state.achievements.ultimatePetCount = (state.achievements.ultimatePetCount ?? 0) + 1;
+    // isUltimatePet は称号4かつ全ステ最大（通常フロー）
+    // ※ elitePetCount とは別カウント
     checkAchievements();
     const alreadyHas = state.player.petList
       .filter((p) => p.uid !== pet.uid)
