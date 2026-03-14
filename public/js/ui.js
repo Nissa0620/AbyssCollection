@@ -220,14 +220,18 @@ export function renderGemList() {
     return;
   }
 
-  // 金→銀→銅の順に表示
-  const sorted = [...gems].sort((a, b) => b.id - a.id);
-  sorted.forEach((gem) => {
+  // 種類ごとにまとめて表示（金→銀→銅）
+  const grouped = [
+    { id: 3, rarity: "gold",   icon: "🟡", name: "金の宝玉",  atkBonus: 10, count: goldCount },
+    { id: 2, rarity: "silver", icon: "⚪", name: "銀の宝玉",  atkBonus: 5,  count: silverCount },
+    { id: 1, rarity: "copper", icon: "🟤", name: "銅の宝玉",  atkBonus: 3,  count: copperCount },
+  ];
+  grouped.filter((g) => g.count > 0).forEach((g) => {
     const li = document.createElement("li");
-    li.className = `pet-item gem-item gem-${gem.rarity}`;
+    li.className = `pet-item gem-item gem-${g.rarity}`;
     li.innerHTML = `
-      <span class="pet-name">${gem.icon} ${gem.name}</span>
-      <span class="pet-atk">ATK +${gem.atkBonus}</span>
+      <span class="pet-name">${g.icon} ${g.name} ×${g.count}</span>
+      <span class="pet-atk">ATK +${g.atkBonus} × ${g.count} = +${g.atkBonus * g.count}</span>
     `;
     listEl.appendChild(li);
   });
