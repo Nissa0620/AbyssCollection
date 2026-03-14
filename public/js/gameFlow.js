@@ -34,6 +34,7 @@ function battlePhase() {
     const expMult = getExpMultiplier();
     gainExp(Math.floor(state.enemy.exp * expMult));
     healPlayerFull();
+    state.enemy = null;
     state.phase = "next";
   }
 }

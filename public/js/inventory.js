@@ -22,6 +22,7 @@ export function handleSynthesisSelection(uid) {
   const synth = state.synthesis;
   const inv = state.player.inventory;
   const clickedItem = inv.find((item) => item.uid === uid);
+  if (!clickedItem) return;
   if (synth.baseUid === null) {
     synth.baseUid = clickedItem.uid;
     return;
