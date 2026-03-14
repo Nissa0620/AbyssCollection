@@ -10,7 +10,7 @@ export const state = {
     ...basePlayer,
     level: 1,
     exp: 0,
-    nextExp: 10,
+    nextExp: 100,
     hp: basePlayer.baseHp,
     inventory: [],
     equippedWeapon: null,

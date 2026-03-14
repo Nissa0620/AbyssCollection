@@ -15,10 +15,10 @@ function levelUp() {
   const player = state.player;
 
   player.level += 1;
-  player.nextExp = Math.floor(player.nextExp * 1.25);
+  player.nextExp = Math.floor(player.nextExp * 1.08);
 
-  player.baseHp += Math.floor(player.level * 3);
-  player.basePower += Math.floor(player.level * 2);
+  player.baseHp += Math.floor(player.level * 0.6);
+  player.basePower += Math.floor(player.level * 0.4);
 
   state.logs.push(`Lv.${player.level}にレベルアップした `);
 }
