@@ -83,15 +83,6 @@ export function getExpMultiplier() {
   return mult;
 }
 
-// 攻撃力倍率を取得
-export function getAtkMultiplier() {
-  const pet = state.player.equippedPet;
-  if (pet?.passive === "atkBoost" || pet?.passive === "legendAtkBoost") {
-    return 1 + (pet.passiveValue ?? 0) / 100;
-  }
-  return 1;
-}
-
 // ドロップ率倍率を取得（ペット・武器）
 export function getDropMultiplier() {
   const pet = state.player.equippedPet;
@@ -105,17 +96,23 @@ export function getDropMultiplier() {
 // 2回攻撃が発動するか（passiveValueを確率%として使用）
 export function hasDoubleAttack() {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "doubleAttack") return false;
-  const rate = Math.min((pet.passiveValue ?? 50) / 100, 1.0);
-  return Math.random() < rate;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "doubleAttack") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "doubleAttack") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return false;
+  return Math.random() < Math.min(rate / 100, 1.0);
 }
 
 // 1で耐えるパッシブが発動するか（passiveValueを確率%として使用）
 export function hasSurvivePassive() {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "survive") return false;
-  const rate = Math.min((pet.passiveValue ?? 50) / 100, 1.0);
-  return Math.random() < rate;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "survive") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "survive") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return false;
+  return Math.random() < Math.min(rate / 100, 1.0);
 }
 
 // 与ダメ上昇倍率を取得
@@ -123,8 +120,8 @@ export function getDmgBoostMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
   let mult = 1;
-  if (pet?.passive === "dmgBoost") mult *= (1 + (pet.passiveValue ?? 0) / 100);
-  if (weapon?.passive === "dmgBoost") mult *= (1 + (weapon.passiveValue ?? 0) / 100);
+  if (pet?.passive === "dmgBoost" || pet?.passive === "legendDmgBoost") mult *= (1 + (pet.passiveValue ?? 0) / 100);
+  if (weapon?.passive === "dmgBoost" || weapon?.passive === "legendDmgBoost") mult *= (1 + (weapon.passiveValue ?? 0) / 100);
   return mult;
 }
 
@@ -143,26 +140,32 @@ export function getHpBoostMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
   let mult = 1;
-  if (pet?.passive === "hpBoost") mult *= (1 + (pet.passiveValue ?? 0) / 100);
-  if (weapon?.passive === "hpBoost") mult *= (1 + (weapon.passiveValue ?? 0) / 100);
+  if (pet?.passive === "hpBoost" || pet?.passive === "legendHpBoost") mult *= (1 + (pet.passiveValue ?? 0) / 100);
+  if (weapon?.passive === "hpBoost" || weapon?.passive === "legendHpBoost") mult *= (1 + (weapon.passiveValue ?? 0) / 100);
   return mult;
 }
 
 // 被ダメ反射が発動するか＆反射ダメージを返す
 export function getReflectDamage(incomingDamage) {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "reflect") return 0;
-  const rate = Math.min((pet.passiveValue ?? 0) / 100, 1.0);
-  if (Math.random() >= rate) return 0;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "reflect") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "reflect") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return 0;
+  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
   return Math.max(1, Math.floor(incomingDamage * 0.5)); // 被ダメの50%を反射
 }
 
 // 与ダメ吸収が発動するか＆回復量を返す
 export function getDrainHeal(dealtDamage) {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "drain") return 0;
-  const rate = Math.min((pet.passiveValue ?? 0) / 100, 1.0);
-  if (Math.random() >= rate) return 0;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "drain") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "drain") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return 0;
+  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
   return Math.max(1, Math.floor(dealtDamage * 0.3)); // 与ダメの30%を回復
 }
 
@@ -191,22 +194,15 @@ export function getCritMultiplier() {
   return 1;
 }
 
-// クリティカル強化単体（critRateと同時装備時はgetCritMultiplierで処理）
-export function getCritDamageBonus() {
-  const pet = state.player.equippedPet;
-  const weapon = state.player.equippedWeapon;
-  let bonus = 0;
-  if (pet?.passive === "critDamage" || pet?.passive === "legendCritDamage") bonus += (pet.passiveValue ?? 0);
-  if (weapon?.passive === "critDamage" || weapon?.passive === "legendCritDamage") bonus += (weapon.passiveValue ?? 0);
-  return bonus;
-}
-
 // 追撃が発動するか＆追加ダメージを返す（通常攻撃の%ダメージ）
 export function getExtraHitDamage(baseDamage) {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "extraHit") return 0;
-  const rate = Math.min((pet.passiveValue ?? 0) / 100, 1.0);
-  if (Math.random() >= rate) return 0;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "extraHit") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "extraHit") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return 0;
+  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
   return Math.max(1, Math.floor(baseDamage * 0.5)); // 通常攻撃の50%
 }
 
@@ -238,9 +234,12 @@ export function getBossSlayerMultiplier() {
 // 回避：攻撃を確率で回避するか（上限90%）
 export function tryEvade() {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "evade") return false;
-  const rate = Math.min((pet.passiveValue ?? 0) / 100, 0.9);
-  return Math.random() < rate;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "evade") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "evade") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return false;
+  return Math.random() < Math.min(rate / 100, 0.9);
 }
 
 // 背水：HP30%以下で攻撃力倍率上昇
@@ -275,68 +274,92 @@ export function getRegenHeal() {
 // 3回攻撃（連撃王）
 export function hasTripleAttack() {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "tripleAttack") return false;
-  const rate = Math.min((pet.passiveValue ?? 50) / 100, 1.0);
-  return Math.random() < rate;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "tripleAttack") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "tripleAttack") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return false;
+  return Math.random() < Math.min(rate / 100, 1.0);
 }
 
 // 不死身：survive複数回（surviveUsedを使わず毎回確率判定）
 export function hasLegendSurvive() {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "legendSurvive") return false;
-  const rate = Math.min((pet.passiveValue ?? 50) / 100, 1.0);
-  return Math.random() < rate;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "legendSurvive") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "legendSurvive") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return false;
+  return Math.random() < Math.min(rate / 100, 1.0);
 }
 
 // 不屈：戦闘不能時にHP50%で復活（1戦1回）
 export function hasResurrection() {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "resurrection") return false;
-  const rate = Math.min((pet.passiveValue ?? 50) / 100, 1.0);
-  return Math.random() < rate;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "resurrection") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "resurrection") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return false;
+  return Math.random() < Math.min(rate / 100, 1.0);
 }
 
 // 転生：戦闘不能時にHP50%で復活（複数回発動可）
 export function hasLegendResurrection() {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "legendResurrection") return false;
-  const rate = Math.min((pet.passiveValue ?? 50) / 100, 1.0);
-  return Math.random() < rate;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "legendResurrection") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "legendResurrection") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return false;
+  return Math.random() < Math.min(rate / 100, 1.0);
 }
 
 // 鏡盾：反射100%
 export function getLegendReflectDamage(incomingDamage) {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "legendReflect") return 0;
-  const rate = Math.min((pet.passiveValue ?? 0) / 100, 1.0);
-  if (Math.random() >= rate) return 0;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "legendReflect") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "legendReflect") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return 0;
+  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
   return incomingDamage; // 100%反射
 }
 
 // 吸血鬼：与ダメの60%回復（通常drainは30%）
 export function getLegendDrainHeal(dealtDamage) {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "legendDrain") return 0;
-  const rate = Math.min((pet.passiveValue ?? 0) / 100, 1.0);
-  if (Math.random() >= rate) return 0;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "legendDrain") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "legendDrain") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return 0;
+  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
   return Math.max(1, Math.floor(dealtDamage * 0.6));
 }
 
 // 乱打：2回追撃
 export function getLegendExtraHitDamage(baseDamage) {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "legendExtraHit") return 0;
-  const rate = Math.min((pet.passiveValue ?? 0) / 100, 1.0);
-  if (Math.random() >= rate) return 0;
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "legendExtraHit") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "legendExtraHit") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return 0;
+  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
   return Math.max(1, Math.floor(baseDamage * 0.5));
 }
 
 // 幻影：回避時に完全無敵1ターン（フラグを立てる）（上限90%）
 export function tryLegendEvade() {
   const pet = state.player.equippedPet;
-  if (pet?.passive !== "legendEvade") return false;
-  const rate = Math.min((pet.passiveValue ?? 0) / 100, 0.9);
-  if (Math.random() < rate) {
+  const weapon = state.player.equippedWeapon;
+  let rate = 0;
+  if (pet?.passive === "legendEvade") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "legendEvade") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return false;
+  if (Math.random() < Math.min(rate / 100, 0.9)) {
     state.legendEvadeActive = true;
     return true;
   }

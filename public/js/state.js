@@ -22,8 +22,10 @@ export const state = {
       const pet = state.player.equippedPet;
       const weapon = state.player.equippedWeapon;
       const petPower = pet?.power ?? 0;
-      const petMult = (pet?.passive === "atkBoost") ? 1 + (pet.passiveValue / 100) : 1;
-      const weaponMult = (weapon?.passive === "atkBoost") ? 1 + (weapon.passiveValue / 100) : 1;
+      const petMult = (pet?.passive === "atkBoost" || pet?.passive === "legendAtkBoost")
+        ? 1 + (pet.passiveValue / 100) : 1;
+      const weaponMult = (weapon?.passive === "atkBoost" || weapon?.passive === "legendAtkBoost")
+        ? 1 + (weapon.passiveValue / 100) : 1;
       const gemBonus = (state.player.gems ?? []).reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
       return Math.floor(
         (this.basePower + (weapon ? weapon.totalAtk : 0) + petPower + gemBonus) *
@@ -35,7 +37,7 @@ export const state = {
     },
 
     get totalHp() {
-      const buff = state.dexBuff.hp * state.weaponDexBuff.hp;
+      const buff = state.dexBuff.hp * state.weaponDexBuff.hp * (state.hpBoostMult ?? 1);
       const petHp = Math.floor((state.player.equippedPet?.hp ?? 0) * buff);
       const weaponHp = Math.floor((state.player.equippedWeapon?.totalHp ?? 0) * buff);
       return Math.floor(this.baseHp * buff) + petHp + weaponHp;

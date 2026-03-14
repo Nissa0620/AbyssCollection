@@ -68,18 +68,23 @@ export function renderInventory(player, onItemClick, onEquip) {
     li.className = "pet-item" + (isEquipped ? " equipped" : "") + (isUltW ? " ultimate" : "");
 
     // 合成選択クラス（常時）
-    const isBase = item.uid === state.synthesis.baseUid;
+    li.classList.remove("synth-base", "synth-material", "synth-candidate", "synth-disabled");
+
+    const baseUid = state.synthesis.baseUid;
+    const isBase = item.uid === baseUid;
     const isMaterial = state.synthesis.materialUids.includes(item.uid);
-    li.classList.remove("synth-base", "synth-material");
     if (isBase) {
       li.classList.add("synth-base");
     } else if (isMaterial) {
       li.classList.add("synth-material");
-    }
-
-    // ベース選択中かつ別種族はグレーアウト
-    if (baseItem && !isBase && !isMaterial && item.templateId !== baseItem.templateId) {
-      li.classList.add("synth-disabled");
+    } else if (baseUid !== null) {
+      const base = state.player.inventory.find((w) => w.uid === baseUid);
+      const isCandidate = base && item.templateId === base.templateId;
+      if (isCandidate) {
+        li.classList.add("synth-candidate");
+      } else {
+        li.classList.add("synth-disabled");
+      }
     }
 
     const weaponPassiveText = item.passive
@@ -164,8 +169,18 @@ export function updateSynthesisInfo() {
     info.classList.remove("hidden");
     info.innerHTML = `<span class="synth-hint-text">⚔️ 武器をタップしてベースを選択</span>`;
   } else if (materialUids.length === 0) {
+    const base = state.player.inventory.find((w) => w.uid === baseUid);
+    const candidateCount = base
+      ? state.player.inventory.filter(
+          (w) => w.uid !== baseUid && w.templateId === base.templateId
+        ).length
+      : 0;
     info.classList.remove("hidden");
-    info.innerHTML = `<span class="synth-hint-text hint-base">🔵 ベース選択中 — 同じ種類の武器をタップして素材に追加</span>`;
+    if (candidateCount === 0) {
+      info.innerHTML = `<span class="synth-hint-text">⚠️ 合成できる素材がありません</span>`;
+    } else {
+      info.innerHTML = `<span class="synth-hint-text hint-base">🔵 ベース選択中 — 同じ種類の武器をタップして素材に追加</span>`;
+    }
   } else {
     info.classList.remove("hidden");
     info.innerHTML = `<span class="synth-hint-text hint-material">🔴 素材 ${materialUids.length}個選択中 — 合成するを押して強化！</span>`;
@@ -678,8 +693,21 @@ export function updatePetPanel(onPetClick) {
       hintEl.className = "synth-hint-text";
       hintEl.textContent = "🐾 ペットをタップしてベースを選択";
     } else if (materialUids.length === 0) {
-      hintEl.className = "synth-hint-text hint-base";
-      hintEl.textContent = "🔵 ベース選択中 — 同じ種族をタップして素材に追加";
+      const base = state.player.petList.find((p) => p.uid === baseUid);
+      const candidateCount = base
+        ? state.player.petList.filter(
+            (p) => p.uid !== baseUid
+              && p.enemyId === base.enemyId
+              && p.isBoss === base.isBoss
+          ).length
+        : 0;
+      if (candidateCount === 0) {
+        hintEl.className = "synth-hint-text";
+        hintEl.textContent = "⚠️ 合成できる素材がありません";
+      } else {
+        hintEl.className = "synth-hint-text hint-base";
+        hintEl.textContent = "🔵 ベース選択中 — 同じ種族をタップして素材に追加";
+      }
     } else {
       hintEl.className = "synth-hint-text hint-material";
       hintEl.textContent = `🔴 素材 ${materialUids.length}個選択中 — 合成するを押して強化！`;
@@ -733,12 +761,20 @@ export function updatePetPanel(onPetClick) {
     else if (pet.isLegendary)  li.classList.add("pet-legendary");
     else if (pet.isElite)      li.classList.add("pet-elite");
     else if (isUltP)           li.classList.add("ultimate");
-    if (isBase) li.classList.add("synth-base");
-    else if (isMaterial) li.classList.add("synth-material");
-
-    // ベース選択中かつ別種族はグレーアウト
-    if (basePet && !isBase && !isMaterial && pet.enemyId !== basePet.enemyId) {
-      li.classList.add("synth-disabled");
+    if (isBase) {
+      li.classList.add("synth-base");
+    } else if (isMaterial) {
+      li.classList.add("synth-material");
+    } else if (baseUid !== null) {
+      const base = state.player.petList.find((p) => p.uid === baseUid);
+      const isCandidate = base
+        && pet.enemyId === base.enemyId
+        && pet.isBoss === base.isBoss;
+      if (isCandidate) {
+        li.classList.add("synth-candidate");
+      } else {
+        li.classList.add("synth-disabled");
+      }
     }
 
     li.innerHTML = `
@@ -862,13 +898,13 @@ export function renderStatusScreen() {
 
   // 2回攻撃確率（ペット・武器どちらかが持つ確率。両方あれば高い方を表示）
   let doubleRate = 0;
-  if (pet?.passive === "doubleAttack") doubleRate = Math.max(doubleRate, pet.passiveValue ?? 0);
-  if (weapon?.passive === "doubleAttack") doubleRate = Math.max(doubleRate, weapon.passiveValue ?? 0);
+  if (pet?.passive === "doubleAttack") doubleRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "doubleAttack") doubleRate += weapon.passiveValue ?? 0;
 
   // 不屈発生確率
   let surviveRate = 0;
-  if (pet?.passive === "survive") surviveRate = Math.max(surviveRate, pet.passiveValue ?? 0);
-  if (weapon?.passive === "survive") surviveRate = Math.max(surviveRate, weapon.passiveValue ?? 0);
+  if (pet?.passive === "survive") surviveRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "survive") surviveRate += weapon.passiveValue ?? 0;
 
   // 与ダメ上昇
   let dmgBoost = 0;
@@ -893,13 +929,17 @@ export function renderStatusScreen() {
 
   // 反射確率
   let reflectRate = 0;
-  if (pet?.passive === "reflect") reflectRate = Math.max(reflectRate, pet.passiveValue ?? 0);
-  if (pet?.passive === "legendReflect") reflectRate = Math.max(reflectRate, pet.passiveValue ?? 0);
+  if (pet?.passive === "reflect") reflectRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "reflect") reflectRate += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendReflect") reflectRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendReflect") reflectRate += weapon.passiveValue ?? 0;
 
   // 吸収確率
   let drainRate = 0;
-  if (pet?.passive === "drain") drainRate = Math.max(drainRate, pet.passiveValue ?? 0);
-  if (pet?.passive === "legendDrain") drainRate = Math.max(drainRate, pet.passiveValue ?? 0);
+  if (pet?.passive === "drain") drainRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "drain") drainRate += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendDrain") drainRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendDrain") drainRate += weapon.passiveValue ?? 0;
 
   // クリティカル率
   let critRate = 0;
@@ -917,8 +957,10 @@ export function renderStatusScreen() {
 
   // 追撃
   let extraHitRate = 0;
-  if (pet?.passive === "extraHit") extraHitRate = Math.max(extraHitRate, pet.passiveValue ?? 0);
-  if (pet?.passive === "legendExtraHit") extraHitRate = Math.max(extraHitRate, pet.passiveValue ?? 0);
+  if (pet?.passive === "extraHit") extraHitRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "extraHit") extraHitRate += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendExtraHit") extraHitRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendExtraHit") extraHitRate += weapon.passiveValue ?? 0;
 
   // 巨人殺し
   let giantKiller = 0;
@@ -936,8 +978,10 @@ export function renderStatusScreen() {
 
   // 回避
   let evadeRate = 0;
-  if (pet?.passive === "evade") evadeRate = Math.max(evadeRate, pet.passiveValue ?? 0);
-  if (pet?.passive === "legendEvade") evadeRate = Math.max(evadeRate, pet.passiveValue ?? 0);
+  if (pet?.passive === "evade") evadeRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "evade") evadeRate += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendEvade") evadeRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendEvade") evadeRate += weapon.passiveValue ?? 0;
 
   // 背水
   let lastStand = 0;
