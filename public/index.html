@@ -59,43 +59,31 @@
 
       <div id="log" class="log-panel"></div>
 
-      <div class="inventory-panel hidden" id="inventoryPanel">
-        <h2>インベントリ</h2>
+    </div>
+
+    <!-- インベントリモーダル -->
+    <div id="inventoryOverlay" class="book-overlay hidden">
+      <div class="book-modal panel-modal">
+        <div class="book-header">
+          <span>インベントリ</span>
+          <button id="inventoryCloseBtn">✕</button>
+        </div>
+
+        <!-- 装備中武器サマリー（常時表示） -->
+        <div id="equippedWeaponInfo" class="equipped-summary"></div>
+
+        <!-- タブ -->
         <div class="inv-tabs">
           <button id="invTabWeapon" class="inv-tab active">⚔️ 武器</button>
           <button id="invTabGem"    class="inv-tab">💎 宝玉</button>
         </div>
 
         <!-- 武器タブ -->
-        <div id="invWeaponSection">
-          <div id="equippedWeaponInfo" class="equipped-pet-info"></div>
+        <div id="invWeaponSection" class="panel-modal-body">
           <div class="inventory-toolbar">
-            <select id="inventoryFilterSelect">
-            <option value="">すべて</option>
-            <option value="captureBoost">捕獲率増加</option>
-            <option value="expBoost">経験値増加</option>
-            <option value="atkBoost">攻撃力増加</option>
-            <option value="dropBoost">ドロップ率増加</option>
-            <option value="dmgBoost">与ダメ上昇</option>
-            <option value="dmgReduce">被ダメ減少</option>
-            <option value="hpBoost">HP増加</option>
-            <option value="doubleAttack">2回攻撃</option>
-            <option value="survive">根性</option>
-            <option value="reflect">ダメージ反射</option>
-            <option value="drain">与ダメ吸収</option>
-            <option value="critRate">クリティカル率</option>
-            <option value="critDamage">クリティカル強化</option>
-            <option value="extraHit">追撃</option>
-            <option value="giantKiller">巨人殺し</option>
-            <option value="bossSlayer">ボス特効</option>
-            <option value="evade">回避</option>
-            <option value="lastStand">背水の陣</option>
-            <option value="regen">再生</option>
-            <option value="resurrection">復活</option>
-            </select>
-            <button id="sortBtn">ソート</button>
+            <select id="inventoryFilterSelect"><option value="">すべて</option></select>
+            <button id="sortBtn">図鑑順</button>
             <button id="selectAllBtn">一括選択</button>
-            <button id="synthesizeBtn">合成する</button>
           </div>
           <div id="synthesisInfo" class="synth-hint hidden"></div>
           <div id="synthesisPreview"></div>
@@ -103,66 +91,45 @@
         </div>
 
         <!-- 宝玉タブ -->
-        <div id="invGemSection" class="hidden">
+        <div id="invGemSection" class="panel-modal-body hidden">
           <div id="gemBonusSummary" class="gem-bonus-summary"></div>
           <ul id="gemList"></ul>
         </div>
-      </div>
 
-      <div class="inventory-panel hidden" id="petPanel">
-        <h2>ペット</h2>
-        <div id="equippedPetInfo" class="equipped-pet-info"></div>
-        <div class="inventory-toolbar">
-          <select id="petFilterSelect">
-          <option value="">すべて</option>
-          <option value="captureBoost">捕獲率増加</option>
-          <option value="expBoost">経験値増加</option>
-          <option value="atkBoost">攻撃力増加</option>
-          <option value="dropBoost">ドロップ率増加</option>
-          <option value="dmgBoost">与ダメ上昇</option>
-          <option value="dmgReduce">被ダメ減少</option>
-          <option value="hpBoost">HP増加</option>
-          <option value="doubleAttack">2回攻撃</option>
-          <option value="survive">根性</option>
-          <option value="reflect">ダメージ反射</option>
-          <option value="drain">与ダメ吸収</option>
-          <option value="critRate">クリティカル率</option>
-          <option value="critDamage">クリティカル強化</option>
-          <option value="extraHit">追撃</option>
-          <option value="giantKiller">巨人殺し</option>
-          <option value="bossSlayer">ボス特効</option>
-          <option value="evade">回避</option>
-          <option value="lastStand">背水の陣</option>
-          <option value="regen">再生</option>
-          <option value="resurrection">復活</option>
-          <option value="legendCaptureBoost">✨捕縛者</option>
-          <option value="legendExpBoost">✨賢者</option>
-          <option value="legendAtkBoost">✨破壊神</option>
-          <option value="legendDropBoost">✨財宝王</option>
-          <option value="legendDmgBoost">✨剛力</option>
-          <option value="legendDmgReduce">✨鉄壁</option>
-          <option value="legendHpBoost">✨巨人</option>
-          <option value="tripleAttack">✨連撃王</option>
-          <option value="legendSurvive">✨不死身</option>
-          <option value="legendReflect">✨鏡盾</option>
-          <option value="legendDrain">✨吸血鬼</option>
-          <option value="legendCritRate">✨致命眼</option>
-          <option value="legendCritDamage">✨覇者</option>
-          <option value="legendExtraHit">✨乱打</option>
-          <option value="legendGiantKiller">✨下剋上</option>
-          <option value="legendBossSlayer">✨覇王討伐</option>
-          <option value="legendEvade">✨幻影</option>
-          <option value="legendLastStand">✨挑戦者</option>
-          <option value="legendRegen">✨不滅</option>
-          <option value="legendResurrection">✨輪廻転生</option>
-          </select>
-          <button id="petSortBtn">ソート</button>
-          <button id="petSelectAllBtn">一括選択</button>
+        <!-- 合成ボタン（モーダル下部に固定） -->
+        <div class="panel-modal-footer">
+          <button id="synthesizeBtn">合成する</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ペットモーダル -->
+    <div id="petOverlay" class="book-overlay hidden">
+      <div class="book-modal panel-modal">
+        <div class="book-header">
+          <span>ペット</span>
+          <button id="petCloseBtn">✕</button>
+        </div>
+
+        <!-- 装備中ペットサマリー（常時表示） -->
+        <div id="equippedPetInfo" class="equipped-summary"></div>
+
+        <!-- ツールバー -->
+        <div class="panel-modal-body" id="petPanelBody">
+          <div class="inventory-toolbar">
+            <select id="petFilterSelect"><option value="">すべて</option></select>
+            <button id="petSortBtn">図鑑順</button>
+            <button id="petSelectAllBtn">一括選択</button>
+          </div>
+          <div id="petSynthesisHint" class="synth-hint-text"></div>
+          <div id="petSynthesisPreview" class="synth-preview-text"></div>
+          <ul id="petList"></ul>
+        </div>
+
+        <!-- 合成ボタン（モーダル下部に固定） -->
+        <div class="panel-modal-footer">
           <button id="petSynthesizeBtn">合成する</button>
         </div>
-        <div id="petSynthesisHint" class="synth-hint-text"></div>
-        <div id="petSynthesisPreview" class="synth-preview-text"></div>
-        <ul id="petList"></ul>
       </div>
     </div>
 
@@ -344,17 +311,47 @@
             </div>
           </div>
 
-          <!-- 称号ランク（敵・ペット）について -->
+          <!-- 敵について -->
           <div class="accordion-item">
-            <button class="accordion-btn" data-target="helpTitleContent">称号ランク（敵・ペット）について <span class="accordion-arrow">▼</span></button>
-            <div id="helpTitleContent" class="accordion-body hidden">
+            <button class="accordion-btn" data-target="helpEnemyContent">敵について <span class="accordion-arrow">▼</span></button>
+            <div id="helpEnemyContent" class="accordion-body hidden">
               <dl class="help-list">
                 <dt>称号ランクとは</dt>
-                <dd>敵・ペットにはランク1〜5の称号がある。ランクが高いほどステータス、スキル効果値が高くなる。</dd>
-                <dt>極個体</dt>
-                <dd>ステータス、スキル値が全て最高値。稀に出現する強力な個体。</dd>
-                <dt>究極個体</dt>
-                <dd>極個体のうちレジェンダリースキルを持つ個体。ごく稀に出現する最強の個体。</dd>
+                <dd>敵にはランク1〜4の称号がある。ランクが高いほどHP・攻撃力が高く、スキル効果値も強くなる。</dd>
+                <dt>ボス</dt>
+                <dd>特定の階層に出現する強敵。倒すと宝玉をドロップする。称号ランクも持つ。</dd>
+                <dt>経験値・ドロップ</dt>
+                <dd>ランクが高い敵ほど多くの経験値を与える。通常の敵は武器をドロップすることがある。</dd>
+              </dl>
+            </div>
+          </div>
+
+          <!-- ペットについて -->
+          <div class="accordion-item">
+            <button class="accordion-btn" data-target="helpPetContent">ペットについて <span class="accordion-arrow">▼</span></button>
+            <div id="helpPetContent" class="accordion-body hidden">
+              <dl class="help-list">
+                <dt>捕獲</dt>
+                <dd>敵を撃破した際に確率でペットとして捕獲できる。捕獲率はスキルで上昇可能。</dd>
+                <dt>称号ランク</dt>
+                <dd>捕獲したペットには敵と同じランク1〜4の称号がある。ランクが高いほどスキル効果値が高い。</dd>
+                <dt>装備・合成</dt>
+                <dd>ペットは1体だけ装備できる。同じ種族のペットを合成するとATK・HPが上昇する。</dd>
+              </dl>
+            </div>
+          </div>
+
+          <!-- レア個体について -->
+          <div class="accordion-item">
+            <button class="accordion-btn" data-target="helpRareContent">レア個体について <span class="accordion-arrow">▼</span></button>
+            <div id="helpRareContent" class="accordion-body hidden">
+              <dl class="help-list">
+                <dt>極個体 ⭐</dt>
+                <dd>ステータス・スキル値が全て最高値の個体。稀に出現する（通常0.5%、ボス0.25%）。</dd>
+                <dt>伝説個体 ✨</dt>
+                <dd>レジェンダリースキルを持つ特殊な個体。通常の2%、ボスの1%の確率で出現する。</dd>
+                <dt>究極個体 🔴</dt>
+                <dd>伝説個体の中でさらにステータスが最大値になった最強の個体（伝説個体の10%）。ごく稀に出現する。</dd>
               </dl>
             </div>
           </div>

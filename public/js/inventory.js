@@ -104,10 +104,10 @@ export function synthesize(base, material) {
     }
   }
 
-  saveGame();
   return {
     uid: base.uid,
     templateId: base.templateId,
+    isBossDrop: base.isBossDrop ?? false,
     name: base.name,
     baseAtk: base.baseAtk,
     totalAtk: newTotalAtk,

@@ -226,6 +226,12 @@ button {
   border-radius: 8px;
 }
 
+/* 図鑑・ステータス・実績・説明の行は文字が小さめ */
+#bookBtn, #statusBtn, #achievementBtn, #helpBtn {
+  font-size: 11px;
+  padding: 10px 4px;
+}
+
 .action-row-attack button {
   padding: 12px;
   font-size: 16px;
@@ -306,9 +312,7 @@ button {
   transition: height 0.3s ease;
 }
 
-.log-panel.log-compact {
-  height: 100px;
-}
+/* .log-compact は不要になったため削除 */
 
 .log-panel div,
 .log-panel p {
@@ -334,9 +338,13 @@ button {
   margin-top: 15px;
 }
 
-.inventory-panel ul {
+.inventory-panel ul,
+#inventoryList,
+#petList,
+#gemList {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .inventory-panel li {
@@ -367,24 +375,53 @@ button {
   color: #ffffff;
 }
 
-/* 合成ボタン */
-#synthesizeBtn {
-  display: none;
-}
+/* 合成ボタンはフッターで常時表示するため display:none を削除 */
 
 /* インベントリツールバー */
 .inventory-toolbar {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 6px;
   margin-bottom: 10px;
-  align-items: center;
 }
 
-.inventory-toolbar button,
 .inventory-toolbar select {
-  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+  height: 32px;
   font-size: 12px;
+  white-space: nowrap;
+  background: #2a2a2a;
+  color: #ddd;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 0 6px;
+}
+
+.inventory-toolbar button {
+  height: 32px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  border: 1px solid #484848;
+  border-radius: 6px;
+  background: #2e2e2e;
+  color: #ccc;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.inventory-toolbar button:hover {
+  background: #383838;
+  color: #fff;
+}
+
+/* 一括選択がアクティブな状態 */
+.inventory-toolbar button.select-active {
+  background: #1e2d45;
+  color: #7ab8f5;
+  border-color: #3a6fa8;
 }
 
 /* 合成ヒントテキスト */
@@ -400,20 +437,64 @@ button {
   background: #181818;
   border-radius: 6px;
   border-left: 3px solid #505050;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.synth-hint-text.hint-base {
+  border-color: #378ADD;
+  color: #7ab8f5;
+}
+
+.synth-hint-text.hint-material {
+  border-color: #E24B4A;
+  color: #f08080;
+}
+
+/* 合成バッジ（BASE / 素材） */
+.synth-badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 99px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.synth-badge-base {
+  background: #1a3a5c;
+  color: #7ab8f5;
+}
+
+.synth-badge-material {
+  background: #3d1515;
+  color: #f08080;
 }
 
 /* 合成元（ベース）: ダーク青 */
 .synth-base {
-  border: none;
   background: #1e2a3a;
-  box-shadow: 0 0 0 1px #3a5878;
+  border: none;
+}
+
+.synth-base .pet-item-bar {
+  background: #378ADD;
 }
 
 /* 合成素材: ダーク赤 */
 .synth-material {
-  border: none;
   background: #2e1a1a;
-  box-shadow: 0 0 0 1px #6a3030;
+  border: none;
+}
+
+.synth-material .pet-item-bar {
+  background: #E24B4A;
+}
+
+/* 選択不可カード（ベース選択中に別種族） */
+.synth-disabled {
+  opacity: 0.45;
+  pointer-events: none;
 }
 
 /* 合成ボタン（アクティブ時） */
@@ -427,6 +508,59 @@ button {
   background: #242424;
   color: #505050;
   cursor: not-allowed;
+}
+
+/* =====================
+   パネルモーダル（ペット・インベントリ）
+   ===================== */
+.panel-modal {
+  max-height: 85vh;
+  width: 92vw;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* スクロール領域 */
+.panel-modal-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 8px 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 合成ボタン固定フッター */
+.panel-modal-footer {
+  padding: 10px 12px;
+  border-top: 1px solid #444;
+  background: #1e1e1e;
+  flex-shrink: 0;
+}
+
+.panel-modal-footer button {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  background: #3a6ea5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.panel-modal-footer button:disabled {
+  background: #333;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* 装備中サマリー */
+.equipped-summary {
+  padding: 8px 14px;
+  font-size: 13px;
+  color: #aad4ff;
+  border-bottom: 1px solid #333;
+  min-height: 28px;
 }
 
 /* ===== 図鑑ポップアップ ===== */
@@ -728,15 +862,39 @@ button {
 
 .pet-item {
   list-style: none;
+  padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 8px 10px;
+  flex-direction: row;
+  align-items: stretch;
+  overflow: hidden;
   background: #2a2a2a;
   border: 1px solid #383838;
   border-radius: 6px;
   margin-bottom: 6px;
   font-size: 13px;
+}
+
+/* カード左カラーバー（通常時は非表示、合成選択時のみ表示） */
+.pet-item-bar {
+  display: none;
+  width: 4px;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+
+.synth-base .pet-item-bar,
+.synth-material .pet-item-bar {
+  display: block;
+}
+
+/* カード本体 */
+.pet-item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
 }
 
 .pet-item.equipped {
@@ -830,7 +988,6 @@ button {
   font-size: 13px;
   color: #f5c842;
   padding: 4px 10px;
-  min-height: 20px;
 }
 
 /* ペット強化値 */
@@ -915,21 +1072,7 @@ button {
   margin-left: 6px;
 }
 
-/* フィルタセレクト */
-.inventory-toolbar select {
-  background: #2a2a2a;
-  border: 1px solid #484848;
-  color: #cccccc;
-  padding: 5px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  cursor: pointer;
-  outline: none;
-}
-
-.inventory-toolbar select:focus {
-  border-color: #686868;
-}
+/* フィルタセレクト（toolbar統合後は上部定義に統一） */
 
 /* 究極個体 */
 .pet-item.ultimate {

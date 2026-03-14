@@ -289,6 +289,12 @@ export function createEnemy() {
     title = legend;
     titleId = 5;
     titleName = legend.name;
+  } else if (isElite) {
+    // 極個体は称号4（最高ランク）を強制
+    const group = enemyTitles[titleGroup] ?? Object.values(enemyTitles)[0];
+    title = group.find((t) => t.id === 4) ?? group[group.length - 1];
+    titleId = title.id;
+    titleName = title.name;
   } else {
     title = getRandomTitleForEnemy(titleGroup);
     titleId = title.id;
@@ -357,6 +363,12 @@ function createBossEnemy(bossEnemyId) {
     title = legend;
     titleId = 5;
     titleName = legend.name;
+  } else if (isElite) {
+    // 極個体は称号4（最高ランク）を強制
+    const titlePool = bossTitles[titleGroup] ?? [];
+    title = titlePool.find((t) => t.id === 4) ?? titlePool[titlePool.length - 1];
+    titleId = title.id;
+    titleName = title.name;
   } else {
     const titlePool = bossTitles[titleGroup] ?? [];
     title = pickWeighted(titlePool, (t) => t.weight ?? 1) ?? titlePool[0];

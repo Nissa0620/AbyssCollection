@@ -435,7 +435,8 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
 
   state.player.petList.push(pet);
   const legendMark = isLegendUltimate ? "🔴" : isLegendary ? "✨" : isElite ? "⭐" : "";
-  addLog(`🐾${legendMark} ${def.name} を捕獲した！`);
+  const capturedTitleName = getTitleName(pet);
+  addLog(`🐾${legendMark} ${capturedTitleName}${def.name} を捕獲した！`);
   updateBookUltimate();
 
   const enemyFullName = state.enemy?.name ?? def.name;

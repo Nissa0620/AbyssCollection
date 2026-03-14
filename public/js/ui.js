@@ -57,6 +57,8 @@ export function renderInventory(player, onItemClick, onEquip) {
     return;
   }
 
+  const baseItem = player.inventory.find((i) => i.uid === state.synthesis.baseUid);
+
   items.forEach((item) => {
     const isEquipped = player.equippedWeapon === item;
     const displayName = getWeaponDisplayName(item, { showSeries: true });
@@ -66,30 +68,42 @@ export function renderInventory(player, onItemClick, onEquip) {
     li.className = "pet-item" + (isEquipped ? " equipped" : "") + (isUltW ? " ultimate" : "");
 
     // 合成選択クラス（常時）
+    const isBase = item.uid === state.synthesis.baseUid;
+    const isMaterial = state.synthesis.materialUids.includes(item.uid);
     li.classList.remove("synth-base", "synth-material");
-    if (item.uid === state.synthesis.baseUid) {
+    if (isBase) {
       li.classList.add("synth-base");
-    } else if (state.synthesis.materialUids.includes(item.uid)) {
+    } else if (isMaterial) {
       li.classList.add("synth-material");
+    }
+
+    // ベース選択中かつ別種族はグレーアウト
+    if (baseItem && !isBase && !isMaterial && item.templateId !== baseItem.templateId) {
+      li.classList.add("synth-disabled");
     }
 
     const weaponPassiveText = item.passive
       ? `${weaponPassiveLabel(item.passive)}${item.passiveValue != null ? `(${item.passiveValue}%)` : ""}`
       : "";
     li.innerHTML = `
-      <div class="item-row-1">
-        <span class="pet-name">⚔️ ${displayName}${item.level > 0 ? ` <span class="weapon-level">+${item.level}</span>` : ""}</span>
-        <div class="pet-actions">
-          ${isEquipped
-            ? `<button class="weapon-unequip-btn" data-uid="${item.uid}">外す</button>`
-            : `<button class="weapon-equip-btn" data-uid="${item.uid}">装備</button>`
-          }
+      <div class="pet-item-bar"></div>
+      <div class="pet-item-body">
+        <div class="item-row-1">
+          <span class="pet-name">⚔️ ${displayName}${item.level > 0 ? ` <span class="weapon-level">+${item.level}</span>` : ""}</span>
+          <div class="pet-actions">
+            ${isBase ? '<span class="synth-badge synth-badge-base">BASE</span>' : ""}
+            ${isMaterial ? '<span class="synth-badge synth-badge-material">素材</span>' : ""}
+            ${isEquipped
+              ? `<button class="weapon-unequip-btn" data-uid="${item.uid}">外す</button>`
+              : `<button class="weapon-equip-btn" data-uid="${item.uid}">装備</button>`
+            }
+          </div>
         </div>
-      </div>
-      <div class="item-row-2">
-        <span class="pet-atk">ATK ${item.totalAtk}(${item.baseAtk})</span>
-        <span class="pet-atk">HP +${item.totalHp ?? 0}(${item.baseHp ?? 0})</span>
-        ${weaponPassiveText ? `<span class="pet-passive">${weaponPassiveText}</span>` : ""}
+        <div class="item-row-2">
+          <span class="pet-atk">ATK ${item.totalAtk}(${item.baseAtk})</span>
+          <span class="pet-atk">HP +${item.totalHp ?? 0}(${item.baseHp ?? 0})</span>
+          ${weaponPassiveText ? `<span class="pet-passive">${weaponPassiveText}</span>` : ""}
+        </div>
       </div>
     `;
 
@@ -125,26 +139,20 @@ export function updateSortBtn() {
 }
 
 export function updateInventoryVisibility() {
-  const container = document.getElementById("inventoryPanel");
-  const log = document.getElementById("log");
+  const overlay = document.getElementById("inventoryOverlay");
   if (state.ui.inventoryOpen) {
-    container.style.display = "block";
-    log.classList.add("log-compact");
+    overlay.classList.remove("hidden");
   } else {
-    container.style.display = "none";
-    if (!state.ui.petOpen) log.classList.remove("log-compact");
+    overlay.classList.add("hidden");
   }
 }
 
 export function updatePetVisibility() {
-  const container = document.getElementById("petPanel");
-  const log = document.getElementById("log");
+  const overlay = document.getElementById("petOverlay");
   if (state.ui.petOpen) {
-    container.classList.remove("hidden");
-    log.classList.add("log-compact");
+    overlay.classList.remove("hidden");
   } else {
-    container.classList.add("hidden");
-    if (!state.ui.inventoryOpen) log.classList.remove("log-compact");
+    overlay.classList.add("hidden");
   }
 }
 
@@ -157,10 +165,10 @@ export function updateSynthesisInfo() {
     info.innerHTML = `<span class="synth-hint-text">⚔️ 武器をタップしてベースを選択</span>`;
   } else if (materialUids.length === 0) {
     info.classList.remove("hidden");
-    info.innerHTML = `<span class="synth-hint-text">🔵 ベース選択中 — 同じ種類の武器をタップして素材に追加</span>`;
+    info.innerHTML = `<span class="synth-hint-text hint-base">🔵 ベース選択中 — 同じ種類の武器をタップして素材に追加</span>`;
   } else {
     info.classList.remove("hidden");
-    info.innerHTML = `<span class="synth-hint-text">🔴 素材 ${materialUids.length}個選択中 — 合成するを押して強化！</span>`;
+    info.innerHTML = `<span class="synth-hint-text hint-material">🔴 素材 ${materialUids.length}個選択中 — 合成するを押して強化！</span>`;
   }
 }
 
@@ -230,6 +238,53 @@ export function updateInventoryTab(tab) {
   }
 }
 
+// =====================
+// スキルフィルタ選択肢を所持品に合わせて動的更新
+// =====================
+export function updateInventoryFilterOptions() {
+  const select = document.getElementById("inventoryFilterSelect");
+  if (!select) return;
+  const currentValue = select.value;
+  const passives = [...new Set(
+    state.player.inventory.filter((item) => item.passive).map((item) => item.passive)
+  )].sort();
+  select.innerHTML = '<option value="">すべて</option>';
+  passives.forEach((passive) => {
+    const opt = document.createElement("option");
+    opt.value = passive;
+    opt.textContent = weaponPassiveLabel(passive);
+    select.appendChild(opt);
+  });
+  if (passives.includes(currentValue)) {
+    select.value = currentValue;
+  } else if (currentValue !== "") {
+    select.value = "";
+    state.ui.inventoryFilter = "";
+  }
+}
+
+export function updatePetFilterOptions() {
+  const select = document.getElementById("petFilterSelect");
+  if (!select) return;
+  const currentValue = select.value;
+  const passives = [...new Set(
+    state.player.petList.filter((p) => p.passive).map((p) => p.passive)
+  )].sort();
+  select.innerHTML = '<option value="">すべて</option>';
+  passives.forEach((passive) => {
+    const opt = document.createElement("option");
+    opt.value = passive;
+    opt.textContent = passiveLabelText({ passive });
+    select.appendChild(opt);
+  });
+  if (passives.includes(currentValue)) {
+    select.value = currentValue;
+  } else if (currentValue !== "") {
+    select.value = "";
+    state.ui.petFilter = "";
+  }
+}
+
 // ログ表示処理
 export function renderLogs(logs) {
   const logArea = document.getElementById("log");
@@ -262,7 +317,7 @@ export function updateButton() {
 export function updateSynthesisUI() {
   const synthBtn = document.getElementById("synthesizeBtn");
   const { baseUid, materialUids } = state.synthesis;
-  synthBtn.style.display = "block";
+  // display制御を削除（フッターで常時表示）
   synthBtn.disabled = !(baseUid !== null && materialUids.length !== 0);
 }
 
@@ -519,7 +574,7 @@ function renderWeaponBook(buffEl, contentEl) {
     const detail = document.createElement("div");
     detail.className = "book-enemy-detail hidden";
 
-    const atkRange = `ATK ${template.minAtk}〜${template.maxAtk}`;
+    const atkRange = `ATK ${template.minAtk}〜${template.maxAtk} / HP ${template.minHp}〜${template.maxHp}`;
 
     if (!entry) {
       detail.innerHTML = `<div class="book-enemy-meta">出現：${floorText}　${atkRange}</div>`;
@@ -620,10 +675,13 @@ export function updatePetPanel(onPetClick) {
   if (hintEl) {
     const { baseUid, materialUids } = state.petSynthesis;
     if (!baseUid) {
+      hintEl.className = "synth-hint-text";
       hintEl.textContent = "🐾 ペットをタップしてベースを選択";
     } else if (materialUids.length === 0) {
+      hintEl.className = "synth-hint-text hint-base";
       hintEl.textContent = "🔵 ベース選択中 — 同じ種族をタップして素材に追加";
     } else {
+      hintEl.className = "synth-hint-text hint-material";
       hintEl.textContent = `🔴 素材 ${materialUids.length}個選択中 — 合成するを押して強化！`;
     }
   }
@@ -633,8 +691,10 @@ export function updatePetPanel(onPetClick) {
   if (previewEl) {
     const preview = getPetSynthesisPreview();
     if (preview) {
+      previewEl.style.display = "";
       previewEl.innerHTML = `ATK ${preview.oldPower} → <strong>${preview.newPower}</strong> / HP ${preview.oldHp} → <strong>${preview.newHp}</strong>`;
     } else {
+      previewEl.style.display = "none";
       previewEl.textContent = "";
     }
   }
@@ -657,12 +717,14 @@ export function updatePetPanel(onPetClick) {
   }
 
   const { baseUid, materialUids } = state.petSynthesis;
+  const basePet = state.player.petList.find((p) => p.uid === baseUid);
 
   pets.forEach((pet) => {
     const isEquipped = equipped?.uid === pet.uid;
     const isBase = pet.uid === baseUid;
     const isMaterial = materialUids.includes(pet.uid);
     const valueText = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
+    const bonusText = (pet.bonusPower ?? 0) > 0 ? ` <span class="weapon-level">+${pet.bonusPower}</span>` : "";
 
     const li = document.createElement("li");
     const isUltP = isUltimatePet(pet);
@@ -674,20 +736,30 @@ export function updatePetPanel(onPetClick) {
     if (isBase) li.classList.add("synth-base");
     else if (isMaterial) li.classList.add("synth-material");
 
+    // ベース選択中かつ別種族はグレーアウト
+    if (basePet && !isBase && !isMaterial && pet.enemyId !== basePet.enemyId) {
+      li.classList.add("synth-disabled");
+    }
+
     li.innerHTML = `
-      <div class="item-row-1">
-        <span class="pet-name">🐾 ${getTitleName(pet)}${pet.name}${(pet.bonusPower ?? 0) > 0 ? ` <span class="weapon-level">+${pet.bonusPower}</span>` : ""}</span>
-        <div class="pet-actions">
-          ${isEquipped
-            ? `<button class="pet-unequip-btn" data-uid="${pet.uid}">外す</button>`
-            : `<button class="pet-equip-btn" data-uid="${pet.uid}">装備</button>`
-          }
+      <div class="pet-item-bar"></div>
+      <div class="pet-item-body">
+        <div class="item-row-1">
+          <span class="pet-name">🐾 ${getTitleName(pet)}${pet.name}${bonusText}</span>
+          <div class="pet-actions">
+            ${isBase ? '<span class="synth-badge synth-badge-base">BASE</span>' : ""}
+            ${isMaterial ? '<span class="synth-badge synth-badge-material">素材</span>' : ""}
+            ${isEquipped
+              ? `<button class="pet-unequip-btn" data-uid="${pet.uid}">外す</button>`
+              : `<button class="pet-equip-btn" data-uid="${pet.uid}">装備</button>`
+            }
+          </div>
         </div>
-      </div>
-      <div class="item-row-2">
-        <span class="pet-atk">ATK ${pet.power}(${pet.basePower ?? pet.power})</span>
-        <span class="pet-atk">HP ${pet.hp ?? 0}(${pet.baseHp ?? 0})</span>
-        <span class="pet-passive">${passiveLabelText(pet)}${valueText}</span>
+        <div class="item-row-2">
+          <span class="pet-atk">ATK ${pet.power}(${pet.basePower ?? pet.power})</span>
+          <span class="pet-atk">HP ${pet.hp ?? 0}(${pet.baseHp ?? 0})</span>
+          <span class="pet-passive">${passiveLabelText(pet)}${valueText}</span>
+        </div>
       </div>
     `;
 
@@ -881,14 +953,27 @@ export function renderStatusScreen() {
   if (pet?.passive === "legendRegen") regenRate += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendRegen") regenRate += weapon.passiveValue ?? 0;
 
+  // 攻撃力増加（通常＋レジェンダリー）
+  let atkBoost = 0;
+  if (pet?.passive === "atkBoost") atkBoost += pet.passiveValue ?? 0;
+  if (weapon?.passive === "atkBoost") atkBoost += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendAtkBoost") atkBoost += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendAtkBoost") atkBoost += weapon.passiveValue ?? 0;
+
+  // ドロップ率増加（通常＋レジェンダリー）
+  let dropBoost = 0;
+  if (pet?.passive === "dropBoost") dropBoost += pet.passiveValue ?? 0;
+  if (weapon?.passive === "dropBoost") dropBoost += weapon.passiveValue ?? 0;
+  if (pet?.passive === "legendDropBoost") dropBoost += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendDropBoost") dropBoost += weapon.passiveValue ?? 0;
+
   // レジェンダリー専用スキル（装備中のみ表示）
   const hasTripleAttack = pet?.passive === "tripleAttack" || weapon?.passive === "tripleAttack";
   const hasLegendSurvive = pet?.passive === "legendSurvive" || weapon?.passive === "legendSurvive";
   const hasLegendResurrection = pet?.passive === "legendResurrection" || weapon?.passive === "legendResurrection";
-  const legendAtkBoostVal = (pet?.passive === "legendAtkBoost" ? (pet.passiveValue ?? 0) : 0)
-                          + (weapon?.passive === "legendAtkBoost" ? (weapon.passiveValue ?? 0) : 0);
-  const legendDropBoostVal = (pet?.passive === "legendDropBoost" ? (pet.passiveValue ?? 0) : 0)
-                           + (weapon?.passive === "legendDropBoost" ? (weapon.passiveValue ?? 0) : 0);
+  // 後方互換（旧変数名は不使用になるが念のため保持）
+  const legendAtkBoostVal = 0;
+  const legendDropBoostVal = 0;
 
   // 図鑑バフ
   const dexHp = Math.round((state.dexBuff.hp - 1) * 100);
@@ -915,28 +1000,28 @@ export function renderStatusScreen() {
     </div>
     <div class="status-detail-section">
       <div class="status-detail-heading">✨ スキル効果</div>
-      ${row("経験値増加", expBoost > 0 ? `+${expBoost}%` : "なし")}
-      ${row("捕獲率増加", captureBoost > 0 ? `+${captureBoost}%` : "なし")}
-      ${row("与ダメ上昇", dmgBoost > 0 ? `+${dmgBoost}%` : "なし")}
-      ${row("被ダメ減少", dmgReduce > 0 ? `${dmgReduce}%` : "なし")}
-      ${row("HP増加", hpBoost > 0 ? `+${hpBoost}%` : "なし")}
-      ${row("2回攻撃", doubleRate > 0 ? `${doubleRate}%` : "なし")}
+      ${expBoost > 0 ? row("経験値増加率", `+${expBoost}%`) : ""}
+      ${captureBoost > 0 ? row("捕獲率", `+${captureBoost}%`) : ""}
+      ${atkBoost > 0 ? row("攻撃力増加率", `+${atkBoost}%`) : ""}
+      ${dropBoost > 0 ? row("ドロップ率", `+${dropBoost}%`) : ""}
+      ${dmgBoost > 0 ? row("与ダメ上昇率", `+${dmgBoost}%`) : ""}
+      ${dmgReduce > 0 ? row("被ダメ減少率", `${dmgReduce}%`) : ""}
+      ${hpBoost > 0 ? row("HP増加率", `+${hpBoost}%`) : ""}
+      ${doubleRate > 0 ? row("2回攻撃 発生率", `${doubleRate}%`) : ""}
       ${hasTripleAttack ? row("✨連撃王", "3回攻撃") : ""}
-      ${row("根性", surviveRate > 0 ? `${surviveRate}%` : "なし")}
+      ${surviveRate > 0 ? row("根性 発生率", `${surviveRate}%`) : ""}
       ${hasLegendSurvive ? row("✨不死身", "常時発動") : ""}
-      ${row("ダメージ反射", reflectRate > 0 ? `${reflectRate}%` : "なし")}
-      ${row("与ダメ吸収", drainRate > 0 ? `${drainRate}%` : "なし")}
-      ${row("クリティカル率", critRate > 0 ? `${critRate}%` : "なし")}
-      ${row("クリティカル強化", critDmg > 0 ? `+${critDmg}%` : "なし")}
-      ${row("追撃", extraHitRate > 0 ? `${extraHitRate}%` : "なし")}
-      ${row("巨人殺し", giantKiller > 0 ? `+${giantKiller}%` : "なし")}
-      ${row("ボス特効", bossSlayer > 0 ? `+${bossSlayer}%` : "なし")}
-      ${row("回避", evadeRate > 0 ? `${evadeRate}%` : "なし")}
-      ${row("背水の陣", lastStand > 0 ? `+${lastStand}%` : "なし")}
-      ${row("再生", regenRate > 0 ? `${regenRate}%/ターン` : "なし")}
+      ${reflectRate > 0 ? row("ダメージ反射 発生率", `${reflectRate}%`) : ""}
+      ${drainRate > 0 ? row("与ダメ吸収 発生率", `${drainRate}%`) : ""}
+      ${critRate > 0 ? row("クリティカル率", `${critRate}%`) : ""}
+      ${critDmg > 0 ? row("クリティカル強化率", `+${critDmg}%`) : ""}
+      ${extraHitRate > 0 ? row("追撃 発生率", `${extraHitRate}%`) : ""}
+      ${giantKiller > 0 ? row("巨人殺し 効果率", `+${giantKiller}%`) : ""}
+      ${bossSlayer > 0 ? row("ボス特効 効果率", `+${bossSlayer}%`) : ""}
+      ${evadeRate > 0 ? row("回避 発生率", `${evadeRate}%`) : ""}
+      ${lastStand > 0 ? row("背水の陣 効果率", `+${lastStand}%`) : ""}
+      ${regenRate > 0 ? row("再生率", `${regenRate}%/ターン`) : ""}
       ${hasLegendResurrection ? row("✨輪廻転生", "復活") : ""}
-      ${legendAtkBoostVal > 0 ? row("✨破壊神", `+${legendAtkBoostVal}%`) : ""}
-      ${legendDropBoostVal > 0 ? row("✨財宝王", `+${legendDropBoostVal}%`) : ""}
     </div>
     <div class="status-detail-section">
       <div class="status-detail-heading">📘 図鑑バフ合計</div>

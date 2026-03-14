@@ -21,6 +21,8 @@ import {
   updatePetPanel,
   updateEquippedWeaponInfo,
   renderStatusScreen,
+  updateInventoryFilterOptions,
+  updatePetFilterOptions,
 } from "./ui.js";
 import { state } from "./state.js";
 import { addLog } from "./log.js";
@@ -61,6 +63,8 @@ function refreshUI() {
   updateSortBtn();
   updatePetPanel(handlePetSynthesisClick);
   updateEquippedWeaponInfo(refreshUI);
+  updateInventoryFilterOptions();
+  updatePetFilterOptions();
   saveGame();
   updateFloorJumpOptions(state.floor);
 }
@@ -191,7 +195,13 @@ petToggleBtn.addEventListener("click", () => {
 });
 
 // ペットリストのイベント委譲（装備・解除・逃がす）
-document.getElementById("petPanel").addEventListener("click", (e) => {
+document.getElementById("petOverlay").addEventListener("click", (e) => {
+  // オーバーレイ背景クリックで閉じる
+  if (e.target === document.getElementById("petOverlay")) {
+    state.ui.petOpen = false;
+    refreshUI();
+    return;
+  }
   const equipBtn = e.target.closest(".pet-equip-btn");
   const unequipBtn = e.target.closest(".pet-unequip-btn");
 
@@ -202,6 +212,26 @@ document.getElementById("petPanel").addEventListener("click", (e) => {
   } else if (unequipBtn) {
     unequipPet();
     refreshHpBoost();
+    refreshUI();
+  }
+});
+
+// inventoryモーダルを閉じる
+document.getElementById("inventoryCloseBtn").addEventListener("click", () => {
+  state.ui.inventoryOpen = false;
+  refreshUI();
+});
+
+// petモーダルを閉じる
+document.getElementById("petCloseBtn").addEventListener("click", () => {
+  state.ui.petOpen = false;
+  refreshUI();
+});
+
+// inventoryOverlay 背景クリックで閉じる
+document.getElementById("inventoryOverlay").addEventListener("click", (e) => {
+  if (e.target === document.getElementById("inventoryOverlay")) {
+    state.ui.inventoryOpen = false;
     refreshUI();
   }
 });
@@ -245,7 +275,12 @@ document.getElementById("petSynthesizeBtn").addEventListener("click", () => {
     state.petSynthesis.baseUid = null;
     state.petSynthesis.materialUids = [];
   }
-  if (success) saveGame();
+  if (success) {
+    state.ui.petFilter = "";
+    const sel = document.getElementById("petFilterSelect");
+    if (sel) sel.value = "";
+    saveGame();
+  }
   refreshUI();
 });
 
@@ -278,6 +313,9 @@ synthBtn.addEventListener("click", () => {
     state.synthesis.materialUids = [];
   }
   if (success) {
+    state.ui.inventoryFilter = "";
+    const sel = document.getElementById("inventoryFilterSelect");
+    if (sel) sel.value = "";
     saveGame();
   }
   refreshUI();
