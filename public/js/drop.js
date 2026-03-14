@@ -2,14 +2,14 @@ import { weaponTemplates } from "./data/index.js";
 import { state } from "./state.js";
 
 export function getDropWeapon(dropMult = 1, enemyId = null) {
-  // 敵IDに対応した武器テンプレートを1:1で取得
+  // 敵IDが渡された場合は1:1対応の武器を返す
   const template = enemyId != null
     ? weaponTemplates.find((w) => !w.isBossDrop && w.id === enemyId)
     : null;
 
   if (!template) return null;
 
-  // ドロップ率判定（dropMultを乗算、上限1）
+  // ドロップ判定（dropRateにdropMultを掛けた確率）
   const dropChance = Math.min(template.dropRate * dropMult, 1);
   if (Math.random() > dropChance) return null;
 
