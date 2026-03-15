@@ -613,6 +613,89 @@ button {
   cursor: not-allowed;
 }
 
+/* ステータスモーダル内リセットフッター */
+.status-reset-footer {
+  border-top: 1px solid #3a2020;
+  background: #1e1410;
+}
+
+.status-reset-footer button {
+  width: 100%;
+  padding: 10px;
+  font-size: 13px;
+  background: #3a1a1a;
+  color: #cc6666;
+  border: 1px solid #5a2a2a;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.status-reset-footer button:hover {
+  background: #4a2020;
+  color: #ff8888;
+}
+
+/* リセット確認モーダル */
+.reset-confirm-modal {
+  max-width: 320px;
+  width: 88vw;
+}
+
+.reset-confirm-body {
+  padding: 20px 20px 8px;
+  text-align: center;
+  line-height: 1.7;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.reset-confirm-sub {
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #ff8888;
+}
+
+.reset-confirm-footer {
+  display: flex;
+  gap: 10px;
+  padding: 14px 16px;
+  border-top: 1px solid #333;
+}
+
+.reset-confirm-footer button {
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#resetCancelBtn {
+  background: #2e2e2e;
+  color: #ccc;
+  border: 1px solid #484848;
+}
+
+#resetCancelBtn:hover {
+  background: #3a3a3a;
+  color: #fff;
+}
+
+#resetConfirmBtn {
+  background: #7a1a1a;
+  color: #ffcccc;
+  border: 1px solid #a03030;
+  font-weight: bold;
+}
+
+#resetConfirmBtn:hover {
+  background: #922020;
+  color: #fff;
+}
+
 /* 装備中サマリー */
 .equipped-summary {
   padding: 8px 14px;

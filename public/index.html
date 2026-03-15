@@ -26,7 +26,6 @@
         </div>
       </div>
       <div class="status-panel">
-        <button id="resetBtn" style="color: black">リセット</button>
         <div class="status-grid">
           <div class="player-status status-card">
             <div class="status-card-label">PLAYER</div>
@@ -159,6 +158,26 @@
           <button id="statusCloseBtn">✕</button>
         </div>
         <div id="statusContent" class="status-detail-content"></div>
+        <div class="panel-modal-footer status-reset-footer">
+          <button id="resetBtn">🗑️ データをリセット</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- リセット確認モーダル -->
+    <div id="resetConfirmOverlay" class="book-overlay hidden">
+      <div class="book-modal reset-confirm-modal">
+        <div class="book-header">
+          <span>⚠️ リセット確認</span>
+        </div>
+        <div class="reset-confirm-body">
+          <p>すべてのセーブデータが削除されます。<br>この操作は取り消せません。</p>
+          <p class="reset-confirm-sub">本当にリセットしますか？</p>
+        </div>
+        <div class="reset-confirm-footer">
+          <button id="resetCancelBtn">キャンセル</button>
+          <button id="resetConfirmBtn">リセットする</button>
+        </div>
       </div>
     </div>
 

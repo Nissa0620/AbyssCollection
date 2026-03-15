@@ -375,7 +375,20 @@ document.getElementById("achievementCloseBtn").addEventListener("click", () => {
   document.getElementById("achievementOverlay").classList.add("hidden");
 });
 
+// =====================
+// リセットボタン（確認モーダル経由）
+// =====================
 document.getElementById("resetBtn").addEventListener("click", () => {
+  document.getElementById("statusOverlay").classList.add("hidden");
+  document.getElementById("resetConfirmOverlay").classList.remove("hidden");
+});
+
+document.getElementById("resetCancelBtn").addEventListener("click", () => {
+  document.getElementById("resetConfirmOverlay").classList.add("hidden");
+  document.getElementById("statusOverlay").classList.remove("hidden");
+});
+
+document.getElementById("resetConfirmBtn").addEventListener("click", () => {
   localStorage.removeItem("abyssSave");
   location.reload();
 });
