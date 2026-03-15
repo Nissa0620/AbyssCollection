@@ -26,16 +26,16 @@ export function loadGame() {
       const weaponMult = (weapon?.passive === "atkBoost" || weapon?.passive === "legendAtkBoost")
         ? 1 + (weapon.passiveValue / 100) : 1;
       const gemBonus = (state.player.gems ?? []).reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
+      const dexMultiplier = 1 + (state.dexBuff.power - 1) + (state.weaponDexBuff.power - 1);
       return Math.floor(
         (this.basePower + (weapon ? weapon.totalAtk : 0) + petPower + gemBonus) *
-        state.dexBuff.power *
-        state.weaponDexBuff.power *
+        dexMultiplier *
         petMult *
         weaponMult
       );
     },
     get totalHp() {
-      const buff = state.dexBuff.hp * state.weaponDexBuff.hp * state.hpBoostMult;
+      const buff = (1 + (state.dexBuff.hp - 1) + (state.weaponDexBuff.hp - 1)) * state.hpBoostMult;
       const petHp = Math.floor((state.player.equippedPet?.hp ?? 0) * buff);
       const weaponHp = Math.floor((state.player.equippedWeapon?.totalHp ?? 0) * buff);
       return Math.floor(this.baseHp * buff) + petHp + weaponHp;
@@ -80,6 +80,21 @@ export function loadGame() {
   recalcDexBuff(state);
   recalcWeaponDexBuff(state);
   state.hpBoostMult = getHpBoostMultiplier();
+
+  // マイグレーション：捕獲済フラグの補完
+  // petList に存在するペットは必ず caught = true にする
+  if (state.player?.petList && state.book?.enemies) {
+    for (const pet of state.player.petList) {
+      const bookKey = pet.isBoss ? `boss_${pet.enemyId}` : `normal_${pet.enemyId}`;
+      const bookEntry = state.book.enemies[bookKey];
+      if (!bookEntry) continue;
+      const tid = pet.isLegendary ? 5 : pet.titleId;
+      if (!bookEntry.titles[tid]) {
+        bookEntry.titles[tid] = { seen: true, defeated: false };
+      }
+      bookEntry.titles[tid].caught = true;
+    }
+  }
 
   return true;
 }

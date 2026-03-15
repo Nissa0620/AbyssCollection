@@ -1,5 +1,6 @@
 import { state } from "./state.js";
 import { addLog } from "./log.js";
+import { isLocked } from "./listPrefs.js";
 import { getWeaponDisplayName } from "./weapon.js";
 import { saveGame } from "./saveLoad.js";
 import { registerWeaponEvolved } from "./weaponBook.js";
@@ -23,12 +24,14 @@ export function handleSynthesisSelection(uid) {
   const inv = state.player.inventory;
   const clickedItem = inv.find((item) => item.uid === uid);
   if (!clickedItem) return;
+
+  // ベース未選択 → ベースにセット
   if (synth.baseUid === null) {
     synth.baseUid = clickedItem.uid;
     return;
   }
 
-  // ベースをもう一度押したら解除
+  // ベースを再タップ → 解除
   if (clickedItem.uid === synth.baseUid) {
     synth.baseUid = null;
     synth.materialUids = [];
@@ -36,10 +39,9 @@ export function handleSynthesisSelection(uid) {
   }
 
   const base = inv.find((item) => item.uid === synth.baseUid);
-  if (base.templateId !== clickedItem.templateId) {
-    return;
-  }
+  if (base.templateId !== clickedItem.templateId) return;
 
+  // 素材トグル（手動追加・解除）
   const i = synth.materialUids.indexOf(uid);
   if (i === -1) {
     synth.materialUids.push(uid);
@@ -52,15 +54,17 @@ export function handleSynthesisSelection(uid) {
 export function toggleSelectAllSameWeapons() {
   const synth = state.synthesis;
   const inv = state.player.inventory;
-
   if (!synth.baseUid) return;
 
   const base = inv.find((item) => item.uid === synth.baseUid);
   if (!base) return;
 
+  // ロック済みを除外
   const sameWeaponUids = inv
-    .filter(
-      (item) => item.uid !== base.uid && item.templateId === base.templateId,
+    .filter((item) =>
+      item.uid !== base.uid &&
+      item.templateId === base.templateId &&
+      !isLocked(item.uid)
     )
     .map((item) => item.uid);
 

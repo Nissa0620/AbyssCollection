@@ -2,10 +2,12 @@ import { state } from "./state.js";
 import { getTitleName } from "./data/index.js";
 import { addLog } from "./log.js";
 import { getSynthesisPreview } from "./inventory.js";
+import { isFavorite, toggleFavorite, isLocked, toggleLock } from "./listPrefs.js";
 import { isUltimateWeapon } from "./drop.js";
 import { isUltimatePet } from "./pet.js";
 import { getPetSynthesisPreview } from "./pet.js";
 import { toggleSelectAllSamePets } from "./pet.js";
+import { passiveLabels } from "./pet.js";
 import { getWeaponDisplayName } from "./weapon.js";
 import {
   normalEnemies,
@@ -16,6 +18,8 @@ import {
   floorTable,
   getCurrentArea,
   weaponTemplates,
+  normalPassiveOf,
+  isLegendaryPassive,
 } from "./data/index.js";
 
 // 表示更新処理
@@ -57,10 +61,122 @@ export function renderInventory(player, onItemClick, onEquip) {
     return;
   }
 
-  const baseItem = player.inventory.find((i) => i.uid === state.synthesis.baseUid);
+  // templateId ごとにグループ化
+  const groups = new Map();
+  for (const item of items) {
+    const key = item.templateId;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(item);
+  }
 
-  items.forEach((item) => {
-    const isEquipped = player.equippedWeapon === item;
+  list.innerHTML = "";
+
+  // お気に入り優先でソート
+  const sortedGroups = [...groups.entries()].sort(([keyA], [keyB]) => {
+    const favA = isFavorite(`weapon_${keyA}`) ? 0 : 1;
+    const favB = isFavorite(`weapon_${keyB}`) ? 0 : 1;
+    if (favA !== favB) return favA - favB;
+    return Number(keyA) - Number(keyB);
+  });
+
+  for (const [templateId, groupItems] of sortedGroups) {
+    const template = weaponTemplates.find((t) => t.id === templateId);
+    const baseName = template?.name ?? "不明な武器";
+
+    // 所持中の最高進化名を取得
+    const maxLevel = Math.max(...groupItems.map((w) => w.level ?? 0));
+    const evoName = template?.evolutions
+      ? [...template.evolutions].reverse().find((e) => maxLevel >= e.level)?.name ?? null
+      : null;
+    const displayName = evoName ?? baseName;
+
+    // 通常スキル名
+    const skillLabel = template?.passive ? weaponPassiveLabel(template.passive) : "";
+
+    const groupKey = `weapon_${templateId}`;
+    const fav = isFavorite(groupKey);
+
+    const groupEl = document.createElement("div");
+    groupEl.className = "pet-group";
+
+    const headerEl = document.createElement("div");
+    headerEl.className = "pet-group-header";
+    headerEl.innerHTML = `
+      <button class="group-fav-btn ${fav ? "fav-on" : ""}" data-group-key="${groupKey}">${fav ? "♥" : "♡"}</button>
+      <span class="pet-group-name">⚔️ ${displayName}</span>
+      <span class="pet-group-skill">${skillLabel}</span>
+      <span class="pet-group-count">× ${groupItems.length}</span>
+      <span class="pet-group-toggle">▶</span>
+      <button class="group-close-btn hidden">✕</button>
+    `;
+
+    headerEl.querySelector(".group-fav-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite(groupKey);
+      const isNowFav = isFavorite(groupKey);
+      e.currentTarget.classList.toggle("fav-on", isNowFav);
+      e.currentTarget.textContent = isNowFav ? "♥" : "♡";
+
+      const parentList = list;
+      const allGroups = [...parentList.querySelectorAll(".pet-group")];
+      allGroups.sort((a, b) => {
+        const btnA = a.querySelector(".group-fav-btn");
+        const btnB = b.querySelector(".group-fav-btn");
+        const favA = btnA?.classList.contains("fav-on") ? 0 : 1;
+        const favB = btnB?.classList.contains("fav-on") ? 0 : 1;
+        if (favA !== favB) return favA - favB;
+        const keyA = btnA?.dataset.groupKey ?? "";
+        const keyB = btnB?.dataset.groupKey ?? "";
+        const idA = parseInt(keyA.replace(/^weapon_/, "")) || 0;
+        const idB = parseInt(keyB.replace(/^weapon_/, "")) || 0;
+        return idA - idB;
+      });
+      allGroups.forEach((g) => parentList.appendChild(g));
+    });
+
+    const bodyEl = document.createElement("ul");
+    bodyEl.className = "pet-group-body hidden";
+    let rendered = false;
+
+    const closeBtn = headerEl.querySelector(".group-close-btn");
+
+    headerEl.addEventListener("click", () => {
+      const isOpen = !bodyEl.classList.contains("hidden");
+      if (isOpen) return;
+
+      if (!rendered) {
+        renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip);
+        rendered = true;
+      }
+      bodyEl.classList.remove("hidden");
+      headerEl.querySelector(".pet-group-toggle").textContent = "▼";
+      closeBtn.classList.remove("hidden");
+      updateSynthesisClasses();
+      updateWeaponSortBtnState();
+    });
+
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      state.synthesis.baseUid = null;
+      state.synthesis.materialUids = [];
+      bodyEl.classList.add("hidden");
+      headerEl.querySelector(".pet-group-toggle").textContent = "▶";
+      closeBtn.classList.add("hidden");
+      updateSynthesisUI();
+      updateSynthesisPreview();
+      updateSynthesisClasses();
+      updateWeaponSortBtnState();
+    });
+
+    groupEl.appendChild(headerEl);
+    groupEl.appendChild(bodyEl);
+    list.appendChild(groupEl);
+  }
+}
+
+function renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip) {
+  groupItems.forEach((item) => {
+    const isEquipped = state.player.equippedWeapon === item;
     const displayName = getWeaponDisplayName(item, { showSeries: true });
 
     const li = document.createElement("li");
@@ -90,6 +206,7 @@ export function renderInventory(player, onItemClick, onEquip) {
     const weaponPassiveText = item.passive
       ? `${weaponPassiveLabel(item.passive)}${item.passiveValue != null ? `(${item.passiveValue}%)` : ""}`
       : "";
+    const locked = isLocked(item.uid);
     li.innerHTML = `
       <div class="pet-item-bar"></div>
       <div class="pet-item-body">
@@ -102,6 +219,7 @@ export function renderInventory(player, onItemClick, onEquip) {
               ? `<button class="weapon-unequip-btn" data-uid="${item.uid}">外す</button>`
               : `<button class="weapon-equip-btn" data-uid="${item.uid}">装備</button>`
             }
+            <button class="pet-lock-btn ${locked ? "lock-on" : ""}" data-uid="${item.uid}">${locked ? "🔒" : "🔓"}</button>
           </div>
         </div>
         <div class="item-row-2">
@@ -112,17 +230,33 @@ export function renderInventory(player, onItemClick, onEquip) {
       </div>
     `;
 
-    // カード全体クリックで合成選択（ボタン部分は除外）
+    // カード全体クリックで合成選択（ボタン部分は除外、ロック中は素材選択不可）
     li.onclick = (e) => {
+      e.stopPropagation();
       if (e.target.closest("button")) return;
+      const isBase = item.uid === state.synthesis.baseUid;
+      if (isLocked(item.uid) && state.synthesis.baseUid !== null && !isBase) return;
       onItemClick(item.uid);
     };
 
     // 装備ボタン（合成選択とは独立）
     li.querySelector(".weapon-equip-btn, .weapon-unequip-btn")
-      ?.addEventListener("click", () => onEquip(item.uid));
+      ?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        onEquip(item.uid);
+      });
 
-    list.appendChild(li);
+    // ロックボタン
+    li.querySelector(".pet-lock-btn")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleLock(item.uid);
+      const btn = e.currentTarget;
+      const nowLocked = isLocked(item.uid);
+      btn.classList.toggle("lock-on", nowLocked);
+      btn.textContent = nowLocked ? "🔒" : "🔓";
+    });
+
+    bodyEl.appendChild(li);
   });
 }
 
@@ -335,9 +469,60 @@ export function updateButton() {
 
 export function updateSynthesisUI() {
   const synthBtn = document.getElementById("synthesizeBtn");
-  const { baseUid, materialUids } = state.synthesis;
-  // display制御を削除（フッターで常時表示）
-  synthBtn.disabled = !(baseUid !== null && materialUids.length !== 0);
+  if (synthBtn) {
+    const { baseUid, materialUids } = state.synthesis;
+    synthBtn.disabled = !(baseUid !== null && materialUids.length > 0);
+  }
+  const infoEl = document.getElementById("synthesisInfo");
+  if (infoEl) {
+    const { baseUid, materialUids } = state.synthesis;
+    const hintEl = infoEl.querySelector(".synth-hint-text");
+    if (hintEl) {
+      if (!baseUid) {
+        hintEl.className = "synth-hint-text";
+        hintEl.textContent = "⚔️ 武器をタップしてベースを選択";
+      } else if (materialUids.length === 0) {
+        hintEl.className = "synth-hint-text hint-base";
+        hintEl.textContent = "🔵 ベース選択中 — 同じ種類をタップして素材に追加";
+      } else {
+        hintEl.className = "synth-hint-text hint-material";
+        hintEl.textContent = `🔴 素材 ${materialUids.length}個選択中`;
+      }
+    }
+  }
+}
+
+export function updatePetSynthesisUI() {
+  const synthBtn = document.getElementById("petSynthesizeBtn");
+  if (synthBtn) {
+    const { baseUid, materialUids } = state.petSynthesis;
+    synthBtn.disabled = !(baseUid !== null && materialUids.length > 0);
+  }
+  const hintEl = document.getElementById("petSynthesisHint");
+  if (hintEl) {
+    const { baseUid, materialUids } = state.petSynthesis;
+    if (!baseUid) {
+      hintEl.className = "synth-hint-text";
+      hintEl.textContent = "🐾 ペットをタップしてベースを選択";
+    } else if (materialUids.length === 0) {
+      hintEl.className = "synth-hint-text hint-base";
+      hintEl.textContent = "🔵 ベース選択中 — 同じ種族をタップして素材に追加";
+    } else {
+      hintEl.className = "synth-hint-text hint-material";
+      hintEl.textContent = `🔴 素材 ${materialUids.length}個選択中 — 合成するを押して強化！`;
+    }
+  }
+  const previewEl = document.getElementById("petSynthesisPreview");
+  if (previewEl) {
+    const preview = getPetSynthesisPreview();
+    if (preview) {
+      previewEl.style.display = "";
+      previewEl.innerHTML = `ATK ${preview.oldPower} → <strong>${preview.newPower}</strong> / HP ${preview.oldHp} → <strong>${preview.newHp}</strong>`;
+    } else {
+      previewEl.style.display = "none";
+      previewEl.textContent = "";
+    }
+  }
 }
 
 export function updateSynthesisPreview() {
@@ -476,9 +661,7 @@ function renderEnemyBook(buffEl, contentEl) {
           const buffText = titleBuff
             ? `HP+${titleBuff.hp * 100}% ATK+${titleBuff.power * 100}%`
             : "";
-          const isCaught = state.player.petList.some(
-            (p) => p.enemyId === enemyDef.id && p.isBoss === !!enemyDef.isBoss && p.titleId === title.id
-          );
+          const isCaught = !!entry.titles?.[title.id]?.caught;
           const caughtBadge = isCaught ? ` <span class="book-caught">捕獲済</span>` : "";
           if (!titleEntry || !titleEntry.seen) {
             return `<div class="book-title-unknown"><span>？？？</span></div>`;
@@ -495,9 +678,7 @@ function renderEnemyBook(buffEl, contentEl) {
         const displayName = enemyDef.isBoss
           ? `✨ ${legendDef.name}・支配者の${entry.name}`
           : `✨ ${legendDef.name}・深淵の${entry.name}`;
-        const isCaught = state.player.petList.some(
-          (p) => p.enemyId === enemyDef.id && p.isBoss === !!enemyDef.isBoss && p.isLegendary
-        );
+        const isCaught = !!entry.titles?.[5]?.caught;
         const caughtBadge = isCaught ? ` <span class="book-caught">捕獲済</span>` : "";
         if (legendEntry.defeated) {
           return `<div class="book-title-row defeated legendary-row"><span>${displayName}</span><span class="book-title-buff"></span><span>撃破済${caughtBadge}</span></div>`;
@@ -663,7 +844,7 @@ export function updateEquippedWeaponInfo(onUnequip) {
   }
 }
 
-export function updatePetPanel(onPetClick) {
+export function updatePetPanel(onPetClick, onPetEquip) {
   const equippedEl = document.getElementById("equippedPetInfo");
   const listEl = document.getElementById("petList");
   if (!equippedEl || !listEl) return;
@@ -689,54 +870,7 @@ export function updatePetPanel(onPetClick) {
     equippedEl.innerHTML = `<div class="equipped-pet-empty">ペット未装備</div>`;
   }
 
-  // 合成ヒント
-  const hintEl = document.getElementById("petSynthesisHint");
-  if (hintEl) {
-    const { baseUid, materialUids } = state.petSynthesis;
-    if (!baseUid) {
-      hintEl.className = "synth-hint-text";
-      hintEl.textContent = "🐾 ペットをタップしてベースを選択";
-    } else if (materialUids.length === 0) {
-      const base = state.player.petList.find((p) => p.uid === baseUid);
-      const candidateCount = base
-        ? state.player.petList.filter(
-            (p) => p.uid !== baseUid
-              && p.enemyId === base.enemyId
-              && p.isBoss === base.isBoss
-          ).length
-        : 0;
-      if (candidateCount === 0) {
-        hintEl.className = "synth-hint-text";
-        hintEl.textContent = "⚠️ 合成できる素材がありません";
-      } else {
-        hintEl.className = "synth-hint-text hint-base";
-        hintEl.textContent = "🔵 ベース選択中 — 同じ種族をタップして素材に追加";
-      }
-    } else {
-      hintEl.className = "synth-hint-text hint-material";
-      hintEl.textContent = `🔴 素材 ${materialUids.length}個選択中 — 合成するを押して強化！`;
-    }
-  }
-
-  // 合成プレビュー
-  const previewEl = document.getElementById("petSynthesisPreview");
-  if (previewEl) {
-    const preview = getPetSynthesisPreview();
-    if (preview) {
-      previewEl.style.display = "";
-      previewEl.innerHTML = `ATK ${preview.oldPower} → <strong>${preview.newPower}</strong> / HP ${preview.oldHp} → <strong>${preview.newHp}</strong>`;
-    } else {
-      previewEl.style.display = "none";
-      previewEl.textContent = "";
-    }
-  }
-
-  // 合成ボタンの活性制御
-  const synthBtn = document.getElementById("petSynthesizeBtn");
-  if (synthBtn) {
-    const { baseUid, materialUids } = state.petSynthesis;
-    synthBtn.disabled = !(baseUid !== null && materialUids.length > 0);
-  }
+  updatePetSynthesisUI();
 
   listEl.innerHTML = "";
   const filter = state.ui.petFilter ?? "";
@@ -748,11 +882,118 @@ export function updatePetPanel(onPetClick) {
     return;
   }
 
-  const { baseUid, materialUids } = state.petSynthesis;
-  const basePet = state.player.petList.find((p) => p.uid === baseUid);
+  // 種族ごとにグループ化（enemyId + isBoss の組み合わせ）
+  const groups = new Map();
+  for (const pet of pets) {
+    const key = `${pet.enemyId}_${!!pet.isBoss}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(pet);
+  }
 
-  pets.forEach((pet) => {
-    const isEquipped = equipped?.uid === pet.uid;
+  // お気に入り優先でソート
+  const sortedGroups = [...groups.entries()].sort(([, petsA], [, petsB]) => {
+    const repA = petsA[0];
+    const repB = petsB[0];
+    const favA = isFavorite(`pet_${repA.enemyId}_${!!repA.isBoss}`) ? 0 : 1;
+    const favB = isFavorite(`pet_${repB.enemyId}_${!!repB.isBoss}`) ? 0 : 1;
+    if (favA !== favB) return favA - favB;
+    return repA.enemyId - repB.enemyId;
+  });
+
+  for (const [key, groupPets] of sortedGroups) {
+    const rep = groupPets[0];
+    const speciesName = rep.name;
+    const skillLabel = getNormalSkillLabel(rep.passive);
+    const groupKey = `pet_${rep.enemyId}_${!!rep.isBoss}`;
+    const fav = isFavorite(groupKey);
+
+    const groupEl = document.createElement("div");
+    groupEl.className = "pet-group";
+
+    const headerEl = document.createElement("div");
+    headerEl.className = "pet-group-header";
+    headerEl.innerHTML = `
+      <button class="group-fav-btn ${fav ? "fav-on" : ""}" data-group-key="${groupKey}">${fav ? "♥" : "♡"}</button>
+      <span class="pet-group-name">🐾 ${speciesName}</span>
+      <span class="pet-group-skill">${skillLabel}</span>
+      <span class="pet-group-count">× ${groupPets.length}</span>
+      <span class="pet-group-toggle">▶</span>
+      <button class="group-close-btn hidden">✕</button>
+    `;
+
+    headerEl.querySelector(".group-fav-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite(groupKey);
+      const isNowFav = isFavorite(groupKey);
+      e.currentTarget.classList.toggle("fav-on", isNowFav);
+      e.currentTarget.textContent = isNowFav ? "♥" : "♡";
+
+      const allGroups = [...listEl.querySelectorAll(".pet-group")];
+      allGroups.sort((a, b) => {
+        const btnA = a.querySelector(".group-fav-btn");
+        const btnB = b.querySelector(".group-fav-btn");
+        const favA = btnA?.classList.contains("fav-on") ? 0 : 1;
+        const favB = btnB?.classList.contains("fav-on") ? 0 : 1;
+        if (favA !== favB) return favA - favB;
+        const keyA = btnA?.dataset.groupKey ?? "";
+        const keyB = btnB?.dataset.groupKey ?? "";
+        const idA = parseInt(keyA.replace(/^pet_/, "").split("_")[0]) || 0;
+        const idB = parseInt(keyB.replace(/^pet_/, "").split("_")[0]) || 0;
+        return idA - idB;
+      });
+      allGroups.forEach((g) => listEl.appendChild(g));
+    });
+
+    const bodyEl = document.createElement("ul");
+    bodyEl.className = "pet-group-body hidden";
+    let rendered = false;
+
+    const closeBtn = headerEl.querySelector(".group-close-btn");
+
+    headerEl.addEventListener("click", () => {
+      const isOpen = !bodyEl.classList.contains("hidden");
+      if (isOpen) return;
+
+      if (!rendered) {
+        renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip);
+        rendered = true;
+      }
+      bodyEl.classList.remove("hidden");
+      headerEl.querySelector(".pet-group-toggle").textContent = "▼";
+      closeBtn.classList.remove("hidden");
+      updateSynthesisClasses();
+      updatePetSortBtnState();
+    });
+
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      state.petSynthesis.baseUid = null;
+      state.petSynthesis.materialUids = [];
+      bodyEl.classList.add("hidden");
+      headerEl.querySelector(".pet-group-toggle").textContent = "▶";
+      closeBtn.classList.add("hidden");
+      updatePetSynthesisUI();
+      updateSynthesisClasses();
+      updatePetSortBtnState();
+    });
+
+    groupEl.appendChild(headerEl);
+    groupEl.appendChild(bodyEl);
+    listEl.appendChild(groupEl);
+  }
+}
+
+// ボックスヘッダー用：通常スキル名を返すヘルパー
+function getNormalSkillLabel(passive) {
+  if (!passive) return "";
+  const normalKey = isLegendaryPassive(passive) ? normalPassiveOf(passive) : passive;
+  return passiveLabels[normalKey] ?? passive;
+}
+
+function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
+  groupPets.forEach((pet) => {
+    const { baseUid, materialUids } = state.petSynthesis;
+    const isEquipped = state.player.equippedPet?.uid === pet.uid;
     const isBase = pet.uid === baseUid;
     const isMaterial = materialUids.includes(pet.uid);
     const valueText = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
@@ -781,6 +1022,7 @@ export function updatePetPanel(onPetClick) {
       }
     }
 
+    const locked = isLocked(pet.uid);
     li.innerHTML = `
       <div class="pet-item-bar"></div>
       <div class="pet-item-body">
@@ -793,6 +1035,7 @@ export function updatePetPanel(onPetClick) {
               ? `<button class="pet-unequip-btn" data-uid="${pet.uid}">外す</button>`
               : `<button class="pet-equip-btn" data-uid="${pet.uid}">装備</button>`
             }
+            <button class="pet-lock-btn ${locked ? "lock-on" : ""}" data-uid="${pet.uid}">${locked ? "🔒" : "🔓"}</button>
           </div>
         </div>
         <div class="item-row-2">
@@ -803,13 +1046,33 @@ export function updatePetPanel(onPetClick) {
       </div>
     `;
 
-    // カードタップで合成選択（ボタン部分は除外）
+    // カードタップで合成選択（ボタン部分は除外、ロック中は素材選択不可）
     li.onclick = (e) => {
+      e.stopPropagation();
       if (e.target.closest("button")) return;
+      const isBase = pet.uid === state.petSynthesis.baseUid;
+      if (isLocked(pet.uid) && state.petSynthesis.baseUid !== null && !isBase) return;
       if (onPetClick) onPetClick(pet.uid);
     };
 
-    listEl.appendChild(li);
+    // 装備・外すボタン（直接バインド）
+    li.querySelector(".pet-equip-btn, .pet-unequip-btn")
+      ?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (onPetEquip) onPetEquip(pet.uid);
+      });
+
+    // ロックボタン
+    li.querySelector(".pet-lock-btn")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleLock(pet.uid);
+      const btn = e.currentTarget;
+      const nowLocked = isLocked(pet.uid);
+      btn.classList.toggle("lock-on", nowLocked);
+      btn.textContent = nowLocked ? "🔒" : "🔓";
+    });
+
+    bodyEl.appendChild(li);
   });
 }
 
@@ -867,6 +1130,110 @@ function weaponPassiveLabel(passive) {
     legendResurrection: "✨輪廻転生",
   };
   return labels[passive] ?? passive;
+}
+
+// =====================
+// ソートボタン有効/無効制御
+// =====================
+export function updatePetSortBtnState() {
+  const btn = document.getElementById("petSortBtn");
+  if (!btn) return;
+  const anyOpen = !!document.querySelector("#petList .pet-group-body:not(.hidden)");
+  btn.disabled = !anyOpen;
+}
+
+export function updateWeaponSortBtnState() {
+  const btn = document.getElementById("sortBtn");
+  if (!btn) return;
+  const anyOpen = !!document.querySelector("#inventoryList .pet-group-body:not(.hidden)");
+  btn.disabled = !anyOpen;
+}
+
+// =====================
+// 合成クラス更新（アコーディオン再描画なし）
+// =====================
+export function updateSynthesisClasses() {
+  // 武器
+  const weaponBase = state.synthesis.baseUid;
+  const weaponMaterials = new Set(state.synthesis.materialUids);
+  const baseWeapon = weaponBase
+    ? state.player.inventory.find((w) => w.uid === weaponBase)
+    : null;
+
+  document.querySelectorAll("#inventoryList .pet-item, .pet-group-body .pet-item").forEach((li) => {
+    const uidAttr = li.querySelector("[data-uid]")?.dataset.uid;
+    if (!uidAttr) return;
+    const uid = parseFloat(uidAttr);
+    const item = state.player.inventory.find((w) => w.uid === uid);
+    if (!item) return;
+
+    li.classList.remove("synth-base", "synth-material", "synth-candidate", "synth-disabled");
+
+    if (uid === weaponBase) {
+      li.classList.add("synth-base");
+      updateSynthBadge(li, "base");
+    } else if (weaponMaterials.has(uid)) {
+      li.classList.add("synth-material");
+      updateSynthBadge(li, "material");
+    } else if (weaponBase !== null) {
+      const isCandidate = baseWeapon && item.templateId === baseWeapon.templateId;
+      li.classList.add(isCandidate ? "synth-candidate" : "synth-disabled");
+      updateSynthBadge(li, null);
+    } else {
+      updateSynthBadge(li, null);
+    }
+  });
+
+  // ペット
+  const petBase = state.petSynthesis.baseUid;
+  const petMaterials = new Set(state.petSynthesis.materialUids);
+  const basePet = petBase
+    ? state.player.petList.find((p) => p.uid === petBase)
+    : null;
+
+  document.querySelectorAll("#petList .pet-item, .pet-group-body .pet-item").forEach((li) => {
+    const uidAttr = li.querySelector("[data-uid]")?.dataset.uid;
+    if (!uidAttr) return;
+    const uid = parseFloat(uidAttr);
+    const pet = state.player.petList.find((p) => p.uid === uid);
+    if (!pet) return;
+
+    li.classList.remove("synth-base", "synth-material", "synth-candidate", "synth-disabled");
+
+    if (uid === petBase) {
+      li.classList.add("synth-base");
+      updateSynthBadge(li, "base");
+    } else if (petMaterials.has(uid)) {
+      li.classList.add("synth-material");
+      updateSynthBadge(li, "material");
+    } else if (petBase !== null) {
+      const isCandidate = basePet
+        && pet.enemyId === basePet.enemyId
+        && pet.isBoss === basePet.isBoss;
+      li.classList.add(isCandidate ? "synth-candidate" : "synth-disabled");
+      updateSynthBadge(li, null);
+    } else {
+      updateSynthBadge(li, null);
+    }
+  });
+}
+
+function updateSynthBadge(li, type) {
+  li.querySelectorAll(".synth-badge").forEach((b) => b.remove());
+  const actions = li.querySelector(".pet-actions");
+  if (!actions) return;
+
+  if (type === "base") {
+    const badge = document.createElement("span");
+    badge.className = "synth-badge synth-badge-base";
+    badge.textContent = "BASE";
+    actions.prepend(badge);
+  } else if (type === "material") {
+    const badge = document.createElement("span");
+    badge.className = "synth-badge synth-badge-material";
+    badge.textContent = "素材";
+    actions.prepend(badge);
+  }
 }
 
 // =====================

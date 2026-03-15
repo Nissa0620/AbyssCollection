@@ -13,6 +13,7 @@ import {
   updateSynthesisUI,
   updateSynthesisInfo,
   updateSynthesisPreview,
+  updatePetSynthesisUI,
   sortInventory,
   updateSortBtn,
   updateExpBar,
@@ -23,6 +24,9 @@ import {
   renderStatusScreen,
   updateInventoryFilterOptions,
   updatePetFilterOptions,
+  updateSynthesisClasses,
+  updatePetSortBtnState,
+  updateWeaponSortBtnState,
 } from "./ui.js";
 import { state } from "./state.js";
 import { addLog } from "./log.js";
@@ -61,21 +65,32 @@ function refreshUI() {
   updateSynthesisPreview();
   updateExpBar();
   updateSortBtn();
-  updatePetPanel(handlePetSynthesisClick);
+  updatePetPanel(handlePetSynthesisClick, handlePetEquip);
   updateEquippedWeaponInfo(refreshUI);
   updateInventoryFilterOptions();
   updatePetFilterOptions();
   saveGame();
   updateFloorJumpOptions(state.floor);
+  updatePetSortBtnState();
+  updateWeaponSortBtnState();
 }
 
 function refreshHpBoost() {
   state.hpBoostMult = getHpBoostMultiplier();
 }
 
+function refreshSynthesisOnly() {
+  updateSynthesisUI();
+  updateSynthesisInfo();
+  updateSynthesisPreview();
+  updatePetSynthesisUI();
+  updateSynthesisClasses();
+  saveGame();
+}
+
 function handleInventoryClick(uid) {
   handleSynthesisSelection(uid);
-  refreshUI();
+  refreshSynthesisOnly();
 }
 
 function handleEquip(uid) {
@@ -94,6 +109,32 @@ function handleEquip(uid) {
 
 function handlePetSynthesisClick(uid) {
   handlePetSynthesisSelection(uid);
+  refreshSynthesisOnly();
+}
+
+function handlePetEquip(uid) {
+  const pet = state.player.petList.find((p) => p.uid === uid);
+  if (!pet) return;
+  if (state.player.equippedPet?.uid === uid) {
+    unequipPet();
+  } else {
+    equipPet(uid);
+  }
+  refreshHpBoost();
+  refreshUI();
+}
+
+function closeInventoryModal() {
+  state.ui.inventoryOpen = false;
+  state.synthesis.baseUid = null;
+  state.synthesis.materialUids = [];
+  refreshUI();
+}
+
+function closePetModal() {
+  state.ui.petOpen = false;
+  state.petSynthesis.baseUid = null;
+  state.petSynthesis.materialUids = [];
   refreshUI();
 }
 
@@ -198,8 +239,7 @@ petToggleBtn.addEventListener("click", () => {
 document.getElementById("petOverlay").addEventListener("click", (e) => {
   // オーバーレイ背景クリックで閉じる
   if (e.target === document.getElementById("petOverlay")) {
-    state.ui.petOpen = false;
-    refreshUI();
+    closePetModal();
     return;
   }
   const equipBtn = e.target.closest(".pet-equip-btn");
@@ -217,23 +257,14 @@ document.getElementById("petOverlay").addEventListener("click", (e) => {
 });
 
 // inventoryモーダルを閉じる
-document.getElementById("inventoryCloseBtn").addEventListener("click", () => {
-  state.ui.inventoryOpen = false;
-  refreshUI();
-});
+document.getElementById("inventoryCloseBtn").addEventListener("click", closeInventoryModal);
 
 // petモーダルを閉じる
-document.getElementById("petCloseBtn").addEventListener("click", () => {
-  state.ui.petOpen = false;
-  refreshUI();
-});
+document.getElementById("petCloseBtn").addEventListener("click", closePetModal);
 
 // inventoryOverlay 背景クリックで閉じる
 document.getElementById("inventoryOverlay").addEventListener("click", (e) => {
-  if (e.target === document.getElementById("inventoryOverlay")) {
-    state.ui.inventoryOpen = false;
-    refreshUI();
-  }
+  if (e.target === document.getElementById("inventoryOverlay")) closeInventoryModal();
 });
 
 // ペットソートボタン
@@ -254,7 +285,22 @@ document.getElementById("petSortBtn").addEventListener("click", () => {
   });
   const labels = { atk: "ソート：攻撃力", book: "ソート：図鑑順", hp: "ソート：HP", passive: "ソート：スキル値" };
   document.getElementById("petSortBtn").textContent = labels[mode] ?? "ソート";
-  refreshUI();
+
+  document.querySelectorAll("#petList .pet-group").forEach((groupEl) => {
+    const bodyEl = groupEl.querySelector(".pet-group-body");
+    if (!bodyEl || bodyEl.classList.contains("hidden")) return;
+    const items = [...bodyEl.querySelectorAll("li.pet-item")];
+    const uidOrder = state.player.petList.map((p) => String(p.uid));
+    items.sort((a, b) => {
+      const uidA = a.querySelector("[data-uid]")?.dataset.uid ?? "";
+      const uidB = b.querySelector("[data-uid]")?.dataset.uid ?? "";
+      return uidOrder.indexOf(uidA) - uidOrder.indexOf(uidB);
+    });
+    items.forEach((item) => bodyEl.appendChild(item));
+  });
+
+  updateSynthesisClasses();
+  saveGame();
 });
 
 document.getElementById("petFilterSelect").addEventListener("change", (e) => {
@@ -265,7 +311,7 @@ document.getElementById("petFilterSelect").addEventListener("change", (e) => {
 // ペット一括選択ボタン
 document.getElementById("petSelectAllBtn").addEventListener("click", () => {
   toggleSelectAllSamePets();
-  refreshUI();
+  refreshSynthesisOnly();
 });
 
 // ペット合成ボタン
@@ -293,7 +339,23 @@ inventorySortBtn.addEventListener("click", () => {
   const cycle = { passive: "atk", atk: "book", book: "hp", hp: "passive" };
   state.ui.sortMode = cycle[state.ui.sortMode] ?? "atk";
   sortInventory(state.player);
-  refreshUI();
+  updateSortBtn();
+
+  document.querySelectorAll("#inventoryList .pet-group").forEach((groupEl) => {
+    const bodyEl = groupEl.querySelector(".pet-group-body");
+    if (!bodyEl || bodyEl.classList.contains("hidden")) return;
+    const items = [...bodyEl.querySelectorAll("li.pet-item")];
+    const uidOrder = state.player.inventory.map((w) => String(w.uid));
+    items.sort((a, b) => {
+      const uidA = a.querySelector("[data-uid]")?.dataset.uid ?? "";
+      const uidB = b.querySelector("[data-uid]")?.dataset.uid ?? "";
+      return uidOrder.indexOf(uidA) - uidOrder.indexOf(uidB);
+    });
+    items.forEach((item) => bodyEl.appendChild(item));
+  });
+
+  updateSynthesisClasses();
+  saveGame();
 });
 
 document.getElementById("inventoryFilterSelect").addEventListener("change", (e) => {
@@ -326,7 +388,7 @@ synthBtn.addEventListener("click", () => {
 // =====================
 document.getElementById("selectAllBtn").addEventListener("click", () => {
   toggleSelectAllSameWeapons();
-  refreshUI();
+  refreshSynthesisOnly();
 });
 
 // =====================

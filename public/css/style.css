@@ -83,25 +83,27 @@ body {
   color: #ddd;
 }
 
-/* PLAYERカード：1行横並びレイアウト */
+/* PLAYERカード：縦並びレイアウト */
 .player-status {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }
 
 .player-status .status-card-label {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
-  border-right: 1px solid #404040;
-  padding-right: 12px;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #404040;
+  border-right: none;
+  padding-right: 0;
   white-space: nowrap;
 }
 
 .player-status p {
   margin: 0;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-all;
 }
 
 /* ENEMYカード：1行目にラベル+名前、2行目にHP */
@@ -132,6 +134,7 @@ body {
   margin: 0;
   font-size: 12px;
   color: #aaa;
+  min-height: 1.4em;
 }
 
 /* プレイヤーレベル + EXPバー */
@@ -546,7 +549,6 @@ button {
 .synth-candidate {
   border: none;
   background: #1a2e1a;
-  box-shadow: 0 0 0 1px #3a7a3a;
   opacity: 1;
 }
 
@@ -1114,6 +1116,16 @@ button {
   color: #7ab0d0;
   font-size: 11px;
   margin-left: 2px;
+}
+
+.weapon-equip-btn {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  background: #2d6a4f;
+  color: #fff;
 }
 
 .weapon-unequip-btn {
@@ -1862,4 +1874,125 @@ button {
 .gem-item.gem-gold {
   border-left: 3px solid #ffd700;
   background: linear-gradient(90deg, #2a2505 0%, #1e1e1e 100%);
+}
+
+/* ペット・武器 種族グループ共通 */
+.pet-group {
+  margin-bottom: 6px;
+  border: 1px solid #383838;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pet-group-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #2a2a2a;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pet-group-header:hover {
+  background: #333;
+}
+
+.pet-group-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.pet-group-skill {
+  flex: 1;
+  font-size: 12px;
+  color: #aad4ff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pet-group-count {
+  font-size: 12px;
+  color: #aaa;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pet-group-toggle {
+  font-size: 11px;
+  color: #888;
+  flex-shrink: 0;
+}
+
+.pet-group-body {
+  list-style: none;
+  padding: 6px 8px;
+  margin: 0;
+  background: #222;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pet-group-body.hidden {
+  display: none;
+}
+
+/* お気に入りボタン */
+.group-fav-btn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  padding: 0 2px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.group-fav-btn.fav-on {
+  color: #e07070;
+}
+
+/* 閉じるボタン */
+.group-close-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0 4px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.group-close-btn:hover {
+  color: #ccc;
+}
+
+/* ソートボタン disabled */
+#petSortBtn:disabled,
+#sortBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ロックボタン */
+.pet-lock-btn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0 2px;
+  flex-shrink: 0;
+  line-height: 1;
+  opacity: 0.5;
+}
+
+.pet-lock-btn.lock-on {
+  opacity: 1;
 }

@@ -1,5 +1,6 @@
 import { state } from "./state.js";
 import { normalEnemies, bossEnemies, floorTable } from "./data/index.js";
+import { isLocked } from "./listPrefs.js";
 import { addLog } from "./log.js";
 import { getTitleName, legendaryTitles, normalPassiveOf, isLegendaryPassive } from "./data/index.js";
 import { updateBookUltimate } from "./book.js";
@@ -457,6 +458,25 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
   };
 
   state.player.petList.push(pet);
+
+  // 図鑑に捕獲フラグを永続保存
+  const bookKey = pet.isBoss ? `boss_${pet.enemyId}` : `normal_${pet.enemyId}`;
+  const bookEntry = state.book.enemies[bookKey];
+  if (bookEntry) {
+    if (!bookEntry.titles[titleId]) {
+      bookEntry.titles[titleId] = { seen: true, defeated: false };
+    }
+    bookEntry.titles[titleId].caught = true;
+
+    // レジェンダリーの場合は titleId=5 にもフラグを立てる
+    if (isLegendary) {
+      if (!bookEntry.titles[5]) {
+        bookEntry.titles[5] = { seen: true, defeated: false };
+      }
+      bookEntry.titles[5].caught = true;
+    }
+  }
+
   const legendMark = isLegendUltimate ? "🔴" : isLegendary ? "✨" : isElite ? "⭐" : "";
   const capturedTitleName = getTitleName(pet);
   addLog(`🐾${legendMark} ${capturedTitleName}${def.name} を捕獲した！`);
@@ -534,10 +554,9 @@ export function handlePetSynthesisSelection(uid) {
   }
 
   const base = petList.find((p) => p.uid === synth.baseUid);
-  // 種族が違う → 無視
   if (!base || base.enemyId !== clicked.enemyId || base.isBoss !== clicked.isBoss) return;
 
-  // 素材トグル
+  // 素材トグル（手動追加・解除）
   const i = synth.materialUids.indexOf(uid);
   if (i === -1) {
     synth.materialUids.push(uid);
@@ -633,8 +652,17 @@ export function toggleSelectAllSamePets() {
   const base = petList.find((p) => p.uid === baseUid);
   if (!base) return;
 
+  // レア個体・ロック済みを除外
   const sameUids = petList
-    .filter((p) => p.uid !== baseUid && p.enemyId === base.enemyId && p.isBoss === base.isBoss)
+    .filter((p) =>
+      p.uid !== baseUid &&
+      p.enemyId === base.enemyId &&
+      p.isBoss === base.isBoss &&
+      !p.isLegendUltimate &&
+      !p.isLegendary &&
+      !p.isElite &&
+      !isLocked(p.uid)
+    )
     .map((p) => p.uid);
 
   const allSelected = sameUids.length > 0 && sameUids.every((uid) => materialUids.includes(uid));
