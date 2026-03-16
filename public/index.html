@@ -52,6 +52,7 @@
           <button id="bookBtn">図鑑</button>
           <button id="statusBtn">ステータス</button>
           <button id="achievementBtn">実績</button>
+          <button id="rankingBtn">ランキング</button>
           <button id="helpBtn">説明</button>
         </div>
         <div class="action-row">
@@ -431,6 +432,40 @@
       </div>
     </div>
 
+    <!-- プレイヤー名入力モーダル -->
+    <div id="nameInputOverlay" class="book-overlay hidden">
+      <div class="book-modal name-input-modal">
+        <div class="book-header">
+          <span>プレイヤー名を入力</span>
+        </div>
+        <div class="name-input-body">
+          <p class="name-input-desc">ランキングに表示される名前を入力してください。<br>一度設定すると変更できません。</p>
+          <input type="text" id="playerNameInput" maxlength="12" placeholder="名前（12文字以内）">
+          <p id="nameInputError" class="name-input-error hidden"></p>
+          <button id="playerNameSubmitBtn">決定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ランキングモーダル -->
+    <div id="rankingOverlay" class="book-overlay hidden">
+      <div class="book-modal">
+        <div class="book-header">
+          <h2>🏆 ランキング</h2>
+          <button id="rankingCloseBtn">✕</button>
+        </div>
+        <div class="book-tabs">
+          <button class="ranking-tab active" data-field="maxFloor">最深階層</button>
+          <button class="ranking-tab" data-field="level">レベル</button>
+          <button class="ranking-tab" data-field="petCount">ペット図鑑</button>
+          <button class="ranking-tab" data-field="weaponCount">武器図鑑</button>
+        </div>
+        <p class="ranking-note">ランキングは30分おきに自動更新されます</p>
+        <div id="rankingContent" class="book-content"></div>
+      </div>
+    </div>
+
     <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/firebase-config.js"></script>
   </body>
 </html>

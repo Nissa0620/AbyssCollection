@@ -2024,3 +2024,115 @@ button {
 .pet-lock-btn.lock-on {
   opacity: 1;
 }
+
+/* ランキング */
+.ranking-note {
+  font-size: 11px;
+  color: #888;
+  text-align: center;
+  margin: 4px 0;
+}
+
+.ranking-tab {
+  flex: 1;
+  padding: 6px 4px;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 8px 8px 0 0;
+  color: #aaa;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.ranking-tab.active {
+  background: #3a3a3a;
+  color: #fff;
+  font-weight: bold;
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #333;
+  font-size: 13px;
+  gap: 8px;
+}
+
+.ranking-item.my-record {
+  background: #1e2d45;
+}
+
+.ranking-rank {
+  width: 28px;
+  font-weight: bold;
+  color: #aaa;
+  flex-shrink: 0;
+}
+
+.ranking-rank.gold   { color: #f5c842; }
+.ranking-rank.silver { color: #b0b0b0; }
+.ranking-rank.bronze { color: #cd7f32; }
+
+.ranking-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ranking-value {
+  font-weight: bold;
+  color: #7ab8f5;
+  flex-shrink: 0;
+}
+
+/* 名前入力モーダル */
+.name-input-modal {
+  max-width: 320px;
+}
+
+.name-input-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.name-input-desc {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.6;
+}
+
+#playerNameInput {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 15px;
+  background: #2a2a2a;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.name-input-error {
+  font-size: 12px;
+  color: #ff6b6b;
+}
+
+#playerNameSubmitBtn {
+  padding: 10px;
+  background: #3a6ea5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}

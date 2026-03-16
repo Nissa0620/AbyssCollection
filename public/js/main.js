@@ -37,6 +37,7 @@ import {
 } from "./inventory.js";
 import { saveGame, loadGame } from "./saveLoad.js";
 import { renderAchievements } from "./achievements.js";
+import { sendRankingData, fetchRanking, isNameTaken } from "./ranking.js";
 import { equipPet, unequipPet, handlePetSynthesisSelection, executePetSynthesis, toggleSelectAllSamePets, getHpBoostMultiplier } from "./pet.js";
 
 // =====================
@@ -482,6 +483,93 @@ document.querySelectorAll(".accordion-btn").forEach((btn) => {
 });
 
 // =====================
+// ランキング
+// =====================
+function checkPlayerName() {
+  if (!state.playerName) {
+    document.getElementById("nameInputOverlay").classList.remove("hidden");
+  }
+}
+
+document.getElementById("playerNameSubmitBtn").addEventListener("click", async () => {
+  const input = document.getElementById("playerNameInput").value.trim();
+  const errorEl = document.getElementById("nameInputError");
+
+  if (!input) {
+    errorEl.textContent = "名前を入力してください";
+    errorEl.classList.remove("hidden");
+    return;
+  }
+
+  const taken = await isNameTaken(input);
+  if (taken) {
+    errorEl.textContent = "この名前はすでに使われています";
+    errorEl.classList.remove("hidden");
+    return;
+  }
+
+  state.playerName = input;
+  saveGame();
+  document.getElementById("nameInputOverlay").classList.add("hidden");
+  sendRankingData(); // 登録直後に初回送信
+});
+
+async function renderRanking(field) {
+  const contentEl = document.getElementById("rankingContent");
+  contentEl.innerHTML = "<p style='text-align:center;color:#888;padding:16px'>読み込み中...</p>";
+
+  const data = await fetchRanking(field);
+  if (data.length === 0) {
+    contentEl.innerHTML = "<p style='text-align:center;color:#888;padding:16px'>データがありません</p>";
+    return;
+  }
+
+  const fieldLabels = {
+    maxFloor: (v) => `${v}階`,
+    level: (v) => `Lv.${v}`,
+    petCount: (v) => `${v}体`,
+    weaponCount: (v) => `${v}個`,
+  };
+
+  const ul = document.createElement("ul");
+  ul.className = "ranking-list";
+
+  data.forEach((entry, i) => {
+    const li = document.createElement("li");
+    li.className = "ranking-item" + (entry.name === state.playerName ? " my-record" : "");
+
+    const rank = i + 1;
+    const rankClass = rank === 1 ? "gold" : rank === 2 ? "silver" : rank === 3 ? "bronze" : "";
+    li.innerHTML = `
+      <span class="ranking-rank ${rankClass}">${rank}</span>
+      <span class="ranking-name">${entry.name}</span>
+      <span class="ranking-value">${fieldLabels[field](entry[field])}</span>
+    `;
+    ul.appendChild(li);
+  });
+
+  contentEl.innerHTML = "";
+  contentEl.appendChild(ul);
+}
+
+document.getElementById("rankingBtn").addEventListener("click", () => {
+  document.getElementById("rankingOverlay").classList.remove("hidden");
+  renderRanking("maxFloor");
+});
+
+document.getElementById("rankingCloseBtn").addEventListener("click", () => {
+  document.getElementById("rankingOverlay").classList.add("hidden");
+});
+
+document.querySelectorAll(".ranking-tab").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".ranking-tab").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderRanking(btn.dataset.field);
+  });
+});
+
+// =====================
 // ゲーム開始
 // =====================
 if (!loadGame()) {
@@ -491,8 +579,14 @@ if (!loadGame()) {
   state.enemy = null;
   refreshUI();
 }
+checkPlayerName();
 
 // 10秒ごとに保存
 setInterval(() => {
   saveGame();
 }, 10000);
+
+// 30分ごとにランキング送信
+setInterval(() => {
+  sendRankingData();
+}, 30 * 60 * 1000);

@@ -87,6 +87,9 @@ export const state = {
   acquiredCounter: 0,
   migrated: {},
   hpBoostMult: 1,
+  playerName: null,
+  lastRankingSentAt: 0,
+  lastRankingData: null,
   achievements: {
     unlocked: {},
     weaponSynthCount: 0,
