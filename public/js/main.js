@@ -76,6 +76,14 @@ function refreshUI() {
   if (wGroupSel) wGroupSel.value = state.ui.weaponGroupSort ?? "acquiredDesc";
   const pGroupSel = document.getElementById("petGroupSortSelect");
   if (pGroupSel) pGroupSel.value = state.ui.petGroupSort ?? "acquiredDesc";
+
+  sortInventory(state.player);
+  const petMode = state.ui.petSortMode ?? "passive";
+  state.player.petList.sort((a, b) => {
+    if (petMode === "hp") return (b.hp ?? 0) - (a.hp ?? 0);
+    if (petMode === "passive") return (b.passiveValue ?? 0) - (a.passiveValue ?? 0);
+    return b.power - a.power;
+  });
 }
 
 function refreshHpBoost() {
