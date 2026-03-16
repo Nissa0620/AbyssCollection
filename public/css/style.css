@@ -1165,9 +1165,13 @@ button {
 
 /* ペット合成プレビュー */
 .synth-preview-text {
-  font-size: 13px;
+  font-size: 11px;
   color: #f5c842;
   padding: 4px 10px;
+}
+
+#synthesisPreview {
+  font-size: 11px;
 }
 
 /* ペット強化値 */
