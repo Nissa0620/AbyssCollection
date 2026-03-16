@@ -1,5 +1,7 @@
 import { normalEnemies, bossEnemies, weaponTemplates, floorTable } from "./data/index.js";
 
+const BASE_WEAPON_DEX_BUFF = { hp: 0.20, power: 0.20 };
+
 const allEnemies = [
   ...normalEnemies.map((e) => ({ ...e, _bookKey: `normal_${e.id}` })),
   ...bossEnemies.map((e) => ({ ...e, _bookKey: `boss_${e.id}` })),
@@ -62,6 +64,11 @@ export function recalcWeaponDexBuff(state) {
 
     const entry = weaponsBook[bookKey];
 
+    // ベース入手済み（図鑑に登録されているだけで加算）
+    hp += BASE_WEAPON_DEX_BUFF.hp;
+    power += BASE_WEAPON_DEX_BUFF.power;
+
+    // 進化ごとのdexBuff
     for (const evo of template.evolutions) {
       if (entry.evolutions[evo.name]?.obtained) {
         hp += evo.dexBuff?.hp ?? 0;

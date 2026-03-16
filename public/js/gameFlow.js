@@ -34,6 +34,7 @@ function battlePhase() {
     const expMult = getExpMultiplier();
     gainExp(Math.floor(state.enemy.exp * expMult));
     healPlayerFull();
+    state.enemy = null;
     state.phase = "next";
   }
 }
@@ -48,6 +49,7 @@ function nextPhase() {
   state.surviveUsed = false;
   state.resurrectionUsed = false;
   state.legendEvadeActive = false;
+  state.legendSurviveCount = 0;
 }
 
 function gameOverPhase() {
@@ -57,4 +59,5 @@ function gameOverPhase() {
   state.surviveUsed = false;
   state.resurrectionUsed = false;
   state.legendEvadeActive = false;
+  state.legendSurviveCount = 0;
 }

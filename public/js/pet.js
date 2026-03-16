@@ -1,5 +1,6 @@
 import { state } from "./state.js";
 import { normalEnemies, bossEnemies, floorTable } from "./data/index.js";
+import { isLocked } from "./listPrefs.js";
 import { addLog } from "./log.js";
 import { getTitleName, legendaryTitles, normalPassiveOf, isLegendaryPassive } from "./data/index.js";
 import { updateBookUltimate } from "./book.js";
@@ -125,14 +126,15 @@ export function getDmgBoostMultiplier() {
   return mult;
 }
 
-// 被ダメ減少倍率を取得（上限99%減少、最低1%は受ける）
+// 被ダメ減少倍率を取得（上限80%減少）
 export function getDmgReduceMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
-  let mult = 1;
-  if (pet?.passive === "dmgReduce" || pet?.passive === "legendDmgReduce") mult *= (1 - (pet.passiveValue ?? 0) / 100);
-  if (weapon?.passive === "dmgReduce" || weapon?.passive === "legendDmgReduce") mult *= (1 - (weapon.passiveValue ?? 0) / 100);
-  return Math.max(mult, 0.2); // 上限80%減少（最低20%は受ける）
+  let totalRate = 0;
+  if (pet?.passive === "dmgReduce" || pet?.passive === "legendDmgReduce") totalRate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "dmgReduce" || weapon?.passive === "legendDmgReduce") totalRate += (weapon.passiveValue ?? 0);
+  const clampedRate = Math.min(totalRate, 80); // 上限80%
+  return 1 - clampedRate / 100;
 }
 
 // HP増加倍率を取得
@@ -211,8 +213,8 @@ export function getGiantKillerMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
   let bonus = 0;
-  if (pet?.passive === "giantKiller") bonus += (pet.passiveValue ?? 0);
-  if (weapon?.passive === "giantKiller") bonus += (weapon.passiveValue ?? 0);
+  if (pet?.passive === "giantKiller" || pet?.passive === "legendGiantKiller") bonus += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "giantKiller" || weapon?.passive === "legendGiantKiller") bonus += (weapon.passiveValue ?? 0);
   if (bonus <= 0) return 1;
   if ((state.enemy?.hp ?? 0) > state.player.hp) {
     return 1 + bonus / 100;
@@ -225,8 +227,8 @@ export function getBossSlayerMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
   let bonus = 0;
-  if (pet?.passive === "bossSlayer") bonus += (pet.passiveValue ?? 0);
-  if (weapon?.passive === "bossSlayer") bonus += (weapon.passiveValue ?? 0);
+  if (pet?.passive === "bossSlayer" || pet?.passive === "legendBossSlayer") bonus += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "bossSlayer" || weapon?.passive === "legendBossSlayer") bonus += (weapon.passiveValue ?? 0);
   if (bonus <= 0 || !state.enemy?.isBoss) return 1;
   return 1 + bonus / 100;
 }
@@ -454,32 +456,52 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
     bonusHp: 0,
     passive,
     passiveValue,
+    acquiredOrder: state.acquiredCounter++,
   };
 
   state.player.petList.push(pet);
+
+  // 図鑑に捕獲フラグを永続保存
+  const bookKey = pet.isBoss ? `boss_${pet.enemyId}` : `normal_${pet.enemyId}`;
+  const bookEntry = state.book.enemies[bookKey];
+  if (bookEntry) {
+    if (!bookEntry.titles[titleId]) {
+      bookEntry.titles[titleId] = { seen: true, defeated: false };
+    }
+    bookEntry.titles[titleId].caught = true;
+
+    // レジェンダリーの場合は titleId=5 にもフラグを立てる
+    if (isLegendary) {
+      if (!bookEntry.titles[5]) {
+        bookEntry.titles[5] = { seen: true, defeated: false };
+      }
+      bookEntry.titles[5].caught = true;
+    }
+  }
+
   const legendMark = isLegendUltimate ? "🔴" : isLegendary ? "✨" : isElite ? "⭐" : "";
   const capturedTitleName = getTitleName(pet);
   addLog(`🐾${legendMark} ${capturedTitleName}${def.name} を捕獲した！`);
   updateBookUltimate();
 
   const enemyFullName = state.enemy?.name ?? def.name;
+  if (!state.achievements) state.achievements = {};
+
   if (isLegendUltimate) {
-    if (!state.achievements) state.achievements = {};
     state.achievements.legendUltimatePetCount = (state.achievements.legendUltimatePetCount ?? 0) + 1;
     checkAchievements();
     showLegendUltimatePopup({ name: enemyFullName, passive: def.passive, isBoss }, "captured", pet);
   } else if (isLegendary) {
-    if (!state.achievements) state.achievements = {};
+    state.achievements.legendaryPetCount = (state.achievements.legendaryPetCount ?? 0) + 1;
     checkAchievements();
     showLegendaryPopup({ name: enemyFullName, passive: def.passive, isBoss }, "captured", pet);
   } else if (isElite) {
-    if (!state.achievements) state.achievements = {};
-    state.achievements.ultimatePetCount = (state.achievements.ultimatePetCount ?? 0) + 1;
+    state.achievements.elitePetCount = (state.achievements.elitePetCount ?? 0) + 1;
     checkAchievements();
     showElitePopup({ name: enemyFullName }, "captured", pet);
   } else if (isUltimatePet(pet)) {
-    if (!state.achievements) state.achievements = {};
-    state.achievements.ultimatePetCount = (state.achievements.ultimatePetCount ?? 0) + 1;
+    // isUltimatePet は称号4かつ全ステ最大（通常フロー）
+    // ※ elitePetCount とは別カウント
     checkAchievements();
     const alreadyHas = state.player.petList
       .filter((p) => p.uid !== pet.uid)
@@ -534,10 +556,9 @@ export function handlePetSynthesisSelection(uid) {
   }
 
   const base = petList.find((p) => p.uid === synth.baseUid);
-  // 種族が違う → 無視
   if (!base || base.enemyId !== clicked.enemyId || base.isBoss !== clicked.isBoss) return;
 
-  // 素材トグル
+  // 素材トグル（手動追加・解除）
   const i = synth.materialUids.indexOf(uid);
   if (i === -1) {
     synth.materialUids.push(uid);
@@ -614,6 +635,7 @@ export function executePetSynthesis() {
     (p) => !materialUids.includes(p.uid)
   );
 
+  base.acquiredOrder = state.acquiredCounter++;
   addLog(`🐾 ${base.name} を合成！ATK +${gain} → ${base.power}`);
 
   state.petSynthesis.baseUid = null;
@@ -633,8 +655,17 @@ export function toggleSelectAllSamePets() {
   const base = petList.find((p) => p.uid === baseUid);
   if (!base) return;
 
+  // レア個体・ロック済みを除外
   const sameUids = petList
-    .filter((p) => p.uid !== baseUid && p.enemyId === base.enemyId && p.isBoss === base.isBoss)
+    .filter((p) =>
+      p.uid !== baseUid &&
+      p.enemyId === base.enemyId &&
+      p.isBoss === base.isBoss &&
+      !p.isLegendUltimate &&
+      !p.isLegendary &&
+      !p.isElite &&
+      !isLocked(p.uid)
+    )
     .map((p) => p.uid);
 
   const allSelected = sameUids.length > 0 && sameUids.every((uid) => materialUids.includes(uid));

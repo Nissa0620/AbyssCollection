@@ -12,14 +12,40 @@ import { normalEnemies, bossEnemies, weaponTemplates, floorTable, legendaryTitle
 
 export const achievementDefs = [
   // --- レベル達成 ---
-  { id: "lv100",  category: "level",   label: "伝説の冒険者",       desc: "Lv.100 に到達する",   check: (s) => s.player.level >= 100 },
-  { id: "lv200",  category: "level",   label: "神域の冒険者",       desc: "Lv.200 に到達する",   check: (s) => s.player.level >= 200 },
+  { id: "lv100",    category: "level", label: "駆け出し冒険者",     desc: "Lv.100 に到達する",    check: (s) => s.player.level >= 100    },
+  { id: "lv200",    category: "level", label: "上位の冒険者",       desc: "Lv.200 に到達する",    check: (s) => s.player.level >= 200    },
+  { id: "lv300",    category: "level", label: "最上位の冒険者",     desc: "Lv.300 に到達する",    check: (s) => s.player.level >= 300    },
+  { id: "lv400",    category: "level", label: "伝説の冒険者",       desc: "Lv.400 に到達する",    check: (s) => s.player.level >= 400    },
+  { id: "lv500",    category: "level", label: "真の勇者",           desc: "Lv.500 に到達する",    check: (s) => s.player.level >= 500    },
+  { id: "lv600",    category: "level", label: "不滅の勇者",         desc: "Lv.600 に到達する",    check: (s) => s.player.level >= 600    },
+  { id: "lv700",    category: "level", label: "深淵を目指す者",     desc: "Lv.700 に到達する",    check: (s) => s.player.level >= 700    },
+  { id: "lv800",    category: "level", label: "深淵の英雄",         desc: "Lv.800 に到達する",    check: (s) => s.player.level >= 800    },
+  { id: "lv900",    category: "level", label: "深淵の覇者",         desc: "Lv.900 に到達する",    check: (s) => s.player.level >= 900    },
+  { id: "lv1000",   category: "level", label: "深淵の支配者",       desc: "Lv.1000 に到達する",   check: (s) => s.player.level >= 1000   },
+  { id: "lv10000",  category: "level", label: "深淵を統べる者",     desc: "Lv.10000 に到達する",  check: (s) => s.player.level >= 10000  },
+  { id: "lv50000",  category: "level", label: "超越者",             desc: "Lv.50000 に到達する",  check: (s) => s.player.level >= 50000  },
+  { id: "lv100000", category: "level", label: "深淵を司る神",       desc: "Lv.100000 に到達する", check: (s) => s.player.level >= 100000 },
 
   // --- ボス突破 ---
-  { id: "floor50",  category: "floor", label: "深淵の入り口",   desc: "地下50階のボスを突破する",   check: (s) => s.maxFloor > 50  },
-  { id: "floor100", category: "floor", label: "深淵の探索者",   desc: "地下100階のボスを突破する",  check: (s) => s.maxFloor > 100 },
-  { id: "floor200", category: "floor", label: "深淵の征服者",   desc: "地下200階のボスを突破する",  check: (s) => s.maxFloor > 200 },
-  { id: "floor300", category: "floor", label: "深淵の支配者",   desc: "地下300階のボスを突破する",  check: (s) => s.maxFloor > 300 },
+  { id: "floor100",  category: "floor", label: "深淵の入り口",   desc: "地下100階のボスを突破する",   check: (s) => s.maxFloor > 100  },
+  { id: "floor200",  category: "floor", label: "深淵の探索者",   desc: "地下200階のボスを突破する",   check: (s) => s.maxFloor > 200  },
+  { id: "floor300",  category: "floor", label: "深淵の征服者",   desc: "地下300階のボスを突破する",   check: (s) => s.maxFloor > 300  },
+  { id: "floor400",  category: "floor", label: "深淵の覇者",     desc: "地下400階のボスを突破する",   check: (s) => s.maxFloor > 400  },
+  { id: "floor500",  category: "floor", label: "深淵の勇者",     desc: "地下500階のボスを突破する",   check: (s) => s.maxFloor > 500  },
+  { id: "floor600",  category: "floor", label: "深淵の英雄",     desc: "地下600階のボスを突破する",   check: (s) => s.maxFloor > 600  },
+  { id: "floor700",  category: "floor", label: "深淵の王",       desc: "地下700階のボスを突破する",   check: (s) => s.maxFloor > 700  },
+  { id: "floor800",  category: "floor", label: "深淵の覇王",     desc: "地下800階のボスを突破する",   check: (s) => s.maxFloor > 800  },
+  { id: "floor900",  category: "floor", label: "深淵の支配者",   desc: "地下900階のボスを突破する",   check: (s) => s.maxFloor > 900  },
+  { id: "floor1000", category: "floor", label: "深淵の神",       desc: "地下1000階のボスを突破する",  check: (s) => s.maxFloor > 1000 },
+  { id: "floor2000", category: "floor", label: "深淵の創造者",   desc: "地下2000階のボスを突破する",  check: (s) => s.maxFloor > 2000 },
+  { id: "floor3000", category: "floor", label: "深淵の超越者",   desc: "地下3000階のボスを突破する",  check: (s) => s.maxFloor > 3000 },
+  { id: "floor4000", category: "floor", label: "深淵の異端者",   desc: "地下4000階のボスを突破する",  check: (s) => s.maxFloor > 4000 },
+  { id: "floor5000", category: "floor", label: "深淵の絶対者",   desc: "地下5000階のボスを突破する",  check: (s) => s.maxFloor > 5000 },
+  { id: "floor6000", category: "floor", label: "深淵の破壊神",   desc: "地下6000階のボスを突破する",  check: (s) => s.maxFloor > 6000 },
+  { id: "floor7000", category: "floor", label: "深淵の始原者",   desc: "地下7000階のボスを突破する",  check: (s) => s.maxFloor > 7000 },
+  { id: "floor8000", category: "floor", label: "深淵の終焉者",   desc: "地下8000階のボスを突破する",  check: (s) => s.maxFloor > 8000 },
+  { id: "floor9000", category: "floor", label: "深淵の虚無",     desc: "地下9000階のボスを突破する",  check: (s) => s.maxFloor > 9000 },
+  { id: "floor10000",category: "floor", label: "深淵の果て",     desc: "地下10000階のボスを突破する", check: (s) => s.maxFloor > 10000 },
 
   // --- 敵の捕獲（フロア帯別 全捕獲） ---
   ...buildCaptureAchievements(),
@@ -28,29 +54,48 @@ export const achievementDefs = [
   ...buildWeaponCollectAchievements(),
 
   // --- 武器合成回数 ---
-  { id: "wsynth10",  category: "synthesis", label: "鍛冶見習い",     desc: "武器を合成する（10回）",  check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 10  },
-  { id: "wsynth50",  category: "synthesis", label: "鍛冶職人",       desc: "武器を合成する（50回）",  check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 50  },
-  { id: "wsynth100", category: "synthesis", label: "伝説の鍛冶師",   desc: "武器を合成する（100回）", check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 100 },
+  { id: "wsynth10",     category: "synthesis", label: "鍛冶見習い",       desc: "武器を合成する（10回）",      check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 10     },
+  { id: "wsynth100",    category: "synthesis", label: "鍛冶職人",         desc: "武器を合成する（100回）",     check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 100    },
+  { id: "wsynth1000",   category: "synthesis", label: "伝説の鍛冶師",     desc: "武器を合成する（1000回）",    check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 1000   },
+  { id: "wsynth10000",  category: "synthesis", label: "神話の鍛冶師",     desc: "武器を合成する（10000回）",   check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 10000  },
+  { id: "wsynth50000",  category: "synthesis", label: "鍛冶の超越者",     desc: "武器を合成する（50000回）",   check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 50000  },
+  { id: "wsynth100000", category: "synthesis", label: "鍛冶の神",         desc: "武器を合成する（100000回）",  check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 100000 },
 
   // --- ペット合成回数 ---
-  { id: "psynth10",  category: "synthesis", label: "訓練士見習い",   desc: "ペットを合成する（10回）",  check: (s) => (s.achievements?.petSynthCount ?? 0) >= 10  },
-  { id: "psynth50",  category: "synthesis", label: "ペット訓練士",   desc: "ペットを合成する（50回）",  check: (s) => (s.achievements?.petSynthCount ?? 0) >= 50  },
-  { id: "psynth100", category: "synthesis", label: "伝説の訓練士",   desc: "ペットを合成する（100回）", check: (s) => (s.achievements?.petSynthCount ?? 0) >= 100 },
+  { id: "psynth10",     category: "synthesis", label: "訓練士見習い",     desc: "ペットを合成する（10回）",    check: (s) => (s.achievements?.petSynthCount ?? 0) >= 10     },
+  { id: "psynth100",    category: "synthesis", label: "ペット訓練士",     desc: "ペットを合成する（100回）",   check: (s) => (s.achievements?.petSynthCount ?? 0) >= 100    },
+  { id: "psynth1000",   category: "synthesis", label: "伝説の訓練士",     desc: "ペットを合成する（1000回）",  check: (s) => (s.achievements?.petSynthCount ?? 0) >= 1000   },
+  { id: "psynth10000",  category: "synthesis", label: "神話の訓練士",     desc: "ペットを合成する（10000回）", check: (s) => (s.achievements?.petSynthCount ?? 0) >= 10000  },
+  { id: "psynth50000",  category: "synthesis", label: "調教の超越者",     desc: "ペットを合成する（50000回）", check: (s) => (s.achievements?.petSynthCount ?? 0) >= 50000  },
+  { id: "psynth100000", category: "synthesis", label: "調教の神",         desc: "ペットを合成する（100000回）",check: (s) => (s.achievements?.petSynthCount ?? 0) >= 100000 },
 
-  // --- 極ペット数 ---
-  { id: "ultpet1",  category: "ultimate", label: "奇跡の出会い",   desc: "極ペットを1体捕獲する",   check: (s) => (s.achievements?.ultimatePetCount ?? 0) >= 1  },
-  { id: "ultpet5",  category: "ultimate", label: "奇跡の収集家",   desc: "極ペットを5体捕獲する",   check: (s) => (s.achievements?.ultimatePetCount ?? 0) >= 5  },
-  { id: "ultpet10", category: "ultimate", label: "奇跡の支配者",   desc: "極ペットを10体捕獲する",  check: (s) => (s.achievements?.ultimatePetCount ?? 0) >= 10 },
+  // --- 極個体ペット数 ---
+  { id: "elitepet1",     category: "ultimate", label: "奇跡の出会い",     desc: "極個体を1体捕まえる",     check: (s) => (s.achievements?.elitePetCount ?? 0) >= 1     },
+  { id: "elitepet10",    category: "ultimate", label: "奇跡の収集家",     desc: "極個体を10体捕まえる",    check: (s) => (s.achievements?.elitePetCount ?? 0) >= 10    },
+  { id: "elitepet100",   category: "ultimate", label: "奇跡の伝道師",     desc: "極個体を100体捕まえる",   check: (s) => (s.achievements?.elitePetCount ?? 0) >= 100   },
+  { id: "elitepet1000",  category: "ultimate", label: "奇跡の支配者",     desc: "極個体を1000体捕まえる",  check: (s) => (s.achievements?.elitePetCount ?? 0) >= 1000  },
+  { id: "elitepet10000", category: "ultimate", label: "奇跡の創造者",     desc: "極個体を10000体捕まえる", check: (s) => (s.achievements?.elitePetCount ?? 0) >= 10000 },
+
+  // --- 伝説個体ペット数 ---
+  { id: "legpet1",     category: "ultimate", label: "伝説の予感",         desc: "伝説個体を1体捕まえる",     check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 1     },
+  { id: "legpet10",    category: "ultimate", label: "伝説の追跡者",       desc: "伝説個体を10体捕まえる",    check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 10    },
+  { id: "legpet100",   category: "ultimate", label: "伝説の収集家",       desc: "伝説個体を100体捕まえる",   check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 100   },
+  { id: "legpet1000",  category: "ultimate", label: "伝説の支配者",       desc: "伝説個体を1000体捕まえる",  check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 1000  },
+  { id: "legpet10000", category: "ultimate", label: "伝説の創造者",       desc: "伝説個体を10000体捕まえる", check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 10000 },
 
   // --- 究極個体ペット数 ---
-  { id: "legultpet1",  category: "ultimate", label: "伝説との邂逅",     desc: "レジェンダリースキル持ちペットを1体捕まえる",   check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1  },
-  { id: "legultpet5",  category: "ultimate", label: "伝説の収縛者",     desc: "レジェンダリースキル持ちペットを5体捕まえる",   check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 5  },
-  { id: "legultpet10", category: "ultimate", label: "究極の支配者",     desc: "レジェンダリースキル持ちペットを10体捕まえる",  check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 10 },
+  { id: "legultpet1",     category: "ultimate", label: "伝説との邂逅",   desc: "究極個体を1体捕まえる",     check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1     },
+  { id: "legultpet10",    category: "ultimate", label: "伝説の収縛者",   desc: "究極個体を10体捕まえる",    check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 10    },
+  { id: "legultpet100",   category: "ultimate", label: "究極の伝道師",   desc: "究極個体を100体捕まえる",   check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 100   },
+  { id: "legultpet1000",  category: "ultimate", label: "究極の支配者",   desc: "究極個体を1000体捕まえる",  check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1000  },
+  { id: "legultpet10000", category: "ultimate", label: "究極の創造者",   desc: "究極個体を10000体捕まえる", check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 10000 },
 
   // --- 極武器数 ---
-  { id: "ultwep1",  category: "ultimate", label: "至高の刃",       desc: "極武器を1本入手する",     check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1  },
-  { id: "ultwep5",  category: "ultimate", label: "至高の武器商",   desc: "極武器を5本入手する",     check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 5  },
-  { id: "ultwep10", category: "ultimate", label: "至高の武器庫",   desc: "極武器を10本入手する",    check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10 },
+  { id: "ultwep1",     category: "ultimate", label: "至高の刃",           desc: "極武器を1本入手する",         check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1     },
+  { id: "ultwep10",    category: "ultimate", label: "至高の武器商",       desc: "極武器を10本入手する",        check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10    },
+  { id: "ultwep100",   category: "ultimate", label: "至高の武器庫",       desc: "極武器を100本入手する",       check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 100   },
+  { id: "ultwep1000",  category: "ultimate", label: "至高の武器神殿",     desc: "極武器を1000本入手する",      check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1000  },
+  { id: "ultwep10000", category: "ultimate", label: "至高の兵器庫",       desc: "極武器を10000本入手する",     check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10000 },
 ];
 
 // フロアテーブルをもとに「フロア帯別：全敵捕獲」実績を生成

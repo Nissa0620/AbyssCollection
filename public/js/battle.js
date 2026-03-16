@@ -49,11 +49,16 @@ export function playerAttack() {
   const critText = critMult > 1 ? " ⚡クリティカル！" : "";
   addLog("▶ " + damage + " ダメージ" + critText);
 
-  // ドレイン（通常 or 吸血鬼）
-  const heal = getDrainHeal(damage) || getLegendDrainHeal(damage);
+  // ドレイン（通常 + 吸血鬼）
+  const heal = getDrainHeal(damage);
+  const legendHeal = getLegendDrainHeal(damage);
   if (heal > 0) {
     state.player.hp = Math.min(state.player.hp + heal, state.player.totalHp);
-    addLog("💚 " + state.player.equippedPet.name + " の吸収で " + heal + " 回復！");
+    addLog("💚 吸収で " + heal + " 回復！");
+  }
+  if (legendHeal > 0) {
+    state.player.hp = Math.min(state.player.hp + legendHeal, state.player.totalHp);
+    addLog("💚 吸血で " + legendHeal + " 回復！");
   }
 
   // 追撃（通常 or 乱打：2回追撃）
@@ -85,10 +90,15 @@ export function playerAttack() {
     state.enemy.hp -= Math.floor(dmg * (totalMult - 1));
     if (state.enemy.hp < 0) state.enemy.hp = 0;
     addLog("▶ " + (i === 0 && attackCount === 1 ? "2回目" : `${i + 2}回目`) + " " + dmg + " ダメージ");
-    const h = getDrainHeal(dmg) || getLegendDrainHeal(dmg);
+    const h = getDrainHeal(dmg);
+    const lh = getLegendDrainHeal(dmg);
     if (h > 0) {
       state.player.hp = Math.min(state.player.hp + h, state.player.totalHp);
       addLog("💚 " + h + " 回復！");
+    }
+    if (lh > 0) {
+      state.player.hp = Math.min(state.player.hp + lh, state.player.totalHp);
+      addLog("💚 " + lh + " 回復！");
     }
   }
 
@@ -118,7 +128,7 @@ export function enemyAttack() {
 
   // 通常回避判定
   if (tryEvade()) {
-    addLog("✨ " + state.player.equippedPet.name + " が攻撃を回避！");
+    addLog("✨ 回避！");
     return { type: "battle" };
   }
 
@@ -138,11 +148,20 @@ export function enemyAttack() {
 
   addLog("◀ " + state.enemy.name + "の攻撃 " + damage + " ダメージ");
 
-  // 反射（通常 or 鏡盾100%）
-  const reflectDmg = getReflectDamage(damage) || getLegendReflectDamage(damage);
+  // 反射（通常 + 鏡盾100%）
+  const reflectDmg = getReflectDamage(damage);
+  const legendReflectDmg = getLegendReflectDamage(damage);
   if (reflectDmg > 0) {
     state.enemy.hp = Math.max(0, state.enemy.hp - reflectDmg);
-    addLog("🔄 " + state.player.equippedPet.name + " が " + reflectDmg + " ダメージを反射！");
+    addLog("🔄 " + reflectDmg + " ダメージを反射！");
+    if (state.enemy.hp <= 0) {
+      defeatEnemy();
+      return { type: "victory" };
+    }
+  }
+  if (legendReflectDmg > 0) {
+    state.enemy.hp = Math.max(0, state.enemy.hp - legendReflectDmg);
+    addLog("🔄 " + legendReflectDmg + " ダメージを鏡盾で反射！");
     if (state.enemy.hp <= 0) {
       defeatEnemy();
       return { type: "victory" };
@@ -153,27 +172,28 @@ export function enemyAttack() {
     // 転生（複数回HP50%復活）
     if (hasLegendResurrection()) {
       state.player.hp = Math.floor(state.player.totalHp * 0.5);
-      addLog("✨ " + state.player.equippedPet.name + " の転生でHP50%で復活！");
+      addLog("✨ 転生でHP50%で復活！");
       return { type: "battle" };
     }
     // 不屈（1戦1回HP50%復活）
     if (hasResurrection() && !state.resurrectionUsed) {
       state.player.hp = Math.floor(state.player.totalHp * 0.5);
       state.resurrectionUsed = true;
-      addLog("💫 " + state.player.equippedPet.name + " の不屈でHP50%で復活！");
+      addLog("💫 不屈でHP50%で復活！");
       return { type: "battle" };
     }
-    // 不死身（複数回1HP）
-    if (hasLegendSurvive()) {
+    // 不死身（複数回1HP、1戦3回まで）
+    if (hasLegendSurvive() && (state.legendSurviveCount ?? 0) < 3) {
       state.player.hp = 1;
-      addLog("💀 " + state.player.equippedPet.name + " の不死身で生き残った！");
+      state.legendSurviveCount = (state.legendSurviveCount ?? 0) + 1;
+      addLog("💀 不死身で生き残った！(残り" + (3 - state.legendSurviveCount) + "回)");
       return { type: "battle" };
     }
     // 通常survive（1戦1回1HP）
     if (hasSurvivePassive() && !state.surviveUsed) {
       state.player.hp = 1;
       state.surviveUsed = true;
-      addLog("🛡️ " + state.player.equippedPet.name + " の加護で生き残った！");
+      addLog("🛡️ 根性で生き残った！");
       return { type: "battle" };
     }
     addLog("ゲームオーバー...");
@@ -268,7 +288,7 @@ export function createEnemy() {
   const possibleEnemies = normalEnemies.filter((e) => e.floorBand === floorBandKey);
   const base = possibleEnemies[Math.floor(Math.random() * possibleEnemies.length)];
 
-  // レジェンダリー出現判定（2%）、究極個体はlegendary中の10%（実質0.2%）、極個体（0.5%）
+  // レジェンダリー出現判定（1%）、究極個体はlegendary中の50%（実質0.5%）、極個体（2%）
   const isLegendary = base.passive && legendaryTitles[base.passive] && Math.random() < 0.01;
   const isLegendUltimate = isLegendary && Math.random() < 0.5;
   const isElite = !isLegendary && Math.random() < 0.02;

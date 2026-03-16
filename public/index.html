@@ -17,16 +17,17 @@
             とどまる
           </label>
         </div>
-        <div id="floorDisplay">地下 : 1階</div>
       </div>
       <div id="playerLevelExp">
-        <span id="playerLevel">Lv.1</span>
+        <div class="level-floor-row">
+          <span id="playerLevel">Lv.1</span>
+          <span id="floorDisplay">地下1階</span>
+        </div>
         <div id="expContainer">
           <div id="expBar"></div>
         </div>
       </div>
       <div class="status-panel">
-        <button id="resetBtn" style="color: black">リセット</button>
         <div class="status-grid">
           <div class="player-status status-card">
             <div class="status-card-label">PLAYER</div>
@@ -80,13 +81,31 @@
           <button id="invTabGem"    class="inv-tab">💎 宝玉</button>
         </div>
 
-        <!-- 武器タブ -->
+    <!-- ツールバー（panel-modal-bodyの外に移動） -->
+    <div class="inventory-toolbar" id="invWeaponToolbar">
+      <div class="toolbar-row1">
+        <select id="inventoryFilterSelect"><option value="">すべて</option></select>
+        <button id="selectAllBtn">一括選択</button>
+      </div>
+      <div class="toolbar-row2">
+        <label class="toolbar-label">グループ順</label>
+        <select id="weaponGroupSortSelect">
+          <option value="acquiredDesc">獲得降順</option>
+          <option value="acquiredAsc">獲得昇順</option>
+          <option value="bookAsc">図鑑昇順</option>
+          <option value="bookDesc">図鑑降順</option>
+        </select>
+        <label class="toolbar-label">アイテム順</label>
+        <select id="weaponSortSelect">
+          <option value="atk">攻撃力</option>
+          <option value="hp">HP</option>
+          <option value="passive">スキル値</option>
+        </select>
+      </div>
+    </div>
+
+        <!-- 武器タブ（リストのみ） -->
         <div id="invWeaponSection" class="panel-modal-body">
-          <div class="inventory-toolbar">
-            <select id="inventoryFilterSelect"><option value="">すべて</option></select>
-            <button id="sortBtn">図鑑順</button>
-            <button id="selectAllBtn">一括選択</button>
-          </div>
           <div id="synthesisInfo" class="synth-hint hidden"></div>
           <div id="synthesisPreview"></div>
           <ul id="inventoryList"></ul>
@@ -116,13 +135,31 @@
         <!-- 装備中ペットサマリー（常時表示） -->
         <div id="equippedPetInfo" class="equipped-summary"></div>
 
-        <!-- ツールバー -->
-        <div class="panel-modal-body" id="petPanelBody">
-          <div class="inventory-toolbar">
+        <!-- ツールバー（panel-modal-bodyの外に移動） -->
+        <div class="inventory-toolbar">
+          <div class="toolbar-row1">
             <select id="petFilterSelect"><option value="">すべて</option></select>
-            <button id="petSortBtn">図鑑順</button>
             <button id="petSelectAllBtn">一括選択</button>
           </div>
+          <div class="toolbar-row2">
+            <label class="toolbar-label">グループ順</label>
+            <select id="petGroupSortSelect">
+              <option value="acquiredDesc">獲得降順</option>
+              <option value="acquiredAsc">獲得昇順</option>
+              <option value="bookAsc">図鑑昇順</option>
+              <option value="bookDesc">図鑑降順</option>
+            </select>
+            <label class="toolbar-label">アイテム順</label>
+            <select id="petSortSelect">
+              <option value="atk">攻撃力</option>
+              <option value="hp">HP</option>
+              <option value="passive">スキル値</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ペットリスト（リストのみ） -->
+        <div class="panel-modal-body" id="petPanelBody">
           <div id="petSynthesisHint" class="synth-hint-text"></div>
           <div id="petSynthesisPreview" class="synth-preview-text"></div>
           <ul id="petList"></ul>
@@ -159,6 +196,26 @@
           <button id="statusCloseBtn">✕</button>
         </div>
         <div id="statusContent" class="status-detail-content"></div>
+        <div class="panel-modal-footer status-reset-footer">
+          <button id="resetBtn">🗑️ データをリセット</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- リセット確認モーダル -->
+    <div id="resetConfirmOverlay" class="book-overlay hidden">
+      <div class="book-modal reset-confirm-modal">
+        <div class="book-header">
+          <span>⚠️ リセット確認</span>
+        </div>
+        <div class="reset-confirm-body">
+          <p>すべてのセーブデータが削除されます。<br>この操作は取り消せません。</p>
+          <p class="reset-confirm-sub">本当にリセットしますか？</p>
+        </div>
+        <div class="reset-confirm-footer">
+          <button id="resetCancelBtn">キャンセル</button>
+          <button id="resetConfirmBtn">リセットする</button>
+        </div>
       </div>
     </div>
 
@@ -255,7 +312,8 @@
                 <dt>被ダメ減少</dt>
                 <dd>受けるダメージを減少させる割合（%）。上限は80%。複数のスキルは掛け算で重複する。</dd>
                 <dt>図鑑バフ</dt>
-                <dd>図鑑登録数に応じてHP・ATKがボーナス加算される。敵図鑑とアイテム図鑑で別々に加算。</dd>
+                <dd>図鑑登録数に応じてHP・ATKがボーナス加算される。敵は撃破or捕獲で加算。武器は進化で加算。
+                </dd>
               </dl>
             </div>
           </div>
@@ -278,7 +336,7 @@
                 <dt>被ダメ時反射</dt><dd>確率で受けたダメージの50%を敵に反射する。</dd>
                 <dt>与ダメ時回復</dt><dd>確率で与えたダメージの30%を回復する。</dd>
                 <dt>クリティカル率上昇</dt><dd>攻撃がクリティカルになる確率が上昇する。100%超過分はクリダメ増加に変換。</dd>
-                <dt>クリティカル強化</dt><dd>クリティカル時のダメージ倍率が上昇する。</dd>
+                <dt>クリティカルダメージ増加</dt><dd>クリティカル時のダメージ倍率が上昇する。</dd>
                 <dt>追撃</dt><dd>確率で攻撃後に追加ダメージ（通常攻撃の50%）を与える。</dd>
                 <dt>巨人殺し</dt><dd>敵HPが自分の現在HPより高い時、与ダメが増加する。</dd>
                 <dt>ボス特効</dt><dd>ボス戦闘時の与ダメが増加する。</dd>
@@ -321,9 +379,9 @@
                 <dt>称号ランクとは</dt>
                 <dd>敵にはランク1〜4の称号がある。ランクが高いほどHP・攻撃力が高く、スキル効果値も強くなる。</dd>
                 <dt>ボス</dt>
-                <dd>特定の階層に出現する強敵。倒すと宝玉をドロップする。称号ランクも持つ。</dd>
+                <dd>特定の階層に出現する強敵。倒すと宝玉をドロップする。</dd>
                 <dt>経験値・ドロップ</dt>
-                <dd>ランクが高い敵ほど多くの経験値を与える。通常の敵は武器をドロップすることがある。</dd>
+                <dd>ランクが高い敵ほど多くの経験値を貰える。通常の敵は武器をドロップすることがある。</dd>
               </dl>
             </div>
           </div>
@@ -349,11 +407,11 @@
             <div id="helpRareContent" class="accordion-body hidden">
               <dl class="help-list">
                 <dt>極個体 ⭐</dt>
-                <dd>ステータス・スキル値が全て最高値の個体。稀に出現する（通常0.5%、ボス0.25%）。</dd>
+                <dd>ステータス・スキル値が全て最高値の個体。稀に出現する（通常2%、ボス1%）。</dd>
                 <dt>伝説個体 ✨</dt>
-                <dd>レジェンダリースキルを持つ特殊な個体。通常の2%、ボスの1%の確率で出現する。</dd>
+                <dd>レジェンダリースキルを持つ特殊な個体。とても稀に出現する（通常1%、ボス0.5%）。</dd>
                 <dt>究極個体 🔴</dt>
-                <dd>伝説個体の中でさらにステータスが最大値になった最強の個体（伝説個体の10%）。ごく稀に出現する。</dd>
+                <dd>伝説個体の中でさらにステータスが最大値になった最強の個体。ごく稀に出現する。（通常0.5%、ボス0.25%）</dd>
               </dl>
             </div>
           </div>
