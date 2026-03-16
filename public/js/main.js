@@ -291,20 +291,7 @@ document.getElementById("petSortSelect").addEventListener("change", (e) => {
     if (mode === "passive") return (b.passiveValue ?? 0) - (a.passiveValue ?? 0);
     return b.power - a.power;
   });
-
-  document.querySelectorAll("#petList .pet-group").forEach((groupEl) => {
-    const bodyEl = groupEl.querySelector(".pet-group-body");
-    if (!bodyEl || bodyEl.classList.contains("hidden")) return;
-    const items = [...bodyEl.querySelectorAll("li.pet-item")];
-    const uidOrder = state.player.petList.map((p) => String(p.uid));
-    items.sort((a, b) => {
-      const uidA = a.querySelector("[data-uid]")?.dataset.uid ?? "";
-      const uidB = b.querySelector("[data-uid]")?.dataset.uid ?? "";
-      return uidOrder.indexOf(uidA) - uidOrder.indexOf(uidB);
-    });
-    items.forEach((item) => bodyEl.appendChild(item));
-  });
-
+  updatePetPanel(handlePetSynthesisClick, handlePetEquip);
   updateSynthesisClasses();
   saveGame();
 });
@@ -342,20 +329,7 @@ document.getElementById("petSynthesizeBtn").addEventListener("click", () => {
 document.getElementById("weaponSortSelect").addEventListener("change", (e) => {
   state.ui.sortMode = e.target.value;
   sortInventory(state.player);
-
-  document.querySelectorAll("#inventoryList .pet-group").forEach((groupEl) => {
-    const bodyEl = groupEl.querySelector(".pet-group-body");
-    if (!bodyEl || bodyEl.classList.contains("hidden")) return;
-    const items = [...bodyEl.querySelectorAll("li.pet-item")];
-    const uidOrder = state.player.inventory.map((w) => String(w.uid));
-    items.sort((a, b) => {
-      const uidA = a.querySelector("[data-uid]")?.dataset.uid ?? "";
-      const uidB = b.querySelector("[data-uid]")?.dataset.uid ?? "";
-      return uidOrder.indexOf(uidA) - uidOrder.indexOf(uidB);
-    });
-    items.forEach((item) => bodyEl.appendChild(item));
-  });
-
+  renderInventory(state.player, handleInventoryClick, handleEquip);
   updateSynthesisClasses();
   saveGame();
 });

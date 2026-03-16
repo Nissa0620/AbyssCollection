@@ -194,6 +194,7 @@ export function executeSynthesis() {
     state.player.equippedWeapon = newWeapon;
   }
 
+  newWeapon.acquiredOrder = state.acquiredCounter++;
   const baseName = getWeaponDisplayName(newWeapon, { showSeries: true });
   addLog(`⚔️ ${baseName} を合成！ATK +${base.totalAtk} → ${newWeapon.totalAtk}`);
 

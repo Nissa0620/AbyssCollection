@@ -635,6 +635,7 @@ export function executePetSynthesis() {
     (p) => !materialUids.includes(p.uid)
   );
 
+  base.acquiredOrder = state.acquiredCounter++;
   addLog(`🐾 ${base.name} を合成！ATK +${gain} → ${base.power}`);
 
   state.petSynthesis.baseUid = null;
