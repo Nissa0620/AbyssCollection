@@ -1145,7 +1145,7 @@ function passiveLabelText(pet) {
     hpBoost:      "HP増加",        doubleAttack: "2回攻撃",
     survive:      "根性",          reflect:      "ダメージ反射",
     drain:        "与ダメ吸収",    critRate:     "クリティカル率",
-    critDamage:   "クリティカル強化", extraHit:   "追撃",
+    critDamage:   "クリティカルダメージ増加", extraHit:   "追撃",
     giantKiller:  "巨人殺し",      bossSlayer:   "ボス特効",
     evade:        "回避",          lastStand:    "背水の陣",
     regen:        "再生",
@@ -1173,7 +1173,7 @@ function weaponPassiveLabel(passive) {
     hpBoost:      "HP増加",        doubleAttack: "2回攻撃",
     survive:      "根性",          reflect:      "ダメージ反射",
     drain:        "与ダメ吸収",    critRate:     "クリティカル率",
-    critDamage:   "クリティカル強化", extraHit:   "追撃",
+    critDamage:   "クリティカルダメージ増加", extraHit:   "追撃",
     giantKiller:  "巨人殺し",      bossSlayer:   "ボス特効",
     evade:        "回避",          lastStand:    "背水の陣",
     regen:        "再生",
@@ -1502,7 +1502,7 @@ export function renderStatusScreen() {
       ${reflectRate > 0 ? cappedRow("ダメージ反射 発生率", reflectRate, 100) : ""}
       ${drainRate > 0 ? cappedRow("与ダメ吸収 発生率", drainRate, 100) : ""}
       ${critRate > 0 ? cappedRow("クリティカル率", critRate, 100) : ""}
-      ${critDmg > 0 ? row("クリティカル強化率", `+${critDmg}%`) : ""}
+      ${critDmg > 0 ? row("クリティカルダメージ増加率", `+${critDmg}%`) : ""}
       ${extraHitRate > 0 ? cappedRow("追撃 発生率", extraHitRate, 100) : ""}
       ${giantKiller > 0 ? row("巨人殺し 効果率", `+${giantKiller}%`) : ""}
       ${bossSlayer > 0 ? row("ボス特効 効果率", `+${bossSlayer}%`) : ""}
@@ -1589,10 +1589,8 @@ export function showLegendaryPopup(enemy, mode = "appear", pet = null, isHolding
 
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
-  if (mode === "appear") {
-    const _isHolding = isHolding ?? state.isHolding;
-    if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
-  }
+  const _isHolding = isHolding ?? state.isHolding;
+  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }
 
 export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHolding = null) {
@@ -1625,10 +1623,8 @@ export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHo
 
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
-  if (mode === "appear") {
-    const _isHolding = isHolding ?? state.isHolding;
-    if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
-  }
+  const _isHolding = isHolding ?? state.isHolding;
+  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }
 
 export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = null) {
@@ -1657,8 +1653,6 @@ export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = n
 
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
-  if (mode === "appear") {
-    const _isHolding = isHolding ?? state.isHolding;
-    if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
-  }
+  const _isHolding = isHolding ?? state.isHolding;
+  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }

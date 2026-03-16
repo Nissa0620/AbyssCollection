@@ -160,9 +160,10 @@ document.getElementById("statusCloseBtn").addEventListener("click", () => {
 const attackBtn = document.getElementById("attackBtn");
 
 let attackInterval = null;
+let isTouching = false;
 
 function isHolding() {
-  return attackInterval !== null;
+  return isTouching && attackInterval !== null;
 }
 
 function isAppearanceModalOpen() {
@@ -206,9 +207,13 @@ document.addEventListener("mouseup", stopHold);
 // タッチ
 attackBtn.addEventListener("touchstart", (e) => {
   e.preventDefault();
+  isTouching = true;
   startHold();
 }, { passive: false });
-document.addEventListener("touchend", stopHold);
+document.addEventListener("touchend", () => {
+  isTouching = false;
+  stopHold();
+});
 
 // =====================
 // インベントリボタン

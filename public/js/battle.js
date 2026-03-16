@@ -54,11 +54,11 @@ export function playerAttack() {
   const legendHeal = getLegendDrainHeal(damage);
   if (heal > 0) {
     state.player.hp = Math.min(state.player.hp + heal, state.player.totalHp);
-    addLog("💚 " + state.player.equippedPet.name + " の吸収で " + heal + " 回復！");
+    addLog("💚 吸収で " + heal + " 回復！");
   }
   if (legendHeal > 0) {
     state.player.hp = Math.min(state.player.hp + legendHeal, state.player.totalHp);
-    addLog("💚 " + state.player.equippedPet.name + " の吸血で " + legendHeal + " 回復！");
+    addLog("💚 吸血で " + legendHeal + " 回復！");
   }
 
   // 追撃（通常 or 乱打：2回追撃）
@@ -128,7 +128,7 @@ export function enemyAttack() {
 
   // 通常回避判定
   if (tryEvade()) {
-    addLog("✨ " + state.player.equippedPet.name + " が攻撃を回避！");
+    addLog("✨ 回避！");
     return { type: "battle" };
   }
 
@@ -153,7 +153,7 @@ export function enemyAttack() {
   const legendReflectDmg = getLegendReflectDamage(damage);
   if (reflectDmg > 0) {
     state.enemy.hp = Math.max(0, state.enemy.hp - reflectDmg);
-    addLog("🔄 " + state.player.equippedPet.name + " が " + reflectDmg + " ダメージを反射！");
+    addLog("🔄 " + reflectDmg + " ダメージを反射！");
     if (state.enemy.hp <= 0) {
       defeatEnemy();
       return { type: "victory" };
@@ -161,7 +161,7 @@ export function enemyAttack() {
   }
   if (legendReflectDmg > 0) {
     state.enemy.hp = Math.max(0, state.enemy.hp - legendReflectDmg);
-    addLog("🔄 " + state.player.equippedPet.name + " が " + legendReflectDmg + " ダメージを鏡盾で反射！");
+    addLog("🔄 " + legendReflectDmg + " ダメージを鏡盾で反射！");
     if (state.enemy.hp <= 0) {
       defeatEnemy();
       return { type: "victory" };
@@ -172,28 +172,28 @@ export function enemyAttack() {
     // 転生（複数回HP50%復活）
     if (hasLegendResurrection()) {
       state.player.hp = Math.floor(state.player.totalHp * 0.5);
-      addLog("✨ " + state.player.equippedPet.name + " の転生でHP50%で復活！");
+      addLog("✨ 転生でHP50%で復活！");
       return { type: "battle" };
     }
     // 不屈（1戦1回HP50%復活）
     if (hasResurrection() && !state.resurrectionUsed) {
       state.player.hp = Math.floor(state.player.totalHp * 0.5);
       state.resurrectionUsed = true;
-      addLog("💫 " + state.player.equippedPet.name + " の不屈でHP50%で復活！");
+      addLog("💫 不屈でHP50%で復活！");
       return { type: "battle" };
     }
     // 不死身（複数回1HP、1戦3回まで）
     if (hasLegendSurvive() && (state.legendSurviveCount ?? 0) < 3) {
       state.player.hp = 1;
       state.legendSurviveCount = (state.legendSurviveCount ?? 0) + 1;
-      addLog("💀 " + state.player.equippedPet.name + " の不死身で生き残った！(残り" + (3 - state.legendSurviveCount) + "回)");
+      addLog("💀 不死身で生き残った！(残り" + (3 - state.legendSurviveCount) + "回)");
       return { type: "battle" };
     }
     // 通常survive（1戦1回1HP）
     if (hasSurvivePassive() && !state.surviveUsed) {
       state.player.hp = 1;
       state.surviveUsed = true;
-      addLog("🛡️ " + state.player.equippedPet.name + " の加護で生き残った！");
+      addLog("🛡️ 根性で生き残った！");
       return { type: "battle" };
     }
     addLog("ゲームオーバー...");

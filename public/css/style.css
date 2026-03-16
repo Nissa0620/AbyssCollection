@@ -79,6 +79,10 @@ body {
   color: #6ab0ff;
 }
 
+.enemy-status {
+  min-height: 60px;
+}
+
 .enemy-status .status-card-label {
   color: #ff7070;
 }
