@@ -64,6 +64,10 @@ export const state = {
     petFilter: "",
     inventoryTab: "weapon",
     stayOnFloor: false,
+    petGroupSort: "acquiredDesc",
+    weaponGroupSort: "acquiredDesc",
+    petOpenGroups: {},
+    weaponOpenGroups: {},
   },
   synthesisMode: false,
   synthesis: {
@@ -77,6 +81,11 @@ export const state = {
   surviveUsed: false,
   resurrectionUsed: false,
   legendEvadeActive: false,
+  legendSurviveCount: 0,
+  isHolding: null, // main.jsから設定されるコールバック（長押し判定用）
+  lastSelectedFloor: 1,
+  acquiredCounter: 0,
+  migrated: {},
   hpBoostMult: 1,
   achievements: {
     unlocked: {},

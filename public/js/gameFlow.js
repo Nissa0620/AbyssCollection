@@ -49,6 +49,7 @@ function nextPhase() {
   state.surviveUsed = false;
   state.resurrectionUsed = false;
   state.legendEvadeActive = false;
+  state.legendSurviveCount = 0;
 }
 
 function gameOverPhase() {
@@ -58,4 +59,5 @@ function gameOverPhase() {
   state.surviveUsed = false;
   state.resurrectionUsed = false;
   state.legendEvadeActive = false;
+  state.legendSurviveCount = 0;
 }

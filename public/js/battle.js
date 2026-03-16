@@ -182,10 +182,11 @@ export function enemyAttack() {
       addLog("💫 " + state.player.equippedPet.name + " の不屈でHP50%で復活！");
       return { type: "battle" };
     }
-    // 不死身（複数回1HP）
-    if (hasLegendSurvive()) {
+    // 不死身（複数回1HP、1戦3回まで）
+    if (hasLegendSurvive() && (state.legendSurviveCount ?? 0) < 3) {
       state.player.hp = 1;
-      addLog("💀 " + state.player.equippedPet.name + " の不死身で生き残った！");
+      state.legendSurviveCount = (state.legendSurviveCount ?? 0) + 1;
+      addLog("💀 " + state.player.equippedPet.name + " の不死身で生き残った！(残り" + (3 - state.legendSurviveCount) + "回)");
       return { type: "battle" };
     }
     // 通常survive（1戦1回1HP）

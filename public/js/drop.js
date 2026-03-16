@@ -50,6 +50,7 @@ function createWeapon(template) {
     passive: template.passive ?? null,
     basePassiveValue: passiveValue,
     passiveValue,
+    acquiredOrder: state.acquiredCounter++,
   };
 }
 // =====================

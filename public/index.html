@@ -17,10 +17,12 @@
             とどまる
           </label>
         </div>
-        <div id="floorDisplay">地下 : 1階</div>
       </div>
       <div id="playerLevelExp">
-        <span id="playerLevel">Lv.1</span>
+        <div class="level-floor-row">
+          <span id="playerLevel">Lv.1</span>
+          <span id="floorDisplay">地下1階</span>
+        </div>
         <div id="expContainer">
           <div id="expBar"></div>
         </div>
@@ -79,13 +81,31 @@
           <button id="invTabGem"    class="inv-tab">💎 宝玉</button>
         </div>
 
-        <!-- 武器タブ -->
+    <!-- ツールバー（panel-modal-bodyの外に移動） -->
+    <div class="inventory-toolbar" id="invWeaponToolbar">
+      <div class="toolbar-row1">
+        <select id="inventoryFilterSelect"><option value="">すべて</option></select>
+        <button id="selectAllBtn">一括選択</button>
+      </div>
+      <div class="toolbar-row2">
+        <label class="toolbar-label">グループ順</label>
+        <select id="weaponGroupSortSelect">
+          <option value="acquiredDesc">獲得降順</option>
+          <option value="acquiredAsc">獲得昇順</option>
+          <option value="bookAsc">図鑑昇順</option>
+          <option value="bookDesc">図鑑降順</option>
+        </select>
+        <label class="toolbar-label">アイテム順</label>
+        <select id="weaponSortSelect">
+          <option value="atk">攻撃力</option>
+          <option value="hp">HP</option>
+          <option value="passive">スキル値</option>
+        </select>
+      </div>
+    </div>
+
+        <!-- 武器タブ（リストのみ） -->
         <div id="invWeaponSection" class="panel-modal-body">
-          <div class="inventory-toolbar">
-            <select id="inventoryFilterSelect"><option value="">すべて</option></select>
-            <button id="sortBtn">図鑑順</button>
-            <button id="selectAllBtn">一括選択</button>
-          </div>
           <div id="synthesisInfo" class="synth-hint hidden"></div>
           <div id="synthesisPreview"></div>
           <ul id="inventoryList"></ul>
@@ -115,13 +135,31 @@
         <!-- 装備中ペットサマリー（常時表示） -->
         <div id="equippedPetInfo" class="equipped-summary"></div>
 
-        <!-- ツールバー -->
-        <div class="panel-modal-body" id="petPanelBody">
-          <div class="inventory-toolbar">
+        <!-- ツールバー（panel-modal-bodyの外に移動） -->
+        <div class="inventory-toolbar">
+          <div class="toolbar-row1">
             <select id="petFilterSelect"><option value="">すべて</option></select>
-            <button id="petSortBtn">図鑑順</button>
             <button id="petSelectAllBtn">一括選択</button>
           </div>
+          <div class="toolbar-row2">
+            <label class="toolbar-label">グループ順</label>
+            <select id="petGroupSortSelect">
+              <option value="acquiredDesc">獲得降順</option>
+              <option value="acquiredAsc">獲得昇順</option>
+              <option value="bookAsc">図鑑昇順</option>
+              <option value="bookDesc">図鑑降順</option>
+            </select>
+            <label class="toolbar-label">アイテム順</label>
+            <select id="petSortSelect">
+              <option value="atk">攻撃力</option>
+              <option value="hp">HP</option>
+              <option value="passive">スキル値</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ペットリスト（リストのみ） -->
+        <div class="panel-modal-body" id="petPanelBody">
           <div id="petSynthesisHint" class="synth-hint-text"></div>
           <div id="petSynthesisPreview" class="synth-preview-text"></div>
           <ul id="petList"></ul>

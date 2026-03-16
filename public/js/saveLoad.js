@@ -96,5 +96,25 @@ export function loadGame() {
     }
   }
 
+  // マイグレーション：acquiredOrderが存在しない場合は一括付与
+  if (!state.migrated?.acquiredOrder) {
+    let counter = 0;
+    for (const pet of state.player.petList ?? []) {
+      if (pet.acquiredOrder == null) pet.acquiredOrder = counter++;
+    }
+    for (const weapon of state.player.inventory ?? []) {
+      if (weapon.acquiredOrder == null) weapon.acquiredOrder = counter++;
+    }
+    if (!state.migrated) state.migrated = {};
+    state.migrated.acquiredOrder = true;
+    if (!state.acquiredCounter) state.acquiredCounter = counter;
+  }
+
+  // ロード時にアコーディオン開閉状態をリセット
+  if (state.ui) {
+    state.ui.petOpenGroups = {};
+    state.ui.weaponOpenGroups = {};
+  }
+
   return true;
 }

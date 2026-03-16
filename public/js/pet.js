@@ -126,14 +126,15 @@ export function getDmgBoostMultiplier() {
   return mult;
 }
 
-// 被ダメ減少倍率を取得（上限99%減少、最低1%は受ける）
+// 被ダメ減少倍率を取得（上限80%減少）
 export function getDmgReduceMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
-  let mult = 1;
-  if (pet?.passive === "dmgReduce" || pet?.passive === "legendDmgReduce") mult *= (1 - (pet.passiveValue ?? 0) / 100);
-  if (weapon?.passive === "dmgReduce" || weapon?.passive === "legendDmgReduce") mult *= (1 - (weapon.passiveValue ?? 0) / 100);
-  return Math.max(mult, 0.2); // 上限80%減少（最低20%は受ける）
+  let totalRate = 0;
+  if (pet?.passive === "dmgReduce" || pet?.passive === "legendDmgReduce") totalRate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "dmgReduce" || weapon?.passive === "legendDmgReduce") totalRate += (weapon.passiveValue ?? 0);
+  const clampedRate = Math.min(totalRate, 80); // 上限80%
+  return 1 - clampedRate / 100;
 }
 
 // HP増加倍率を取得
@@ -455,6 +456,7 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
     bonusHp: 0,
     passive,
     passiveValue,
+    acquiredOrder: state.acquiredCounter++,
   };
 
   state.player.petList.push(pet);

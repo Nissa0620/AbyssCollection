@@ -15,7 +15,6 @@ import {
   updateSynthesisPreview,
   updatePetSynthesisUI,
   sortInventory,
-  updateSortBtn,
   updateExpBar,
   updateFloorJumpOptions,
   renderBook,
@@ -25,8 +24,6 @@ import {
   updateInventoryFilterOptions,
   updatePetFilterOptions,
   updateSynthesisClasses,
-  updatePetSortBtnState,
-  updateWeaponSortBtnState,
 } from "./ui.js";
 import { state } from "./state.js";
 import { addLog } from "./log.js";
@@ -64,15 +61,21 @@ function refreshUI() {
   updateSynthesisInfo();
   updateSynthesisPreview();
   updateExpBar();
-  updateSortBtn();
   updatePetPanel(handlePetSynthesisClick, handlePetEquip);
   updateEquippedWeaponInfo(refreshUI);
   updateInventoryFilterOptions();
   updatePetFilterOptions();
   saveGame();
   updateFloorJumpOptions(state.floor);
-  updatePetSortBtnState();
-  updateWeaponSortBtnState();
+
+  const sortSel = document.getElementById("weaponSortSelect");
+  if (sortSel) sortSel.value = state.ui.sortMode ?? "passive";
+  const petSortSel = document.getElementById("petSortSelect");
+  if (petSortSel) petSortSel.value = state.ui.petSortMode ?? "passive";
+  const wGroupSel = document.getElementById("weaponGroupSortSelect");
+  if (wGroupSel) wGroupSel.value = state.ui.weaponGroupSort ?? "acquiredDesc";
+  const pGroupSel = document.getElementById("petGroupSortSelect");
+  if (pGroupSel) pGroupSel.value = state.ui.petGroupSort ?? "acquiredDesc";
 }
 
 function refreshHpBoost() {
@@ -128,6 +131,7 @@ function closeInventoryModal() {
   state.ui.inventoryOpen = false;
   state.synthesis.baseUid = null;
   state.synthesis.materialUids = [];
+  state.ui.weaponOpenGroups = {};
   refreshUI();
 }
 
@@ -135,6 +139,7 @@ function closePetModal() {
   state.ui.petOpen = false;
   state.petSynthesis.baseUid = null;
   state.petSynthesis.materialUids = [];
+  state.ui.petOpenGroups = {};
   refreshUI();
 }
 
@@ -156,6 +161,10 @@ const attackBtn = document.getElementById("attackBtn");
 
 let attackInterval = null;
 
+function isHolding() {
+  return attackInterval !== null;
+}
+
 function isAppearanceModalOpen() {
   return ["eliteOverlay", "legendaryOverlay", "legendUltimateOverlay"].some((id) => {
     const el = document.getElementById(id);
@@ -171,6 +180,7 @@ function doAttack() {
 
 function startHold() {
   if (attackInterval) return;
+  state.isHolding = isHolding;
   doAttack(); // 最初の1回は即時実行
   attackInterval = setInterval(() => {
     // ゲームオーバーや次フェーズ以外のときだけ連続実行
@@ -267,24 +277,15 @@ document.getElementById("inventoryOverlay").addEventListener("click", (e) => {
   if (e.target === document.getElementById("inventoryOverlay")) closeInventoryModal();
 });
 
-// ペットソートボタン
-document.getElementById("petSortBtn").addEventListener("click", () => {
-  const cycle = { passive: "atk", atk: "book", book: "hp", hp: "passive" };
-  state.ui.petSortMode = cycle[state.ui.petSortMode ?? "atk"] ?? "atk";
+// ペットソートセレクト
+document.getElementById("petSortSelect").addEventListener("change", (e) => {
+  state.ui.petSortMode = e.target.value;
   const mode = state.ui.petSortMode;
   state.player.petList.sort((a, b) => {
-    if (mode === "book") {
-      const titleA = a.titleId ?? 1;
-      const titleB = b.titleId ?? 1;
-      if (titleA !== titleB) return titleA - titleB;
-      return a.enemyId - b.enemyId;
-    }
     if (mode === "hp") return (b.hp ?? 0) - (a.hp ?? 0);
     if (mode === "passive") return (b.passiveValue ?? 0) - (a.passiveValue ?? 0);
     return b.power - a.power;
   });
-  const labels = { atk: "ソート：攻撃力", book: "ソート：図鑑順", hp: "ソート：HP", passive: "ソート：スキル値" };
-  document.getElementById("petSortBtn").textContent = labels[mode] ?? "ソート";
 
   document.querySelectorAll("#petList .pet-group").forEach((groupEl) => {
     const bodyEl = groupEl.querySelector(".pet-group-body");
@@ -331,15 +332,11 @@ document.getElementById("petSynthesizeBtn").addEventListener("click", () => {
 });
 
 // =====================
-// インベントリ_ソートボタン
+// インベントリ_ソートセレクト
 // =====================
-const inventorySortBtn = document.getElementById("sortBtn");
-
-inventorySortBtn.addEventListener("click", () => {
-  const cycle = { passive: "atk", atk: "book", book: "hp", hp: "passive" };
-  state.ui.sortMode = cycle[state.ui.sortMode] ?? "atk";
+document.getElementById("weaponSortSelect").addEventListener("change", (e) => {
+  state.ui.sortMode = e.target.value;
   sortInventory(state.player);
-  updateSortBtn();
 
   document.querySelectorAll("#inventoryList .pet-group").forEach((groupEl) => {
     const bodyEl = groupEl.querySelector(".pet-group-body");
@@ -356,6 +353,16 @@ inventorySortBtn.addEventListener("click", () => {
 
   updateSynthesisClasses();
   saveGame();
+});
+
+document.getElementById("weaponGroupSortSelect").addEventListener("change", (e) => {
+  state.ui.weaponGroupSort = e.target.value;
+  renderInventory(state.player, handleInventoryClick, handleEquip);
+});
+
+document.getElementById("petGroupSortSelect").addEventListener("change", (e) => {
+  state.ui.petGroupSort = e.target.value;
+  updatePetPanel(handlePetSynthesisClick, handlePetEquip);
 });
 
 document.getElementById("inventoryFilterSelect").addEventListener("change", (e) => {
@@ -399,7 +406,7 @@ const floorJumpSelect = document.getElementById("floorJumpSelect");
 floorJumpBtn.addEventListener("click", () => {
   const target = Number(floorJumpSelect.value);
   if (!target) return;
-
+  state.lastSelectedFloor = target;
   state.floor = target;
   state.phase = "battle";
   createEnemy();

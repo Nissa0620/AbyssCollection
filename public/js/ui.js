@@ -71,12 +71,27 @@ export function renderInventory(player, onItemClick, onEquip) {
 
   list.innerHTML = "";
 
-  // お気に入り優先でソート
-  const sortedGroups = [...groups.entries()].sort(([keyA], [keyB]) => {
+  // state.ui.weaponOpenGroups のクリーンアップ
+  if (state.ui.weaponOpenGroups) {
+    const validKeys = new Set([...groups.keys()].map((k) => `weapon_${k}`));
+    for (const key of Object.keys(state.ui.weaponOpenGroups)) {
+      if (!validKeys.has(key)) delete state.ui.weaponOpenGroups[key];
+    }
+  }
+
+  // お気に入り + グループソート
+  const sortedGroups = [...groups.entries()].sort(([keyA, itemsA], [keyB, itemsB]) => {
     const favA = isFavorite(`weapon_${keyA}`) ? 0 : 1;
     const favB = isFavorite(`weapon_${keyB}`) ? 0 : 1;
     if (favA !== favB) return favA - favB;
-    return Number(keyA) - Number(keyB);
+    const mode = state.ui.weaponGroupSort ?? "acquiredDesc";
+    const maxOrderA = Math.max(...itemsA.map((w) => w.acquiredOrder ?? 0));
+    const maxOrderB = Math.max(...itemsB.map((w) => w.acquiredOrder ?? 0));
+    if (mode === "acquiredDesc") return maxOrderB - maxOrderA;
+    if (mode === "acquiredAsc")  return maxOrderA - maxOrderB;
+    if (mode === "bookAsc")      return Number(keyA) - Number(keyB);
+    if (mode === "bookDesc")     return Number(keyB) - Number(keyA);
+    return 0;
   });
 
   for (const [templateId, groupItems] of sortedGroups) {
@@ -136,21 +151,31 @@ export function renderInventory(player, onItemClick, onEquip) {
 
     const bodyEl = document.createElement("ul");
     bodyEl.className = "pet-group-body hidden";
-    let rendered = false;
+
+    // 開閉状態の復元
+    const isStoredOpen = state.ui.weaponOpenGroups?.[groupKey] === true;
+    if (isStoredOpen) {
+      bodyEl.innerHTML = "";
+      renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip);
+      bodyEl.classList.remove("hidden");
+    }
 
     const closeBtn = headerEl.querySelector(".group-close-btn");
+    if (isStoredOpen) {
+      headerEl.querySelector(".pet-group-toggle").textContent = "▼";
+      closeBtn.classList.remove("hidden");
+    }
 
     headerEl.addEventListener("click", () => {
       const isOpen = !bodyEl.classList.contains("hidden");
       if (isOpen) return;
 
-      if (!rendered) {
-        renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip);
-        rendered = true;
-      }
+      bodyEl.innerHTML = "";
+      renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip);
       bodyEl.classList.remove("hidden");
       headerEl.querySelector(".pet-group-toggle").textContent = "▼";
       closeBtn.classList.remove("hidden");
+      state.ui.weaponOpenGroups[groupKey] = true;
       updateSynthesisClasses();
       updateWeaponSortBtnState();
     });
@@ -162,6 +187,7 @@ export function renderInventory(player, onItemClick, onEquip) {
       bodyEl.classList.add("hidden");
       headerEl.querySelector(".pet-group-toggle").textContent = "▶";
       closeBtn.classList.add("hidden");
+      delete state.ui.weaponOpenGroups[groupKey];
       updateSynthesisUI();
       updateSynthesisPreview();
       updateSynthesisClasses();
@@ -263,7 +289,6 @@ function renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip) {
 export function sortInventory(player) {
   const mode = state.ui.sortMode;
   player.inventory.sort((a, b) => {
-    if (mode === "book")    return a.templateId - b.templateId;
     if (mode === "hp")      return (b.totalHp ?? 0) - (a.totalHp ?? 0);
     if (mode === "passive") return (b.passiveValue ?? 0) - (a.passiveValue ?? 0);
     return b.totalAtk - a.totalAtk; // atk
@@ -273,8 +298,8 @@ export function sortInventory(player) {
 export function updateSortBtn() {
   const btn = document.getElementById("sortBtn");
   if (!btn) return;
-  const labels = { atk: "ソート：攻撃力", book: "ソート：図鑑順", hp: "ソート：HP", passive: "ソート：スキル値" };
-  btn.textContent = labels[state.ui.sortMode] ?? "ソート：攻撃力";
+  const labels = { atk: "攻撃力", hp: "HP", passive: "スキル値" };
+  btn.textContent = labels[state.ui.sortMode] ?? "攻撃力";
 }
 
 export function updateInventoryVisibility() {
@@ -372,10 +397,11 @@ export function renderGemList() {
 }
 
 export function updateInventoryTab(tab) {
-  const weaponSection = document.getElementById("invWeaponSection");
-  const gemSection    = document.getElementById("invGemSection");
-  const weaponTabBtn  = document.getElementById("invTabWeapon");
-  const gemTabBtn     = document.getElementById("invTabGem");
+  const weaponSection  = document.getElementById("invWeaponSection");
+  const gemSection     = document.getElementById("invGemSection");
+  const weaponTabBtn   = document.getElementById("invTabWeapon");
+  const gemTabBtn      = document.getElementById("invTabGem");
+  const weaponToolbar  = document.getElementById("invWeaponToolbar");
   if (!weaponSection || !gemSection) return;
 
   if (tab === "gem") {
@@ -383,11 +409,13 @@ export function updateInventoryTab(tab) {
     gemSection.classList.remove("hidden");
     weaponTabBtn?.classList.remove("active");
     gemTabBtn?.classList.add("active");
+    if (weaponToolbar) weaponToolbar.classList.add("hidden");
   } else {
     weaponSection.classList.remove("hidden");
     gemSection.classList.add("hidden");
     weaponTabBtn?.classList.add("active");
     gemTabBtn?.classList.remove("active");
+    if (weaponToolbar) weaponToolbar.classList.remove("hidden");
   }
 }
 
@@ -565,7 +593,11 @@ export function updateFloorJumpOptions() {
   select.appendChild(first);
 
   const max = state.maxFloor;
-  if (max < 50) return;
+  if (max < 50) {
+    // 最後に選択したフロアを復元
+    select.value = String(state.lastSelectedFloor ?? 1);
+    return;
+  }
 
   const maxMultiple = Math.floor(max / 50) * 50;
   for (let f = 50; f <= maxMultiple; f += 50) {
@@ -574,6 +606,9 @@ export function updateFloorJumpOptions() {
     opt.textContent = `${f}階`;
     select.appendChild(opt);
   }
+
+  // 最後に選択したフロアを復元
+  select.value = String(state.lastSelectedFloor ?? 1);
 }
 
 // 図鑑ポップアップ
@@ -890,14 +925,29 @@ export function updatePetPanel(onPetClick, onPetEquip) {
     groups.get(key).push(pet);
   }
 
-  // お気に入り優先でソート
+  // state.ui.petOpenGroups のクリーンアップ
+  if (state.ui.petOpenGroups) {
+    const validKeys = new Set([...groups.keys()].map((k) => `pet_${k}`));
+    for (const key of Object.keys(state.ui.petOpenGroups)) {
+      if (!validKeys.has(key)) delete state.ui.petOpenGroups[key];
+    }
+  }
+
+  // お気に入り + グループソート
   const sortedGroups = [...groups.entries()].sort(([, petsA], [, petsB]) => {
     const repA = petsA[0];
     const repB = petsB[0];
     const favA = isFavorite(`pet_${repA.enemyId}_${!!repA.isBoss}`) ? 0 : 1;
     const favB = isFavorite(`pet_${repB.enemyId}_${!!repB.isBoss}`) ? 0 : 1;
     if (favA !== favB) return favA - favB;
-    return repA.enemyId - repB.enemyId;
+    const mode = state.ui.petGroupSort ?? "acquiredDesc";
+    const maxOrderA = Math.max(...petsA.map((p) => p.acquiredOrder ?? 0));
+    const maxOrderB = Math.max(...petsB.map((p) => p.acquiredOrder ?? 0));
+    if (mode === "acquiredDesc") return maxOrderB - maxOrderA;
+    if (mode === "acquiredAsc")  return maxOrderA - maxOrderB;
+    if (mode === "bookAsc")      return repA.enemyId - repB.enemyId;
+    if (mode === "bookDesc")     return repB.enemyId - repA.enemyId;
+    return 0;
   });
 
   for (const [key, groupPets] of sortedGroups) {
@@ -946,21 +996,31 @@ export function updatePetPanel(onPetClick, onPetEquip) {
 
     const bodyEl = document.createElement("ul");
     bodyEl.className = "pet-group-body hidden";
-    let rendered = false;
+
+    // 開閉状態の復元
+    const isStoredOpen = state.ui.petOpenGroups?.[groupKey] === true;
+    if (isStoredOpen) {
+      bodyEl.innerHTML = "";
+      renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip);
+      bodyEl.classList.remove("hidden");
+    }
 
     const closeBtn = headerEl.querySelector(".group-close-btn");
+    if (isStoredOpen) {
+      headerEl.querySelector(".pet-group-toggle").textContent = "▼";
+      closeBtn.classList.remove("hidden");
+    }
 
     headerEl.addEventListener("click", () => {
       const isOpen = !bodyEl.classList.contains("hidden");
       if (isOpen) return;
 
-      if (!rendered) {
-        renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip);
-        rendered = true;
-      }
+      bodyEl.innerHTML = "";
+      renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip);
       bodyEl.classList.remove("hidden");
       headerEl.querySelector(".pet-group-toggle").textContent = "▼";
       closeBtn.classList.remove("hidden");
+      state.ui.petOpenGroups[groupKey] = true;
       updateSynthesisClasses();
       updatePetSortBtnState();
     });
@@ -972,6 +1032,7 @@ export function updatePetPanel(onPetClick, onPetEquip) {
       bodyEl.classList.add("hidden");
       headerEl.querySelector(".pet-group-toggle").textContent = "▶";
       closeBtn.classList.add("hidden");
+      delete state.ui.petOpenGroups[groupKey];
       updatePetSynthesisUI();
       updateSynthesisClasses();
       updatePetSortBtnState();
@@ -1404,6 +1465,18 @@ export function renderStatusScreen() {
       <span class="status-detail-value">${value}${sub ? ` <span class="status-detail-sub">${sub}</span>` : ""}</span>
     </div>`;
 
+  const cappedRow = (label, rawValue, cap, unit = "", sub = "") => {
+    const isAtCap = rawValue >= cap;
+    const displayValue = isAtCap ? cap : rawValue;
+    const valStr = unit ? `${displayValue}${unit}` : `${displayValue}%`;
+    const style = isAtCap ? ` style="color: yellow"` : "";
+    return `
+    <div class="status-detail-row">
+      <span class="status-detail-label">${label}</span>
+      <span class="status-detail-value"${style}>${valStr}${sub ? ` <span class="status-detail-sub">${sub}</span>` : ""}</span>
+    </div>`;
+  };
+
   const gemBonus = (player.gems ?? []).reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
 
   el.innerHTML = `
@@ -1414,28 +1487,28 @@ export function renderStatusScreen() {
       ${gemBonus > 0 ? row("宝玉ATKボーナス", `+${gemBonus}`) : ""}
     </div>
     <div class="status-detail-section">
-      <div class="status-detail-heading">✨ スキル効果</div>
+      <div class="status-detail-heading">✨ スキル効果 <span style="font-size:10px;color:#aaa;font-weight:normal;">※黄色文字は上限値に達している効果です</span></div>
       ${expBoost > 0 ? row("経験値増加率", `+${expBoost}%`) : ""}
       ${captureBoost > 0 ? row("捕獲率", `+${captureBoost}%`) : ""}
       ${atkBoost > 0 ? row("攻撃力増加率", `+${atkBoost}%`) : ""}
       ${dropBoost > 0 ? row("ドロップ率", `+${dropBoost}%`) : ""}
       ${dmgBoost > 0 ? row("与ダメ上昇率", `+${dmgBoost}%`) : ""}
-      ${dmgReduce > 0 ? row("被ダメ減少率", `${dmgReduce}%`) : ""}
+      ${dmgReduce > 0 ? cappedRow("被ダメ減少率", dmgReduce, 80) : ""}
       ${hpBoost > 0 ? row("HP増加率", `+${hpBoost}%`) : ""}
-      ${doubleRate > 0 ? row("2回攻撃 発生率", `${doubleRate}%`) : ""}
+      ${doubleRate > 0 ? cappedRow("2回攻撃 発生率", doubleRate, 100) : ""}
       ${hasTripleAttack ? row("✨連撃王", "3回攻撃") : ""}
-      ${surviveRate > 0 ? row("根性 発生率", `${surviveRate}%`) : ""}
+      ${surviveRate > 0 ? cappedRow("根性 発生率", surviveRate, 100) : ""}
       ${hasLegendSurvive ? row("✨不死身", "常時発動") : ""}
-      ${reflectRate > 0 ? row("ダメージ反射 発生率", `${reflectRate}%`) : ""}
-      ${drainRate > 0 ? row("与ダメ吸収 発生率", `${drainRate}%`) : ""}
-      ${critRate > 0 ? row("クリティカル率", `${critRate}%`) : ""}
+      ${reflectRate > 0 ? cappedRow("ダメージ反射 発生率", reflectRate, 100) : ""}
+      ${drainRate > 0 ? cappedRow("与ダメ吸収 発生率", drainRate, 100) : ""}
+      ${critRate > 0 ? cappedRow("クリティカル率", critRate, 100) : ""}
       ${critDmg > 0 ? row("クリティカル強化率", `+${critDmg}%`) : ""}
-      ${extraHitRate > 0 ? row("追撃 発生率", `${extraHitRate}%`) : ""}
+      ${extraHitRate > 0 ? cappedRow("追撃 発生率", extraHitRate, 100) : ""}
       ${giantKiller > 0 ? row("巨人殺し 効果率", `+${giantKiller}%`) : ""}
       ${bossSlayer > 0 ? row("ボス特効 効果率", `+${bossSlayer}%`) : ""}
-      ${evadeRate > 0 ? row("回避 発生率", `${evadeRate}%`) : ""}
+      ${evadeRate > 0 ? cappedRow("回避 発生率", evadeRate, 90) : ""}
       ${lastStand > 0 ? row("背水の陣 効果率", `+${lastStand}%`) : ""}
-      ${regenRate > 0 ? row("再生率", `${regenRate}%/ターン`) : ""}
+      ${regenRate > 0 ? cappedRow("再生率", regenRate, 50, "%/ターン") : ""}
       ${hasLegendResurrection ? row("✨輪廻転生", "復活") : ""}
     </div>
     <div class="status-detail-section">
@@ -1449,7 +1522,7 @@ export function renderStatusScreen() {
 // =====================
 // 極個体ポップアップ
 // =====================
-export function showUltimatePopup(entity, type) {
+export function showUltimatePopup(entity, type, isHolding = null) {
   const overlay = document.getElementById("ultimateOverlay");
   const subEl  = document.getElementById("ultimateSub");
   const nameEl = document.getElementById("ultimateName");
@@ -1464,6 +1537,8 @@ export function showUltimatePopup(entity, type) {
     statsEl.innerHTML = `ATK ${entity.power} ／ HP ${entity.hp} ／ ${passive}${pval}`;
     overlay.classList.remove("hidden");
     overlay.onclick = () => overlay.classList.add("hidden");
+    const _isHolding = isHolding ?? state.isHolding;
+    if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
     return;
   } else if (type === "pet") {
     subEl.textContent = "極個体を捕獲した！";
@@ -1481,8 +1556,10 @@ export function showUltimatePopup(entity, type) {
 
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
+  const _isHolding = isHolding ?? state.isHolding;
+  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }
-export function showLegendaryPopup(enemy, mode = "appear", pet = null) {
+export function showLegendaryPopup(enemy, mode = "appear", pet = null, isHolding = null) {
   const overlay  = document.getElementById("legendaryOverlay");
   const subEl    = document.getElementById("legendarySub");
   const nameEl   = document.getElementById("legendaryName");
@@ -1512,9 +1589,13 @@ export function showLegendaryPopup(enemy, mode = "appear", pet = null) {
 
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
+  if (mode === "appear") {
+    const _isHolding = isHolding ?? state.isHolding;
+    if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+  }
 }
 
-export function showLegendUltimatePopup(enemy, mode = "appear", pet = null) {
+export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHolding = null) {
   const overlay  = document.getElementById("legendUltimateOverlay");
   const subEl    = document.getElementById("legendUltimateSub");
   const nameEl   = document.getElementById("legendUltimateName");
@@ -1544,9 +1625,13 @@ export function showLegendUltimatePopup(enemy, mode = "appear", pet = null) {
 
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
+  if (mode === "appear") {
+    const _isHolding = isHolding ?? state.isHolding;
+    if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+  }
 }
 
-export function showElitePopup(enemy, mode = "appear", pet = null) {
+export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = null) {
   const overlay = document.getElementById("eliteOverlay");
   const subEl   = document.getElementById("eliteSub");
   const nameEl  = document.getElementById("eliteName");
@@ -1572,4 +1657,8 @@ export function showElitePopup(enemy, mode = "appear", pet = null) {
 
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
+  if (mode === "appear") {
+    const _isHolding = isHolding ?? state.isHolding;
+    if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+  }
 }
