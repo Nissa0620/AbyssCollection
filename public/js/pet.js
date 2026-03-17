@@ -19,16 +19,16 @@ export const passiveLabels = {
   expBoost:     "経験値上昇",
   atkBoost:     "攻撃力増加",
   dropBoost:    "ドロップ率上昇",
-  dmgBoost:     "与ダメ上昇",
+  dmgBoost:     "与ダメ増加",
   dmgReduce:    "被ダメ減少",
   hpBoost:      "HP増加",
   doubleAttack: "2回攻撃",
   survive:      "根性",
-  reflect:      "被ダメ時反射",
-  drain:        "与ダメ時回復",
+  reflect:      "ダメージ反射",
+  drain:        "与ダメ吸収",
   critRate:     "クリティカル率上昇",
   critDamage:   "クリティカル強化",
-  extraHit:     "追撃",
+  expBurst:     "経験値爆発",
   giantKiller:  "巨人殺し",
   bossSlayer:   "ボス特効",
   evade:        "回避",
@@ -40,7 +40,7 @@ export const passiveLabels = {
   legendExpBoost:     "【賢者】経験値大幅上昇",
   legendAtkBoost:     "【破壊神】攻撃力大幅増加",
   legendDropBoost:    "【財宝王】ドロップ率大幅上昇",
-  legendDmgBoost:     "【剛力】与ダメ大幅上昇",
+  legendDmgBoost:     "【剛力】与ダメ大幅増加",
   legendDmgReduce:    "【鉄壁】被ダメ大幅減少",
   legendHpBoost:      "【巨人】HP大幅増加",
   tripleAttack:       "【連撃王】確率で3回攻撃",
@@ -49,7 +49,7 @@ export const passiveLabels = {
   legendDrain:        "【吸血鬼】与ダメ時大回復",
   legendCritRate:     "【致命眼】クリティカル率大幅上昇",
   legendCritDamage:   "【覇者】クリティカル大幅強化",
-  legendExtraHit:     "【乱打】確率で2回追撃",
+  legendExpBurst:     "✨幸運の女神",
   legendGiantKiller:  "【下剋上】巨人殺し大幅強化",
   legendBossSlayer:   "【覇王討伐】ボス特効大幅強化",
   legendEvade:        "【幻影】回避時完全無敵1ターン",
@@ -68,30 +68,30 @@ export function passiveValueText(pet) {
 export function getEffectiveCaptureRate(baseRate) {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
-  let rate = baseRate;
-  if (pet?.passive === "captureBoost" || pet?.passive === "legendCaptureBoost") rate *= (1 + (pet.passiveValue ?? 0) / 100);
-  if (weapon?.passive === "captureBoost" || weapon?.passive === "legendCaptureBoost") rate *= (1 + (weapon.passiveValue ?? 0) / 100);
-  return rate;
+  let total = 0;
+  if (pet?.passive === "captureBoost" || pet?.passive === "legendCaptureBoost") total += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "captureBoost" || weapon?.passive === "legendCaptureBoost") total += (weapon.passiveValue ?? 0);
+  return baseRate * (1 + total / 100);
 }
 
 // 経験値倍率を取得（ペット・武器）
 export function getExpMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
-  let mult = 1;
-  if (pet?.passive === "expBoost" || pet?.passive === "legendExpBoost") mult *= (1 + (pet.passiveValue ?? 0) / 100);
-  if (weapon?.passive === "expBoost" || weapon?.passive === "legendExpBoost") mult *= (1 + (weapon.passiveValue ?? 0) / 100);
-  return mult;
+  let total = 0;
+  if (pet?.passive === "expBoost" || pet?.passive === "legendExpBoost") total += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "expBoost" || weapon?.passive === "legendExpBoost") total += (weapon.passiveValue ?? 0);
+  return 1 + total / 100;
 }
 
 // ドロップ率倍率を取得（ペット・武器）
 export function getDropMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
-  let mult = 1;
-  if (pet?.passive === "dropBoost" || pet?.passive === "legendDropBoost") mult *= (1 + (pet.passiveValue ?? 0) / 100);
-  if (weapon?.passive === "dropBoost" || weapon?.passive === "legendDropBoost") mult *= (1 + (weapon.passiveValue ?? 0) / 100);
-  return mult;
+  let total = 0;
+  if (pet?.passive === "dropBoost" || pet?.passive === "legendDropBoost") total += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "dropBoost" || weapon?.passive === "legendDropBoost") total += (weapon.passiveValue ?? 0);
+  return 1 + total / 100;
 }
 
 // 2回攻撃が発動するか（passiveValueを確率%として使用）
@@ -120,10 +120,10 @@ export function hasSurvivePassive() {
 export function getDmgBoostMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
-  let mult = 1;
-  if (pet?.passive === "dmgBoost" || pet?.passive === "legendDmgBoost") mult *= (1 + (pet.passiveValue ?? 0) / 100);
-  if (weapon?.passive === "dmgBoost" || weapon?.passive === "legendDmgBoost") mult *= (1 + (weapon.passiveValue ?? 0) / 100);
-  return mult;
+  let total = 0;
+  if (pet?.passive === "dmgBoost" || pet?.passive === "legendDmgBoost") total += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "dmgBoost" || weapon?.passive === "legendDmgBoost") total += (weapon.passiveValue ?? 0);
+  return 1 + total / 100;
 }
 
 // 被ダメ減少倍率を取得（上限80%減少）
@@ -141,10 +141,10 @@ export function getDmgReduceMultiplier() {
 export function getHpBoostMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
-  let mult = 1;
-  if (pet?.passive === "hpBoost" || pet?.passive === "legendHpBoost") mult *= (1 + (pet.passiveValue ?? 0) / 100);
-  if (weapon?.passive === "hpBoost" || weapon?.passive === "legendHpBoost") mult *= (1 + (weapon.passiveValue ?? 0) / 100);
-  return mult;
+  let total = 0;
+  if (pet?.passive === "hpBoost" || pet?.passive === "legendHpBoost") total += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "hpBoost" || weapon?.passive === "legendHpBoost") total += (weapon.passiveValue ?? 0);
+  return 1 + total / 100;
 }
 
 // 被ダメ反射が発動するか＆反射ダメージを返す
@@ -155,8 +155,7 @@ export function getReflectDamage(incomingDamage) {
   if (pet?.passive === "reflect") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "reflect") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return 0;
-  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
-  return Math.max(1, Math.floor(incomingDamage * 0.5)); // 被ダメの50%を反射
+  return Math.max(1, Math.floor(incomingDamage * rate / 100)); // 常時・passiveValue%を反射
 }
 
 // 与ダメ吸収が発動するか＆回復量を返す
@@ -167,8 +166,7 @@ export function getDrainHeal(dealtDamage) {
   if (pet?.passive === "drain") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "drain") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return 0;
-  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
-  return Math.max(1, Math.floor(dealtDamage * 0.3)); // 与ダメの30%を回復
+  return Math.max(1, Math.floor(dealtDamage * rate / 100)); // 常時・passiveValue%を回復
 }
 
 // =====================
@@ -196,16 +194,16 @@ export function getCritMultiplier() {
   return 1;
 }
 
-// 追撃が発動するか＆追加ダメージを返す（通常攻撃の%ダメージ）
-export function getExtraHitDamage(baseDamage) {
+// 経験値爆発：passiveValue%の確率で取得経験値2倍
+export function getExpBurstMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
   let rate = 0;
-  if (pet?.passive === "extraHit") rate += (pet.passiveValue ?? 0);
-  if (weapon?.passive === "extraHit") rate += (weapon.passiveValue ?? 0);
-  if (rate <= 0) return 0;
-  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
-  return Math.max(1, Math.floor(baseDamage * 0.5)); // 通常攻撃の50%
+  if (pet?.passive === "expBurst") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "expBurst") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return 1;
+  if (Math.random() < Math.min(rate / 100, 1.0)) return 2; // 2倍
+  return 1;
 }
 
 // 巨人殺し：敵HPが自分のHPより高いとき与ダメ増加
@@ -257,15 +255,37 @@ export function getLastStandMultiplier() {
   return 1;
 }
 
-// 再生：毎ターンHP回復量を返す（上限50%/ターン）
+// 再生：2ターンに1回HP回復（legendRegenは毎ターン）（上限50%/ターン）
 export function getRegenHeal() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
-  let rate = 0;
-  if (pet?.passive === "regen" || pet?.passive === "legendRegen") rate += (pet.passiveValue ?? 0);
-  if (weapon?.passive === "regen") rate += (weapon.passiveValue ?? 0);
-  if (rate <= 0) return 0;
-  const cappedRate = Math.min(rate, 50); // 上限50%/ターン
+
+  // regenとlegendRegenを分離して判定
+  let regenRate = 0;
+  let legendRegenRate = 0;
+  if (pet?.passive === "regen") regenRate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "regen") regenRate += (weapon.passiveValue ?? 0);
+  if (pet?.passive === "legendRegen") legendRegenRate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "legendRegen") legendRegenRate += (weapon.passiveValue ?? 0);
+
+  let totalRate = 0;
+
+  // legendRegen：毎ターン発動
+  if (legendRegenRate > 0) {
+    totalRate += legendRegenRate;
+  }
+
+  // regen：2ターンに1回発動
+  if (regenRate > 0) {
+    state.regenTurnCount = (state.regenTurnCount ?? 0) + 1;
+    if (state.regenTurnCount >= 2) {
+      state.regenTurnCount = 0;
+      totalRate += regenRate;
+    }
+  }
+
+  if (totalRate <= 0) return 0;
+  const cappedRate = Math.min(totalRate, 50);
   return Math.max(1, Math.floor(state.player.totalHp * cappedRate / 100));
 }
 
@@ -317,7 +337,7 @@ export function hasLegendResurrection() {
   return Math.random() < Math.min(rate / 100, 1.0);
 }
 
-// 鏡盾：反射100%
+// 鏡盾：passiveValue%を常時反射、反射するたびに+50%累積
 export function getLegendReflectDamage(incomingDamage) {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
@@ -325,11 +345,13 @@ export function getLegendReflectDamage(incomingDamage) {
   if (pet?.passive === "legendReflect") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "legendReflect") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return 0;
-  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
-  return incomingDamage; // 100%反射
+  const totalRate = rate + (state.legendReflectBonus ?? 0);
+  const reflectDmg = Math.max(1, Math.floor(incomingDamage * totalRate / 100));
+  state.legendReflectBonus = (state.legendReflectBonus ?? 0) + 50; // 反射するたびに+50%
+  return reflectDmg;
 }
 
-// 吸血鬼：与ダメの60%回復（通常drainは30%）
+// 吸血鬼：passiveValue%を常時回復、オーバーヒール分はATKボーナスに変換
 export function getLegendDrainHeal(dealtDamage) {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
@@ -337,20 +359,19 @@ export function getLegendDrainHeal(dealtDamage) {
   if (pet?.passive === "legendDrain") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "legendDrain") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return 0;
-  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
-  return Math.max(1, Math.floor(dealtDamage * 0.6));
+  return Math.max(1, Math.floor(dealtDamage * rate / 100)); // 常時・passiveValue%を回復
 }
 
-// 乱打：2回追撃
-export function getLegendExtraHitDamage(baseDamage) {
+// 経験値大爆発：passiveValue%の確率で取得経験値5倍
+export function getLegendExpBurstMultiplier() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
   let rate = 0;
-  if (pet?.passive === "legendExtraHit") rate += (pet.passiveValue ?? 0);
-  if (weapon?.passive === "legendExtraHit") rate += (weapon.passiveValue ?? 0);
-  if (rate <= 0) return 0;
-  if (Math.random() >= Math.min(rate / 100, 1.0)) return 0;
-  return Math.max(1, Math.floor(baseDamage * 0.5));
+  if (pet?.passive === "legendExpBurst") rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "legendExpBurst") rate += (weapon.passiveValue ?? 0);
+  if (rate <= 0) return 1;
+  if (Math.random() < Math.min(rate / 100, 1.0)) return 5; // 5倍
+  return 1;
 }
 
 // 幻影：回避時に完全無敵1ターン（フラグを立てる）（上限90%）

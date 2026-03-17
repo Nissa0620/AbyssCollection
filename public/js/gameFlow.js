@@ -3,7 +3,8 @@ import { createEnemy } from "./battle.js";
 import { playerAttack, enemyAttack } from "./battle.js";
 import { healPlayerFull, gainExp } from "./player.js";
 import { saveGame } from "./saveLoad.js";
-import { getExpMultiplier } from "./pet.js";
+import { getExpMultiplier, getExpBurstMultiplier, getLegendExpBurstMultiplier } from "./pet.js";
+import { addLog } from "./log.js";
 import { checkAchievements } from "./achievements.js";
 
 export function handlePhase() {
@@ -37,7 +38,14 @@ function battlePhase() {
 
   if (result.type === "victory") {
     const expMult = getExpMultiplier();
-    gainExp(Math.floor(state.enemy.exp * expMult));
+    const burstMult = getExpBurstMultiplier();
+    const legendBurstMult = getLegendExpBurstMultiplier();
+    // expBurstとlegendExpBurstは重複しない（legendExpBurstが優先）
+    const finalBurstMult = legendBurstMult > 1 ? legendBurstMult : burstMult;
+    const finalExp = Math.floor(state.enemy.exp * expMult * finalBurstMult);
+    if (legendBurstMult > 1) addLog("✨✨ 経験値大爆発！取得経験値が5倍！");
+    else if (burstMult > 1) addLog("✨ 経験値爆発！取得経験値が2倍！");
+    gainExp(finalExp);
     healPlayerFull();
     state.enemy = null;
     state.phase = "next";
@@ -55,6 +63,10 @@ function nextPhase() {
   state.resurrectionUsed = false;
   state.legendEvadeActive = false;
   state.legendSurviveCount = 0;
+  state.legendReflectBonus = 0;
+  state.legendDmgReduceTurn = 0;
+  state.drainAtkBonus = 0;
+  state.regenTurnCount = 0;
 }
 
 function gameOverPhase() {
@@ -65,4 +77,8 @@ function gameOverPhase() {
   state.resurrectionUsed = false;
   state.legendEvadeActive = false;
   state.legendSurviveCount = 0;
+  state.legendReflectBonus = 0;
+  state.legendDmgReduceTurn = 0;
+  state.drainAtkBonus = 0;
+  state.regenTurnCount = 0;
 }

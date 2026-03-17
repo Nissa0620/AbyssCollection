@@ -22,18 +22,17 @@ export const state = {
       const pet = state.player.equippedPet;
       const weapon = state.player.equippedWeapon;
       const petPower = pet?.power ?? 0;
-      const petMult = (pet?.passive === "atkBoost" || pet?.passive === "legendAtkBoost")
-        ? 1 + (pet.passiveValue / 100) : 1;
-      const weaponMult = (weapon?.passive === "atkBoost" || weapon?.passive === "legendAtkBoost")
-        ? 1 + (weapon.passiveValue / 100) : 1;
+      let atkBoostTotal = 0;
+      if (pet?.passive === "atkBoost" || pet?.passive === "legendAtkBoost") atkBoostTotal += (pet.passiveValue ?? 0);
+      if (weapon?.passive === "atkBoost" || weapon?.passive === "legendAtkBoost") atkBoostTotal += (weapon.passiveValue ?? 0);
+      const atkBoostMult = 1 + atkBoostTotal / 100;
       const gemBonus = (state.player.gems ?? []).reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
       const dexMultiplier = 1 + (state.dexBuff.power - 1) + (state.weaponDexBuff.power - 1);
       return Math.floor(
         (this.basePower + (weapon ? weapon.totalAtk : 0) + petPower + gemBonus) *
         dexMultiplier *
-        petMult *
-        weaponMult
-      );
+        atkBoostMult
+      ) + (state.drainAtkBonus ?? 0);
     },
 
     get totalHp() {
@@ -82,6 +81,10 @@ export const state = {
   resurrectionUsed: false,
   legendEvadeActive: false,
   legendSurviveCount: 0,
+  legendReflectBonus: 0,
+  legendDmgReduceTurn: 0,
+  drainAtkBonus: 0,
+  regenTurnCount: 0,
   isHolding: null, // main.jsから設定されるコールバック（長押し判定用）
   lastSelectedFloor: 1,
   acquiredCounter: 0,

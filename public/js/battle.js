@@ -10,7 +10,7 @@ import { isUltimateWeapon } from "./drop.js";
 import { showUltimatePopup, showElitePopup, showLegendaryPopup, showLegendUltimatePopup } from "./ui.js";
 import { checkAchievements } from "./achievements.js";
 import { registerWeaponDropped } from "./weaponBook.js";
-import { tryCatch, hasDoubleAttack, hasTripleAttack, hasSurvivePassive, hasLegendSurvive, hasResurrection, hasLegendResurrection, getDropMultiplier, getDmgBoostMultiplier, getDmgReduceMultiplier, getReflectDamage, getLegendReflectDamage, getDrainHeal, getLegendDrainHeal, getCritMultiplier, getExtraHitDamage, getLegendExtraHitDamage, getGiantKillerMultiplier, getBossSlayerMultiplier, tryEvade, tryLegendEvade, getLastStandMultiplier, getLegendLastStandMultiplier, getRegenHeal } from "./pet.js";
+import { tryCatch, hasDoubleAttack, hasTripleAttack, hasSurvivePassive, hasLegendSurvive, hasResurrection, hasLegendResurrection, getDropMultiplier, getDmgBoostMultiplier, getDmgReduceMultiplier, getReflectDamage, getLegendReflectDamage, getDrainHeal, getLegendDrainHeal, getCritMultiplier, getGiantKillerMultiplier, getBossSlayerMultiplier, tryEvade, tryLegendEvade, getLastStandMultiplier, getLegendLastStandMultiplier, getRegenHeal } from "./pet.js";
 
 let enemy;
 
@@ -51,34 +51,23 @@ export function playerAttack() {
 
   // ドレイン（通常 + 吸血鬼）
   const heal = getDrainHeal(damage);
-  const legendHeal = getLegendDrainHeal(damage);
   if (heal > 0) {
     state.player.hp = Math.min(state.player.hp + heal, state.player.totalHp);
     addLog("💚 吸収で " + heal + " 回復！");
   }
+  // 吸血鬼：オーバーヒール分をATKボーナスに変換（1ターンのみ）
+  state.drainAtkBonus = 0; // 毎攻撃リセット
+  const legendHeal = getLegendDrainHeal(damage);
   if (legendHeal > 0) {
+    const before = state.player.hp;
     state.player.hp = Math.min(state.player.hp + legendHeal, state.player.totalHp);
-    addLog("💚 吸血で " + legendHeal + " 回復！");
-  }
-
-  // 追撃（通常 or 乱打：2回追撃）
-  if (state.enemy.hp > 0) {
-    const extraDmg = getExtraHitDamage(damage);
-    if (extraDmg > 0) {
-      state.enemy.hp = Math.max(0, state.enemy.hp - extraDmg);
-      addLog("▶ 追撃 " + extraDmg + " ダメージ");
+    const actualHeal = state.player.hp - before;
+    const overflow = legendHeal - actualHeal;
+    if (overflow > 0) {
+      state.drainAtkBonus = overflow;
+      addLog("💚 吸血で " + actualHeal + " 回復！ATK +" + overflow + "（次の攻撃のみ）");
     } else {
-      // 乱打：2回追撃
-      const extra1 = getLegendExtraHitDamage(damage);
-      if (extra1 > 0) {
-        state.enemy.hp = Math.max(0, state.enemy.hp - extra1);
-        addLog("▶ 追撃1 " + extra1 + " ダメージ");
-        const extra2 = getLegendExtraHitDamage(damage);
-        if (extra2 > 0 && state.enemy.hp > 0) {
-          state.enemy.hp = Math.max(0, state.enemy.hp - extra2);
-          addLog("▶ 追撃2 " + extra2 + " ダメージ");
-        }
-      }
+      addLog("💚 吸血で " + legendHeal + " 回復！");
     }
   }
 
@@ -91,14 +80,22 @@ export function playerAttack() {
     if (state.enemy.hp < 0) state.enemy.hp = 0;
     addLog("▶ " + (i === 0 && attackCount === 1 ? "2回目" : `${i + 2}回目`) + " " + dmg + " ダメージ");
     const h = getDrainHeal(dmg);
-    const lh = getLegendDrainHeal(dmg);
     if (h > 0) {
       state.player.hp = Math.min(state.player.hp + h, state.player.totalHp);
       addLog("💚 " + h + " 回復！");
     }
+    const lh = getLegendDrainHeal(dmg);
     if (lh > 0) {
+      const before2 = state.player.hp;
       state.player.hp = Math.min(state.player.hp + lh, state.player.totalHp);
-      addLog("💚 " + lh + " 回復！");
+      const actualHeal2 = state.player.hp - before2;
+      const overflow2 = lh - actualHeal2;
+      if (overflow2 > 0) {
+        state.drainAtkBonus = (state.drainAtkBonus ?? 0) + overflow2;
+        addLog("💚 吸血で " + actualHeal2 + " 回復！ATK +" + overflow2 + "（次の攻撃のみ）");
+      } else {
+        addLog("💚 " + lh + " 回復！");
+      }
     }
   }
 
@@ -134,6 +131,19 @@ export function enemyAttack() {
 
   // 幻影：今ターンに発動したら次ターン無敵（今ターンはダメージ受ける）
   tryLegendEvade();
+
+  // 鉄壁：3ターンに1回ダメージ無効化
+  const _pet = state.player.equippedPet;
+  const _weapon = state.player.equippedWeapon;
+  const hasLegendDmgReduce = _pet?.passive === "legendDmgReduce" || _weapon?.passive === "legendDmgReduce";
+  if (hasLegendDmgReduce) {
+    state.legendDmgReduceTurn = (state.legendDmgReduceTurn ?? 0) + 1;
+    if (state.legendDmgReduceTurn >= 3) {
+      state.legendDmgReduceTurn = 0;
+      addLog("🛡️ 鉄壁の加護でダメージを無効化！");
+      return { type: "battle" };
+    }
+  }
 
   let damage = applyDamage(state.enemy, state.player);
 
@@ -183,10 +193,10 @@ export function enemyAttack() {
       return { type: "battle" };
     }
     // 不死身（複数回1HP、1戦3回まで）
-    if (hasLegendSurvive() && (state.legendSurviveCount ?? 0) < 3) {
+    if (hasLegendSurvive() && (state.legendSurviveCount ?? 0) < 5) {
       state.player.hp = 1;
       state.legendSurviveCount = (state.legendSurviveCount ?? 0) + 1;
-      addLog("💀 不死身で生き残った！(残り" + (3 - state.legendSurviveCount) + "回)");
+      addLog("💀 不死身で生き残った！(残り" + (5 - state.legendSurviveCount) + "回)");
       return { type: "battle" };
     }
     // 通常survive（1戦1回1HP）

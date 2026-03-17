@@ -1144,12 +1144,12 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
 function passiveLabelText(pet) {
   const labels = {
     captureBoost: "捕獲率増加",    expBoost:     "経験値増加",
-    atkBoost:     "攻撃力増加",    dropBoost:    "ドロップ率増加",
-    dmgBoost:     "与ダメ上昇",    dmgReduce:    "被ダメ減少",
+    atkBoost:     "攻撃力増加",    dropBoost:    "ドロップ率上昇",
+    dmgBoost:     "与ダメ増加",    dmgReduce:    "被ダメ減少",
     hpBoost:      "HP増加",        doubleAttack: "2回攻撃",
     survive:      "根性",          reflect:      "ダメージ反射",
     drain:        "与ダメ吸収",    critRate:     "クリティカル率",
-    critDamage:   "クリティカルダメージ増加", extraHit:   "追撃",
+    critDamage:   "クリティカルダメージ増加", expBurst:   "経験値爆発",
     giantKiller:  "巨人殺し",      bossSlayer:   "ボス特効",
     evade:        "回避",          lastStand:    "背水の陣",
     regen:        "再生",
@@ -1161,7 +1161,7 @@ function passiveLabelText(pet) {
     legendHpBoost:      "✨巨人",    tripleAttack:     "✨連撃王",
     legendSurvive:      "✨不死身",  legendReflect:    "✨鏡盾",
     legendDrain:        "✨吸血鬼",  legendCritRate:   "✨致命眼",
-    legendCritDamage:   "✨覇者",    legendExtraHit:   "✨乱打",
+    legendCritDamage:   "✨覇者",    legendExpBurst:   "✨幸運の女神",
     legendGiantKiller:  "✨下剋上",  legendBossSlayer: "✨覇王討伐",
     legendEvade:        "✨幻影",    legendLastStand:  "✨挑戦者",
     legendRegen:        "✨不滅",
@@ -1188,7 +1188,7 @@ function weaponPassiveLabel(passive) {
     legendHpBoost:      "✨巨人",    tripleAttack:     "✨連撃王",
     legendSurvive:      "✨不死身",  legendReflect:    "✨鏡盾",
     legendDrain:        "✨吸血鬼",  legendCritRate:   "✨致命眼",
-    legendCritDamage:   "✨覇者",    legendExtraHit:   "✨乱打",
+    legendCritDamage:   "✨覇者",    legendExpBurst:   "✨幸運の女神",
     legendGiantKiller:  "✨下剋上",  legendBossSlayer: "✨覇王討伐",
     legendEvade:        "✨幻影",    legendLastStand:  "✨挑戦者",
     legendRegen:        "✨不滅",
@@ -1363,19 +1363,25 @@ export function renderStatusScreen() {
   if (pet?.passive === "legendHpBoost") hpBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendHpBoost") hpBoost += weapon.passiveValue ?? 0;
 
-  // 反射確率
+  // 反射率（通常）
   let reflectRate = 0;
   if (pet?.passive === "reflect") reflectRate += pet.passiveValue ?? 0;
   if (weapon?.passive === "reflect") reflectRate += weapon.passiveValue ?? 0;
-  if (pet?.passive === "legendReflect") reflectRate += pet.passiveValue ?? 0;
-  if (weapon?.passive === "legendReflect") reflectRate += weapon.passiveValue ?? 0;
 
-  // 吸収確率
+  // 鏡盾反射率
+  let legendReflectRate = 0;
+  if (pet?.passive === "legendReflect") legendReflectRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendReflect") legendReflectRate += weapon.passiveValue ?? 0;
+
+  // 与ダメ吸収率（通常）
   let drainRate = 0;
   if (pet?.passive === "drain") drainRate += pet.passiveValue ?? 0;
   if (weapon?.passive === "drain") drainRate += weapon.passiveValue ?? 0;
-  if (pet?.passive === "legendDrain") drainRate += pet.passiveValue ?? 0;
-  if (weapon?.passive === "legendDrain") drainRate += weapon.passiveValue ?? 0;
+
+  // 与ダメ吸収率（吸血鬼）
+  let legendDrainRate = 0;
+  if (pet?.passive === "legendDrain") legendDrainRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendDrain") legendDrainRate += weapon.passiveValue ?? 0;
 
   // クリティカル率
   let critRate = 0;
@@ -1391,12 +1397,20 @@ export function renderStatusScreen() {
   if (pet?.passive === "legendCritDamage") critDmg += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendCritDamage") critDmg += weapon.passiveValue ?? 0;
 
-  // 追撃
-  let extraHitRate = 0;
-  if (pet?.passive === "extraHit") extraHitRate += pet.passiveValue ?? 0;
-  if (weapon?.passive === "extraHit") extraHitRate += weapon.passiveValue ?? 0;
-  if (pet?.passive === "legendExtraHit") extraHitRate += pet.passiveValue ?? 0;
-  if (weapon?.passive === "legendExtraHit") extraHitRate += weapon.passiveValue ?? 0;
+  // 経験値爆発
+  let expBurstRate = 0;
+  if (pet?.passive === "expBurst") expBurstRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "expBurst") expBurstRate += weapon.passiveValue ?? 0;
+
+  // 経験値大爆発
+  let legendExpBurstRate = 0;
+  if (pet?.passive === "legendExpBurst") legendExpBurstRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendExpBurst") legendExpBurstRate += weapon.passiveValue ?? 0;
+
+  // 復活率
+  let resurrectionRate = 0;
+  if (pet?.passive === "resurrection") resurrectionRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "resurrection") resurrectionRate += weapon.passiveValue ?? 0;
 
   // 巨人殺し
   let giantKiller = 0;
@@ -1496,24 +1510,29 @@ export function renderStatusScreen() {
       ${captureBoost > 0 ? row("捕獲率", `+${captureBoost}%`) : ""}
       ${atkBoost > 0 ? row("攻撃力増加率", `+${atkBoost}%`) : ""}
       ${dropBoost > 0 ? row("ドロップ率", `+${dropBoost}%`) : ""}
-      ${dmgBoost > 0 ? row("与ダメ上昇率", `+${dmgBoost}%`) : ""}
+      ${dmgBoost > 0 ? row("与ダメ増加率", `+${dmgBoost}%`) : ""}
       ${dmgReduce > 0 ? cappedRow("被ダメ減少率", dmgReduce, 80) : ""}
       ${hpBoost > 0 ? row("HP増加率", `+${hpBoost}%`) : ""}
       ${doubleRate > 0 ? cappedRow("2回攻撃 発生率", doubleRate, 100) : ""}
       ${hasTripleAttack ? row("✨連撃王", "3回攻撃") : ""}
       ${surviveRate > 0 ? cappedRow("根性 発生率", surviveRate, 100) : ""}
-      ${hasLegendSurvive ? row("✨不死身", "常時発動") : ""}
-      ${reflectRate > 0 ? cappedRow("ダメージ反射 発生率", reflectRate, 100) : ""}
-      ${drainRate > 0 ? cappedRow("与ダメ吸収 発生率", drainRate, 100) : ""}
+      ${hasLegendSurvive ? row("✨不死身 耐久回数", "5回") : ""}
+      ${reflectRate > 0 ? row("ダメージ反射 反射率", `${reflectRate}%`) : ""}
+      ${legendReflectRate > 0 ? row("✨鏡盾 反射率", `${legendReflectRate}%（現在${legendReflectRate + (state.legendReflectBonus ?? 0)}%）`) : ""}
+      ${drainRate > 0 ? row("与ダメ吸収 回復率", `${drainRate}%`) : ""}
+      ${legendDrainRate > 0 ? row("✨吸血鬼 回復率", `${legendDrainRate}%`) : ""}
       ${critRate > 0 ? cappedRow("クリティカル率", critRate, 100) : ""}
       ${critDmg > 0 ? row("クリティカルダメージ増加率", `+${critDmg}%`) : ""}
-      ${extraHitRate > 0 ? cappedRow("追撃 発生率", extraHitRate, 100) : ""}
+      ${expBurstRate > 0 ? cappedRow("経験値爆発 発生率", expBurstRate, 100) : ""}
+      ${legendExpBurstRate > 0 ? cappedRow("経験値大爆発 発生率", legendExpBurstRate, 100) : ""}
       ${giantKiller > 0 ? row("巨人殺し 効果率", `+${giantKiller}%`) : ""}
       ${bossSlayer > 0 ? row("ボス特効 効果率", `+${bossSlayer}%`) : ""}
       ${evadeRate > 0 ? cappedRow("回避 発生率", evadeRate, 90) : ""}
       ${lastStand > 0 ? row("背水の陣 効果率", `+${lastStand}%`) : ""}
       ${regenRate > 0 ? cappedRow("再生率", regenRate, 50, "%/ターン") : ""}
+      ${resurrectionRate > 0 ? cappedRow("復活 発生率", resurrectionRate, 100) : ""}
       ${hasLegendResurrection ? row("✨輪廻転生", "復活") : ""}
+      ${dmgReduce > 0 && (pet?.passive === "legendDmgReduce" || weapon?.passive === "legendDmgReduce") ? row("ダメージ無効", "3ターンごと") : ""}
     </div>
     <div class="status-detail-section">
       <div class="status-detail-heading">📘 図鑑バフ合計</div>
