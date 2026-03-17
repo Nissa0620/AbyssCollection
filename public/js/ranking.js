@@ -1,26 +1,28 @@
 import { state } from "./state.js";
+import { normalEnemies, bossEnemies, weaponTemplates } from "./data/index.js";
 
 const RANKING_COOLDOWN_MS = 30 * 60 * 1000; // 30分
 
-// ペット図鑑登録数を計算して返す（敵の称号ごとに1体カウント）
+// ペット図鑑登録数を計算して返す（種族単位で称号1〜4すべて捕獲済みなら1カウント）
 export function calcPetBookCount() {
-  let count = 0;
-  for (const entry of Object.values(state.book.enemies ?? {})) {
-    for (const title of Object.values(entry.titles ?? {})) {
-      if (title.caught) count++;
-    }
-  }
-  return count;
+  const allEnemyDefs = [...normalEnemies, ...bossEnemies];
+  return allEnemyDefs.filter((e) => {
+    const key = e.isBoss ? `boss_${e.id}` : `normal_${e.id}`;
+    const entry = state.book.enemies[key];
+    return entry && [1, 2, 3, 4].every((id) => entry.titles?.[id]?.caught);
+  }).length;
 }
 
-// 武器図鑑登録数を計算して返す（初期形＋進化形態それぞれ1つカウント）
+// 武器図鑑登録数を計算して返す（種族単位で最終進化まで到達済みなら1カウント）
 export function calcWeaponBookCount() {
-  let count = 0;
-  for (const entry of Object.values(state.book.weapons ?? {})) {
-    count++; // 初期形
-    count += Object.keys(entry.evolutions ?? {}).length; // 進化形態
-  }
-  return count;
+  return weaponTemplates.filter((t) => {
+    const key = t.isBossDrop ? `boss_${t.id}` : `normal_${t.id}`;
+    const entry = state.book.weapons[key];
+    if (!entry) return false;
+    const lastEvo = t.evolutions?.[t.evolutions.length - 1];
+    if (!lastEvo) return false;
+    return !!entry.evolutions?.[lastEvo.name]?.obtained;
+  }).length;
 }
 
 // ランキングデータを送信する

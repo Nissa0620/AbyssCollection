@@ -552,7 +552,19 @@ async function renderRanking(field) {
   contentEl.appendChild(ul);
 }
 
+const rankingTabNotes = {
+  maxFloor: "到達した最大階層数",
+  level: "現在のプレイヤーレベル",
+  petCount: "称号1〜4をすべて捕獲した種族数",
+  weaponCount: "最終進化まで育成した武器種数",
+};
+
 document.getElementById("rankingBtn").addEventListener("click", () => {
+  // タブを最深階層にリセット
+  document.querySelectorAll(".ranking-tab").forEach((b) => b.classList.remove("active"));
+  document.querySelector(".ranking-tab[data-field='maxFloor']").classList.add("active");
+  const noteEl = document.getElementById("rankingTabNote");
+  if (noteEl) noteEl.textContent = rankingTabNotes.maxFloor;
   document.getElementById("rankingOverlay").classList.remove("hidden");
   renderRanking("maxFloor");
 });
@@ -565,6 +577,8 @@ document.querySelectorAll(".ranking-tab").forEach((btn) => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".ranking-tab").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
+    const noteEl = document.getElementById("rankingTabNote");
+    if (noteEl) noteEl.textContent = rankingTabNotes[btn.dataset.field] ?? "";
     renderRanking(btn.dataset.field);
   });
 });

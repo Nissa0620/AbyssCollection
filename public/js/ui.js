@@ -638,7 +638,7 @@ function renderEnemyBook(buffEl, contentEl) {
   const obtainedEnemies = allEnemyDefs.filter((e) => {
     const key = e.isBoss ? `boss_${e.id}` : `normal_${e.id}`;
     const entry = state.book.enemies[key];
-    return entry && Object.values(entry.titles ?? {}).some((t) => t.defeated);
+    return entry && [1, 2, 3, 4].every((id) => entry.titles?.[id]?.caught);
   }).length;
 
   buffEl.innerHTML = `<div>捕獲済み：${obtainedEnemies} / ${totalEnemies}</div><div>図鑑バフ：HP +${hpPercent}% / ATK +${atkPercent}%</div>`;
@@ -775,7 +775,11 @@ function renderWeaponBook(buffEl, contentEl) {
   const totalWeapons = weaponTemplates.length;
   const obtainedWeapons = weaponTemplates.filter((t) => {
     const key = t.isBossDrop ? `boss_${t.id}` : `normal_${t.id}`;
-    return !!state.book.weapons[key];
+    const entry = state.book.weapons[key];
+    if (!entry) return false;
+    const lastEvo = t.evolutions?.[t.evolutions.length - 1];
+    if (!lastEvo) return false;
+    return !!entry.evolutions?.[lastEvo.name]?.obtained;
   }).length;
 
   buffEl.innerHTML = `<div>入手済み：${obtainedWeapons} / ${totalWeapons}</div><div>図鑑バフ：HP +${hpBuff}% / ATK +${atkBuff}%</div>`;
