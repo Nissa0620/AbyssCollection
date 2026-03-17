@@ -62,7 +62,6 @@ function nextPhase() {
   state.surviveUsed = false;
   state.resurrectionUsed = false;
   state.legendEvadeActive = false;
-  state.legendSurviveCount = 0;
   state.legendReflectBonus = 0;
   state.legendDmgReduceTurn = 0;
   state.drainAtkBonus = 0;
@@ -76,7 +75,6 @@ function gameOverPhase() {
   state.surviveUsed = false;
   state.resurrectionUsed = false;
   state.legendEvadeActive = false;
-  state.legendSurviveCount = 0;
   state.legendReflectBonus = 0;
   state.legendDmgReduceTurn = 0;
   state.drainAtkBonus = 0;

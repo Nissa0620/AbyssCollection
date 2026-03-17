@@ -192,11 +192,10 @@ export function enemyAttack() {
       addLog("💫 不屈でHP50%で復活！");
       return { type: "battle" };
     }
-    // 不死身（複数回1HP、1戦3回まで）
-    if (hasLegendSurvive() && (state.legendSurviveCount ?? 0) < 5) {
+    // 不死身（確率で1HP耐え、回数制限なし・上限80%）
+    if (hasLegendSurvive()) {
       state.player.hp = 1;
-      state.legendSurviveCount = (state.legendSurviveCount ?? 0) + 1;
-      addLog("💀 不死身で生き残った！(残り" + (5 - state.legendSurviveCount) + "回)");
+      addLog("💀 不死身で生き残った！");
       return { type: "battle" };
     }
     // 通常survive（1戦1回1HP）

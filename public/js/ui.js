@@ -1463,8 +1463,12 @@ export function renderStatusScreen() {
 
   // レジェンダリー専用スキル（装備中のみ表示）
   const hasTripleAttack = pet?.passive === "tripleAttack" || weapon?.passive === "tripleAttack";
-  const hasLegendSurvive = pet?.passive === "legendSurvive" || weapon?.passive === "legendSurvive";
-  const hasLegendResurrection = pet?.passive === "legendResurrection" || weapon?.passive === "legendResurrection";
+  let legendSurviveRate = 0;
+  if (pet?.passive === "legendSurvive") legendSurviveRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendSurvive") legendSurviveRate += weapon.passiveValue ?? 0;
+  let legendResurrectionRate = 0;
+  if (pet?.passive === "legendResurrection") legendResurrectionRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "legendResurrection") legendResurrectionRate += weapon.passiveValue ?? 0;
   // 後方互換（旧変数名は不使用になるが念のため保持）
   const legendAtkBoostVal = 0;
   const legendDropBoostVal = 0;
@@ -1516,7 +1520,7 @@ export function renderStatusScreen() {
       ${doubleRate > 0 ? cappedRow("2回攻撃 発生率", doubleRate, 100) : ""}
       ${hasTripleAttack ? row("✨連撃王", "3回攻撃") : ""}
       ${surviveRate > 0 ? cappedRow("根性 発生率", surviveRate, 100) : ""}
-      ${hasLegendSurvive ? row("✨不死身 耐久回数", "5回") : ""}
+      ${legendSurviveRate > 0 ? cappedRow("✨不死身 発生率", legendSurviveRate, 80) : ""}
       ${reflectRate > 0 ? row("ダメージ反射 反射率", `${reflectRate}%`) : ""}
       ${legendReflectRate > 0 ? row("✨鏡盾 反射率", `${legendReflectRate}%（現在${legendReflectRate + (state.legendReflectBonus ?? 0)}%）`) : ""}
       ${drainRate > 0 ? row("与ダメ吸収 回復率", `${drainRate}%`) : ""}
@@ -1531,7 +1535,7 @@ export function renderStatusScreen() {
       ${lastStand > 0 ? row("背水の陣 効果率", `+${lastStand}%`) : ""}
       ${regenRate > 0 ? cappedRow("再生率", regenRate, 50, "%/ターン") : ""}
       ${resurrectionRate > 0 ? cappedRow("復活 発生率", resurrectionRate, 100) : ""}
-      ${hasLegendResurrection ? row("✨輪廻転生", "復活") : ""}
+      ${legendResurrectionRate > 0 ? cappedRow("✨輪廻転生 発生率", legendResurrectionRate, 80) : ""}
       ${dmgReduce > 0 && (pet?.passive === "legendDmgReduce" || weapon?.passive === "legendDmgReduce") ? row("ダメージ無効", "3ターンごと") : ""}
     </div>
     <div class="status-detail-section">

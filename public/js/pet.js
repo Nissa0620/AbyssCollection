@@ -312,7 +312,7 @@ export function hasLegendSurvive() {
   if (pet?.passive === "legendSurvive") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "legendSurvive") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return false;
-  return Math.random() < Math.min(rate / 100, 1.0);
+  return Math.random() < Math.min(rate / 100, 0.8);
 }
 
 // 不屈：戦闘不能時にHP50%で復活（1戦1回）
@@ -334,7 +334,7 @@ export function hasLegendResurrection() {
   if (pet?.passive === "legendResurrection") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "legendResurrection") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return false;
-  return Math.random() < Math.min(rate / 100, 1.0);
+  return Math.random() < Math.min(rate / 100, 0.8);
 }
 
 // 鏡盾：passiveValue%を常時反射、反射するたびに+50%累積
