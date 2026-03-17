@@ -577,6 +577,7 @@ if (!loadGame()) {
 } else {
   state.phase = "next";
   state.enemy = null;
+  handlePhase(); // nextPhase() → createEnemy() を実行
   refreshUI();
 }
 checkPlayerName();

@@ -23,6 +23,11 @@ export function handlePhase() {
 
 function battlePhase() {
   const result = playerAttack();
+  // 敵がいない状態でbattlePhaseに入った場合はnextPhaseへ移行
+  if (result.type === "none") {
+    nextPhase();
+    return;
+  }
   if (result.type === "enemyTurn") {
     const enemyResult = enemyAttack();
     if (enemyResult.type === "gameover") {
