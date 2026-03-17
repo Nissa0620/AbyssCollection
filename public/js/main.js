@@ -589,9 +589,9 @@ document.querySelectorAll(".ranking-tab").forEach((btn) => {
 if (!loadGame()) {
   init();
 } else {
-  state.phase = "next";
+  state.phase = "battle";
   state.enemy = null;
-  handlePhase(); // nextPhase() → createEnemy() を実行
+  createEnemy(); // 現在のフロアで敵を生成（floor++しない）
   refreshUI();
 }
 checkPlayerName();
