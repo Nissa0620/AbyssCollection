@@ -1,5 +1,19 @@
 import { basePlayer } from "./data/index.js";
 
+// ペットATK/HP計算（pet.jsとの循環依存を避けるためインライン定義）
+const _PET_K_ATK = 7.5 / Math.sqrt(15);
+const _PET_K_HP  = 4.5 / Math.sqrt(15);
+function _petPower(pet) {
+  const lv = pet.level ?? 0;
+  const mult = lv <= 15 ? (1 + lv * 0.5) : (1 + Math.sqrt(lv) * _PET_K_ATK);
+  return Math.floor(pet.basePower * mult);
+}
+function _petHp(pet) {
+  const lv = pet.level ?? 0;
+  const mult = lv <= 15 ? (1 + lv * 0.3) : (1 + Math.sqrt(lv) * _PET_K_HP);
+  return Math.floor((pet.baseHp ?? 0) * mult);
+}
+
 export const state = {
   floor: 1,
   maxFloor: 1,
@@ -21,7 +35,7 @@ export const state = {
     get totalPower() {
       const pet = state.player.equippedPet;
       const weapon = state.player.equippedWeapon;
-      const petPower = pet?.power ?? 0;
+      const petPower = pet ? _petPower(pet) : 0;
       let atkBoostTotal = 0;
       if (pet?.passive === "atkBoost" || pet?.passive === "legendAtkBoost") atkBoostTotal += (pet.passiveValue ?? 0);
       if (weapon?.passive === "atkBoost" || weapon?.passive === "legendAtkBoost") atkBoostTotal += (weapon.passiveValue ?? 0);
@@ -37,7 +51,9 @@ export const state = {
 
     get totalHp() {
       const buff = (1 + (state.dexBuff.hp - 1) + (state.weaponDexBuff.hp - 1)) * (state.hpBoostMult ?? 1);
-      const petHp = Math.floor((state.player.equippedPet?.hp ?? 0) * buff);
+      const petHp = state.player.equippedPet
+        ? Math.floor(_petHp(state.player.equippedPet) * buff)
+        : 0;
       const weaponHp = Math.floor((state.player.equippedWeapon?.totalHp ?? 0) * buff);
       return Math.floor(this.baseHp * buff) + petHp + weaponHp;
     },

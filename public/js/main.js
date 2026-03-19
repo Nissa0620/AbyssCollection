@@ -38,7 +38,7 @@ import {
 import { saveGame, loadGame } from "./saveLoad.js";
 import { renderAchievements } from "./achievements.js";
 import { sendRankingData, fetchRanking, isNameTaken } from "./ranking.js";
-import { equipPet, unequipPet, handlePetSynthesisSelection, executePetSynthesis, toggleSelectAllSamePets, getHpBoostMultiplier } from "./pet.js";
+import { equipPet, unequipPet, handlePetSynthesisSelection, executePetSynthesis, toggleSelectAllSamePets, getHpBoostMultiplier, getPetPower, getPetHp } from "./pet.js";
 
 // =====================
 // 初期化
@@ -81,9 +81,9 @@ function refreshUI() {
   sortInventory(state.player);
   const petMode = state.ui.petSortMode ?? "passive";
   state.player.petList.sort((a, b) => {
-    if (petMode === "hp") return (b.hp ?? 0) - (a.hp ?? 0);
+    if (petMode === "hp") return getPetHp(b) - getPetHp(a);
     if (petMode === "passive") return (b.passiveValue ?? 0) - (a.passiveValue ?? 0);
-    return b.power - a.power;
+    return getPetPower(b) - getPetPower(a);
   });
 }
 
@@ -296,9 +296,9 @@ document.getElementById("petSortSelect").addEventListener("change", (e) => {
   state.ui.petSortMode = e.target.value;
   const mode = state.ui.petSortMode;
   state.player.petList.sort((a, b) => {
-    if (mode === "hp") return (b.hp ?? 0) - (a.hp ?? 0);
+    if (mode === "hp") return getPetHp(b) - getPetHp(a);
     if (mode === "passive") return (b.passiveValue ?? 0) - (a.passiveValue ?? 0);
-    return b.power - a.power;
+    return getPetPower(b) - getPetPower(a);
   });
   updatePetPanel(handlePetSynthesisClick, handlePetEquip);
   updateSynthesisClasses();

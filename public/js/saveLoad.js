@@ -1,6 +1,6 @@
 import { state } from "./state.js";
 import { recalcDexBuff, recalcWeaponDexBuff } from "./dexBuff.js";
-import { getHpBoostMultiplier } from "./pet.js";
+import { getHpBoostMultiplier, getPetPower, getPetHp } from "./pet.js";
 
 const SAVE_KEY = "abyssSave";
 
@@ -20,7 +20,7 @@ export function loadGame() {
     get totalPower() {
       const pet = state.player.equippedPet;
       const weapon = state.player.equippedWeapon;
-      const petPower = pet?.power ?? 0;
+      const petPower = pet ? getPetPower(pet) : 0;
       const petMult = (pet?.passive === "atkBoost" || pet?.passive === "legendAtkBoost")
         ? 1 + (pet.passiveValue / 100) : 1;
       const weaponMult = (weapon?.passive === "atkBoost" || weapon?.passive === "legendAtkBoost")
@@ -36,7 +36,9 @@ export function loadGame() {
     },
     get totalHp() {
       const buff = (1 + (state.dexBuff.hp - 1) + (state.weaponDexBuff.hp - 1)) * state.hpBoostMult;
-      const petHp = Math.floor((state.player.equippedPet?.hp ?? 0) * buff);
+      const petHp = state.player.equippedPet
+        ? Math.floor(getPetHp(state.player.equippedPet) * buff)
+        : 0;
       const weaponHp = Math.floor((state.player.equippedWeapon?.totalHp ?? 0) * buff);
       return Math.floor(this.baseHp * buff) + petHp + weaponHp;
     },
@@ -45,6 +47,24 @@ export function loadGame() {
   // 古いセーブデータ対応：gemsが無ければ初期化
   if (!state.player.gems) {
     state.player.gems = [];
+  }
+
+  // マイグレーション：ペットのlevelフィールド追加（旧データはlevel=0に初期化）
+  for (const pet of state.player.petList ?? []) {
+    if (pet.level == null) {
+      pet.level = 0;
+    }
+    delete pet.power;
+    delete pet.bonusPower;
+    delete pet.hp;
+    delete pet.bonusHp;
+  }
+  if (state.player.equippedPet && state.player.equippedPet.level == null) {
+    state.player.equippedPet.level = 0;
+    delete state.player.equippedPet.power;
+    delete state.player.equippedPet.bonusPower;
+    delete state.player.equippedPet.hp;
+    delete state.player.equippedPet.bonusHp;
   }
 
   // 古いセーブデータ対応：有効でないフィルター値をリセット

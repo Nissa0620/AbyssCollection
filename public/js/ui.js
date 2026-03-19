@@ -4,10 +4,7 @@ import { addLog } from "./log.js";
 import { getSynthesisPreview } from "./inventory.js";
 import { isFavorite, toggleFavorite, isLocked, toggleLock } from "./listPrefs.js";
 import { isUltimateWeapon } from "./drop.js";
-import { isUltimatePet } from "./pet.js";
-import { getPetSynthesisPreview } from "./pet.js";
-import { toggleSelectAllSamePets } from "./pet.js";
-import { passiveLabels } from "./pet.js";
+import { isUltimatePet, getPetSynthesisPreview, getPetPower, getPetHp, toggleSelectAllSamePets, passiveLabels } from "./pet.js";
 import { getWeaponDisplayName } from "./weapon.js";
 import {
   normalEnemies,
@@ -545,7 +542,7 @@ export function updatePetSynthesisUI() {
     const preview = getPetSynthesisPreview();
     if (preview) {
       previewEl.style.display = "";
-      previewEl.innerHTML = `ATK ${preview.oldPower} → <strong>${preview.newPower}</strong> / HP ${preview.oldHp} → <strong>${preview.newHp}</strong>`;
+      previewEl.innerHTML = `強化値 +${preview.oldLevel} → +${preview.newLevel}<br>ATK ${preview.oldPower} → <strong>${preview.newPower}</strong> / HP ${preview.oldHp} → <strong>${preview.newHp}</strong>`;
     } else {
       previewEl.style.display = "none";
       previewEl.textContent = "";
@@ -894,11 +891,11 @@ export function updatePetPanel(onPetClick, onPetEquip) {
     const ultClassP = isUltimatePet(equipped) ? " ultimate" : "";
     equippedEl.innerHTML = `
       <div class="equipped-pet${ultClassP}">
-        <div class="equipped-pet-name">🐾 装備中：${getTitleName(equipped)}${equipped.name}${(equipped.bonusPower ?? 0) > 0 ? ` <span class="weapon-level">+${equipped.bonusPower}</span>` : ""}</div>
+        <div class="equipped-pet-name">🐾 装備中：${getTitleName(equipped)}${equipped.name}${(equipped.level ?? 0) > 0 ? ` <span class="weapon-level">+${equipped.level}</span>` : ""}</div>
         <div class="equipped-pet-stats-row">
           <div class="equipped-pet-stats">
-            <span>ATK ${equipped.power}(${equipped.basePower ?? equipped.power})</span>
-            <span>HP ${equipped.hp ?? 0}(${equipped.baseHp ?? 0})</span>
+            <span>ATK ${getPetPower(equipped)}(${equipped.basePower})</span>
+            <span>HP ${getPetHp(equipped)}(${equipped.baseHp ?? 0})</span>
             <span class="pet-passive">${passiveLabelText(equipped)}${valueText}</span>
           </div>
           <button class="pet-unequip-btn" data-uid="${equipped.uid}">外す</button>
@@ -1062,7 +1059,7 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
     const isBase = pet.uid === baseUid;
     const isMaterial = materialUids.includes(pet.uid);
     const valueText = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
-    const bonusText = (pet.bonusPower ?? 0) > 0 ? ` <span class="weapon-level">+${pet.bonusPower}</span>` : "";
+    const bonusText = (pet.level ?? 0) > 0 ? ` <span class="weapon-level">+${pet.level}</span>` : "";
 
     const li = document.createElement("li");
     const isUltP = isUltimatePet(pet);
@@ -1104,8 +1101,8 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
           </div>
         </div>
         <div class="item-row-2">
-          <span class="pet-atk">ATK ${pet.power}(${pet.basePower ?? pet.power})</span>
-          <span class="pet-atk">HP ${pet.hp ?? 0}(${pet.baseHp ?? 0})</span>
+          <span class="pet-atk">ATK ${getPetPower(pet)}(${pet.basePower})</span>
+          <span class="pet-atk">HP ${getPetHp(pet)}(${pet.baseHp ?? 0})</span>
           <span class="pet-passive">${passiveLabelText(pet)}${valueText}</span>
         </div>
       </div>
@@ -1561,7 +1558,7 @@ export function showUltimatePopup(entity, type, isHolding = null) {
     nameEl.textContent = `${getTitleName(entity)}${entity.name}`;
     const passive = passiveLabelText(entity);
     const pval = entity.passiveValue != null ? `(${entity.passiveValue}%)` : "";
-    statsEl.innerHTML = `ATK ${entity.power} ／ HP ${entity.hp} ／ ${passive}${pval}`;
+    statsEl.innerHTML = `ATK ${getPetPower(entity)} ／ HP ${getPetHp(entity)} ／ ${passive}${pval}`;
     overlay.classList.remove("hidden");
     overlay.onclick = () => overlay.classList.add("hidden");
     const _isHolding = isHolding ?? state.isHolding;
@@ -1572,7 +1569,7 @@ export function showUltimatePopup(entity, type, isHolding = null) {
     nameEl.textContent = `${getTitleName(entity)}${entity.name}`;
     const passive = passiveLabelText(entity);
     const pval = entity.passiveValue != null ? `(${entity.passiveValue}%)` : "";
-    statsEl.innerHTML = `ATK ${entity.power} ／ HP ${entity.hp} ／ ${passive}${pval}`;
+    statsEl.innerHTML = `ATK ${getPetPower(entity)} ／ HP ${getPetHp(entity)} ／ ${passive}${pval}`;
   } else {
     subEl.textContent = "極個体の武器を入手した！";
     nameEl.textContent = entity.name;
@@ -1604,7 +1601,7 @@ export function showLegendaryPopup(enemy, mode = "appear", pet = null, isHolding
     if (statsEl && pet) {
       const passive = passiveLabelText(pet);
       const pval = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
-      statsEl.textContent = `ATK ${pet.power} ／ HP ${pet.hp} ／ ${passive}${pval}`;
+      statsEl.textContent = `ATK ${getPetPower(pet)} ／ HP ${getPetHp(pet)} ／ ${passive}${pval}`;
       statsEl.classList.remove("hidden");
     }
   } else {
@@ -1638,7 +1635,7 @@ export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHo
     if (statsEl && pet) {
       const passive = passiveLabelText(pet);
       const pval = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
-      statsEl.textContent = `ATK ${pet.power} ／ HP ${pet.hp} ／ ${passive}${pval}`;
+      statsEl.textContent = `ATK ${getPetPower(pet)} ／ HP ${getPetHp(pet)} ／ ${passive}${pval}`;
       statsEl.classList.remove("hidden");
     }
   } else {
@@ -1669,7 +1666,7 @@ export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = n
     if (statsEl && pet) {
       const passive = passiveLabelText(pet);
       const pval = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
-      statsEl.textContent = `ATK ${pet.power} ／ HP ${pet.hp} ／ ${passive}${pval}`;
+      statsEl.textContent = `ATK ${getPetPower(pet)} ／ HP ${getPetHp(pet)} ／ ${passive}${pval}`;
       statsEl.classList.remove("hidden");
     }
   } else {

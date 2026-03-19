@@ -9,6 +9,34 @@ import { checkAchievements } from "./achievements.js";
 
 const allEnemyDefs = [...normalEnemies, ...bossEnemies];
 
+// =====================
+// ペット強化値計算（武器と同一式）
+// =====================
+const K_ATK = 7.5 / Math.sqrt(15);
+const K_HP  = 4.5 / Math.sqrt(15);
+
+function calcPetAtk(basePower, level) {
+  const mult = level <= 15
+    ? (1 + level * 0.5)
+    : (1 + Math.sqrt(level) * K_ATK);
+  return Math.floor(basePower * mult);
+}
+
+function calcPetHp(baseHp, level) {
+  const mult = level <= 15
+    ? (1 + level * 0.3)
+    : (1 + Math.sqrt(level) * K_HP);
+  return Math.floor(baseHp * mult);
+}
+
+export function getPetPower(pet) {
+  return calcPetAtk(pet.basePower, pet.level ?? 0);
+}
+
+export function getPetHp(pet) {
+  return calcPetHp(pet.baseHp ?? 0, pet.level ?? 0);
+}
+
 // 称号ごとのパッシブ倍率（id:5はレジェンダリー、legendaryTitlesのpassiveMultを使うため1.0として定義）
 const titlePassiveMult = { 1: 1.0, 2: 1.2, 3: 1.5, 4: 2.0, 5: 1.0 };
 
@@ -470,11 +498,8 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
     titleGroup: def.titleGroup ?? null,
     name: def.name,
     basePower: power,
-    power,
-    bonusPower: 0,
     baseHp: hp,
-    hp,
-    bonusHp: 0,
+    level: 0,
     passive,
     passiveValue,
     acquiredOrder: state.acquiredCounter++,
@@ -597,21 +622,22 @@ export function getPetSynthesisPreview() {
   const base = petList.find((p) => p.uid === baseUid);
   if (!base) return null;
 
-  const gain = materialUids.reduce((sum, uid) => {
+  // 武器と同じ式：素材のlevel合計 + 素材数
+  const totalLevelGain = materialUids.reduce((sum, uid) => {
     const m = petList.find((p) => p.uid === uid);
-    return m ? sum + Math.floor(m.power * 0.5) : sum;
+    return m ? sum + (m.level ?? 0) + 1 : sum;
   }, 0);
 
-  const hpGain = materialUids.reduce((sum, uid) => {
-    const m = petList.find((p) => p.uid === uid);
-    return m ? sum + Math.floor((m.hp ?? 0) * 0.5) : sum;
-  }, 0);
+  const oldLevel = base.level ?? 0;
+  const newLevel = oldLevel + totalLevelGain;
 
   return {
-    oldPower: base.power,
-    newPower: base.power + gain,
-    oldHp: base.hp ?? 0,
-    newHp: (base.hp ?? 0) + hpGain,
+    oldLevel,
+    newLevel,
+    oldPower: calcPetAtk(base.basePower, oldLevel),
+    newPower: calcPetAtk(base.basePower, newLevel),
+    oldHp:    calcPetHp(base.baseHp ?? 0, oldLevel),
+    newHp:    calcPetHp(base.baseHp ?? 0, newLevel),
     materialCount: materialUids.length,
   };
 }
@@ -626,19 +652,17 @@ export function executePetSynthesis() {
   const base = petList.find((p) => p.uid === baseUid);
   if (!base) return false;
 
-  const gain = materialUids.reduce((sum, uid) => {
+  const oldPower = calcPetAtk(base.basePower, base.level ?? 0);
+
+  // 武器と同じ式：素材のlevel合計 + 素材数
+  const levelGain = materialUids.reduce((sum, uid) => {
     const m = petList.find((p) => p.uid === uid);
-    return m ? sum + Math.floor(m.power * 0.5) : sum;
+    return m ? sum + (m.level ?? 0) + 1 : sum;
   }, 0);
 
-  const hpGain = materialUids.reduce((sum, uid) => {
-    const m = state.player.petList.find((p) => p.uid === uid);
-    return m ? sum + Math.floor((m.hp ?? 0) * 0.5) : sum;
-  }, 0);
-  base.power += gain;
-  base.bonusPower = (base.bonusPower ?? 0) + gain;
-  base.hp = (base.hp ?? 0) + hpGain;
-  base.bonusHp = (base.bonusHp ?? 0) + hpGain;
+  base.level = (base.level ?? 0) + levelGain;
+
+  const newPower = calcPetAtk(base.basePower, base.level);
 
   // 装備中のペットも更新
   if (state.player.equippedPet?.uid === baseUid) {
@@ -652,12 +676,10 @@ export function executePetSynthesis() {
   }
 
   // 素材を削除
-  state.player.petList = petList.filter(
-    (p) => !materialUids.includes(p.uid)
-  );
+  state.player.petList = petList.filter((p) => !materialUids.includes(p.uid));
 
   base.acquiredOrder = state.acquiredCounter++;
-  addLog(`🐾 ${base.name} を合成！ATK +${gain} → ${base.power}`);
+  addLog(`🐾 ${base.name} を合成！ATK ${oldPower} → ${newPower}`);
 
   state.petSynthesis.baseUid = null;
   state.petSynthesis.materialUids = [];
@@ -711,8 +733,8 @@ export function isUltimatePet(pet) {
 
   // 称号がちょうど4（レジェンダリーは究極個体として別管理）かつ各ステータスが最大値
   if ((pet.titleId ?? 0) !== 4) return false;
-  if ((pet.basePower ?? pet.power) < maxPower) return false;
-  if ((pet.baseHp ?? pet.hp ?? 0) < maxHp) return false;
+  if (pet.basePower < maxPower) return false;
+  if ((pet.baseHp ?? 0) < maxHp) return false;
   if (maxPassive !== null && (pet.passiveValue ?? 0) < maxPassive) return false;
   return true;
 }
