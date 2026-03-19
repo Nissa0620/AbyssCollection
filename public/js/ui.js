@@ -555,15 +555,13 @@ export function updateSynthesisPreview() {
   const preview = getSynthesisPreview();
 
   if (!preview) {
+    previewDiv.style.display = "none";
     previewDiv.textContent = "";
     return;
   }
 
-  previewDiv.innerHTML = `
-    強化値 +${preview.oldLevel} → +${preview.newLevel}<br>
-    ATK ${preview.oldTotalAtk} → ${preview.newTotalAtk}<br>
-    HP +${preview.oldTotalHp} → +${preview.newTotalHp}
-  `;
+  previewDiv.style.display = "";
+  previewDiv.innerHTML = `強化値 +${preview.oldLevel} → +${preview.newLevel}<br>ATK ${preview.oldTotalAtk} → <strong>${preview.newTotalAtk}</strong> / HP ${preview.oldTotalHp} → <strong>${preview.newTotalHp}</strong>`;
 }
 
 // 経験値
