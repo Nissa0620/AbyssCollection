@@ -48,16 +48,27 @@
         <div class="action-row action-row-attack">
           <button id="attackBtn">攻撃</button>
         </div>
-        <div class="action-row">
-          <button id="bookBtn">図鑑</button>
-          <button id="statusBtn">ステータス</button>
-          <button id="achievementBtn">実績</button>
-          <button id="rankingBtn">ランキング</button>
-          <button id="helpBtn">説明</button>
-        </div>
-        <div class="action-row">
-          <button id="inventoryToggleBtn">インベントリ</button>
-          <button id="petToggleBtn">ペット</button>
+        <div class="action-row action-row-nav">
+          <button id="inventoryToggleBtn" class="nav-btn">
+            <span class="nav-icon">📦</span>
+            <span class="nav-label">装備</span>
+          </button>
+          <button id="petToggleBtn" class="nav-btn">
+            <span class="nav-icon">🐾</span>
+            <span class="nav-label">ペット</span>
+          </button>
+          <button id="bookBtn" class="nav-btn">
+            <span class="nav-icon">📖</span>
+            <span class="nav-label">図鑑</span>
+          </button>
+          <button id="statusBtn" class="nav-btn">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">状態</span>
+          </button>
+          <button id="moreBtn" class="nav-btn">
+            <span class="nav-icon">⋯</span>
+            <span class="nav-label">その他</span>
+          </button>
         </div>
       </div>
 
@@ -463,6 +474,21 @@
         <p class="ranking-tab-note" id="rankingTabNote">到達した最大階層数</p>
         <p class="ranking-note">ランキングは30分おきに自動更新されます</p>
         <div id="rankingContent" class="book-content"></div>
+      </div>
+    </div>
+
+    <!-- その他モーダル -->
+    <div id="moreOverlay" class="book-overlay hidden">
+      <div class="book-modal more-modal">
+        <div class="book-header">
+          <span>その他</span>
+          <button id="moreCloseBtn">✕</button>
+        </div>
+        <div class="more-modal-body">
+          <button id="achievementBtn" class="more-item-btn">🎖️ 実績</button>
+          <button id="rankingBtn"     class="more-item-btn">🏆 ランキング</button>
+          <button id="helpBtn"        class="more-item-btn">❓ 説明</button>
+        </div>
       </div>
     </div>
 

@@ -287,10 +287,41 @@ button {
   border-radius: 8px;
 }
 
-/* 図鑑・ステータス・実績・説明の行は文字が小さめ */
-#bookBtn, #statusBtn, #achievementBtn, #helpBtn {
+/* ===== ナビバー ===== */
+.action-row-nav {
+  display: flex;
+  gap: 5px;
+}
+
+.nav-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 9px 3px;
+  background: #2a2a2a;
+  color: #aaa;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
   font-size: 11px;
-  padding: 10px 4px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.nav-btn:active {
+  transform: scale(0.96);
+  filter: brightness(0.85);
+}
+
+.nav-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.nav-label {
+  font-size: 11px;
+  line-height: 1;
 }
 
 .action-row-attack button {
@@ -512,6 +543,7 @@ button {
   font-size: 12px;
   color: #aaa;
   padding: 6px 10px;
+  margin-bottom: 8px;
   background: #181818;
   border-radius: 6px;
   border-left: 3px solid #505050;
@@ -520,12 +552,12 @@ button {
 }
 
 .synth-hint-text.hint-base {
-  border-color: #378ADD;
+  border-color: #378add;
   color: #7ab8f5;
 }
 
 .synth-hint-text.hint-material {
-  border-color: #E24B4A;
+  border-color: #e24b4a;
   color: #f08080;
 }
 
@@ -556,7 +588,7 @@ button {
 }
 
 .synth-base .pet-item-bar {
-  background: #378ADD;
+  background: #378add;
 }
 
 /* 合成素材: ダーク赤 */
@@ -566,7 +598,7 @@ button {
 }
 
 .synth-material .pet-item-bar {
-  background: #E24B4A;
+  background: #e24b4a;
 }
 
 /* 合成素材候補：明るく強調 */
@@ -655,7 +687,9 @@ button {
   border: 1px solid #5a2a2a;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .status-reset-footer button:hover {
@@ -758,6 +792,36 @@ button {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+/* ===== その他モーダル ===== */
+.more-modal {
+  width: 200px;
+  max-width: 90vw;
+}
+
+.more-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+}
+
+.more-item-btn {
+  width: 100%;
+  background: #2a2a2a;
+  color: #ccc;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.more-item-btn:active {
+  transform: scale(0.98);
+  filter: brightness(0.85);
 }
 
 .book-header {
@@ -1172,6 +1236,8 @@ button {
 
 #synthesisPreview {
   font-size: 11px;
+  color: #f5c842;
+  padding: 4px 10px;
 }
 
 /* ペット強化値 */
@@ -1318,8 +1384,12 @@ button {
 }
 
 @keyframes ultimate-bg-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .ultimate-modal {
@@ -1331,12 +1401,21 @@ button {
   min-width: 260px;
   max-width: 340px;
   animation: ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 0 16px rgba(200, 160, 48, 0.5), 0 0 40px rgba(200, 160, 48, 0.2), 0 0 80px rgba(0,0,0,0.8);
+  box-shadow:
+    0 0 16px rgba(200, 160, 48, 0.5),
+    0 0 40px rgba(200, 160, 48, 0.2),
+    0 0 80px rgba(0, 0, 0, 0.8);
 }
 
 @keyframes ultimate-modal-in {
-  from { transform: scale(0.8); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .ultimate-modal-label {
@@ -1403,7 +1482,10 @@ button {
   min-width: 260px;
   max-width: 340px;
   animation: ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 0 16px rgba(160, 80, 240, 0.6), 0 0 40px rgba(120, 40, 200, 0.3), 0 0 80px rgba(0,0,0,0.8);
+  box-shadow:
+    0 0 16px rgba(160, 80, 240, 0.6),
+    0 0 40px rgba(120, 40, 200, 0.3),
+    0 0 80px rgba(0, 0, 0, 0.8);
 }
 
 .legendary-modal-label {
@@ -1469,7 +1551,10 @@ button {
   min-width: 260px;
   max-width: 340px;
   animation: ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 0 20px rgba(220, 40, 40, 0.7), 0 0 50px rgba(180, 0, 0, 0.4), 0 0 80px rgba(0,0,0,0.8);
+  box-shadow:
+    0 0 20px rgba(220, 40, 40, 0.7),
+    0 0 50px rgba(180, 0, 0, 0.4),
+    0 0 80px rgba(0, 0, 0, 0.8);
 }
 
 .legend-ultimate-modal-label {
@@ -1536,7 +1621,10 @@ button {
   min-width: 260px;
   max-width: 340px;
   animation: ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 0 20px rgba(212, 137, 10, 0.6), 0 0 50px rgba(180, 110, 0, 0.3), 0 0 80px rgba(0,0,0,0.8);
+  box-shadow:
+    0 0 20px rgba(212, 137, 10, 0.6),
+    0 0 50px rgba(180, 110, 0, 0.3),
+    0 0 80px rgba(0, 0, 0, 0.8);
 }
 
 .elite-modal-label {
@@ -1613,7 +1701,9 @@ button {
   color: #aaa;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .book-enemy-subtab.active {
@@ -1629,50 +1719,182 @@ button {
 
 /* 伝説（紫）オーロラ */
 @keyframes capture-aurora-legendary {
-  0%   { box-shadow: 0 0 18px 6px rgba(160, 80, 240, 0.9),  0 0 36px 12px rgba(160, 80, 240, 0.5),  0 0 70px 20px rgba(160, 80, 240, 0.25); border-color: rgba(160, 80, 240, 0.95); }
-  20%  { box-shadow: 0 0 18px 6px rgba(200, 120, 255, 0.9), 0 0 36px 12px rgba(200, 120, 255, 0.5), 0 0 70px 20px rgba(200, 120, 255, 0.25); border-color: rgba(200, 120, 255, 0.95); }
-  40%  { box-shadow: 0 0 18px 6px rgba(100, 40, 200, 0.9),  0 0 36px 12px rgba(100, 40, 200, 0.5),  0 0 70px 20px rgba(100, 40, 200, 0.25); border-color: rgba(100, 40, 200, 0.95); }
-  60%  { box-shadow: 0 0 18px 6px rgba(220, 160, 255, 0.9), 0 0 36px 12px rgba(220, 160, 255, 0.5), 0 0 70px 20px rgba(220, 160, 255, 0.25); border-color: rgba(220, 160, 255, 0.95); }
-  80%  { box-shadow: 0 0 18px 6px rgba(130, 50, 220, 0.9),  0 0 36px 12px rgba(130, 50, 220, 0.5),  0 0 70px 20px rgba(130, 50, 220, 0.25); border-color: rgba(130, 50, 220, 0.95); }
-  100% { box-shadow: 0 0 18px 6px rgba(160, 80, 240, 0.9),  0 0 36px 12px rgba(160, 80, 240, 0.5),  0 0 70px 20px rgba(160, 80, 240, 0.25); border-color: rgba(160, 80, 240, 0.95); }
+  0% {
+    box-shadow:
+      0 0 18px 6px rgba(160, 80, 240, 0.9),
+      0 0 36px 12px rgba(160, 80, 240, 0.5),
+      0 0 70px 20px rgba(160, 80, 240, 0.25);
+    border-color: rgba(160, 80, 240, 0.95);
+  }
+  20% {
+    box-shadow:
+      0 0 18px 6px rgba(200, 120, 255, 0.9),
+      0 0 36px 12px rgba(200, 120, 255, 0.5),
+      0 0 70px 20px rgba(200, 120, 255, 0.25);
+    border-color: rgba(200, 120, 255, 0.95);
+  }
+  40% {
+    box-shadow:
+      0 0 18px 6px rgba(100, 40, 200, 0.9),
+      0 0 36px 12px rgba(100, 40, 200, 0.5),
+      0 0 70px 20px rgba(100, 40, 200, 0.25);
+    border-color: rgba(100, 40, 200, 0.95);
+  }
+  60% {
+    box-shadow:
+      0 0 18px 6px rgba(220, 160, 255, 0.9),
+      0 0 36px 12px rgba(220, 160, 255, 0.5),
+      0 0 70px 20px rgba(220, 160, 255, 0.25);
+    border-color: rgba(220, 160, 255, 0.95);
+  }
+  80% {
+    box-shadow:
+      0 0 18px 6px rgba(130, 50, 220, 0.9),
+      0 0 36px 12px rgba(130, 50, 220, 0.5),
+      0 0 70px 20px rgba(130, 50, 220, 0.25);
+    border-color: rgba(130, 50, 220, 0.95);
+  }
+  100% {
+    box-shadow:
+      0 0 18px 6px rgba(160, 80, 240, 0.9),
+      0 0 36px 12px rgba(160, 80, 240, 0.5),
+      0 0 70px 20px rgba(160, 80, 240, 0.25);
+    border-color: rgba(160, 80, 240, 0.95);
+  }
 }
 @keyframes capture-overlay-aurora-legendary {
-  0%   { background: rgba(20, 0, 40, 0.88); }
-  33%  { background: rgba(10, 0, 30, 0.88); }
-  66%  { background: rgba(25, 5, 50, 0.88); }
-  100% { background: rgba(20, 0, 40, 0.88); }
+  0% {
+    background: rgba(20, 0, 40, 0.88);
+  }
+  33% {
+    background: rgba(10, 0, 30, 0.88);
+  }
+  66% {
+    background: rgba(25, 5, 50, 0.88);
+  }
+  100% {
+    background: rgba(20, 0, 40, 0.88);
+  }
 }
 
 /* 究極個体（赤）オーロラ */
 @keyframes capture-aurora-legend-ultimate {
-  0%   { box-shadow: 0 0 18px 6px rgba(220, 30, 30, 0.9),  0 0 36px 12px rgba(220, 30, 30, 0.5),  0 0 70px 20px rgba(220, 30, 30, 0.25); border-color: rgba(220, 30, 30, 0.95); }
-  20%  { box-shadow: 0 0 18px 6px rgba(255, 80, 50, 0.9),  0 0 36px 12px rgba(255, 80, 50, 0.5),  0 0 70px 20px rgba(255, 80, 50, 0.25); border-color: rgba(255, 80, 50, 0.95); }
-  40%  { box-shadow: 0 0 18px 6px rgba(180, 0, 0, 0.9),    0 0 36px 12px rgba(180, 0, 0, 0.5),    0 0 70px 20px rgba(180, 0, 0, 0.25);   border-color: rgba(180, 0, 0, 0.95); }
-  60%  { box-shadow: 0 0 18px 6px rgba(255, 100, 80, 0.9), 0 0 36px 12px rgba(255, 100, 80, 0.5), 0 0 70px 20px rgba(255, 100, 80, 0.25); border-color: rgba(255, 100, 80, 0.95); }
-  80%  { box-shadow: 0 0 18px 6px rgba(200, 10, 10, 0.9),  0 0 36px 12px rgba(200, 10, 10, 0.5),  0 0 70px 20px rgba(200, 10, 10, 0.25); border-color: rgba(200, 10, 10, 0.95); }
-  100% { box-shadow: 0 0 18px 6px rgba(220, 30, 30, 0.9),  0 0 36px 12px rgba(220, 30, 30, 0.5),  0 0 70px 20px rgba(220, 30, 30, 0.25); border-color: rgba(220, 30, 30, 0.95); }
+  0% {
+    box-shadow:
+      0 0 18px 6px rgba(220, 30, 30, 0.9),
+      0 0 36px 12px rgba(220, 30, 30, 0.5),
+      0 0 70px 20px rgba(220, 30, 30, 0.25);
+    border-color: rgba(220, 30, 30, 0.95);
+  }
+  20% {
+    box-shadow:
+      0 0 18px 6px rgba(255, 80, 50, 0.9),
+      0 0 36px 12px rgba(255, 80, 50, 0.5),
+      0 0 70px 20px rgba(255, 80, 50, 0.25);
+    border-color: rgba(255, 80, 50, 0.95);
+  }
+  40% {
+    box-shadow:
+      0 0 18px 6px rgba(180, 0, 0, 0.9),
+      0 0 36px 12px rgba(180, 0, 0, 0.5),
+      0 0 70px 20px rgba(180, 0, 0, 0.25);
+    border-color: rgba(180, 0, 0, 0.95);
+  }
+  60% {
+    box-shadow:
+      0 0 18px 6px rgba(255, 100, 80, 0.9),
+      0 0 36px 12px rgba(255, 100, 80, 0.5),
+      0 0 70px 20px rgba(255, 100, 80, 0.25);
+    border-color: rgba(255, 100, 80, 0.95);
+  }
+  80% {
+    box-shadow:
+      0 0 18px 6px rgba(200, 10, 10, 0.9),
+      0 0 36px 12px rgba(200, 10, 10, 0.5),
+      0 0 70px 20px rgba(200, 10, 10, 0.25);
+    border-color: rgba(200, 10, 10, 0.95);
+  }
+  100% {
+    box-shadow:
+      0 0 18px 6px rgba(220, 30, 30, 0.9),
+      0 0 36px 12px rgba(220, 30, 30, 0.5),
+      0 0 70px 20px rgba(220, 30, 30, 0.25);
+    border-color: rgba(220, 30, 30, 0.95);
+  }
 }
 @keyframes capture-overlay-aurora-legend-ultimate {
-  0%   { background: rgba(40, 0, 0, 0.88); }
-  33%  { background: rgba(30, 5, 0, 0.88); }
-  66%  { background: rgba(45, 0, 0, 0.88); }
-  100% { background: rgba(40, 0, 0, 0.88); }
+  0% {
+    background: rgba(40, 0, 0, 0.88);
+  }
+  33% {
+    background: rgba(30, 5, 0, 0.88);
+  }
+  66% {
+    background: rgba(45, 0, 0, 0.88);
+  }
+  100% {
+    background: rgba(40, 0, 0, 0.88);
+  }
 }
 
 /* 極個体（琥珀）オーロラ */
 @keyframes capture-aurora-elite {
-  0%   { box-shadow: 0 0 18px 6px rgba(212, 137, 10, 0.9),  0 0 36px 12px rgba(212, 137, 10, 0.5),  0 0 70px 20px rgba(212, 137, 10, 0.25); border-color: rgba(212, 137, 10, 0.95); }
-  20%  { box-shadow: 0 0 18px 6px rgba(255, 190, 40, 0.9),  0 0 36px 12px rgba(255, 190, 40, 0.5),  0 0 70px 20px rgba(255, 190, 40, 0.25); border-color: rgba(255, 190, 40, 0.95); }
-  40%  { box-shadow: 0 0 18px 6px rgba(180, 100, 0, 0.9),   0 0 36px 12px rgba(180, 100, 0, 0.5),   0 0 70px 20px rgba(180, 100, 0, 0.25);  border-color: rgba(180, 100, 0, 0.95); }
-  60%  { box-shadow: 0 0 18px 6px rgba(255, 210, 80, 0.9),  0 0 36px 12px rgba(255, 210, 80, 0.5),  0 0 70px 20px rgba(255, 210, 80, 0.25); border-color: rgba(255, 210, 80, 0.95); }
-  80%  { box-shadow: 0 0 18px 6px rgba(200, 120, 5, 0.9),   0 0 36px 12px rgba(200, 120, 5, 0.5),   0 0 70px 20px rgba(200, 120, 5, 0.25);  border-color: rgba(200, 120, 5, 0.95); }
-  100% { box-shadow: 0 0 18px 6px rgba(212, 137, 10, 0.9),  0 0 36px 12px rgba(212, 137, 10, 0.5),  0 0 70px 20px rgba(212, 137, 10, 0.25); border-color: rgba(212, 137, 10, 0.95); }
+  0% {
+    box-shadow:
+      0 0 18px 6px rgba(212, 137, 10, 0.9),
+      0 0 36px 12px rgba(212, 137, 10, 0.5),
+      0 0 70px 20px rgba(212, 137, 10, 0.25);
+    border-color: rgba(212, 137, 10, 0.95);
+  }
+  20% {
+    box-shadow:
+      0 0 18px 6px rgba(255, 190, 40, 0.9),
+      0 0 36px 12px rgba(255, 190, 40, 0.5),
+      0 0 70px 20px rgba(255, 190, 40, 0.25);
+    border-color: rgba(255, 190, 40, 0.95);
+  }
+  40% {
+    box-shadow:
+      0 0 18px 6px rgba(180, 100, 0, 0.9),
+      0 0 36px 12px rgba(180, 100, 0, 0.5),
+      0 0 70px 20px rgba(180, 100, 0, 0.25);
+    border-color: rgba(180, 100, 0, 0.95);
+  }
+  60% {
+    box-shadow:
+      0 0 18px 6px rgba(255, 210, 80, 0.9),
+      0 0 36px 12px rgba(255, 210, 80, 0.5),
+      0 0 70px 20px rgba(255, 210, 80, 0.25);
+    border-color: rgba(255, 210, 80, 0.95);
+  }
+  80% {
+    box-shadow:
+      0 0 18px 6px rgba(200, 120, 5, 0.9),
+      0 0 36px 12px rgba(200, 120, 5, 0.5),
+      0 0 70px 20px rgba(200, 120, 5, 0.25);
+    border-color: rgba(200, 120, 5, 0.95);
+  }
+  100% {
+    box-shadow:
+      0 0 18px 6px rgba(212, 137, 10, 0.9),
+      0 0 36px 12px rgba(212, 137, 10, 0.5),
+      0 0 70px 20px rgba(212, 137, 10, 0.25);
+    border-color: rgba(212, 137, 10, 0.95);
+  }
 }
 @keyframes capture-overlay-aurora-elite {
-  0%   { background: rgba(30, 18, 0, 0.88); }
-  33%  { background: rgba(25, 12, 0, 0.88); }
-  66%  { background: rgba(35, 20, 0, 0.88); }
-  100% { background: rgba(30, 18, 0, 0.88); }
+  0% {
+    background: rgba(30, 18, 0, 0.88);
+  }
+  33% {
+    background: rgba(25, 12, 0, 0.88);
+  }
+  66% {
+    background: rgba(35, 20, 0, 0.88);
+  }
+  100% {
+    background: rgba(30, 18, 0, 0.88);
+  }
 }
 
 /* 捕獲成功時: オーバーレイ背景もゆっくり変化 */
@@ -1689,17 +1911,23 @@ button {
 /* 捕獲成功時: モーダルにオーロラリングを適用 */
 .legendary-overlay[data-mode="captured"] .legendary-modal {
   border-width: 2px;
-  animation: ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both, capture-aurora-legendary 3s 0.3s linear infinite;
+  animation:
+    ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+    capture-aurora-legendary 3s 0.3s linear infinite;
 }
 
 .legend-ultimate-overlay[data-mode="captured"] .legend-ultimate-modal {
   border-width: 2px;
-  animation: ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both, capture-aurora-legend-ultimate 3s 0.3s linear infinite;
+  animation:
+    ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+    capture-aurora-legend-ultimate 3s 0.3s linear infinite;
 }
 
 .elite-overlay[data-mode="captured"] .elite-modal {
   border-width: 2px;
-  animation: ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both, capture-aurora-elite 3s 0.3s linear infinite;
+  animation:
+    ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+    capture-aurora-elite 3s 0.3s linear infinite;
 }
 
 /* =====================
@@ -1794,7 +2022,7 @@ button {
   border: 2px solid #f0c040;
   border-radius: 12px;
   padding: 12px 16px;
-  box-shadow: 0 4px 20px rgba(240,192,64,0.4);
+  box-shadow: 0 4px 20px rgba(240, 192, 64, 0.4);
   text-align: center;
 }
 
@@ -1818,13 +2046,25 @@ button {
 }
 
 @keyframes achievementSlideIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 @keyframes achievementSlideOut {
-  from { opacity: 1; transform: translateX(-50%) translateY(0); }
-  to   { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
 }
 
 .achievement-popup.achievement-show {
@@ -1852,7 +2092,9 @@ button {
   color: #aaa;
   font-size: 0.85rem;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .inv-tab.active {
@@ -1877,7 +2119,7 @@ button {
 }
 
 .gem-total-atk {
-  font-size: 1.0rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #f0c040;
 }
@@ -2076,9 +2318,15 @@ button {
   flex-shrink: 0;
 }
 
-.ranking-rank.gold   { color: #f5c842; }
-.ranking-rank.silver { color: #b0b0b0; }
-.ranking-rank.bronze { color: #cd7f32; }
+.ranking-rank.gold {
+  color: #f5c842;
+}
+.ranking-rank.silver {
+  color: #b0b0b0;
+}
+.ranking-rank.bronze {
+  color: #cd7f32;
+}
 
 .ranking-name {
   flex: 1;

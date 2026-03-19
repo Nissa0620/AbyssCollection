@@ -153,6 +153,23 @@ function closePetModal() {
 }
 
 // =====================
+// その他モーダル
+// =====================
+document.getElementById("moreBtn").addEventListener("click", () => {
+  document.getElementById("moreOverlay").classList.remove("hidden");
+});
+
+document.getElementById("moreCloseBtn").addEventListener("click", () => {
+  document.getElementById("moreOverlay").classList.add("hidden");
+});
+
+document.getElementById("moreOverlay").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) {
+    e.currentTarget.classList.add("hidden");
+  }
+});
+
+// =====================
 // ステータスボタン
 // =====================
 document.getElementById("statusBtn").addEventListener("click", () => {
@@ -425,6 +442,7 @@ document.querySelectorAll(".book-tab").forEach((btn) => {
 // 実績ボタン
 // =====================
 document.getElementById("achievementBtn").addEventListener("click", () => {
+  document.getElementById("moreOverlay").classList.add("hidden");
   renderAchievements();
   document.getElementById("achievementOverlay").classList.remove("hidden");
 });
@@ -463,6 +481,7 @@ stayChk.addEventListener("change", () => {
 // 説明ボタン
 // =====================
 document.getElementById("helpBtn").addEventListener("click", () => {
+  document.getElementById("moreOverlay").classList.add("hidden");
   document.getElementById("helpOverlay").classList.remove("hidden");
 });
 document.getElementById("helpCloseBtn").addEventListener("click", () => {
@@ -560,6 +579,7 @@ const rankingTabNotes = {
 };
 
 document.getElementById("rankingBtn").addEventListener("click", () => {
+  document.getElementById("moreOverlay").classList.add("hidden");
   // タブを最深階層にリセット
   document.querySelectorAll(".ranking-tab").forEach((b) => b.classList.remove("active"));
   document.querySelector(".ranking-tab[data-field='maxFloor']").classList.add("active");
