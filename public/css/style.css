@@ -287,19 +287,46 @@ button {
   border-radius: 8px;
 }
 
-/* ===== ナビバー ===== */
-.action-row-nav {
+/* ===== ナビバー（大ボタン行）===== */
+.action-row-main {
+  display: flex;
+  gap: 6px;
+}
+
+.main-nav-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 6px;
+  background: #2a3a2a;
+  color: #8fcf8f;
+  border: 1px solid #3a5a3a;
+  border-radius: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.main-nav-btn:active {
+  transform: scale(0.96);
+  filter: brightness(0.85);
+}
+
+/* ===== ナビバー（小ボタン行）===== */
+.action-row-sub {
   display: flex;
   gap: 5px;
 }
 
-.nav-btn {
+.sub-nav-btn {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 9px 3px;
+  padding: 8px 3px;
   background: #2a2a2a;
   color: #aaa;
   border: 1px solid #3a3a3a;
@@ -309,18 +336,18 @@ button {
   cursor: pointer;
 }
 
-.nav-btn:active {
+.sub-nav-btn:active {
   transform: scale(0.96);
   filter: brightness(0.85);
 }
 
 .nav-icon {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1;
 }
 
 .nav-label {
-  font-size: 11px;
+  font-size: inherit;
   line-height: 1;
 }
 
@@ -2301,6 +2328,7 @@ button {
 .ranking-item {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 8px 12px;
   border-bottom: 1px solid #333;
   font-size: 13px;

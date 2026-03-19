@@ -48,24 +48,28 @@
         <div class="action-row action-row-attack">
           <button id="attackBtn">攻撃</button>
         </div>
-        <div class="action-row action-row-nav">
-          <button id="inventoryToggleBtn" class="nav-btn">
+        <!-- 装備・ペット：大ボタン行 -->
+        <div class="action-row action-row-main">
+          <button id="inventoryToggleBtn" class="main-nav-btn">
             <span class="nav-icon">📦</span>
-            <span class="nav-label">装備</span>
+            <span class="nav-label">インベントリ</span>
           </button>
-          <button id="petToggleBtn" class="nav-btn">
+          <button id="petToggleBtn" class="main-nav-btn">
             <span class="nav-icon">🐾</span>
             <span class="nav-label">ペット</span>
           </button>
-          <button id="bookBtn" class="nav-btn">
+        </div>
+        <!-- 図鑑・状態・その他：小ボタン行 -->
+        <div class="action-row action-row-sub">
+          <button id="bookBtn" class="sub-nav-btn">
             <span class="nav-icon">📖</span>
             <span class="nav-label">図鑑</span>
           </button>
-          <button id="statusBtn" class="nav-btn">
+          <button id="statusBtn" class="sub-nav-btn">
             <span class="nav-icon">📊</span>
             <span class="nav-label">状態</span>
           </button>
-          <button id="moreBtn" class="nav-btn">
+          <button id="moreBtn" class="sub-nav-btn">
             <span class="nav-icon">⋯</span>
             <span class="nav-label">その他</span>
           </button>
@@ -80,7 +84,7 @@
     <div id="inventoryOverlay" class="book-overlay hidden">
       <div class="book-modal panel-modal">
         <div class="book-header">
-          <span>インベントリ</span>
+          <span>装備</span>
           <button id="inventoryCloseBtn">✕</button>
         </div>
 
@@ -471,7 +475,7 @@
           <button class="ranking-tab" data-field="petCount">ペット図鑑</button>
           <button class="ranking-tab" data-field="weaponCount">武器図鑑</button>
         </div>
-        <p class="ranking-tab-note" id="rankingTabNote">到達した最大階層数</p>
+        <p class="ranking-tab-note" id="rankingTabNote">到達した最深階層数</p>
         <p class="ranking-note">ランキングは30分おきに自動更新されます</p>
         <div id="rankingContent" class="book-content"></div>
       </div>
