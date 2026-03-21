@@ -2295,6 +2295,13 @@ button {
 }
 
 /* ランキング */
+.ranking-tab-note {
+  text-align: center;
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted, #aaa);
+}
+
 .ranking-note {
   font-size: 11px;
   color: #888;
