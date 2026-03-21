@@ -574,7 +574,7 @@ async function renderRanking(field) {
 const rankingTabNotes = {
   maxFloor: "到達した最深階層数",
   level: "現在のプレイヤーレベル",
-  petCount: "称号1〜4をすべて捕獲した種族数",
+  petCount: "称号1〜4を捕獲した種族数",
   weaponCount: "最終進化まで育成した武器種数",
 };
 
