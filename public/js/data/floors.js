@@ -10,7 +10,7 @@ export const floorTable = {
     petHp:    { min: 8, max: 15 },
     passiveValue: {
       buff:    { min: 3, max: 15 },
-      trigger: { min: 10, max: 40 },
+      trigger: { min: 7, max: 15 },
     },
     dexBuff: { hp: 0.1, power: 0.1 },
     titleDexBuff: {
@@ -29,7 +29,7 @@ export const floorTable = {
     petHp:    { min: 28, max: 56 },
     passiveValue: {
       buff:    { min: 4, max: 23 },
-      trigger: { min: 12, max: 45 },
+      trigger: { min: 11, max: 23 },
     },
     dexBuff: { hp: 0.11, power: 0.11 },
     titleDexBuff: {
@@ -48,7 +48,7 @@ export const floorTable = {
     petHp:    { min: 52, max: 103 },
     passiveValue: {
       buff:    { min: 6, max: 31 },
-      trigger: { min: 14, max: 50 },
+      trigger: { min: 15, max: 31 },
     },
     dexBuff: { hp: 0.12, power: 0.12 },
     titleDexBuff: {
@@ -67,7 +67,7 @@ export const floorTable = {
     petHp:    { min: 78, max: 155 },
     passiveValue: {
       buff:    { min: 7, max: 39 },
-      trigger: { min: 16, max: 55 },
+      trigger: { min: 19, max: 39 },
     },
     dexBuff: { hp: 0.13, power: 0.13 },
     titleDexBuff: {
@@ -86,7 +86,7 @@ export const floorTable = {
     petHp:    { min: 105, max: 209 },
     passiveValue: {
       buff:    { min: 9, max: 47 },
-      trigger: { min: 18, max: 60 },
+      trigger: { min: 23, max: 47 },
     },
     dexBuff: { hp: 0.14, power: 0.14 },
     titleDexBuff: {
@@ -105,7 +105,7 @@ export const floorTable = {
     petHp:    { min: 134, max: 267 },
     passiveValue: {
       buff:    { min: 10, max: 55 },
-      trigger: { min: 20, max: 65 },
+      trigger: { min: 27, max: 55 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -124,7 +124,7 @@ export const floorTable = {
     petHp:    { min: 163, max: 326 },
     passiveValue: {
       buff:    { min: 12, max: 63 },
-      trigger: { min: 22, max: 70 },
+      trigger: { min: 31, max: 63 },
     },
     dexBuff: { hp: 0.16, power: 0.16 },
     titleDexBuff: {
@@ -143,7 +143,7 @@ export const floorTable = {
     petHp:    { min: 194, max: 387 },
     passiveValue: {
       buff:    { min: 13, max: 71 },
-      trigger: { min: 24, max: 75 },
+      trigger: { min: 35, max: 71 },
     },
     dexBuff: { hp: 0.17, power: 0.17 },
     titleDexBuff: {
@@ -162,7 +162,7 @@ export const floorTable = {
     petHp:    { min: 225, max: 449 },
     passiveValue: {
       buff:    { min: 15, max: 79 },
-      trigger: { min: 26, max: 80 },
+      trigger: { min: 39, max: 79 },
     },
     dexBuff: { hp: 0.18, power: 0.18 },
     titleDexBuff: {
@@ -181,7 +181,7 @@ export const floorTable = {
     petHp:    { min: 257, max: 514 },
     passiveValue: {
       buff:    { min: 16, max: 87 },
-      trigger: { min: 28, max: 85 },
+      trigger: { min: 43, max: 87 },
     },
     dexBuff: { hp: 0.19, power: 0.19 },
     titleDexBuff: {
@@ -200,7 +200,7 @@ export const floorTable = {
     petHp:    { min: 290, max: 579 },
     passiveValue: {
       buff:    { min: 18, max: 95 },
-      trigger: { min: 30, max: 90 },
+      trigger: { min: 47, max: 95 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -219,7 +219,7 @@ export const floorTable = {
     petHp:    { min: 323, max: 646 },
     passiveValue: {
       buff:    { min: 19, max: 103 },
-      trigger: { min: 32, max: 95 },
+      trigger: { min: 51, max: 103 },
     },
     dexBuff: { hp: 0.21, power: 0.21 },
     titleDexBuff: {
@@ -238,7 +238,7 @@ export const floorTable = {
     petHp:    { min: 357, max: 714 },
     passiveValue: {
       buff:    { min: 21, max: 111 },
-      trigger: { min: 34, max: 100 },
+      trigger: { min: 55, max: 111 },
     },
     dexBuff: { hp: 0.22, power: 0.22 },
     titleDexBuff: {
@@ -257,7 +257,7 @@ export const floorTable = {
     petHp:    { min: 392, max: 783 },
     passiveValue: {
       buff:    { min: 22, max: 119 },
-      trigger: { min: 36, max: 100 },
+      trigger: { min: 59, max: 119 },
     },
     dexBuff: { hp: 0.23, power: 0.23 },
     titleDexBuff: {
@@ -276,7 +276,7 @@ export const floorTable = {
     petHp:    { min: 427, max: 853 },
     passiveValue: {
       buff:    { min: 24, max: 127 },
-      trigger: { min: 38, max: 100 },
+      trigger: { min: 63, max: 127 },
     },
     dexBuff: { hp: 0.24, power: 0.24 },
     titleDexBuff: {
@@ -295,7 +295,7 @@ export const floorTable = {
     petHp:    { min: 462, max: 924 },
     passiveValue: {
       buff:    { min: 25, max: 135 },
-      trigger: { min: 40, max: 100 },
+      trigger: { min: 67, max: 135 },
     },
     dexBuff: { hp: 0.25, power: 0.25 },
     titleDexBuff: {
@@ -314,7 +314,7 @@ export const floorTable = {
     petHp:    { min: 498, max: 996 },
     passiveValue: {
       buff:    { min: 27, max: 143 },
-      trigger: { min: 42, max: 100 },
+      trigger: { min: 71, max: 143 },
     },
     dexBuff: { hp: 0.26, power: 0.26 },
     titleDexBuff: {
@@ -333,7 +333,7 @@ export const floorTable = {
     petHp:    { min: 535, max: 1069 },
     passiveValue: {
       buff:    { min: 28, max: 151 },
-      trigger: { min: 44, max: 100 },
+      trigger: { min: 75, max: 151 },
     },
     dexBuff: { hp: 0.27, power: 0.27 },
     titleDexBuff: {
@@ -352,7 +352,7 @@ export const floorTable = {
     petHp:    { min: 572, max: 1143 },
     passiveValue: {
       buff:    { min: 30, max: 159 },
-      trigger: { min: 46, max: 100 },
+      trigger: { min: 79, max: 159 },
     },
     dexBuff: { hp: 0.28, power: 0.28 },
     titleDexBuff: {
@@ -371,7 +371,7 @@ export const floorTable = {
     petHp:    { min: 609, max: 1217 },
     passiveValue: {
       buff:    { min: 31, max: 167 },
-      trigger: { min: 48, max: 100 },
+      trigger: { min: 83, max: 167 },
     },
     dexBuff: { hp: 0.29, power: 0.29 },
     titleDexBuff: {
@@ -390,7 +390,7 @@ export const floorTable = {
     petHp:    { min: 647, max: 1293 },
     passiveValue: {
       buff:    { min: 33, max: 175 },
-      trigger: { min: 50, max: 100 },
+      trigger: { min: 87, max: 175 },
     },
     dexBuff: { hp: 0.3, power: 0.3 },
     titleDexBuff: {
@@ -409,7 +409,7 @@ export const floorTable = {
     petHp:    { min: 685, max: 1369 },
     passiveValue: {
       buff:    { min: 34, max: 183 },
-      trigger: { min: 52, max: 100 },
+      trigger: { min: 91, max: 183 },
     },
     dexBuff: { hp: 0.31, power: 0.31 },
     titleDexBuff: {
@@ -428,7 +428,7 @@ export const floorTable = {
     petHp:    { min: 723, max: 1445 },
     passiveValue: {
       buff:    { min: 36, max: 191 },
-      trigger: { min: 54, max: 100 },
+      trigger: { min: 95, max: 191 },
     },
     dexBuff: { hp: 0.32, power: 0.32 },
     titleDexBuff: {
@@ -447,7 +447,7 @@ export const floorTable = {
     petHp:    { min: 762, max: 1523 },
     passiveValue: {
       buff:    { min: 37, max: 199 },
-      trigger: { min: 56, max: 100 },
+      trigger: { min: 99, max: 199 },
     },
     dexBuff: { hp: 0.33, power: 0.33 },
     titleDexBuff: {
@@ -466,7 +466,7 @@ export const floorTable = {
     petHp:    { min: 801, max: 1601 },
     passiveValue: {
       buff:    { min: 39, max: 207 },
-      trigger: { min: 58, max: 100 },
+      trigger: { min: 103, max: 207 },
     },
     dexBuff: { hp: 0.34, power: 0.34 },
     titleDexBuff: {
@@ -485,7 +485,7 @@ export const floorTable = {
     petHp:    { min: 840, max: 1679 },
     passiveValue: {
       buff:    { min: 40, max: 215 },
-      trigger: { min: 60, max: 100 },
+      trigger: { min: 107, max: 215 },
     },
     dexBuff: { hp: 0.35, power: 0.35 },
     titleDexBuff: {
@@ -504,7 +504,7 @@ export const floorTable = {
     petHp:    { min: 880, max: 1759 },
     passiveValue: {
       buff:    { min: 42, max: 223 },
-      trigger: { min: 62, max: 100 },
+      trigger: { min: 111, max: 223 },
     },
     dexBuff: { hp: 0.36, power: 0.36 },
     titleDexBuff: {
@@ -523,7 +523,7 @@ export const floorTable = {
     petHp:    { min: 920, max: 1839 },
     passiveValue: {
       buff:    { min: 43, max: 231 },
-      trigger: { min: 64, max: 100 },
+      trigger: { min: 115, max: 231 },
     },
     dexBuff: { hp: 0.37, power: 0.37 },
     titleDexBuff: {
@@ -542,7 +542,7 @@ export const floorTable = {
     petHp:    { min: 960, max: 1919 },
     passiveValue: {
       buff:    { min: 45, max: 239 },
-      trigger: { min: 66, max: 100 },
+      trigger: { min: 119, max: 239 },
     },
     dexBuff: { hp: 0.38, power: 0.38 },
     titleDexBuff: {
@@ -561,7 +561,7 @@ export const floorTable = {
     petHp:    { min: 1000, max: 2000 },
     passiveValue: {
       buff:    { min: 46, max: 247 },
-      trigger: { min: 68, max: 100 },
+      trigger: { min: 123, max: 247 },
     },
     dexBuff: { hp: 0.39, power: 0.39 },
     titleDexBuff: {
@@ -580,7 +580,7 @@ export const floorTable = {
     petHp:    { min: 1041, max: 2082 },
     passiveValue: {
       buff:    { min: 48, max: 255 },
-      trigger: { min: 70, max: 100 },
+      trigger: { min: 127, max: 255 },
     },
     dexBuff: { hp: 0.4, power: 0.4 },
     titleDexBuff: {
@@ -599,7 +599,7 @@ export const floorTable = {
     petHp:    { min: 1082, max: 2164 },
     passiveValue: {
       buff:    { min: 49, max: 263 },
-      trigger: { min: 72, max: 100 },
+      trigger: { min: 131, max: 263 },
     },
     dexBuff: { hp: 0.41, power: 0.41 },
     titleDexBuff: {
@@ -618,7 +618,7 @@ export const floorTable = {
     petHp:    { min: 1124, max: 2247 },
     passiveValue: {
       buff:    { min: 51, max: 271 },
-      trigger: { min: 74, max: 100 },
+      trigger: { min: 135, max: 271 },
     },
     dexBuff: { hp: 0.42, power: 0.42 },
     titleDexBuff: {
@@ -637,7 +637,7 @@ export const floorTable = {
     petHp:    { min: 1165, max: 2330 },
     passiveValue: {
       buff:    { min: 52, max: 279 },
-      trigger: { min: 76, max: 100 },
+      trigger: { min: 139, max: 279 },
     },
     dexBuff: { hp: 0.43, power: 0.43 },
     titleDexBuff: {
@@ -656,7 +656,7 @@ export const floorTable = {
     petHp:    { min: 1207, max: 2414 },
     passiveValue: {
       buff:    { min: 54, max: 287 },
-      trigger: { min: 78, max: 100 },
+      trigger: { min: 143, max: 287 },
     },
     dexBuff: { hp: 0.44, power: 0.44 },
     titleDexBuff: {
@@ -675,7 +675,7 @@ export const floorTable = {
     petHp:    { min: 1249, max: 2498 },
     passiveValue: {
       buff:    { min: 55, max: 295 },
-      trigger: { min: 80, max: 100 },
+      trigger: { min: 147, max: 295 },
     },
     dexBuff: { hp: 0.45, power: 0.45 },
     titleDexBuff: {
@@ -694,7 +694,7 @@ export const floorTable = {
     petHp:    { min: 1292, max: 2583 },
     passiveValue: {
       buff:    { min: 57, max: 303 },
-      trigger: { min: 82, max: 100 },
+      trigger: { min: 151, max: 303 },
     },
     dexBuff: { hp: 0.46, power: 0.46 },
     titleDexBuff: {
@@ -713,7 +713,7 @@ export const floorTable = {
     petHp:    { min: 1334, max: 2668 },
     passiveValue: {
       buff:    { min: 58, max: 311 },
-      trigger: { min: 84, max: 100 },
+      trigger: { min: 155, max: 311 },
     },
     dexBuff: { hp: 0.47, power: 0.47 },
     titleDexBuff: {
@@ -732,7 +732,7 @@ export const floorTable = {
     petHp:    { min: 1377, max: 2753 },
     passiveValue: {
       buff:    { min: 60, max: 319 },
-      trigger: { min: 86, max: 100 },
+      trigger: { min: 159, max: 319 },
     },
     dexBuff: { hp: 0.48, power: 0.48 },
     titleDexBuff: {
@@ -751,7 +751,7 @@ export const floorTable = {
     petHp:    { min: 1420, max: 2840 },
     passiveValue: {
       buff:    { min: 61, max: 327 },
-      trigger: { min: 88, max: 100 },
+      trigger: { min: 163, max: 327 },
     },
     dexBuff: { hp: 0.49, power: 0.49 },
     titleDexBuff: {
@@ -770,7 +770,7 @@ export const floorTable = {
     petHp:    { min: 1463, max: 2926 },
     passiveValue: {
       buff:    { min: 63, max: 335 },
-      trigger: { min: 90, max: 100 },
+      trigger: { min: 167, max: 335 },
     },
     dexBuff: { hp: 0.5, power: 0.5 },
     titleDexBuff: {
@@ -789,7 +789,7 @@ export const floorTable = {
     petHp:    { min: 1507, max: 3013 },
     passiveValue: {
       buff:    { min: 64, max: 343 },
-      trigger: { min: 92, max: 100 },
+      trigger: { min: 171, max: 343 },
     },
     dexBuff: { hp: 0.51, power: 0.51 },
     titleDexBuff: {
@@ -808,7 +808,7 @@ export const floorTable = {
     petHp:    { min: 1550, max: 3100 },
     passiveValue: {
       buff:    { min: 66, max: 351 },
-      trigger: { min: 94, max: 100 },
+      trigger: { min: 175, max: 351 },
     },
     dexBuff: { hp: 0.52, power: 0.52 },
     titleDexBuff: {
@@ -827,7 +827,7 @@ export const floorTable = {
     petHp:    { min: 1594, max: 3188 },
     passiveValue: {
       buff:    { min: 67, max: 359 },
-      trigger: { min: 96, max: 100 },
+      trigger: { min: 179, max: 359 },
     },
     dexBuff: { hp: 0.53, power: 0.53 },
     titleDexBuff: {
@@ -846,7 +846,7 @@ export const floorTable = {
     petHp:    { min: 1638, max: 3276 },
     passiveValue: {
       buff:    { min: 69, max: 367 },
-      trigger: { min: 98, max: 100 },
+      trigger: { min: 183, max: 367 },
     },
     dexBuff: { hp: 0.54, power: 0.54 },
     titleDexBuff: {
@@ -865,7 +865,7 @@ export const floorTable = {
     petHp:    { min: 1683, max: 3365 },
     passiveValue: {
       buff:    { min: 70, max: 375 },
-      trigger: { min: 100, max: 100 },
+      trigger: { min: 187, max: 375 },
     },
     dexBuff: { hp: 0.55, power: 0.55 },
     titleDexBuff: {
@@ -884,7 +884,7 @@ export const floorTable = {
     petHp:    { min: 1727, max: 3454 },
     passiveValue: {
       buff:    { min: 72, max: 383 },
-      trigger: { min: 102, max: 100 },
+      trigger: { min: 191, max: 383 },
     },
     dexBuff: { hp: 0.56, power: 0.56 },
     titleDexBuff: {
@@ -903,7 +903,7 @@ export const floorTable = {
     petHp:    { min: 1772, max: 3543 },
     passiveValue: {
       buff:    { min: 73, max: 391 },
-      trigger: { min: 104, max: 100 },
+      trigger: { min: 195, max: 391 },
     },
     dexBuff: { hp: 0.57, power: 0.57 },
     titleDexBuff: {
@@ -922,7 +922,7 @@ export const floorTable = {
     petHp:    { min: 1817, max: 3633 },
     passiveValue: {
       buff:    { min: 75, max: 399 },
-      trigger: { min: 106, max: 100 },
+      trigger: { min: 199, max: 399 },
     },
     dexBuff: { hp: 0.58, power: 0.58 },
     titleDexBuff: {
@@ -941,7 +941,7 @@ export const floorTable = {
     petHp:    { min: 1862, max: 3723 },
     passiveValue: {
       buff:    { min: 76, max: 407 },
-      trigger: { min: 108, max: 100 },
+      trigger: { min: 203, max: 407 },
     },
     dexBuff: { hp: 0.59, power: 0.59 },
     titleDexBuff: {
@@ -960,7 +960,7 @@ export const floorTable = {
     petHp:    { min: 1907, max: 3813 },
     passiveValue: {
       buff:    { min: 78, max: 415 },
-      trigger: { min: 110, max: 100 },
+      trigger: { min: 207, max: 415 },
     },
     dexBuff: { hp: 0.6, power: 0.6 },
     titleDexBuff: {
@@ -979,7 +979,7 @@ export const floorTable = {
     petHp:    { min: 1952, max: 3904 },
     passiveValue: {
       buff:    { min: 79, max: 423 },
-      trigger: { min: 112, max: 100 },
+      trigger: { min: 211, max: 423 },
     },
     dexBuff: { hp: 0.61, power: 0.61 },
     titleDexBuff: {
@@ -998,7 +998,7 @@ export const floorTable = {
     petHp:    { min: 1998, max: 3995 },
     passiveValue: {
       buff:    { min: 81, max: 431 },
-      trigger: { min: 114, max: 100 },
+      trigger: { min: 215, max: 431 },
     },
     dexBuff: { hp: 0.62, power: 0.62 },
     titleDexBuff: {
@@ -1017,7 +1017,7 @@ export const floorTable = {
     petHp:    { min: 2044, max: 4087 },
     passiveValue: {
       buff:    { min: 82, max: 439 },
-      trigger: { min: 116, max: 100 },
+      trigger: { min: 219, max: 439 },
     },
     dexBuff: { hp: 0.63, power: 0.63 },
     titleDexBuff: {
@@ -1036,7 +1036,7 @@ export const floorTable = {
     petHp:    { min: 2089, max: 4178 },
     passiveValue: {
       buff:    { min: 84, max: 447 },
-      trigger: { min: 118, max: 100 },
+      trigger: { min: 223, max: 447 },
     },
     dexBuff: { hp: 0.64, power: 0.64 },
     titleDexBuff: {
@@ -1055,7 +1055,7 @@ export const floorTable = {
     petHp:    { min: 2136, max: 4271 },
     passiveValue: {
       buff:    { min: 85, max: 455 },
-      trigger: { min: 120, max: 100 },
+      trigger: { min: 227, max: 455 },
     },
     dexBuff: { hp: 0.65, power: 0.65 },
     titleDexBuff: {
@@ -1074,7 +1074,7 @@ export const floorTable = {
     petHp:    { min: 2182, max: 4363 },
     passiveValue: {
       buff:    { min: 87, max: 463 },
-      trigger: { min: 122, max: 100 },
+      trigger: { min: 231, max: 463 },
     },
     dexBuff: { hp: 0.66, power: 0.66 },
     titleDexBuff: {
@@ -1093,7 +1093,7 @@ export const floorTable = {
     petHp:    { min: 2228, max: 4456 },
     passiveValue: {
       buff:    { min: 88, max: 471 },
-      trigger: { min: 124, max: 100 },
+      trigger: { min: 235, max: 471 },
     },
     dexBuff: { hp: 0.67, power: 0.67 },
     titleDexBuff: {
@@ -1112,7 +1112,7 @@ export const floorTable = {
     petHp:    { min: 2275, max: 4549 },
     passiveValue: {
       buff:    { min: 90, max: 479 },
-      trigger: { min: 126, max: 100 },
+      trigger: { min: 239, max: 479 },
     },
     dexBuff: { hp: 0.68, power: 0.68 },
     titleDexBuff: {
@@ -1131,7 +1131,7 @@ export const floorTable = {
     petHp:    { min: 2321, max: 4642 },
     passiveValue: {
       buff:    { min: 91, max: 487 },
-      trigger: { min: 128, max: 100 },
+      trigger: { min: 243, max: 487 },
     },
     dexBuff: { hp: 0.69, power: 0.69 },
     titleDexBuff: {
@@ -1150,7 +1150,7 @@ export const floorTable = {
     petHp:    { min: 2368, max: 4736 },
     passiveValue: {
       buff:    { min: 93, max: 495 },
-      trigger: { min: 130, max: 100 },
+      trigger: { min: 247, max: 495 },
     },
     dexBuff: { hp: 0.7, power: 0.7 },
     titleDexBuff: {
@@ -1169,7 +1169,7 @@ export const floorTable = {
     petHp:    { min: 2415, max: 4830 },
     passiveValue: {
       buff:    { min: 94, max: 503 },
-      trigger: { min: 132, max: 100 },
+      trigger: { min: 251, max: 503 },
     },
     dexBuff: { hp: 0.71, power: 0.71 },
     titleDexBuff: {
@@ -1188,7 +1188,7 @@ export const floorTable = {
     petHp:    { min: 2463, max: 4925 },
     passiveValue: {
       buff:    { min: 96, max: 511 },
-      trigger: { min: 134, max: 100 },
+      trigger: { min: 255, max: 511 },
     },
     dexBuff: { hp: 0.72, power: 0.72 },
     titleDexBuff: {
@@ -1207,7 +1207,7 @@ export const floorTable = {
     petHp:    { min: 2510, max: 5019 },
     passiveValue: {
       buff:    { min: 97, max: 519 },
-      trigger: { min: 136, max: 100 },
+      trigger: { min: 259, max: 519 },
     },
     dexBuff: { hp: 0.73, power: 0.73 },
     titleDexBuff: {
@@ -1226,7 +1226,7 @@ export const floorTable = {
     petHp:    { min: 2557, max: 5114 },
     passiveValue: {
       buff:    { min: 99, max: 527 },
-      trigger: { min: 138, max: 100 },
+      trigger: { min: 263, max: 527 },
     },
     dexBuff: { hp: 0.74, power: 0.74 },
     titleDexBuff: {
@@ -1245,7 +1245,7 @@ export const floorTable = {
     petHp:    { min: 2605, max: 5210 },
     passiveValue: {
       buff:    { min: 100, max: 535 },
-      trigger: { min: 140, max: 100 },
+      trigger: { min: 267, max: 535 },
     },
     dexBuff: { hp: 0.75, power: 0.75 },
     titleDexBuff: {
@@ -1264,7 +1264,7 @@ export const floorTable = {
     petHp:    { min: 2653, max: 5305 },
     passiveValue: {
       buff:    { min: 102, max: 543 },
-      trigger: { min: 142, max: 100 },
+      trigger: { min: 271, max: 543 },
     },
     dexBuff: { hp: 0.76, power: 0.76 },
     titleDexBuff: {
@@ -1283,7 +1283,7 @@ export const floorTable = {
     petHp:    { min: 2701, max: 5401 },
     passiveValue: {
       buff:    { min: 103, max: 551 },
-      trigger: { min: 144, max: 100 },
+      trigger: { min: 275, max: 551 },
     },
     dexBuff: { hp: 0.77, power: 0.77 },
     titleDexBuff: {
@@ -1302,7 +1302,7 @@ export const floorTable = {
     petHp:    { min: 2749, max: 5497 },
     passiveValue: {
       buff:    { min: 105, max: 559 },
-      trigger: { min: 146, max: 100 },
+      trigger: { min: 279, max: 559 },
     },
     dexBuff: { hp: 0.78, power: 0.78 },
     titleDexBuff: {
@@ -1321,7 +1321,7 @@ export const floorTable = {
     petHp:    { min: 2797, max: 5594 },
     passiveValue: {
       buff:    { min: 106, max: 567 },
-      trigger: { min: 148, max: 100 },
+      trigger: { min: 283, max: 567 },
     },
     dexBuff: { hp: 0.79, power: 0.79 },
     titleDexBuff: {
@@ -1340,7 +1340,7 @@ export const floorTable = {
     petHp:    { min: 2846, max: 5691 },
     passiveValue: {
       buff:    { min: 108, max: 575 },
-      trigger: { min: 150, max: 100 },
+      trigger: { min: 287, max: 575 },
     },
     dexBuff: { hp: 0.8, power: 0.8 },
     titleDexBuff: {
@@ -1359,7 +1359,7 @@ export const floorTable = {
     petHp:    { min: 2894, max: 5788 },
     passiveValue: {
       buff:    { min: 109, max: 583 },
-      trigger: { min: 152, max: 100 },
+      trigger: { min: 291, max: 583 },
     },
     dexBuff: { hp: 0.81, power: 0.81 },
     titleDexBuff: {
@@ -1378,7 +1378,7 @@ export const floorTable = {
     petHp:    { min: 2943, max: 5885 },
     passiveValue: {
       buff:    { min: 111, max: 591 },
-      trigger: { min: 154, max: 100 },
+      trigger: { min: 295, max: 591 },
     },
     dexBuff: { hp: 0.82, power: 0.82 },
     titleDexBuff: {
@@ -1397,7 +1397,7 @@ export const floorTable = {
     petHp:    { min: 2991, max: 5982 },
     passiveValue: {
       buff:    { min: 112, max: 599 },
-      trigger: { min: 156, max: 100 },
+      trigger: { min: 299, max: 599 },
     },
     dexBuff: { hp: 0.83, power: 0.83 },
     titleDexBuff: {
@@ -1416,7 +1416,7 @@ export const floorTable = {
     petHp:    { min: 3040, max: 6080 },
     passiveValue: {
       buff:    { min: 114, max: 607 },
-      trigger: { min: 158, max: 100 },
+      trigger: { min: 303, max: 607 },
     },
     dexBuff: { hp: 0.84, power: 0.84 },
     titleDexBuff: {
@@ -1435,7 +1435,7 @@ export const floorTable = {
     petHp:    { min: 3089, max: 6178 },
     passiveValue: {
       buff:    { min: 115, max: 615 },
-      trigger: { min: 160, max: 100 },
+      trigger: { min: 307, max: 615 },
     },
     dexBuff: { hp: 0.85, power: 0.85 },
     titleDexBuff: {
@@ -1454,7 +1454,7 @@ export const floorTable = {
     petHp:    { min: 3139, max: 6277 },
     passiveValue: {
       buff:    { min: 117, max: 623 },
-      trigger: { min: 162, max: 100 },
+      trigger: { min: 311, max: 623 },
     },
     dexBuff: { hp: 0.86, power: 0.86 },
     titleDexBuff: {
@@ -1473,7 +1473,7 @@ export const floorTable = {
     petHp:    { min: 3188, max: 6375 },
     passiveValue: {
       buff:    { min: 118, max: 631 },
-      trigger: { min: 164, max: 100 },
+      trigger: { min: 315, max: 631 },
     },
     dexBuff: { hp: 0.87, power: 0.87 },
     titleDexBuff: {
@@ -1492,7 +1492,7 @@ export const floorTable = {
     petHp:    { min: 3237, max: 6474 },
     passiveValue: {
       buff:    { min: 120, max: 639 },
-      trigger: { min: 166, max: 100 },
+      trigger: { min: 319, max: 639 },
     },
     dexBuff: { hp: 0.88, power: 0.88 },
     titleDexBuff: {
@@ -1511,7 +1511,7 @@ export const floorTable = {
     petHp:    { min: 3287, max: 6573 },
     passiveValue: {
       buff:    { min: 121, max: 647 },
-      trigger: { min: 168, max: 100 },
+      trigger: { min: 323, max: 647 },
     },
     dexBuff: { hp: 0.89, power: 0.89 },
     titleDexBuff: {
@@ -1530,7 +1530,7 @@ export const floorTable = {
     petHp:    { min: 3336, max: 6672 },
     passiveValue: {
       buff:    { min: 123, max: 655 },
-      trigger: { min: 170, max: 100 },
+      trigger: { min: 327, max: 655 },
     },
     dexBuff: { hp: 0.9, power: 0.9 },
     titleDexBuff: {
@@ -1549,7 +1549,7 @@ export const floorTable = {
     petHp:    { min: 3386, max: 6772 },
     passiveValue: {
       buff:    { min: 124, max: 663 },
-      trigger: { min: 172, max: 100 },
+      trigger: { min: 331, max: 663 },
     },
     dexBuff: { hp: 0.91, power: 0.91 },
     titleDexBuff: {
@@ -1568,7 +1568,7 @@ export const floorTable = {
     petHp:    { min: 3436, max: 6872 },
     passiveValue: {
       buff:    { min: 126, max: 671 },
-      trigger: { min: 174, max: 100 },
+      trigger: { min: 335, max: 671 },
     },
     dexBuff: { hp: 0.92, power: 0.92 },
     titleDexBuff: {
@@ -1587,7 +1587,7 @@ export const floorTable = {
     petHp:    { min: 3486, max: 6972 },
     passiveValue: {
       buff:    { min: 127, max: 679 },
-      trigger: { min: 176, max: 100 },
+      trigger: { min: 339, max: 679 },
     },
     dexBuff: { hp: 0.93, power: 0.93 },
     titleDexBuff: {
@@ -1606,7 +1606,7 @@ export const floorTable = {
     petHp:    { min: 3536, max: 7072 },
     passiveValue: {
       buff:    { min: 129, max: 687 },
-      trigger: { min: 178, max: 100 },
+      trigger: { min: 343, max: 687 },
     },
     dexBuff: { hp: 0.94, power: 0.94 },
     titleDexBuff: {
@@ -1625,7 +1625,7 @@ export const floorTable = {
     petHp:    { min: 3587, max: 7173 },
     passiveValue: {
       buff:    { min: 130, max: 695 },
-      trigger: { min: 180, max: 100 },
+      trigger: { min: 347, max: 695 },
     },
     dexBuff: { hp: 0.95, power: 0.95 },
     titleDexBuff: {
@@ -1644,7 +1644,7 @@ export const floorTable = {
     petHp:    { min: 3637, max: 7274 },
     passiveValue: {
       buff:    { min: 132, max: 703 },
-      trigger: { min: 182, max: 100 },
+      trigger: { min: 351, max: 703 },
     },
     dexBuff: { hp: 0.96, power: 0.96 },
     titleDexBuff: {
@@ -1663,7 +1663,7 @@ export const floorTable = {
     petHp:    { min: 3688, max: 7375 },
     passiveValue: {
       buff:    { min: 133, max: 711 },
-      trigger: { min: 184, max: 100 },
+      trigger: { min: 355, max: 711 },
     },
     dexBuff: { hp: 0.97, power: 0.97 },
     titleDexBuff: {
@@ -1682,7 +1682,7 @@ export const floorTable = {
     petHp:    { min: 3738, max: 7476 },
     passiveValue: {
       buff:    { min: 135, max: 719 },
-      trigger: { min: 186, max: 100 },
+      trigger: { min: 359, max: 719 },
     },
     dexBuff: { hp: 0.98, power: 0.98 },
     titleDexBuff: {
@@ -1701,7 +1701,7 @@ export const floorTable = {
     petHp:    { min: 3789, max: 7577 },
     passiveValue: {
       buff:    { min: 136, max: 727 },
-      trigger: { min: 188, max: 100 },
+      trigger: { min: 363, max: 727 },
     },
     dexBuff: { hp: 0.99, power: 0.99 },
     titleDexBuff: {
@@ -1720,7 +1720,7 @@ export const floorTable = {
     petHp:    { min: 3840, max: 7679 },
     passiveValue: {
       buff:    { min: 138, max: 735 },
-      trigger: { min: 190, max: 100 },
+      trigger: { min: 367, max: 735 },
     },
     dexBuff: { hp: 1, power: 1 },
     titleDexBuff: {
@@ -1739,7 +1739,7 @@ export const floorTable = {
     petHp:    { min: 3891, max: 7781 },
     passiveValue: {
       buff:    { min: 139, max: 743 },
-      trigger: { min: 192, max: 100 },
+      trigger: { min: 371, max: 743 },
     },
     dexBuff: { hp: 1.01, power: 1.01 },
     titleDexBuff: {
@@ -1758,7 +1758,7 @@ export const floorTable = {
     petHp:    { min: 3942, max: 7883 },
     passiveValue: {
       buff:    { min: 141, max: 751 },
-      trigger: { min: 194, max: 100 },
+      trigger: { min: 375, max: 751 },
     },
     dexBuff: { hp: 1.02, power: 1.02 },
     titleDexBuff: {
@@ -1777,7 +1777,7 @@ export const floorTable = {
     petHp:    { min: 3993, max: 7985 },
     passiveValue: {
       buff:    { min: 142, max: 759 },
-      trigger: { min: 196, max: 100 },
+      trigger: { min: 379, max: 759 },
     },
     dexBuff: { hp: 1.03, power: 1.03 },
     titleDexBuff: {
@@ -1796,7 +1796,7 @@ export const floorTable = {
     petHp:    { min: 4044, max: 8088 },
     passiveValue: {
       buff:    { min: 144, max: 767 },
-      trigger: { min: 198, max: 100 },
+      trigger: { min: 383, max: 767 },
     },
     dexBuff: { hp: 1.04, power: 1.04 },
     titleDexBuff: {
@@ -1815,7 +1815,7 @@ export const floorTable = {
     petHp:    { min: 4096, max: 8191 },
     passiveValue: {
       buff:    { min: 145, max: 775 },
-      trigger: { min: 200, max: 100 },
+      trigger: { min: 387, max: 775 },
     },
     dexBuff: { hp: 1.05, power: 1.05 },
     titleDexBuff: {
@@ -1834,7 +1834,7 @@ export const floorTable = {
     petHp:    { min: 4147, max: 8294 },
     passiveValue: {
       buff:    { min: 147, max: 783 },
-      trigger: { min: 202, max: 100 },
+      trigger: { min: 391, max: 783 },
     },
     dexBuff: { hp: 1.06, power: 1.06 },
     titleDexBuff: {
@@ -1853,7 +1853,7 @@ export const floorTable = {
     petHp:    { min: 4199, max: 8397 },
     passiveValue: {
       buff:    { min: 148, max: 791 },
-      trigger: { min: 204, max: 100 },
+      trigger: { min: 395, max: 791 },
     },
     dexBuff: { hp: 1.07, power: 1.07 },
     titleDexBuff: {
@@ -1872,7 +1872,7 @@ export const floorTable = {
     petHp:    { min: 4251, max: 8501 },
     passiveValue: {
       buff:    { min: 150, max: 799 },
-      trigger: { min: 206, max: 100 },
+      trigger: { min: 399, max: 799 },
     },
     dexBuff: { hp: 1.08, power: 1.08 },
     titleDexBuff: {
@@ -1891,7 +1891,7 @@ export const floorTable = {
     petHp:    { min: 4302, max: 8604 },
     passiveValue: {
       buff:    { min: 151, max: 807 },
-      trigger: { min: 208, max: 100 },
+      trigger: { min: 403, max: 807 },
     },
     dexBuff: { hp: 1.09, power: 1.09 },
     titleDexBuff: {
@@ -1907,7 +1907,7 @@ export const floorTable = {
     petHp:    { min: 20, max: 50 },
     passiveValue: {
       buff:    { min: 6, max: 30 },
-      trigger: { min: 17, max: 48 },
+      trigger: { min: 15, max: 30 },
     },
     dexBuff: { hp: 0.1, power: 0.1 },
     titleDexBuff: {
@@ -1923,7 +1923,7 @@ export const floorTable = {
     petHp:    { min: 46, max: 115 },
     passiveValue: {
       buff:    { min: 9, max: 40 },
-      trigger: { min: 21, max: 54 },
+      trigger: { min: 20, max: 40 },
     },
     dexBuff: { hp: 0.1, power: 0.1 },
     titleDexBuff: {
@@ -1939,7 +1939,7 @@ export const floorTable = {
     petHp:    { min: 75, max: 187 },
     passiveValue: {
       buff:    { min: 12, max: 50 },
-      trigger: { min: 25, max: 60 },
+      trigger: { min: 25, max: 50 },
     },
     dexBuff: { hp: 0.1, power: 0.1 },
     titleDexBuff: {
@@ -1955,7 +1955,7 @@ export const floorTable = {
     petHp:    { min: 106, max: 264 },
     passiveValue: {
       buff:    { min: 15, max: 60 },
-      trigger: { min: 29, max: 66 },
+      trigger: { min: 30, max: 60 },
     },
     dexBuff: { hp: 0.1, power: 0.1 },
     titleDexBuff: {
@@ -1971,7 +1971,7 @@ export const floorTable = {
     petHp:    { min: 138, max: 345 },
     passiveValue: {
       buff:    { min: 18, max: 70 },
-      trigger: { min: 33, max: 72 },
+      trigger: { min: 35, max: 70 },
     },
     dexBuff: { hp: 0.1, power: 0.1 },
     titleDexBuff: {
@@ -1987,7 +1987,7 @@ export const floorTable = {
     petHp:    { min: 172, max: 429 },
     passiveValue: {
       buff:    { min: 21, max: 80 },
-      trigger: { min: 37, max: 78 },
+      trigger: { min: 40, max: 80 },
     },
     dexBuff: { hp: 0.1, power: 0.1 },
     titleDexBuff: {
@@ -2003,7 +2003,7 @@ export const floorTable = {
     petHp:    { min: 207, max: 517 },
     passiveValue: {
       buff:    { min: 24, max: 90 },
-      trigger: { min: 41, max: 84 },
+      trigger: { min: 45, max: 90 },
     },
     dexBuff: { hp: 0.1, power: 0.1 },
     titleDexBuff: {
@@ -2019,7 +2019,7 @@ export const floorTable = {
     petHp:    { min: 243, max: 606 },
     passiveValue: {
       buff:    { min: 27, max: 100 },
-      trigger: { min: 45, max: 90 },
+      trigger: { min: 50, max: 100 },
     },
     dexBuff: { hp: 0.1, power: 0.1 },
     titleDexBuff: {
@@ -2035,7 +2035,7 @@ export const floorTable = {
     petHp:    { min: 279, max: 698 },
     passiveValue: {
       buff:    { min: 30, max: 110 },
-      trigger: { min: 49, max: 96 },
+      trigger: { min: 55, max: 110 },
     },
     dexBuff: { hp: 0.1, power: 0.1 },
     titleDexBuff: {
@@ -2051,7 +2051,7 @@ export const floorTable = {
     petHp:    { min: 317, max: 792 },
     passiveValue: {
       buff:    { min: 33, max: 120 },
-      trigger: { min: 53, max: 100 },
+      trigger: { min: 60, max: 120 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2067,7 +2067,7 @@ export const floorTable = {
     petHp:    { min: 355, max: 888 },
     passiveValue: {
       buff:    { min: 36, max: 130 },
-      trigger: { min: 57, max: 100 },
+      trigger: { min: 65, max: 130 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2083,7 +2083,7 @@ export const floorTable = {
     petHp:    { min: 395, max: 986 },
     passiveValue: {
       buff:    { min: 39, max: 140 },
-      trigger: { min: 61, max: 100 },
+      trigger: { min: 70, max: 140 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2099,7 +2099,7 @@ export const floorTable = {
     petHp:    { min: 434, max: 1086 },
     passiveValue: {
       buff:    { min: 42, max: 150 },
-      trigger: { min: 65, max: 100 },
+      trigger: { min: 75, max: 150 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2115,7 +2115,7 @@ export const floorTable = {
     petHp:    { min: 475, max: 1187 },
     passiveValue: {
       buff:    { min: 45, max: 160 },
-      trigger: { min: 69, max: 100 },
+      trigger: { min: 80, max: 160 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2131,7 +2131,7 @@ export const floorTable = {
     petHp:    { min: 516, max: 1289 },
     passiveValue: {
       buff:    { min: 48, max: 170 },
-      trigger: { min: 73, max: 100 },
+      trigger: { min: 85, max: 170 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2147,7 +2147,7 @@ export const floorTable = {
     petHp:    { min: 557, max: 1393 },
     passiveValue: {
       buff:    { min: 51, max: 180 },
-      trigger: { min: 77, max: 100 },
+      trigger: { min: 90, max: 180 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2163,7 +2163,7 @@ export const floorTable = {
     petHp:    { min: 599, max: 1498 },
     passiveValue: {
       buff:    { min: 54, max: 190 },
-      trigger: { min: 81, max: 100 },
+      trigger: { min: 95, max: 190 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2179,7 +2179,7 @@ export const floorTable = {
     petHp:    { min: 642, max: 1604 },
     passiveValue: {
       buff:    { min: 57, max: 200 },
-      trigger: { min: 85, max: 100 },
+      trigger: { min: 100, max: 200 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2195,7 +2195,7 @@ export const floorTable = {
     petHp:    { min: 685, max: 1712 },
     passiveValue: {
       buff:    { min: 60, max: 210 },
-      trigger: { min: 89, max: 100 },
+      trigger: { min: 105, max: 210 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2211,7 +2211,7 @@ export const floorTable = {
     petHp:    { min: 728, max: 1821 },
     passiveValue: {
       buff:    { min: 63, max: 220 },
-      trigger: { min: 93, max: 100 },
+      trigger: { min: 110, max: 220 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2227,7 +2227,7 @@ export const floorTable = {
     petHp:    { min: 772, max: 1930 },
     passiveValue: {
       buff:    { min: 66, max: 230 },
-      trigger: { min: 97, max: 100 },
+      trigger: { min: 115, max: 230 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2243,7 +2243,7 @@ export const floorTable = {
     petHp:    { min: 816, max: 2041 },
     passiveValue: {
       buff:    { min: 69, max: 240 },
-      trigger: { min: 101, max: 100 },
+      trigger: { min: 120, max: 240 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2259,7 +2259,7 @@ export const floorTable = {
     petHp:    { min: 861, max: 2153 },
     passiveValue: {
       buff:    { min: 72, max: 250 },
-      trigger: { min: 105, max: 100 },
+      trigger: { min: 125, max: 250 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2275,7 +2275,7 @@ export const floorTable = {
     petHp:    { min: 906, max: 2266 },
     passiveValue: {
       buff:    { min: 75, max: 260 },
-      trigger: { min: 109, max: 100 },
+      trigger: { min: 130, max: 260 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2291,7 +2291,7 @@ export const floorTable = {
     petHp:    { min: 952, max: 2380 },
     passiveValue: {
       buff:    { min: 78, max: 270 },
-      trigger: { min: 113, max: 100 },
+      trigger: { min: 135, max: 270 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2307,7 +2307,7 @@ export const floorTable = {
     petHp:    { min: 998, max: 2494 },
     passiveValue: {
       buff:    { min: 81, max: 280 },
-      trigger: { min: 117, max: 100 },
+      trigger: { min: 140, max: 280 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2323,7 +2323,7 @@ export const floorTable = {
     petHp:    { min: 1044, max: 2610 },
     passiveValue: {
       buff:    { min: 84, max: 290 },
-      trigger: { min: 121, max: 100 },
+      trigger: { min: 145, max: 290 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2339,7 +2339,7 @@ export const floorTable = {
     petHp:    { min: 1090, max: 2726 },
     passiveValue: {
       buff:    { min: 87, max: 300 },
-      trigger: { min: 125, max: 100 },
+      trigger: { min: 150, max: 300 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2355,7 +2355,7 @@ export const floorTable = {
     petHp:    { min: 1137, max: 2843 },
     passiveValue: {
       buff:    { min: 90, max: 310 },
-      trigger: { min: 129, max: 100 },
+      trigger: { min: 155, max: 310 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2371,7 +2371,7 @@ export const floorTable = {
     petHp:    { min: 1185, max: 2962 },
     passiveValue: {
       buff:    { min: 93, max: 320 },
-      trigger: { min: 133, max: 100 },
+      trigger: { min: 160, max: 320 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2387,7 +2387,7 @@ export const floorTable = {
     petHp:    { min: 1232, max: 3080 },
     passiveValue: {
       buff:    { min: 96, max: 330 },
-      trigger: { min: 137, max: 100 },
+      trigger: { min: 165, max: 330 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2403,7 +2403,7 @@ export const floorTable = {
     petHp:    { min: 1280, max: 3200 },
     passiveValue: {
       buff:    { min: 99, max: 340 },
-      trigger: { min: 141, max: 100 },
+      trigger: { min: 170, max: 340 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2419,7 +2419,7 @@ export const floorTable = {
     petHp:    { min: 1328, max: 3320 },
     passiveValue: {
       buff:    { min: 102, max: 350 },
-      trigger: { min: 145, max: 100 },
+      trigger: { min: 175, max: 350 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2435,7 +2435,7 @@ export const floorTable = {
     petHp:    { min: 1377, max: 3441 },
     passiveValue: {
       buff:    { min: 105, max: 360 },
-      trigger: { min: 149, max: 100 },
+      trigger: { min: 180, max: 360 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2451,7 +2451,7 @@ export const floorTable = {
     petHp:    { min: 1425, max: 3563 },
     passiveValue: {
       buff:    { min: 108, max: 370 },
-      trigger: { min: 153, max: 100 },
+      trigger: { min: 185, max: 370 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2467,7 +2467,7 @@ export const floorTable = {
     petHp:    { min: 1474, max: 3686 },
     passiveValue: {
       buff:    { min: 111, max: 380 },
-      trigger: { min: 157, max: 100 },
+      trigger: { min: 190, max: 380 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2483,7 +2483,7 @@ export const floorTable = {
     petHp:    { min: 1524, max: 3809 },
     passiveValue: {
       buff:    { min: 114, max: 390 },
-      trigger: { min: 161, max: 100 },
+      trigger: { min: 195, max: 390 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2499,7 +2499,7 @@ export const floorTable = {
     petHp:    { min: 1573, max: 3933 },
     passiveValue: {
       buff:    { min: 117, max: 400 },
-      trigger: { min: 165, max: 100 },
+      trigger: { min: 200, max: 400 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2515,7 +2515,7 @@ export const floorTable = {
     petHp:    { min: 1623, max: 4057 },
     passiveValue: {
       buff:    { min: 120, max: 410 },
-      trigger: { min: 169, max: 100 },
+      trigger: { min: 205, max: 410 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2531,7 +2531,7 @@ export const floorTable = {
     petHp:    { min: 1673, max: 4183 },
     passiveValue: {
       buff:    { min: 123, max: 420 },
-      trigger: { min: 173, max: 100 },
+      trigger: { min: 210, max: 420 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2547,7 +2547,7 @@ export const floorTable = {
     petHp:    { min: 1723, max: 4308 },
     passiveValue: {
       buff:    { min: 126, max: 430 },
-      trigger: { min: 177, max: 100 },
+      trigger: { min: 215, max: 430 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2563,7 +2563,7 @@ export const floorTable = {
     petHp:    { min: 1774, max: 4435 },
     passiveValue: {
       buff:    { min: 129, max: 440 },
-      trigger: { min: 181, max: 100 },
+      trigger: { min: 220, max: 440 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2579,7 +2579,7 @@ export const floorTable = {
     petHp:    { min: 1825, max: 4562 },
     passiveValue: {
       buff:    { min: 132, max: 450 },
-      trigger: { min: 185, max: 100 },
+      trigger: { min: 225, max: 450 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2595,7 +2595,7 @@ export const floorTable = {
     petHp:    { min: 1876, max: 4689 },
     passiveValue: {
       buff:    { min: 135, max: 460 },
-      trigger: { min: 189, max: 100 },
+      trigger: { min: 230, max: 460 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2611,7 +2611,7 @@ export const floorTable = {
     petHp:    { min: 1927, max: 4818 },
     passiveValue: {
       buff:    { min: 138, max: 470 },
-      trigger: { min: 193, max: 100 },
+      trigger: { min: 235, max: 470 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2627,7 +2627,7 @@ export const floorTable = {
     petHp:    { min: 1979, max: 4946 },
     passiveValue: {
       buff:    { min: 141, max: 480 },
-      trigger: { min: 197, max: 100 },
+      trigger: { min: 240, max: 480 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2643,7 +2643,7 @@ export const floorTable = {
     petHp:    { min: 2030, max: 5076 },
     passiveValue: {
       buff:    { min: 144, max: 490 },
-      trigger: { min: 201, max: 100 },
+      trigger: { min: 245, max: 490 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2659,7 +2659,7 @@ export const floorTable = {
     petHp:    { min: 2082, max: 5205 },
     passiveValue: {
       buff:    { min: 147, max: 500 },
-      trigger: { min: 205, max: 100 },
+      trigger: { min: 250, max: 500 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2675,7 +2675,7 @@ export const floorTable = {
     petHp:    { min: 2134, max: 5336 },
     passiveValue: {
       buff:    { min: 150, max: 510 },
-      trigger: { min: 209, max: 100 },
+      trigger: { min: 255, max: 510 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2691,7 +2691,7 @@ export const floorTable = {
     petHp:    { min: 2187, max: 5467 },
     passiveValue: {
       buff:    { min: 153, max: 520 },
-      trigger: { min: 213, max: 100 },
+      trigger: { min: 260, max: 520 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2707,7 +2707,7 @@ export const floorTable = {
     petHp:    { min: 2239, max: 5598 },
     passiveValue: {
       buff:    { min: 156, max: 530 },
-      trigger: { min: 217, max: 100 },
+      trigger: { min: 265, max: 530 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2723,7 +2723,7 @@ export const floorTable = {
     petHp:    { min: 2292, max: 5730 },
     passiveValue: {
       buff:    { min: 159, max: 540 },
-      trigger: { min: 221, max: 100 },
+      trigger: { min: 270, max: 540 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2739,7 +2739,7 @@ export const floorTable = {
     petHp:    { min: 2345, max: 5863 },
     passiveValue: {
       buff:    { min: 162, max: 550 },
-      trigger: { min: 225, max: 100 },
+      trigger: { min: 275, max: 550 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2755,7 +2755,7 @@ export const floorTable = {
     petHp:    { min: 2398, max: 5996 },
     passiveValue: {
       buff:    { min: 165, max: 560 },
-      trigger: { min: 229, max: 100 },
+      trigger: { min: 280, max: 560 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2771,7 +2771,7 @@ export const floorTable = {
     petHp:    { min: 2452, max: 6129 },
     passiveValue: {
       buff:    { min: 168, max: 570 },
-      trigger: { min: 233, max: 100 },
+      trigger: { min: 285, max: 570 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2787,7 +2787,7 @@ export const floorTable = {
     petHp:    { min: 2505, max: 6263 },
     passiveValue: {
       buff:    { min: 171, max: 580 },
-      trigger: { min: 237, max: 100 },
+      trigger: { min: 290, max: 580 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2803,7 +2803,7 @@ export const floorTable = {
     petHp:    { min: 2559, max: 6398 },
     passiveValue: {
       buff:    { min: 174, max: 590 },
-      trigger: { min: 241, max: 100 },
+      trigger: { min: 295, max: 590 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2819,7 +2819,7 @@ export const floorTable = {
     petHp:    { min: 2613, max: 6533 },
     passiveValue: {
       buff:    { min: 177, max: 600 },
-      trigger: { min: 245, max: 100 },
+      trigger: { min: 300, max: 600 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2835,7 +2835,7 @@ export const floorTable = {
     petHp:    { min: 2667, max: 6668 },
     passiveValue: {
       buff:    { min: 180, max: 610 },
-      trigger: { min: 249, max: 100 },
+      trigger: { min: 305, max: 610 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2851,7 +2851,7 @@ export const floorTable = {
     petHp:    { min: 2722, max: 6804 },
     passiveValue: {
       buff:    { min: 183, max: 620 },
-      trigger: { min: 253, max: 100 },
+      trigger: { min: 310, max: 620 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2867,7 +2867,7 @@ export const floorTable = {
     petHp:    { min: 2776, max: 6940 },
     passiveValue: {
       buff:    { min: 186, max: 630 },
-      trigger: { min: 257, max: 100 },
+      trigger: { min: 315, max: 630 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2883,7 +2883,7 @@ export const floorTable = {
     petHp:    { min: 2831, max: 7077 },
     passiveValue: {
       buff:    { min: 189, max: 640 },
-      trigger: { min: 261, max: 100 },
+      trigger: { min: 320, max: 640 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2899,7 +2899,7 @@ export const floorTable = {
     petHp:    { min: 2886, max: 7214 },
     passiveValue: {
       buff:    { min: 192, max: 650 },
-      trigger: { min: 265, max: 100 },
+      trigger: { min: 325, max: 650 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2915,7 +2915,7 @@ export const floorTable = {
     petHp:    { min: 2941, max: 7352 },
     passiveValue: {
       buff:    { min: 195, max: 660 },
-      trigger: { min: 269, max: 100 },
+      trigger: { min: 330, max: 660 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2931,7 +2931,7 @@ export const floorTable = {
     petHp:    { min: 2996, max: 7490 },
     passiveValue: {
       buff:    { min: 198, max: 670 },
-      trigger: { min: 273, max: 100 },
+      trigger: { min: 335, max: 670 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2947,7 +2947,7 @@ export const floorTable = {
     petHp:    { min: 3051, max: 7628 },
     passiveValue: {
       buff:    { min: 201, max: 680 },
-      trigger: { min: 277, max: 100 },
+      trigger: { min: 340, max: 680 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2963,7 +2963,7 @@ export const floorTable = {
     petHp:    { min: 3107, max: 7767 },
     passiveValue: {
       buff:    { min: 204, max: 690 },
-      trigger: { min: 281, max: 100 },
+      trigger: { min: 345, max: 690 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2979,7 +2979,7 @@ export const floorTable = {
     petHp:    { min: 3163, max: 7906 },
     passiveValue: {
       buff:    { min: 207, max: 700 },
-      trigger: { min: 285, max: 100 },
+      trigger: { min: 350, max: 700 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -2995,7 +2995,7 @@ export const floorTable = {
     petHp:    { min: 3218, max: 8046 },
     passiveValue: {
       buff:    { min: 210, max: 710 },
-      trigger: { min: 289, max: 100 },
+      trigger: { min: 355, max: 710 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3011,7 +3011,7 @@ export const floorTable = {
     petHp:    { min: 3275, max: 8186 },
     passiveValue: {
       buff:    { min: 213, max: 720 },
-      trigger: { min: 293, max: 100 },
+      trigger: { min: 360, max: 720 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3027,7 +3027,7 @@ export const floorTable = {
     petHp:    { min: 3331, max: 8327 },
     passiveValue: {
       buff:    { min: 216, max: 730 },
-      trigger: { min: 297, max: 100 },
+      trigger: { min: 365, max: 730 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3043,7 +3043,7 @@ export const floorTable = {
     petHp:    { min: 3387, max: 8468 },
     passiveValue: {
       buff:    { min: 219, max: 740 },
-      trigger: { min: 301, max: 100 },
+      trigger: { min: 370, max: 740 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3059,7 +3059,7 @@ export const floorTable = {
     petHp:    { min: 3444, max: 8609 },
     passiveValue: {
       buff:    { min: 222, max: 750 },
-      trigger: { min: 305, max: 100 },
+      trigger: { min: 375, max: 750 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3075,7 +3075,7 @@ export const floorTable = {
     petHp:    { min: 3500, max: 8751 },
     passiveValue: {
       buff:    { min: 225, max: 760 },
-      trigger: { min: 309, max: 100 },
+      trigger: { min: 380, max: 760 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3091,7 +3091,7 @@ export const floorTable = {
     petHp:    { min: 3557, max: 8893 },
     passiveValue: {
       buff:    { min: 228, max: 770 },
-      trigger: { min: 313, max: 100 },
+      trigger: { min: 385, max: 770 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3107,7 +3107,7 @@ export const floorTable = {
     petHp:    { min: 3614, max: 9035 },
     passiveValue: {
       buff:    { min: 231, max: 780 },
-      trigger: { min: 317, max: 100 },
+      trigger: { min: 390, max: 780 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3123,7 +3123,7 @@ export const floorTable = {
     petHp:    { min: 3671, max: 9178 },
     passiveValue: {
       buff:    { min: 234, max: 790 },
-      trigger: { min: 321, max: 100 },
+      trigger: { min: 395, max: 790 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3139,7 +3139,7 @@ export const floorTable = {
     petHp:    { min: 3729, max: 9321 },
     passiveValue: {
       buff:    { min: 237, max: 800 },
-      trigger: { min: 325, max: 100 },
+      trigger: { min: 400, max: 800 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3155,7 +3155,7 @@ export const floorTable = {
     petHp:    { min: 3786, max: 9465 },
     passiveValue: {
       buff:    { min: 240, max: 810 },
-      trigger: { min: 329, max: 100 },
+      trigger: { min: 405, max: 810 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3171,7 +3171,7 @@ export const floorTable = {
     petHp:    { min: 3844, max: 9609 },
     passiveValue: {
       buff:    { min: 243, max: 820 },
-      trigger: { min: 333, max: 100 },
+      trigger: { min: 410, max: 820 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3187,7 +3187,7 @@ export const floorTable = {
     petHp:    { min: 3901, max: 9753 },
     passiveValue: {
       buff:    { min: 246, max: 830 },
-      trigger: { min: 337, max: 100 },
+      trigger: { min: 415, max: 830 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3203,7 +3203,7 @@ export const floorTable = {
     petHp:    { min: 3959, max: 9898 },
     passiveValue: {
       buff:    { min: 249, max: 840 },
-      trigger: { min: 341, max: 100 },
+      trigger: { min: 420, max: 840 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3219,7 +3219,7 @@ export const floorTable = {
     petHp:    { min: 4017, max: 10043 },
     passiveValue: {
       buff:    { min: 252, max: 850 },
-      trigger: { min: 345, max: 100 },
+      trigger: { min: 425, max: 850 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3235,7 +3235,7 @@ export const floorTable = {
     petHp:    { min: 4075, max: 10188 },
     passiveValue: {
       buff:    { min: 255, max: 860 },
-      trigger: { min: 349, max: 100 },
+      trigger: { min: 430, max: 860 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3251,7 +3251,7 @@ export const floorTable = {
     petHp:    { min: 4134, max: 10334 },
     passiveValue: {
       buff:    { min: 258, max: 870 },
-      trigger: { min: 353, max: 100 },
+      trigger: { min: 435, max: 870 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3267,7 +3267,7 @@ export const floorTable = {
     petHp:    { min: 4192, max: 10480 },
     passiveValue: {
       buff:    { min: 261, max: 880 },
-      trigger: { min: 357, max: 100 },
+      trigger: { min: 440, max: 880 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3283,7 +3283,7 @@ export const floorTable = {
     petHp:    { min: 4251, max: 10627 },
     passiveValue: {
       buff:    { min: 264, max: 890 },
-      trigger: { min: 361, max: 100 },
+      trigger: { min: 445, max: 890 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3299,7 +3299,7 @@ export const floorTable = {
     petHp:    { min: 4309, max: 10773 },
     passiveValue: {
       buff:    { min: 267, max: 900 },
-      trigger: { min: 365, max: 100 },
+      trigger: { min: 450, max: 900 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3315,7 +3315,7 @@ export const floorTable = {
     petHp:    { min: 4368, max: 10920 },
     passiveValue: {
       buff:    { min: 270, max: 910 },
-      trigger: { min: 369, max: 100 },
+      trigger: { min: 455, max: 910 },
     },
     dexBuff: { hp: 0.15, power: 0.15 },
     titleDexBuff: {
@@ -3331,7 +3331,7 @@ export const floorTable = {
     petHp:    { min: 4427, max: 11068 },
     passiveValue: {
       buff:    { min: 273, max: 920 },
-      trigger: { min: 373, max: 100 },
+      trigger: { min: 460, max: 920 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -3347,7 +3347,7 @@ export const floorTable = {
     petHp:    { min: 4486, max: 11216 },
     passiveValue: {
       buff:    { min: 276, max: 930 },
-      trigger: { min: 377, max: 100 },
+      trigger: { min: 465, max: 930 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -3363,7 +3363,7 @@ export const floorTable = {
     petHp:    { min: 4545, max: 11364 },
     passiveValue: {
       buff:    { min: 279, max: 940 },
-      trigger: { min: 381, max: 100 },
+      trigger: { min: 470, max: 940 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -3379,7 +3379,7 @@ export const floorTable = {
     petHp:    { min: 4605, max: 11512 },
     passiveValue: {
       buff:    { min: 282, max: 950 },
-      trigger: { min: 385, max: 100 },
+      trigger: { min: 475, max: 950 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -3395,7 +3395,7 @@ export const floorTable = {
     petHp:    { min: 4664, max: 11661 },
     passiveValue: {
       buff:    { min: 285, max: 960 },
-      trigger: { min: 389, max: 100 },
+      trigger: { min: 480, max: 960 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -3411,7 +3411,7 @@ export const floorTable = {
     petHp:    { min: 4724, max: 11810 },
     passiveValue: {
       buff:    { min: 288, max: 970 },
-      trigger: { min: 393, max: 100 },
+      trigger: { min: 485, max: 970 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -3427,7 +3427,7 @@ export const floorTable = {
     petHp:    { min: 4784, max: 11959 },
     passiveValue: {
       buff:    { min: 291, max: 980 },
-      trigger: { min: 397, max: 100 },
+      trigger: { min: 490, max: 980 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -3443,7 +3443,7 @@ export const floorTable = {
     petHp:    { min: 4843, max: 12109 },
     passiveValue: {
       buff:    { min: 294, max: 990 },
-      trigger: { min: 401, max: 100 },
+      trigger: { min: 495, max: 990 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -3459,7 +3459,7 @@ export const floorTable = {
     petHp:    { min: 4903, max: 12259 },
     passiveValue: {
       buff:    { min: 297, max: 1000 },
-      trigger: { min: 405, max: 100 },
+      trigger: { min: 500, max: 1000 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -3475,7 +3475,7 @@ export const floorTable = {
     petHp:    { min: 4964, max: 12409 },
     passiveValue: {
       buff:    { min: 300, max: 1010 },
-      trigger: { min: 409, max: 100 },
+      trigger: { min: 505, max: 1010 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {
@@ -3491,7 +3491,7 @@ export const floorTable = {
     petHp:    { min: 5024, max: 12559 },
     passiveValue: {
       buff:    { min: 303, max: 1020 },
-      trigger: { min: 413, max: 100 },
+      trigger: { min: 510, max: 1020 },
     },
     dexBuff: { hp: 0.2, power: 0.2 },
     titleDexBuff: {

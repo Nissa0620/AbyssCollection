@@ -109,6 +109,8 @@ export function getExpMultiplier() {
   let total = 0;
   if (pet?.passive === "expBoost" || pet?.passive === "legendExpBoost") total += (pet.passiveValue ?? 0);
   if (weapon?.passive === "expBoost" || weapon?.passive === "legendExpBoost") total += (weapon.passiveValue ?? 0);
+  // expBurst系の超過分を加算
+  total += (state._expBurstOverflowExpBoost ?? 0);
   return 1 + total / 100;
 }
 
@@ -130,6 +132,13 @@ export function hasDoubleAttack() {
   if (pet?.passive === "doubleAttack") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "doubleAttack") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return false;
+
+  // 超過分をdmgBoostに変換（× 0.2）
+  const overflow = Math.max(0, rate - 100);
+  if (overflow > 0) {
+    state._triggerOverflowDmgBoost = (state._triggerOverflowDmgBoost ?? 0) + overflow * 0.2;
+  }
+
   return Math.random() < Math.min(rate / 100, 1.0);
 }
 
@@ -141,7 +150,14 @@ export function hasSurvivePassive() {
   if (pet?.passive === "survive") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "survive") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return false;
-  return Math.random() < Math.min(rate / 100, 1.0);
+
+  // 超過分をhpBoostに変換（× 0.2）
+  const overflow = Math.max(0, rate - 80);
+  if (overflow > 0) {
+    state._triggerOverflowHpBoost = (state._triggerOverflowHpBoost ?? 0) + overflow * 0.2;
+  }
+
+  return Math.random() < Math.min(rate / 100, 0.8);
 }
 
 // 与ダメ上昇倍率を取得
@@ -151,6 +167,10 @@ export function getDmgBoostMultiplier() {
   let total = 0;
   if (pet?.passive === "dmgBoost" || pet?.passive === "legendDmgBoost") total += (pet.passiveValue ?? 0);
   if (weapon?.passive === "dmgBoost" || weapon?.passive === "legendDmgBoost") total += (weapon.passiveValue ?? 0);
+
+  // trigger系スキルの上限超過分を加算
+  total += (state._triggerOverflowDmgBoost ?? 0);
+
   return 1 + total / 100;
 }
 
@@ -161,7 +181,14 @@ export function getDmgReduceMultiplier() {
   let totalRate = 0;
   if (pet?.passive === "dmgReduce" || pet?.passive === "legendDmgReduce") totalRate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "dmgReduce" || weapon?.passive === "legendDmgReduce") totalRate += (weapon.passiveValue ?? 0);
-  const clampedRate = Math.min(totalRate, 80); // 上限80%
+
+  // 超過分をhpBoostに変換（超過分×0.2）
+  const overflow = Math.max(0, totalRate - 80);
+  if (overflow > 0) {
+    state._triggerOverflowHpBoost = (state._triggerOverflowHpBoost ?? 0) + overflow * 0.2;
+  }
+
+  const clampedRate = Math.min(totalRate, 80);
   return 1 - clampedRate / 100;
 }
 
@@ -230,7 +257,14 @@ export function getExpBurstMultiplier() {
   if (pet?.passive === "expBurst") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "expBurst") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return 1;
-  if (Math.random() < Math.min(rate / 100, 1.0)) return 2; // 2倍
+
+  // 超過分をexpBoostに変換（超過分×0.2）
+  const overflow = Math.max(0, rate - 100);
+  if (overflow > 0) {
+    state._expBurstOverflowExpBoost = (state._expBurstOverflowExpBoost ?? 0) + overflow * 0.2;
+  }
+
+  if (Math.random() < Math.min(rate / 100, 1.0)) return 2;
   return 1;
 }
 
@@ -267,6 +301,13 @@ export function tryEvade() {
   if (pet?.passive === "evade") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "evade") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return false;
+
+  // 超過分をdmgBoostに変換（× 0.2）
+  const overflow = Math.max(0, rate - 90);
+  if (overflow > 0) {
+    state._triggerOverflowDmgBoost = (state._triggerOverflowDmgBoost ?? 0) + overflow * 0.2;
+  }
+
   return Math.random() < Math.min(rate / 100, 0.9);
 }
 
@@ -312,6 +353,9 @@ export function getRegenHeal() {
     }
   }
 
+  // 超過分をhpBoostに動的反映（毎回上書き）
+  state._regenOverflowHpBoost = Math.max(0, totalRate - 50) * 0.2;
+
   if (totalRate <= 0) return 0;
   const cappedRate = Math.min(totalRate, 50);
   return Math.max(1, Math.floor(state.player.totalHp * cappedRate / 100));
@@ -329,6 +373,13 @@ export function hasTripleAttack() {
   if (pet?.passive === "tripleAttack") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "tripleAttack") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return false;
+
+  // 超過分をdmgBoostに変換（× 0.2）
+  const overflow = Math.max(0, rate - 100);
+  if (overflow > 0) {
+    state._triggerOverflowDmgBoost = (state._triggerOverflowDmgBoost ?? 0) + overflow * 0.2;
+  }
+
   return Math.random() < Math.min(rate / 100, 1.0);
 }
 
@@ -340,6 +391,13 @@ export function hasLegendSurvive() {
   if (pet?.passive === "legendSurvive") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "legendSurvive") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return false;
+
+  // 超過分をhpBoostに変換（× 0.2）
+  const overflow = Math.max(0, rate - 80);
+  if (overflow > 0) {
+    state._triggerOverflowHpBoost = (state._triggerOverflowHpBoost ?? 0) + overflow * 0.2;
+  }
+
   return Math.random() < Math.min(rate / 100, 0.8);
 }
 
@@ -351,6 +409,13 @@ export function hasResurrection() {
   if (pet?.passive === "resurrection") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "resurrection") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return false;
+
+  // 超過分をhpBoostに変換（× 0.2）
+  const overflow = Math.max(0, rate - 100);
+  if (overflow > 0) {
+    state._triggerOverflowHpBoost = (state._triggerOverflowHpBoost ?? 0) + overflow * 0.2;
+  }
+
   return Math.random() < Math.min(rate / 100, 1.0);
 }
 
@@ -362,6 +427,13 @@ export function hasLegendResurrection() {
   if (pet?.passive === "legendResurrection") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "legendResurrection") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return false;
+
+  // 超過分をhpBoostに変換（× 0.2）
+  const overflow = Math.max(0, rate - 80);
+  if (overflow > 0) {
+    state._triggerOverflowHpBoost = (state._triggerOverflowHpBoost ?? 0) + overflow * 0.2;
+  }
+
   return Math.random() < Math.min(rate / 100, 0.8);
 }
 
@@ -398,7 +470,14 @@ export function getLegendExpBurstMultiplier() {
   if (pet?.passive === "legendExpBurst") rate += (pet.passiveValue ?? 0);
   if (weapon?.passive === "legendExpBurst") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return 1;
-  if (Math.random() < Math.min(rate / 100, 1.0)) return 5; // 5倍
+
+  // 超過分をexpBoostに変換（超過分×0.2）
+  const overflow = Math.max(0, rate - 100);
+  if (overflow > 0) {
+    state._expBurstOverflowExpBoost = (state._expBurstOverflowExpBoost ?? 0) + overflow * 0.2;
+  }
+
+  if (Math.random() < Math.min(rate / 100, 1.0)) return 5;
   return 1;
 }
 

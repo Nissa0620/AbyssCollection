@@ -1319,6 +1319,7 @@ export function renderStatusScreen() {
   if (weapon?.passive === "expBoost") expBoost += weapon.passiveValue ?? 0;
   if (pet?.passive === "legendExpBoost") expBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendExpBoost") expBoost += weapon.passiveValue ?? 0;
+  expBoost += Math.floor(state._expBurstOverflowExpBoost ?? 0); // 超過分加算
 
   // 捕獲率増加（ペット＋武器、レジェンダリー含む）
   let captureBoost = 0;
@@ -1337,12 +1338,13 @@ export function renderStatusScreen() {
   if (pet?.passive === "survive") surviveRate += pet.passiveValue ?? 0;
   if (weapon?.passive === "survive") surviveRate += weapon.passiveValue ?? 0;
 
-  // 与ダメ上昇
+  // 与ダメ上昇（超過分含む）
   let dmgBoost = 0;
   if (pet?.passive === "dmgBoost") dmgBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "dmgBoost") dmgBoost += weapon.passiveValue ?? 0;
   if (pet?.passive === "legendDmgBoost") dmgBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendDmgBoost") dmgBoost += weapon.passiveValue ?? 0;
+  dmgBoost += Math.floor(state._triggerOverflowDmgBoost ?? 0); // 超過分加算
 
   // 被ダメ減少
   let dmgReduce = 0;
@@ -1351,12 +1353,14 @@ export function renderStatusScreen() {
   if (pet?.passive === "legendDmgReduce") dmgReduce += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendDmgReduce") dmgReduce += weapon.passiveValue ?? 0;
 
-  // HP増加
+  // HP増加（超過分含む）
   let hpBoost = 0;
   if (pet?.passive === "hpBoost") hpBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "hpBoost") hpBoost += weapon.passiveValue ?? 0;
   if (pet?.passive === "legendHpBoost") hpBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendHpBoost") hpBoost += weapon.passiveValue ?? 0;
+  hpBoost += Math.floor(state._triggerOverflowHpBoost ?? 0); // 超過分加算
+  hpBoost += Math.floor(state._regenOverflowHpBoost ?? 0); // 超過分加算
 
   // 反射率（通常）
   let reflectRate = 0;

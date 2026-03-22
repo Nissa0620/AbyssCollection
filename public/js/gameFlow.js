@@ -66,6 +66,9 @@ function nextPhase() {
   state.legendDmgReduceTurn = 0;
   state.drainAtkBonus = 0;
   state.regenTurnCount = 0;
+  state._triggerOverflowDmgBoost = 0;
+  state._triggerOverflowHpBoost = 0;
+  state._expBurstOverflowExpBoost = 0;
 }
 
 function gameOverPhase() {
@@ -79,4 +82,7 @@ function gameOverPhase() {
   state.legendDmgReduceTurn = 0;
   state.drainAtkBonus = 0;
   state.regenTurnCount = 0;
+  state._triggerOverflowDmgBoost = 0;
+  state._triggerOverflowHpBoost = 0;
+  state._expBurstOverflowExpBoost = 0;
 }

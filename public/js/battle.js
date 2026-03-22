@@ -302,15 +302,16 @@ export function createEnemy() {
   const isLegendUltimate = isLegendary && Math.random() < 0.5;
   const isElite = !isLegendary && Math.random() < 0.02;
 
-  const bossBonus = Math.floor(state.floor / 10) * 3;
-  const hpScale = 1 + state.floor * 0.3 + bossBonus;
-  const atkScale = 1 + state.floor * 0.4 + bossBonus;
-
   // フロア帯基準値 × 敵比率
   const band = floorTable[base.floorBand] ?? floorTable["1-99"];
   const titleGroup = base.titleGroup ?? band.titleGroup;
-  const baseHp = Math.floor(band.baseHp * (base.hpRate ?? 1.0));
-  const basePower = Math.floor(band.basePower * (base.powerRate ?? 1.0));
+
+  // 次のボスフロアを特定（フロア帯の max + 1 がボスフロア）
+  const nextBossFloor = band.max + 1;
+  const nextBossBandKey = `boss-${nextBossFloor}`;
+  const nextBossBand = floorTable[nextBossBandKey];
+
+  let totalHp, totalPower;
 
   let title, titleId, titleName;
   if (isLegendary) {
@@ -330,8 +331,35 @@ export function createEnemy() {
     titleName = title.name;
   }
 
-  const totalHp = Math.floor(baseHp * hpScale * title.hpRate);
-  const totalPower = Math.floor(basePower * atkScale * title.atkRate);
+  if (nextBossBand) {
+    // 次のボスHP・ATKを計算
+    const bossHp  = Math.floor(nextBossBand.baseHp    * (1 + nextBossFloor * 0.5));
+    const bossAtk = Math.floor(nextBossBand.basePower * (1 + nextBossFloor * 0.6));
+
+    // フロア帯内での位置（0.0〜1.0）に応じて比率を線形補間
+    const bandStart = band.min;
+    const bandEnd   = band.max;
+    const t = (state.floor - bandStart) / Math.max(1, bandEnd - bandStart);
+
+    // 1-99F帯のみ低い比率でスタート（チュートリアル帯）
+    const isFirstBand = bandStart === 1;
+    const ratioStart = isFirstBand ? 0.005 : 0.20;
+    const ratioEnd   = isFirstBand ? 0.05  : 0.35;
+    const statRatio  = ratioStart + t * (ratioEnd - ratioStart);
+
+    totalHp    = Math.floor(bossHp  * statRatio * (base.hpRate    ?? 1.0) * title.hpRate);
+    totalPower = Math.floor(bossAtk * statRatio * (base.powerRate ?? 1.0) * title.atkRate);
+  } else {
+    // ボス情報が取得できない場合のフォールバック（既存ロジック）
+    const bossBonus = Math.floor(state.floor / 10) * 3;
+    const hpScale = 1 + state.floor * 0.3 + bossBonus;
+    const atkScale = 1 + state.floor * 0.4 + bossBonus;
+    const baseHp = Math.floor(band.baseHp * (base.hpRate ?? 1.0));
+    const basePower = Math.floor(band.basePower * (base.powerRate ?? 1.0));
+    totalHp = Math.floor(baseHp * hpScale * title.hpRate);
+    totalPower = Math.floor(basePower * atkScale * title.atkRate);
+  }
+
   const enemyExp =
     Math.floor((5 + state.floor * 5) * 1.5 * title.expRate) +
     Math.floor(state.floor / 50) * 200;
