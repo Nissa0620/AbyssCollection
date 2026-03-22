@@ -1,6 +1,7 @@
 import { state } from "./state.js";
 import { recalcDexBuff, recalcWeaponDexBuff } from "./dexBuff.js";
 import { getHpBoostMultiplier, getPetPower, getPetHp } from "./pet.js";
+import { initMissions } from "./research.js";
 
 const SAVE_KEY = "abyssSave";
 
@@ -32,7 +33,7 @@ export function loadGame() {
         dexMultiplier *
         petMult *
         weaponMult
-      );
+      ) + (state.research?.atkBonus ?? 0);
     },
     get totalHp() {
       const buff = (1 + (state.dexBuff.hp - 1) + (state.weaponDexBuff.hp - 1)) * state.hpBoostMult;
@@ -40,7 +41,8 @@ export function loadGame() {
         ? Math.floor(getPetHp(state.player.equippedPet) * buff)
         : 0;
       const weaponHp = Math.floor((state.player.equippedWeapon?.totalHp ?? 0) * buff);
-      return Math.floor(this.baseHp * buff) + petHp + weaponHp;
+      return Math.floor(this.baseHp * buff) + petHp + weaponHp
+        + (state.research?.hpBonus ?? 0);
     },
   };
 
@@ -134,6 +136,30 @@ export function loadGame() {
   if (state.ui) {
     state.ui.petOpenGroups = {};
     state.ui.weaponOpenGroups = {};
+  }
+
+  // 研究所データの初期化（旧セーブデータ対応）
+  if (!state.research) {
+    state.research = {
+      level: 0,
+      totalPointsEarned: 0,
+      currentPoints: 0,
+      missions: [],
+      lastRerollTime: 0,
+      buffPurchaseCount: 0,
+      atkBonus: 0,
+      hpBonus: 0,
+      expBonus: 0,
+      dropBonus: 0,
+      captureBonus: 0,
+      dropPurchaseCount: 0,
+      capturePurchaseCount: 0,
+      hiddenBossUnlocked: false,
+    };
+  }
+  // ミッションが空なら初期生成
+  if (state.research.missions.length === 0 && state.maxFloor >= 500) {
+    initMissions();
   }
 
   return true;

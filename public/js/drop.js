@@ -10,7 +10,8 @@ export function getDropWeapon(dropMult = 1, enemyId = null) {
   if (!template) return null;
 
   // ドロップ判定（dropRateにdropMultを掛けた確率）
-  const dropChance = Math.min(template.dropRate * dropMult, 1);
+  const researchDropBonus = (state.research?.dropBonus ?? 0) * 0.001;
+  const dropChance = Math.min(template.dropRate * dropMult + researchDropBonus, 1);
   if (Math.random() > dropChance) return null;
 
   return createWeapon(template);

@@ -5,6 +5,18 @@ import { getSynthesisPreview } from "./inventory.js";
 import { isFavorite, toggleFavorite, isLocked, toggleLock } from "./listPrefs.js";
 import { isUltimateWeapon } from "./drop.js";
 import { isUltimatePet, getPetSynthesisPreview, getPetPower, getPetHp, toggleSelectAllSamePets, passiveLabels } from "./pet.js";
+import {
+  checkMissionCompletion,
+  donatePet,
+  exchangeReward,
+  getBuffPurchaseCost,
+  getDropPurchaseCost,
+  getCapturePurchaseCost,
+  getRerollRemainingMs,
+  rerollMissions,
+  initMissions,
+} from "./research.js";
+import { saveGame } from "./saveLoad.js";
 import { getWeaponDisplayName } from "./weapon.js";
 import {
   normalEnemies,
@@ -1681,4 +1693,229 @@ export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = n
   overlay.onclick = () => overlay.classList.add("hidden");
   const _isHolding = isHolding ?? state.isHolding;
   if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+}
+
+// =====================
+// 研究所UI
+// =====================
+
+// ペットアイテムHTML生成（寄贈モーダル流用）
+export function renderPetItemHTML(pet) {
+  const valueText = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
+  const bonusText = (pet.level ?? 0) > 0 ? ` <span class="weapon-level">+${pet.level}</span>` : "";
+  const titleName = getTitleName(pet);
+  return `
+    <div class="pet-item-bar"></div>
+    <div class="pet-item-body">
+      <div class="item-row-1">
+        <span class="pet-name">🐾 ${titleName}${pet.name}${bonusText}</span>
+      </div>
+      <div class="item-row-2">
+        <span class="pet-atk">ATK ${getPetPower(pet)}(${pet.basePower})</span>
+        <span class="pet-atk">HP ${getPetHp(pet)}(${pet.baseHp ?? 0})</span>
+        <span class="pet-passive">${passiveLabelText(pet)}${valueText}</span>
+      </div>
+    </div>
+  `;
+}
+
+function getEligiblePets(mission) {
+  return state.player.petList.filter(pet => {
+    if (state.player.equippedPet?.uid === pet.uid) return false;
+    return checkMissionCompletion(mission, pet);
+  });
+}
+
+function renderMissions() {
+  const ul = document.getElementById("missionList");
+  ul.innerHTML = "";
+  for (const mission of state.research.missions) {
+    const rareLabel = mission.isRare ? "レア" : "通常";
+    const eligible = getEligiblePets(mission);
+    const li = document.createElement("li");
+    li.className = "mission-item";
+    li.innerHTML = `
+      <div class="mission-desc">
+        ${mission.enemyName}の${rareLabel}個体（lv${mission.requiredLevel}以上）を寄贈する
+      </div>
+      <div class="mission-reward">獲得: ${mission.rewardPoints}P</div>
+      <button class="donate-btn" data-mission-id="${mission.id}"
+        ${eligible.length === 0 ? "disabled" : ""}>寄贈する</button>
+    `;
+    ul.appendChild(li);
+  }
+
+  ul.querySelectorAll(".donate-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      openDonateModal(btn.dataset.missionId);
+    });
+  });
+}
+
+function renderLevelProgress() {
+  const thresholds = [0, 20, 60, 100, 140, 200];
+  const r = state.research;
+  const level = r.level;
+  const el = document.getElementById("researchLevelProgress");
+  if (!el) return;
+  if (level >= 5) {
+    el.textContent = "最大レベル達成";
+    return;
+  }
+  const next = thresholds[level + 1] ?? thresholds[thresholds.length - 1];
+  el.textContent = `次のレベルまで: ${r.totalPointsEarned}/${next}P`;
+}
+
+function renderExchangeList() {
+  const r = state.research;
+  const ul = document.getElementById("exchangeList");
+  const buffCost = getBuffPurchaseCost();
+
+  ul.innerHTML = `
+    <li class="exchange-item">
+      <span>ATK +10</span>
+      <span>${buffCost}P</span>
+      <button data-type="atk" ${r.currentPoints < buffCost ? "disabled" : ""}>交換</button>
+      <span class="exchange-note">累計購入回数で全景品共通コスト上昇（現在${r.buffPurchaseCount}回）</span>
+    </li>
+    <li class="exchange-item">
+      <span>HP +30</span>
+      <span>${buffCost}P</span>
+      <button data-type="hp" ${r.currentPoints < buffCost ? "disabled" : ""}>交換</button>
+    </li>
+    <li class="exchange-item">
+      <span>経験値 +10</span>
+      <span>${buffCost}P</span>
+      <button data-type="exp" ${r.currentPoints < buffCost ? "disabled" : ""}>交換</button>
+    </li>
+    <li class="exchange-item">
+      <span>ドロップ率 +0.1%（${r.dropBonus}/100回）</span>
+      <span>${getDropPurchaseCost()}P</span>
+      <button data-type="drop"
+        ${r.currentPoints < getDropPurchaseCost() || r.dropPurchaseCount >= 100 ? "disabled" : ""}>交換</button>
+    </li>
+    <li class="exchange-item">
+      <span>捕獲率 +0.1%（${r.captureBonus}/100回）</span>
+      <span>${getCapturePurchaseCost()}P</span>
+      <button data-type="capture"
+        ${r.currentPoints < getCapturePurchaseCost() || r.capturePurchaseCount >= 100 ? "disabled" : ""}>交換</button>
+    </li>
+    ${r.level >= 5
+      ? `<li class="exchange-item">
+           <span>🔥 隠しボス解禁${r.hiddenBossUnlocked ? "（解禁済み）" : ""}</span>
+           <span>800P</span>
+           <button data-type="hiddenBoss"
+             ${r.hiddenBossUnlocked || r.currentPoints < 800 ? "disabled" : ""}>交換</button>
+         </li>`
+      : `<li class="exchange-item exchange-locked">
+           <span>???</span><span>???</span>
+           <span class="exchange-hint">研究所Lv.5で解禁</span>
+         </li>`
+    }
+  `;
+
+  ul.querySelectorAll("button[data-type]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const success = exchangeReward(btn.dataset.type);
+      if (success) {
+        renderResearchScreen();
+        saveGame();
+      }
+    });
+  });
+}
+
+let rerollTimerInterval = null;
+
+function updateRerollTimer() {
+  const btn = document.getElementById("researchRerollBtn");
+  const span = document.getElementById("rerollRemaining");
+
+  if (rerollTimerInterval) clearInterval(rerollTimerInterval);
+
+  function tick() {
+    const ms = getRerollRemainingMs();
+    if (ms <= 0) {
+      span.textContent = "リロール可能";
+      btn.disabled = false;
+    } else {
+      const h = Math.floor(ms / 3600000);
+      const m = Math.floor((ms % 3600000) / 60000);
+      const s = Math.floor((ms % 60000) / 1000);
+      span.textContent = `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+      btn.disabled = true;
+    }
+  }
+  tick();
+  rerollTimerInterval = setInterval(tick, 1000);
+}
+
+function openDonateModal(missionId) {
+  const mission = state.research.missions.find(m => m.id === missionId);
+  if (!mission) return;
+
+  const rareLabel = mission.isRare ? "レア" : "通常";
+  document.getElementById("donateCondition").textContent =
+    `${mission.enemyName}の${rareLabel}個体（lv${mission.requiredLevel}以上）`;
+
+  const ul = document.getElementById("donatePetList");
+  ul.innerHTML = "";
+
+  const allEligible = state.player.petList
+    .filter(pet => {
+      if (state.player.equippedPet?.uid === pet.uid) return false;
+      return checkMissionCompletion(mission, pet);
+    })
+    .sort((a, b) => (b.level ?? 0) - (a.level ?? 0));
+
+  let selectedUid = null;
+  for (const pet of allEligible) {
+    const locked = isLocked(pet.uid);
+    const li = document.createElement("li");
+    li.className = `pet-item ${locked ? "pet-locked-donate" : ""}`;
+    li.innerHTML = renderPetItemHTML(pet);
+    if (!locked) {
+      li.addEventListener("click", () => {
+        ul.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
+        li.classList.add("selected");
+        selectedUid = pet.uid;
+        document.getElementById("donateConfirmBtn").disabled = false;
+      });
+    }
+    ul.appendChild(li);
+  }
+
+  document.getElementById("donateConfirmBtn").disabled = true;
+  document.getElementById("donateConfirmBtn").onclick = () => {
+    if (!selectedUid) return;
+    if (!confirm(`このペットを寄贈してよいですか？`)) return;
+    const success = donatePet(missionId, selectedUid);
+    if (success) {
+      document.getElementById("donateOverlay").classList.add("hidden");
+      renderResearchScreen();
+      saveGame();
+    }
+  };
+
+  document.getElementById("donateOverlay").classList.remove("hidden");
+}
+
+export function renderResearchScreen() {
+  const isUnlocked = state.maxFloor >= 500;
+  document.getElementById("researchLocked").classList.toggle("hidden", isUnlocked);
+  document.getElementById("researchContent").classList.toggle("hidden", !isUnlocked);
+  if (!isUnlocked) return;
+
+  // ミッションが空なら初期生成
+  if (state.research.missions.length === 0) {
+    initMissions();
+  }
+
+  document.getElementById("researchLevel").textContent = `研究所 Lv.${state.research.level}`;
+  document.getElementById("researchPoints").textContent = `貢献P: ${state.research.currentPoints}`;
+
+  renderLevelProgress();
+  renderMissions();
+  renderExchangeList();
+  updateRerollTimer();
 }

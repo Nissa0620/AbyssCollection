@@ -24,6 +24,7 @@ import {
   updateInventoryFilterOptions,
   updatePetFilterOptions,
   updateSynthesisClasses,
+  renderResearchScreen,
 } from "./ui.js";
 import { state } from "./state.js";
 import { addLog } from "./log.js";
@@ -37,6 +38,7 @@ import {
 } from "./inventory.js";
 import { saveGame, loadGame } from "./saveLoad.js";
 import { renderAchievements } from "./achievements.js";
+import { rerollMissions } from "./research.js";
 import { sendRankingData, fetchRanking, isNameTaken } from "./ranking.js";
 import { equipPet, unequipPet, handlePetSynthesisSelection, executePetSynthesis, toggleSelectAllSamePets, getHpBoostMultiplier, getPetPower, getPetHp } from "./pet.js";
 
@@ -448,6 +450,41 @@ document.getElementById("achievementBtn").addEventListener("click", () => {
 });
 document.getElementById("achievementCloseBtn").addEventListener("click", () => {
   document.getElementById("achievementOverlay").classList.add("hidden");
+});
+
+// =====================
+// 研究所ボタン
+// =====================
+document.getElementById("researchBtn").addEventListener("click", () => {
+  document.getElementById("moreOverlay").classList.add("hidden");
+  renderResearchScreen();
+  document.getElementById("researchOverlay").classList.remove("hidden");
+});
+
+document.getElementById("researchCloseBtn").addEventListener("click", () => {
+  document.getElementById("researchOverlay").classList.add("hidden");
+});
+
+document.getElementById("donateCloseBtn").addEventListener("click", () => {
+  document.getElementById("donateOverlay").classList.add("hidden");
+});
+
+document.getElementById("researchRerollBtn").addEventListener("click", () => {
+  const success = rerollMissions();
+  if (success) {
+    renderResearchScreen();
+    saveGame();
+  }
+});
+
+document.querySelectorAll(".research-tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".research-tab").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    const tab = btn.dataset.tab;
+    document.getElementById("researchMissions").classList.toggle("hidden", tab !== "missions");
+    document.getElementById("researchExchange").classList.toggle("hidden", tab !== "exchange");
+  });
 });
 
 // =====================

@@ -491,8 +491,66 @@
         <div class="more-modal-body">
           <button id="achievementBtn" class="more-item-btn">🎖️ 実績</button>
           <button id="rankingBtn"     class="more-item-btn">🏆 ランキング</button>
+          <button id="researchBtn"    class="more-item-btn">🔬 研究所</button>
           <button id="helpBtn"        class="more-item-btn">❓ 説明</button>
         </div>
+      </div>
+    </div>
+
+    <!-- 研究所モーダル -->
+    <div id="researchOverlay" class="book-overlay hidden">
+      <div class="book-modal">
+        <div class="book-header">
+          <h2>🔬 研究所</h2>
+          <button id="researchCloseBtn">✕</button>
+        </div>
+
+        <!-- 未開放時 -->
+        <div id="researchLocked" class="hidden">
+          <p class="research-locked-msg">🔒 500階到達で開放されます</p>
+        </div>
+
+        <!-- 開放後 -->
+        <div id="researchContent" class="book-content">
+          <!-- 研究所レベル・貢献P表示 -->
+          <div class="research-status">
+            <span id="researchLevel">研究所 Lv.1</span>
+            <span id="researchPoints">貢献P: 0</span>
+            <div id="researchLevelProgress"></div>
+          </div>
+
+          <!-- タブ -->
+          <div class="research-tabs">
+            <button class="research-tab active" data-tab="missions">ミッション</button>
+            <button class="research-tab" data-tab="exchange">交換所</button>
+          </div>
+
+          <!-- ミッションタブ -->
+          <div id="researchMissions" class="research-tab-content">
+            <div class="research-reroll-area">
+              <button id="researchRerollBtn">🔄 リロール（残り<span id="rerollRemaining">--:--:--</span>）</button>
+            </div>
+            <ul id="missionList" class="mission-list"></ul>
+          </div>
+
+          <!-- 交換所タブ -->
+          <div id="researchExchange" class="research-tab-content hidden">
+            <ul id="exchangeList" class="exchange-list"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 寄贈用ペット選択モーダル -->
+    <div id="donateOverlay" class="book-overlay hidden">
+      <div class="book-modal">
+        <div class="book-header">
+          <h2>ペットを選択</h2>
+          <button id="donateCloseBtn">✕</button>
+        </div>
+        <p id="donateCondition" class="donate-condition"></p>
+        <ul id="donatePetList" class="pet-list book-content"></ul>
+        <button id="donateConfirmBtn" class="primary-btn" disabled>寄贈する</button>
       </div>
     </div>
 

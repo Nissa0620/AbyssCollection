@@ -46,7 +46,8 @@ export const state = {
         (this.basePower + (weapon ? weapon.totalAtk : 0) + petPower + gemBonus) *
         dexMultiplier *
         atkBoostMult
-      ) + (state.drainAtkBonus ?? 0);
+      ) + (state.drainAtkBonus ?? 0)
+        + (state.research?.atkBonus ?? 0);
     },
 
     get totalHp() {
@@ -56,7 +57,8 @@ export const state = {
         ? Math.floor(_petHp(state.player.equippedPet) * buff)
         : 0;
       const weaponHp = Math.floor((state.player.equippedWeapon?.totalHp ?? 0) * buff);
-      return Math.floor(this.baseHp * buff * overflowHpBoost) + petHp + weaponHp;
+      return Math.floor(this.baseHp * buff * overflowHpBoost) + petHp + weaponHp
+        + (state.research?.hpBonus ?? 0);
     },
   },
   dexBuff: {
@@ -93,6 +95,22 @@ export const state = {
   petSynthesis: {
     baseUid: null,
     materialUids: [],
+  },
+  research: {
+    level: 0,
+    totalPointsEarned: 0,
+    currentPoints: 0,
+    missions: [],
+    lastRerollTime: 0,
+    buffPurchaseCount: 0,
+    atkBonus: 0,
+    hpBonus: 0,
+    expBonus: 0,
+    dropBonus: 0,
+    captureBonus: 0,
+    dropPurchaseCount: 0,
+    capturePurchaseCount: 0,
+    hiddenBossUnlocked: false,
   },
   _triggerOverflowDmgBoost: 0,
   _triggerOverflowHpBoost: 0,

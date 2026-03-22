@@ -2419,3 +2419,246 @@ button {
   font-size: 14px;
   cursor: pointer;
 }
+
+/* =====================
+   研究所スタイル
+   ===================== */
+
+.research-locked-msg {
+  text-align: center;
+  padding: 24px;
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.research-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #1e2a38;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.research-status span {
+  font-size: 0.95rem;
+  color: #ddd;
+}
+
+#researchLevelProgress {
+  width: 100%;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.research-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.research-tab {
+  flex: 1;
+  padding: 8px;
+  background: #2a2a2a;
+  color: #aaa;
+  border: 1px solid #444;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.research-tab.active {
+  background: #3a6ea5;
+  color: #fff;
+  border-color: #3a6ea5;
+}
+
+.research-tab-content {
+  padding: 8px 0;
+}
+
+.research-reroll-area {
+  margin-bottom: 10px;
+}
+
+#researchRerollBtn {
+  width: 100%;
+  padding: 8px 12px;
+  background: #2a4a2a;
+  color: #8fc;
+  border: 1px solid #4a8a4a;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+#researchRerollBtn:disabled {
+  background: #222;
+  color: #666;
+  border-color: #444;
+  cursor: not-allowed;
+}
+
+.mission-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mission-item {
+  background: #1e2a38;
+  border: 1px solid #334;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mission-desc {
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.mission-reward {
+  font-size: 0.85rem;
+  color: #aed6f1;
+}
+
+.donate-btn {
+  align-self: flex-end;
+  padding: 6px 14px;
+  background: #3a6ea5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.donate-btn:disabled {
+  background: #333;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.exchange-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exchange-item {
+  background: #1e2a38;
+  border: 1px solid #334;
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.exchange-item span:first-child {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.exchange-item span:nth-child(2) {
+  font-size: 0.9rem;
+  color: #aed6f1;
+  min-width: 40px;
+  text-align: right;
+}
+
+.exchange-item button {
+  padding: 5px 12px;
+  background: #3a6ea5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.exchange-item button:disabled {
+  background: #333;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.exchange-note {
+  width: 100%;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.exchange-hint {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.exchange-locked {
+  opacity: 0.5;
+}
+
+.donate-condition {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  color: #aed6f1;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+#donatePetList {
+  list-style: none;
+  padding: 8px 12px;
+  margin: 0;
+}
+
+.pet-locked-donate {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+#donatePetList .pet-item {
+  cursor: pointer;
+}
+
+#donatePetList .pet-item.selected {
+  border-color: #3a6ea5;
+  background: #1e3050;
+}
+
+#donatePetList .pet-item.pet-locked-donate {
+  cursor: default;
+}
+
+.primary-btn {
+  display: block;
+  width: calc(100% - 28px);
+  margin: 10px 14px;
+  padding: 10px;
+  background: #3a6ea5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.primary-btn:disabled {
+  background: #333;
+  color: #666;
+  cursor: not-allowed;
+}

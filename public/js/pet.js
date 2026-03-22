@@ -99,7 +99,8 @@ export function getEffectiveCaptureRate(baseRate) {
   let total = 0;
   if (pet?.passive === "captureBoost" || pet?.passive === "legendCaptureBoost") total += (pet.passiveValue ?? 0);
   if (weapon?.passive === "captureBoost" || weapon?.passive === "legendCaptureBoost") total += (weapon.passiveValue ?? 0);
-  return baseRate * (1 + total / 100);
+  const researchBonus = (state.research?.captureBonus ?? 0) * 0.001;
+  return baseRate * (1 + total / 100) + researchBonus;
 }
 
 // 経験値倍率を取得（ペット・武器）

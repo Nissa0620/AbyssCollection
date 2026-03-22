@@ -42,7 +42,8 @@ function battlePhase() {
     const legendBurstMult = getLegendExpBurstMultiplier();
     // expBurstとlegendExpBurstは重複しない（legendExpBurstが優先）
     const finalBurstMult = legendBurstMult > 1 ? legendBurstMult : burstMult;
-    const finalExp = Math.floor(state.enemy.exp * expMult * finalBurstMult);
+    const researchExpBonus = state.research?.expBonus ?? 0;
+    const finalExp = Math.floor(state.enemy.exp * expMult * finalBurstMult) + researchExpBonus;
     if (legendBurstMult > 1) addLog("✨✨ 経験値大爆発！取得経験値が5倍！");
     else if (burstMult > 1) addLog("✨ 経験値爆発！取得経験値が2倍！");
     gainExp(finalExp);
