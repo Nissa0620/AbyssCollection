@@ -262,6 +262,10 @@ const categoryLabel = {
   ultimate:  "✨ 極個体 / 究極個体",
 };
 
+// 実績画面の現在選択中のカテゴリ・フィルターを保持（モジュールスコープ）
+let _achActiveCategory = null; // null = 最初のカテゴリ
+let _achActiveFilter = "all";  // "all" | "done" | "undone"
+
 export function renderAchievements() {
   const el = document.getElementById("achievementContent");
   if (!el) return;
@@ -276,15 +280,63 @@ export function renderAchievements() {
     groups[def.category].push(def);
   }
 
+  const categories = Object.keys(groups);
+  if (_achActiveCategory === null || !categories.includes(_achActiveCategory)) {
+    _achActiveCategory = categories[0];
+  }
+
   const total = achievementDefs.length;
   const unlockedCount = Object.keys(unlocked).length;
 
+  // ── 全体進捗サマリー ──
   let html = `<div class="achievement-summary">達成 ${unlockedCount} / ${total}</div>`;
 
-  for (const [cat, defs] of Object.entries(groups)) {
-    html += `<div class="achievement-category-label">${categoryLabel[cat] ?? cat}</div>`;
+  // ── カテゴリタブ ──
+  html += `<div class="achievement-tabs">`;
+  for (const cat of categories) {
+    const defs = groups[cat];
+    const doneCnt = defs.filter(d => !!unlocked[d.id]).length;
+    const active = cat === _achActiveCategory ? " active" : "";
+    html += `<button class="achievement-tab-btn${active}" data-cat="${cat}">
+      ${categoryLabel[cat] ?? cat}
+      <span class="achievement-tab-count">${doneCnt}/${defs.length}</span>
+    </button>`;
+  }
+  html += `</div>`;
+
+  // ── カテゴリ進捗バー ──
+  const activeDefs = groups[_achActiveCategory] ?? [];
+  const activeDone = activeDefs.filter(d => !!unlocked[d.id]).length;
+  const progressPct = activeDefs.length > 0
+    ? Math.round(activeDone / activeDefs.length * 100) : 0;
+
+  html += `
+    <div class="achievement-progress-bar-wrap">
+      <div class="achievement-progress-bar" style="width:${progressPct}%"></div>
+    </div>
+    <div class="achievement-progress-label">${activeDone} / ${activeDefs.length} 達成（${progressPct}%）</div>
+  `;
+
+  // ── フィルタータブ ──
+  html += `<div class="achievement-filters">
+    <button class="achievement-filter-btn${_achActiveFilter === "all"    ? " active" : ""}" data-filter="all">すべて</button>
+    <button class="achievement-filter-btn${_achActiveFilter === "done"   ? " active" : ""}" data-filter="done">達成済み</button>
+    <button class="achievement-filter-btn${_achActiveFilter === "undone" ? " active" : ""}" data-filter="undone">未達成</button>
+  </div>`;
+
+  // ── 実績リスト ──
+  const filtered = activeDefs.filter(def => {
+    const done = !!unlocked[def.id];
+    if (_achActiveFilter === "done")   return done;
+    if (_achActiveFilter === "undone") return !done;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    html += `<div class="achievement-empty">該当する実績はありません</div>`;
+  } else {
     html += `<ul class="achievement-list">`;
-    for (const def of defs) {
+    for (const def of filtered) {
       const done = !!unlocked[def.id];
       html += `
         <li class="achievement-item ${done ? "achievement-done" : "achievement-locked"}">
@@ -299,4 +351,20 @@ export function renderAchievements() {
   }
 
   el.innerHTML = html;
+
+  // ── イベント：カテゴリタブ ──
+  el.querySelectorAll(".achievement-tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      _achActiveCategory = btn.dataset.cat;
+      renderAchievements();
+    });
+  });
+
+  // ── イベント：フィルター ──
+  el.querySelectorAll(".achievement-filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      _achActiveFilter = btn.dataset.filter;
+      renderAchievements();
+    });
+  });
 }
