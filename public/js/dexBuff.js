@@ -22,17 +22,23 @@ export function recalcDexBuff(state) {
     if (!bandData) continue;
 
     const titles = entry.titles ?? {};
-    const anyDefeated = Object.values(titles).some((t) => t.defeated);
+    const anyCaught = Object.values(titles).some((t) => t.caught);
 
-    // いずれかの称号で撃破済みなら基本dexBuffを加算（1敵につき1回）
-    if (anyDefeated) {
+    // いずれかの称号で捕獲済みなら基本dexBuffを加算（1敵につき1回）
+    if (anyCaught) {
       hp += bandData.dexBuff?.hp ?? 0;
       power += bandData.dexBuff?.power ?? 0;
     }
 
-    // 称号ごとに撃破済みのものだけtitleDexBuffを加算
+    // 称号ごとに捕獲済みのものだけtitleDexBuffを加算（称号5=伝説も含む）
     for (const titleId of Object.keys(titles)) {
-      if (!titles[titleId].defeated) continue;
+      if (!titles[titleId].caught) continue;
+      // 称号5（伝説）は固定値0.5を加算
+      if (Number(titleId) === 5) {
+        hp += 0.5;
+        power += 0.5;
+        continue;
+      }
       const titleBuff = bandData.titleDexBuff?.[titleId];
       if (!titleBuff) continue;
       hp += titleBuff.hp ?? 0;
