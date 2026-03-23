@@ -343,7 +343,7 @@ export function renderAchievements() {
           <span class="achievement-icon">${done ? "🏆" : "🔒"}</span>
           <div class="achievement-text">
             <div class="achievement-label">${done ? def.label : "???（未解除）"}</div>
-            <div class="achievement-desc">${done ? def.desc : "条件を満たすと解除されます"}</div>
+            <div class="achievement-desc">${def.desc}</div>
           </div>
         </li>`;
     }
