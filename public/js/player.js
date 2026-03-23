@@ -15,7 +15,7 @@ function levelUp() {
   const player = state.player;
 
   player.level += 1;
-  player.nextExp = Math.floor(player.nextExp * 1.05);
+  player.nextExp = Math.floor(player.nextExp * 1.01);
 
   player.baseHp += Math.floor(player.level * 0.6);
   player.basePower += Math.floor(player.level * 0.4);

@@ -974,17 +974,7 @@ button {
   margin-bottom: 2px;
 }
 
-.book-enemy-header.completed {
-  background: #3a3000;
-  border: 1px solid #8a6d00;
-  color: #f5c842;
-}
-
-.book-enemy-header.completed:hover {
-  background: #443600;
-}
-
-.book-enemy-header:not(.completed):hover {
+.book-enemy-header:hover {
   background: #3a3a3a;
 }
 
@@ -1055,9 +1045,7 @@ button {
   border-left: 3px solid #c0392b;
 }
 
-.book-enemy-header.boss.completed {
-  border-left: 3px solid #f39c12;
-}
+
 /* ===== 図鑑タブ ===== */
 .book-tabs {
   display: flex;

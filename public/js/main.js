@@ -109,7 +109,7 @@ function handleInventoryClick(uid) {
 
 function handleEquip(uid) {
   if (state.player.equippedWeapon?.uid === uid) {
-    const name = getWeaponDisplayName(state.player.equippedWeapon, { showSeries: true });
+    const name = getWeaponDisplayName(state.player.equippedWeapon);
     addLog(`⚔️ ${name} を外した`);
     state.player.equippedWeapon = null;
     saveGame();
@@ -609,10 +609,10 @@ async function renderRanking(field) {
 }
 
 const rankingTabNotes = {
-  maxFloor: "到達した最深階層数",
-  level: "現在のプレイヤーレベル",
-  petCount: "称号1〜4を捕獲した種族数",
-  weaponCount: "最終進化まで育成した武器種数",
+  maxFloor: "最深階層数",
+  level: "プレイヤーレベル",
+  petCount: "捕獲した種族数",
+  weaponCount: "取得した武器種数",
 };
 
 document.getElementById("rankingBtn").addEventListener("click", () => {

@@ -219,7 +219,7 @@ export function renderInventory(player, onItemClick, onEquip) {
 function renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip) {
   groupItems.forEach((item) => {
     const isEquipped = state.player.equippedWeapon === item;
-    const displayName = getWeaponDisplayName(item, { showSeries: true });
+    const displayName = getWeaponDisplayName(item);
 
     const li = document.createElement("li");
     const isUltW = isUltimateWeapon(item);
@@ -701,12 +701,9 @@ function renderEnemyBook(buffEl, contentEl) {
     header.className = "book-enemy-header";
     const name = entry ? entry.name : "？？？";
 
-    const isCompleted = entry && titlePool.every((title) => entry.titles?.[title.id]?.defeated);
-    if (isCompleted) header.classList.add("completed");
     if (enemyDef.isBoss) header.classList.add("boss");
 
-    const ultiBadge = entry?.hasUltimate ? ` <span class="book-ultimate">【極】</span>` : "";
-    header.innerHTML = `<span>${name}${ultiBadge}</span><span class="book-toggle">▶</span>`;
+    header.innerHTML = `<span>${name}</span><span class="book-toggle">▶</span>`;
 
     const detail = document.createElement("div");
     detail.className = "book-enemy-detail hidden";
@@ -833,14 +830,8 @@ function renderWeaponBook(buffEl, contentEl) {
     const header = document.createElement("div");
     header.className = "book-enemy-header";
 
-    const isCompleted =
-      entry &&
-      template.evolutions.every((evo) => entry.evolutions[evo.name]?.obtained);
-    if (isCompleted) header.classList.add("completed");
-
     const name = entry ? template.name : "？？？";
-    const wUltiBadge = entry?.hasUltimate ? ` <span class="book-ultimate">【極】</span>` : "";
-    header.innerHTML = `<span>${name}${wUltiBadge}</span><span class="book-toggle">▶</span>`;
+    header.innerHTML = `<span>${name}</span><span class="book-toggle">▶</span>`;
 
     const detail = document.createElement("div");
     detail.className = "book-enemy-detail hidden";
@@ -890,7 +881,7 @@ export function updateEquippedWeaponInfo(onUnequip) {
   if (!el) return;
   const w = state.player.equippedWeapon;
   if (w) {
-    const name = getWeaponDisplayName(w, { showSeries: true });
+    const name = getWeaponDisplayName(w);
     const ultClassW = isUltimateWeapon(w) ? " ultimate" : "";
     el.innerHTML = `
       <div class="equipped-pet${ultClassW}">
@@ -906,7 +897,7 @@ export function updateEquippedWeaponInfo(onUnequip) {
       </div>
     `;
     document.getElementById("unequipWeaponBtn")?.addEventListener("click", () => {
-      addLog(`⚔️ ${getWeaponDisplayName(w, { showSeries: true })} を外した`);
+      addLog(`⚔️ ${getWeaponDisplayName(w)} を外した`);
       state.player.equippedWeapon = null;
       onUnequip?.();
     });

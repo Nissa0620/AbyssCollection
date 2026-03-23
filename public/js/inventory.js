@@ -13,7 +13,7 @@ export function equipWeapon(uid) {
   if (!weapon) return;
 
   state.player.equippedWeapon = weapon;
-  const name = getWeaponDisplayName(weapon, { showSeries: true });
+  const name = getWeaponDisplayName(weapon);
   addLog(`⚔️ ${name} を装備した`);
   saveGame();
 }
@@ -83,7 +83,7 @@ export function synthesize(base, material) {
 
   if (state.player.equippedWeapon) {
     if (material.uid === state.player.equippedWeapon.uid) {
-      addLog(`⚔️ 素材として使用された ${getWeaponDisplayName(material, { showSeries: true })} を外した`);
+      addLog(`⚔️ 素材として使用された ${getWeaponDisplayName(material)} を外した`);
       state.player.equippedWeapon = null;
     }
   }
@@ -146,7 +146,7 @@ export function executeSynthesis() {
   const base = inv.find((item) => item.uid === baseUid);
   if (!base) return false;
 
-  const oldName = getWeaponDisplayName(base, { showSeries: false });
+  const oldName = getWeaponDisplayName(base);
 
   let newWeapon = base;
 
@@ -162,7 +162,7 @@ export function executeSynthesis() {
 
   if (!newWeapon) return false;
 
-  const newName = getWeaponDisplayName(newWeapon, { showSeries: false });
+  const newName = getWeaponDisplayName(newWeapon);
 
   if (oldName !== newName) {
     // 旧レベルから新レベルの間に通過したすべての進化段階を登録
@@ -195,7 +195,7 @@ export function executeSynthesis() {
   }
 
   newWeapon.acquiredOrder = state.acquiredCounter++;
-  const baseName = getWeaponDisplayName(newWeapon, { showSeries: true });
+  const baseName = getWeaponDisplayName(newWeapon);
   addLog(`⚔️ ${baseName} を合成！ATK +${base.totalAtk} → ${newWeapon.totalAtk}`);
 
   state.synthesis.baseUid = null;
