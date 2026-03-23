@@ -125,10 +125,17 @@ export function renderInventory(player, onItemClick, onEquip) {
 
     const headerEl = document.createElement("div");
     headerEl.className = "pet-group-header";
+    // 極武器ランプ判定（isUltimateWeapon = 全ステ最大値、ペットの極個体に相当）
+    const hasEliteWeapon = groupItems.some((w) => isUltimateWeapon(w));
+    const weaponLampsHtml = hasEliteWeapon
+      ? '<span class="rare-lamps"><span class="rare-lamp lamp-elite"></span></span>'
+      : '';
+
     headerEl.innerHTML = `
       <button class="group-fav-btn ${fav ? "fav-on" : ""}" data-group-key="${groupKey}">${fav ? "♥" : "♡"}</button>
       <span class="pet-group-name">⚔️ ${displayName}</span>
       <span class="pet-group-skill">${skillLabel}</span>
+      ${weaponLampsHtml}
       <span class="pet-group-count">× ${groupItems.length}</span>
       <span class="pet-group-toggle">▶</span>
       <button class="group-close-btn hidden">✕</button>
@@ -641,12 +648,23 @@ function renderEnemyBook(buffEl, contentEl) {
   const atkPercent = Math.round((state.dexBuff.power - 1) * 100);
 
   const allEnemyDefs = [...normalEnemies, ...bossEnemies];
-  const totalEnemies = allEnemyDefs.length;
-  const obtainedEnemies = allEnemyDefs.filter((e) => {
+
+  // 総数：各敵の有効称号数を合算
+  const totalEnemies = allEnemyDefs.reduce((sum, e) => {
+    const hasLegend = !!(e.passive && legendaryTitles[e.passive]);
+    return sum + (hasLegend ? 5 : 4);
+  }, 0);
+
+  // 捕獲済み：caught=true の称号数を合算
+  const obtainedEnemies = allEnemyDefs.reduce((sum, e) => {
     const key = e.isBoss ? `boss_${e.id}` : `normal_${e.id}`;
     const entry = state.book.enemies[key];
-    return entry && [1, 2, 3, 4].every((id) => entry.titles?.[id]?.caught);
-  }).length;
+    if (!entry) return sum;
+    const titleIds = [1, 2, 3, 4];
+    const hasLegend = !!(e.passive && legendaryTitles[e.passive]);
+    if (hasLegend) titleIds.push(5);
+    return sum + titleIds.filter((id) => entry.titles?.[id]?.caught).length;
+  }, 0);
 
   buffEl.innerHTML = `<div>捕獲済み：${obtainedEnemies} / ${totalEnemies}</div><div>図鑑バフ：HP +${hpPercent}% / ATK +${atkPercent}%</div>`;
 
@@ -779,15 +797,22 @@ function renderWeaponBook(buffEl, contentEl) {
   const hpBuff = Math.round((state.weaponDexBuff.hp - 1) * 100);
   const atkBuff = Math.round((state.weaponDexBuff.power - 1) * 100);
 
-  const totalWeapons = weaponTemplates.length;
-  const obtainedWeapons = weaponTemplates.filter((t) => {
+  // 総数：ベース + 全進化段階数を合算
+  const totalWeapons = weaponTemplates.reduce((sum, t) => {
+    return sum + 1 + (t.evolutions?.length ?? 0);
+  }, 0);
+
+  // 入手済み：ベース入手数 + 進化段階取得数を合算
+  const obtainedWeapons = weaponTemplates.reduce((sum, t) => {
     const key = t.isBossDrop ? `boss_${t.id}` : `normal_${t.id}`;
     const entry = state.book.weapons[key];
-    if (!entry) return false;
-    const lastEvo = t.evolutions?.[t.evolutions.length - 1];
-    if (!lastEvo) return false;
-    return !!entry.evolutions?.[lastEvo.name]?.obtained;
-  }).length;
+    if (!entry) return sum;
+    let count = 1; // ベース入手
+    for (const evo of t.evolutions ?? []) {
+      if (entry.evolutions?.[evo.name]?.obtained) count++;
+    }
+    return sum + count;
+  }, 0);
 
   buffEl.innerHTML = `<div>入手済み：${obtainedWeapons} / ${totalWeapons}</div><div>図鑑バフ：HP +${hpBuff}% / ATK +${atkBuff}%</div>`;
 
@@ -973,10 +998,22 @@ export function updatePetPanel(onPetClick, onPetEquip) {
 
     const headerEl = document.createElement("div");
     headerEl.className = "pet-group-header";
+    // レアランプ判定
+    const hasElite   = groupPets.some((p) => p.isElite);
+    const hasLegend  = groupPets.some((p) => p.isLegendary);
+    const hasUltimate = groupPets.some((p) => p.isLegendUltimate);
+    const lampsHtml = (hasElite || hasLegend || hasUltimate) ? `
+      <span class="rare-lamps">
+        ${hasElite    ? '<span class="rare-lamp lamp-elite"></span>'    : ''}
+        ${hasLegend   ? '<span class="rare-lamp lamp-legendary"></span>' : ''}
+        ${hasUltimate ? '<span class="rare-lamp lamp-ultimate"></span>' : ''}
+      </span>` : '';
+
     headerEl.innerHTML = `
       <button class="group-fav-btn ${fav ? "fav-on" : ""}" data-group-key="${groupKey}">${fav ? "♥" : "♡"}</button>
       <span class="pet-group-name">🐾 ${speciesName}</span>
       <span class="pet-group-skill">${skillLabel}</span>
+      ${lampsHtml}
       <span class="pet-group-count">× ${groupPets.length}</span>
       <span class="pet-group-toggle">▶</span>
       <button class="group-close-btn hidden">✕</button>

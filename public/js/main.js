@@ -512,6 +512,7 @@ const stayChk = document.getElementById("stayOnFloorChk");
 stayChk.checked = state.ui.stayOnFloor ?? false;
 stayChk.addEventListener("change", () => {
   state.ui.stayOnFloor = stayChk.checked;
+  saveGame();
 });
 
 // =====================

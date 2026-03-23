@@ -2300,6 +2300,36 @@ button {
   flex-shrink: 0;
 }
 
+/* グループヘッダー レアランプ */
+.rare-lamps {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.rare-lamp {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rare-lamp.lamp-elite {
+  background: #d4890a;
+  box-shadow: 0 0 4px #d4890a;
+}
+
+.rare-lamp.lamp-legendary {
+  background: #a060e0;
+  box-shadow: 0 0 4px #a060e0;
+}
+
+.rare-lamp.lamp-ultimate {
+  background: #c82020;
+  box-shadow: 0 0 4px #c82020;
+}
+
 .pet-group-skill {
   flex: 1;
   font-size: 12px;
