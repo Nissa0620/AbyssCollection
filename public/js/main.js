@@ -509,7 +509,6 @@ document.getElementById("resetConfirmBtn").addEventListener("click", () => {
 // このフロアにとどまる
 // =====================
 const stayChk = document.getElementById("stayOnFloorChk");
-stayChk.checked = state.ui.stayOnFloor ?? false;
 stayChk.addEventListener("change", () => {
   state.ui.stayOnFloor = stayChk.checked;
   saveGame();
@@ -652,6 +651,7 @@ if (!loadGame()) {
   createEnemy(); // 現在のフロアで敵を生成（floor++しない）
   refreshUI();
 }
+stayChk.checked = state.ui.stayOnFloor ?? false;
 checkPlayerName();
 
 // 10秒ごとに保存
