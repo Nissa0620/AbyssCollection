@@ -3,7 +3,7 @@ import { createEnemy } from "./battle.js";
 import { playerAttack, enemyAttack } from "./battle.js";
 import { healPlayerFull, gainExp } from "./player.js";
 import { saveGame } from "./saveLoad.js";
-import { getExpMultiplier, getExpBurstMultiplier, getLegendExpBurstMultiplier } from "./pet.js";
+import { getExpMultiplier, getExpBurstMultiplier, getLegendExpBurstMultiplier, calcOverflowBonuses } from "./pet.js";
 import { addLog } from "./log.js";
 import { checkAchievements } from "./achievements.js";
 
@@ -70,6 +70,7 @@ function nextPhase() {
   state._triggerOverflowDmgBoost = 0;
   state._triggerOverflowHpBoost = 0;
   state._expBurstOverflowExpBoost = 0;
+  calcOverflowBonuses(); // 超過分を装備スキル値から計算してstateに設定
 }
 
 function gameOverPhase() {
@@ -86,4 +87,5 @@ function gameOverPhase() {
   state._triggerOverflowDmgBoost = 0;
   state._triggerOverflowHpBoost = 0;
   state._expBurstOverflowExpBoost = 0;
+  calcOverflowBonuses(); // 超過分を装備スキル値から計算してstateに設定
 }

@@ -1212,7 +1212,7 @@ function weaponPassiveLabel(passive) {
     hpBoost:      "HP増加",        doubleAttack: "2回攻撃",
     survive:      "根性",          reflect:      "ダメージ反射",
     drain:        "与ダメ吸収",    critRate:     "クリティカル率",
-    critDamage:   "クリティカルダメージ増加", extraHit:   "追撃",
+    critDamage:   "クリティカルダメージ増加",
     giantKiller:  "巨人殺し",      bossSlayer:   "ボス特効",
     evade:        "回避",          lastStand:    "背水の陣",
     regen:        "再生",
@@ -1393,14 +1393,13 @@ export function renderStatusScreen() {
   if (pet?.passive === "legendDmgReduce") dmgReduce += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendDmgReduce") dmgReduce += weapon.passiveValue ?? 0;
 
-  // HP増加（超過分含む）
+  // HP増加（hpBoostスキル分のみ。超過変換分は各スキル行に個別表示）
   let hpBoost = 0;
   if (pet?.passive === "hpBoost") hpBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "hpBoost") hpBoost += weapon.passiveValue ?? 0;
   if (pet?.passive === "legendHpBoost") hpBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendHpBoost") hpBoost += weapon.passiveValue ?? 0;
-  hpBoost += Math.floor(state._triggerOverflowHpBoost ?? 0); // 超過分加算
-  hpBoost += Math.floor(state._regenOverflowHpBoost ?? 0); // 超過分加算
+  hpBoost += Math.floor(state._regenOverflowHpBoost ?? 0); // 再生超過分は引き続き加算
 
   // 反射率（通常）
   let reflectRate = 0;
@@ -1502,6 +1501,10 @@ export function renderStatusScreen() {
 
   // レジェンダリー専用スキル（装備中のみ表示）
   const hasTripleAttack = pet?.passive === "tripleAttack" || weapon?.passive === "tripleAttack";
+  // tripleAttack合算値（超過注記用）
+  let tripleAttackRate = 0;
+  if (pet?.passive === "tripleAttack") tripleAttackRate += pet.passiveValue ?? 0;
+  if (weapon?.passive === "tripleAttack") tripleAttackRate += weapon.passiveValue ?? 0;
   let legendSurviveRate = 0;
   if (pet?.passive === "legendSurvive") legendSurviveRate += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendSurvive") legendSurviveRate += weapon.passiveValue ?? 0;
@@ -1554,27 +1557,47 @@ export function renderStatusScreen() {
       ${atkBoost > 0 ? row("攻撃力増加率", `+${atkBoost}%`) : ""}
       ${dropBoost > 0 ? row("ドロップ率", `+${dropBoost}%`) : ""}
       ${dmgBoost > 0 ? row("与ダメ増加率", `+${dmgBoost}%`) : ""}
-      ${dmgReduce > 0 ? cappedRow("被ダメ減少率", dmgReduce, 80) : ""}
+      ${dmgReduce > 0 ? cappedRow("被ダメ減少率", dmgReduce, 80, "",
+          Math.floor(Math.max(0, dmgReduce - 80) * 0.2) > 0
+            ? `超過→HP増加+${Math.floor(Math.max(0, dmgReduce - 80) * 0.2)}%` : "") : ""}
       ${hpBoost > 0 ? row("HP増加率", `+${hpBoost}%`) : ""}
-      ${doubleRate > 0 ? cappedRow("2回攻撃 発生率", doubleRate, 100) : ""}
-      ${hasTripleAttack ? row("✨連撃王", "3回攻撃") : ""}
-      ${surviveRate > 0 ? cappedRow("根性 発生率", surviveRate, 100) : ""}
-      ${legendSurviveRate > 0 ? cappedRow("✨不死身 発生率", legendSurviveRate, 80) : ""}
+      ${doubleRate > 0 ? cappedRow("2回攻撃 発生率", doubleRate, 100, "",
+          Math.floor(Math.max(0, doubleRate - 100) * 0.2) > 0
+            ? `超過→与ダメ+${Math.floor(Math.max(0, doubleRate - 100) * 0.2)}%` : "") : ""}
+      ${hasTripleAttack ? row("✨連撃王", "3回攻撃",
+          Math.floor(Math.max(0, tripleAttackRate - 100) * 0.2) > 0
+            ? `超過→与ダメ+${Math.floor(Math.max(0, tripleAttackRate - 100) * 0.2)}%` : "") : ""}
+      ${surviveRate > 0 ? cappedRow("根性 発生率", surviveRate, 80, "",
+          Math.floor(Math.max(0, surviveRate - 80) * 0.2) > 0
+            ? `超過→HP増加+${Math.floor(Math.max(0, surviveRate - 80) * 0.2)}%` : "") : ""}
+      ${legendSurviveRate > 0 ? cappedRow("✨不死身 発生率", legendSurviveRate, 80, "",
+          Math.floor(Math.max(0, legendSurviveRate - 80) * 0.2) > 0
+            ? `超過→HP増加+${Math.floor(Math.max(0, legendSurviveRate - 80) * 0.2)}%` : "") : ""}
       ${reflectRate > 0 ? row("ダメージ反射 反射率", `${reflectRate}%`) : ""}
       ${legendReflectRate > 0 ? row("✨鏡盾 反射率", `${legendReflectRate}%（現在${legendReflectRate + (state.legendReflectBonus ?? 0)}%）`) : ""}
       ${drainRate > 0 ? row("与ダメ吸収 回復率", `${drainRate}%`) : ""}
       ${legendDrainRate > 0 ? row("✨吸血鬼 回復率", `${legendDrainRate}%`) : ""}
       ${critRate > 0 ? cappedRow("クリティカル率", critRate, 100) : ""}
       ${critDmg > 0 ? row("クリティカルダメージ増加率", `+${critDmg}%`) : ""}
-      ${expBurstRate > 0 ? cappedRow("経験値爆発 発生率", expBurstRate, 100) : ""}
-      ${legendExpBurstRate > 0 ? cappedRow("経験値大爆発 発生率", legendExpBurstRate, 100) : ""}
+      ${expBurstRate > 0 ? cappedRow("経験値爆発 発生率", expBurstRate, 100, "",
+          Math.floor(Math.max(0, expBurstRate - 100) * 0.2) > 0
+            ? `超過→経験値増加+${Math.floor(Math.max(0, expBurstRate - 100) * 0.2)}%` : "") : ""}
+      ${legendExpBurstRate > 0 ? cappedRow("経験値大爆発 発生率", legendExpBurstRate, 100, "",
+          Math.floor(Math.max(0, legendExpBurstRate - 100) * 0.2) > 0
+            ? `超過→経験値増加+${Math.floor(Math.max(0, legendExpBurstRate - 100) * 0.2)}%` : "") : ""}
       ${giantKiller > 0 ? row("巨人殺し 効果率", `+${giantKiller}%`) : ""}
       ${bossSlayer > 0 ? row("ボス特効 効果率", `+${bossSlayer}%`) : ""}
-      ${evadeRate > 0 ? cappedRow("回避 発生率", evadeRate, 90) : ""}
+      ${evadeRate > 0 ? cappedRow("回避 発生率", evadeRate, 90, "",
+          Math.floor(Math.max(0, evadeRate - 90) * 0.2) > 0
+            ? `超過→与ダメ+${Math.floor(Math.max(0, evadeRate - 90) * 0.2)}%` : "") : ""}
       ${lastStand > 0 ? row("背水の陣 効果率", `+${lastStand}%`) : ""}
       ${regenRate > 0 ? cappedRow("再生率", regenRate, 50, "%/ターン") : ""}
-      ${resurrectionRate > 0 ? cappedRow("復活 発生率", resurrectionRate, 100) : ""}
-      ${legendResurrectionRate > 0 ? cappedRow("✨輪廻転生 発生率", legendResurrectionRate, 80) : ""}
+      ${resurrectionRate > 0 ? cappedRow("復活 発生率", resurrectionRate, 100, "",
+          Math.floor(Math.max(0, resurrectionRate - 100) * 0.2) > 0
+            ? `超過→HP増加+${Math.floor(Math.max(0, resurrectionRate - 100) * 0.2)}%` : "") : ""}
+      ${legendResurrectionRate > 0 ? cappedRow("✨輪廻転生 発生率", legendResurrectionRate, 80, "",
+          Math.floor(Math.max(0, legendResurrectionRate - 80) * 0.2) > 0
+            ? `超過→HP増加+${Math.floor(Math.max(0, legendResurrectionRate - 80) * 0.2)}%` : "") : ""}
       ${dmgReduce > 0 && (pet?.passive === "legendDmgReduce" || weapon?.passive === "legendDmgReduce") ? row("ダメージ無効", "3ターンごと") : ""}
     </div>
     <div class="status-detail-section">

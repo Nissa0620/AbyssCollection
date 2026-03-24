@@ -40,7 +40,7 @@ import { saveGame, loadGame } from "./saveLoad.js";
 import { renderAchievements } from "./achievements.js";
 import { rerollMissions } from "./research.js";
 import { sendRankingData, fetchRanking, isNameTaken } from "./ranking.js";
-import { equipPet, unequipPet, handlePetSynthesisSelection, executePetSynthesis, toggleSelectAllSamePets, getHpBoostMultiplier, getPetPower, getPetHp } from "./pet.js";
+import { equipPet, unequipPet, handlePetSynthesisSelection, executePetSynthesis, toggleSelectAllSamePets, getHpBoostMultiplier, getPetPower, getPetHp, calcOverflowBonuses } from "./pet.js";
 
 // =====================
 // 初期化
@@ -91,6 +91,7 @@ function refreshUI() {
 
 function refreshHpBoost() {
   state.hpBoostMult = getHpBoostMultiplier();
+  calcOverflowBonuses();
 }
 
 function refreshSynthesisOnly() {
@@ -617,6 +618,7 @@ const rankingTabNotes = {
 
 document.getElementById("rankingBtn").addEventListener("click", () => {
   document.getElementById("moreOverlay").classList.add("hidden");
+  sendRankingData(); // ランキング表示時にも送信チェック
   // タブを最深階層にリセット
   document.querySelectorAll(".ranking-tab").forEach((b) => b.classList.remove("active"));
   document.querySelector(".ranking-tab[data-field='maxFloor']").classList.add("active");

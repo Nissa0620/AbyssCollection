@@ -1319,7 +1319,7 @@ export const legendaryTitles = {
   drain:        { id: 5, name: "吸血鬼",   legendaryPassive: "legendDrain",        hpRate: 2.2, atkRate: 2.2, expRate: 2.5, passiveMult: 1.0 },
   critRate:     { id: 5, name: "致命眼",   legendaryPassive: "legendCritRate",     hpRate: 2.2, atkRate: 2.2, expRate: 2.5, passiveMult: 4.0 },
   critDamage:   { id: 5, name: "覇者",     legendaryPassive: "legendCritDamage",   hpRate: 2.2, atkRate: 2.2, expRate: 2.5, passiveMult: 4.0 },
-  extraHit:     { id: 5, name: "乱打",     legendaryPassive: "legendExtraHit",     hpRate: 2.2, atkRate: 2.2, expRate: 2.5, passiveMult: 1.0 },
+  expBurst:     { id: 5, name: "幸運の女神", legendaryPassive: "legendExpBurst",    hpRate: 2.2, atkRate: 2.2, expRate: 2.5, passiveMult: 1.0 },
   giantKiller:  { id: 5, name: "下剋上",   legendaryPassive: "legendGiantKiller",  hpRate: 2.2, atkRate: 2.2, expRate: 2.5, passiveMult: 4.0 },
   bossSlayer:   { id: 5, name: "覇王討伐", legendaryPassive: "legendBossSlayer",   hpRate: 2.2, atkRate: 2.2, expRate: 2.5, passiveMult: 4.0 },
   evade:        { id: 5, name: "幻影",     legendaryPassive: "legendEvade",        hpRate: 2.2, atkRate: 2.2, expRate: 2.5, passiveMult: 1.0 },

@@ -166,7 +166,7 @@ export const bossEnemies = [
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 2.0, petHpRate: 2.0,
     captureRate: 0.2126,
-    passive: "extraHit", passiveType: "trigger",
+    passive: "expBurst", passiveType: "trigger",
   },
   {
     id: 15,
@@ -406,7 +406,7 @@ export const bossEnemies = [
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 2.5, petHpRate: 2.5,
     captureRate: 0.2068,
-    passive: "extraHit", passiveType: "trigger",
+    passive: "expBurst", passiveType: "trigger",
   },
   {
     id: 35,
@@ -646,7 +646,7 @@ export const bossEnemies = [
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 2.5, petHpRate: 2.5,
     captureRate: 0.2049,
-    passive: "extraHit", passiveType: "trigger",
+    passive: "expBurst", passiveType: "trigger",
   },
   {
     id: 55,
@@ -886,7 +886,7 @@ export const bossEnemies = [
     hpRate: 1.0, powerRate: 1.0,
     petPowerRate: 3.0, petHpRate: 3.0,
     captureRate: 0.2039,
-    passive: "extraHit", passiveType: "trigger",
+    passive: "expBurst", passiveType: "trigger",
   },
   {
     id: 75,

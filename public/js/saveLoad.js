@@ -1,6 +1,6 @@
 import { state } from "./state.js";
 import { recalcDexBuff, recalcWeaponDexBuff } from "./dexBuff.js";
-import { getHpBoostMultiplier, getPetPower, getPetHp } from "./pet.js";
+import { getHpBoostMultiplier, getPetPower, getPetHp, calcOverflowBonuses } from "./pet.js";
 import { initMissions } from "./research.js";
 
 const SAVE_KEY = "abyssSave";
@@ -73,12 +73,12 @@ export function loadGame() {
   const validPassives = new Set([
     "", "captureBoost", "expBoost", "atkBoost", "dropBoost",
     "dmgBoost", "dmgReduce", "hpBoost", "doubleAttack", "survive",
-    "reflect", "drain", "critRate", "critDamage", "extraHit",
+    "reflect", "drain", "critRate", "critDamage", "expBurst",
     "giantKiller", "bossSlayer", "evade", "lastStand", "regen", "resurrection",
     "legendCaptureBoost", "legendExpBoost", "legendAtkBoost", "legendDropBoost",
     "legendDmgBoost", "legendDmgReduce", "legendHpBoost", "tripleAttack",
     "legendSurvive", "legendReflect", "legendDrain", "legendCritRate",
-    "legendCritDamage", "legendExtraHit", "legendGiantKiller", "legendBossSlayer",
+    "legendCritDamage", "legendExpBurst", "legendGiantKiller", "legendBossSlayer",
     "legendEvade", "legendLastStand", "legendRegen", "legendResurrection",
   ]);
   if (!validPassives.has(state.ui?.inventoryFilter)) {
@@ -102,6 +102,24 @@ export function loadGame() {
   recalcDexBuff(state);
   recalcWeaponDexBuff(state);
   state.hpBoostMult = getHpBoostMultiplier();
+
+  // マイグレーション：extraHit → expBurst、legendExtraHit → legendExpBurst
+  const passiveMigrateMap = { extraHit: "expBurst", legendExtraHit: "legendExpBurst" };
+  for (const pet of state.player?.petList ?? []) {
+    if (passiveMigrateMap[pet.passive]) pet.passive = passiveMigrateMap[pet.passive];
+  }
+  if (passiveMigrateMap[state.player?.equippedPet?.passive]) {
+    state.player.equippedPet.passive = passiveMigrateMap[state.player.equippedPet.passive];
+  }
+  for (const weapon of state.player?.inventory ?? []) {
+    if (passiveMigrateMap[weapon.passive]) weapon.passive = passiveMigrateMap[weapon.passive];
+  }
+  if (passiveMigrateMap[state.player?.equippedWeapon?.passive]) {
+    state.player.equippedWeapon.passive = passiveMigrateMap[state.player.equippedWeapon.passive];
+  }
+
+  // ロード後に超過分ボーナスを計算
+  calcOverflowBonuses();
 
   // マイグレーション：捕獲済フラグの補完
   // petList に存在するペットは必ず caught = true にする

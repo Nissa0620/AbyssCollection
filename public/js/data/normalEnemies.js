@@ -137,7 +137,7 @@ export const normalEnemies = [
     hpRate: 1.3, powerRate: 1.3,
     petPowerRate: 1.3, petHpRate: 1.3,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -337,7 +337,7 @@ export const normalEnemies = [
     hpRate: 1.8, powerRate: 1.8,
     petPowerRate: 1.8, petHpRate: 1.8,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -537,7 +537,7 @@ export const normalEnemies = [
     hpRate: 2.3, powerRate: 2.3,
     petPowerRate: 2.3, petHpRate: 2.3,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -737,7 +737,7 @@ export const normalEnemies = [
     hpRate: 2.8, powerRate: 2.8,
     petPowerRate: 2.8, petHpRate: 2.8,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -937,7 +937,7 @@ export const normalEnemies = [
     hpRate: 3.3, powerRate: 3.3,
     petPowerRate: 3.3, petHpRate: 3.3,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -1137,7 +1137,7 @@ export const normalEnemies = [
     hpRate: 3.8, powerRate: 3.8,
     petPowerRate: 3.8, petHpRate: 3.8,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -1337,7 +1337,7 @@ export const normalEnemies = [
     hpRate: 4.3, powerRate: 4.3,
     petPowerRate: 4.3, petHpRate: 4.3,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -1537,7 +1537,7 @@ export const normalEnemies = [
     hpRate: 4.8, powerRate: 4.8,
     petPowerRate: 4.8, petHpRate: 4.8,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -1737,7 +1737,7 @@ export const normalEnemies = [
     hpRate: 5.3, powerRate: 5.3,
     petPowerRate: 5.3, petHpRate: 5.3,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -1937,7 +1937,7 @@ export const normalEnemies = [
     hpRate: 5.8, powerRate: 5.8,
     petPowerRate: 5.8, petHpRate: 5.8,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -2137,7 +2137,7 @@ export const normalEnemies = [
     hpRate: 6.3, powerRate: 6.3,
     petPowerRate: 6.3, petHpRate: 6.3,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -2337,7 +2337,7 @@ export const normalEnemies = [
     hpRate: 6.8, powerRate: 6.8,
     petPowerRate: 6.8, petHpRate: 6.8,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -2537,7 +2537,7 @@ export const normalEnemies = [
     hpRate: 7.3, powerRate: 7.3,
     petPowerRate: 7.3, petHpRate: 7.3,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -2737,7 +2737,7 @@ export const normalEnemies = [
     hpRate: 7.8, powerRate: 7.8,
     petPowerRate: 7.8, petHpRate: 7.8,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -2937,7 +2937,7 @@ export const normalEnemies = [
     hpRate: 8.3, powerRate: 8.3,
     petPowerRate: 8.3, petHpRate: 8.3,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -3137,7 +3137,7 @@ export const normalEnemies = [
     hpRate: 8.8, powerRate: 8.8,
     petPowerRate: 8.8, petHpRate: 8.8,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -3337,7 +3337,7 @@ export const normalEnemies = [
     hpRate: 9.3, powerRate: 9.3,
     petPowerRate: 9.3, petHpRate: 9.3,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -3537,7 +3537,7 @@ export const normalEnemies = [
     hpRate: 9.8, powerRate: 9.8,
     petPowerRate: 9.8, petHpRate: 9.8,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -3737,7 +3737,7 @@ export const normalEnemies = [
     hpRate: 10.3, powerRate: 10.3,
     petPowerRate: 10.3, petHpRate: 10.3,
     captureRate: 0.25,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
@@ -3937,7 +3937,7 @@ export const normalEnemies = [
     hpRate: 10.8, powerRate: 10.8,
     petPowerRate: 10.8, petHpRate: 10.8,
     captureRate: 0.15,
-    passive: "extraHit",
+    passive: "expBurst",
     passiveType: "trigger",
   },
   {
