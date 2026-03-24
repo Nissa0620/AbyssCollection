@@ -344,9 +344,6 @@ document.getElementById("petSynthesizeBtn").addEventListener("click", () => {
     state.petSynthesis.materialUids = [];
   }
   if (success) {
-    state.ui.petFilter = "";
-    const sel = document.getElementById("petFilterSelect");
-    if (sel) sel.value = "";
     saveGame();
   }
   refreshUI();
@@ -390,9 +387,6 @@ synthBtn.addEventListener("click", () => {
     state.synthesis.materialUids = [];
   }
   if (success) {
-    state.ui.inventoryFilter = "";
-    const sel = document.getElementById("inventoryFilterSelect");
-    if (sel) sel.value = "";
     saveGame();
   }
   refreshUI();
