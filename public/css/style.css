@@ -1041,9 +1041,6 @@ button {
   margin-top: 4px;
 }
 
-.book-enemy-header.boss {
-  border-left: 3px solid #c0392b;
-}
 
 
 /* ===== 図鑑タブ ===== */
@@ -1273,6 +1270,12 @@ button {
   color: #5a9e6a;
   font-size: 11px;
   margin-left: 6px;
+}
+
+.book-complete-star {
+  color: #f0c040;
+  font-size: 12px;
+  margin-right: 6px;
 }
 
 /* ペット称号バッジ */

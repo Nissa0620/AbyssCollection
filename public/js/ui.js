@@ -690,6 +690,12 @@ function renderEnemyBook(buffEl, contentEl) {
       titlePool.some((title) => entry.titles?.[title.id]?.defeated) ||
       !!entry.titles?.[5]?.defeated
     );
+    // コンプリート判定：全称号が caught === true であるか
+    const allTitleIds = titlePool.map((t) => t.id);
+    if (legendDef) allTitleIds.push(5);
+    const isComplete = entry != null && allTitleIds.every(
+      (id) => !!entry.titles?.[id]?.caught
+    );
     const floorText = hasDefeatedAny
       ? (enemyDef.isBoss ? `${enemyDef.bossFloors?.[0]}階` : (area ? `${area.min}〜${area.max}階` : "不明"))
       : "不明";
@@ -703,7 +709,8 @@ function renderEnemyBook(buffEl, contentEl) {
 
     if (enemyDef.isBoss) header.classList.add("boss");
 
-    header.innerHTML = `<span>${name}</span><span class="book-toggle">▶</span>`;
+    const completeIcon = isComplete ? `<span class="book-complete-star">★</span>` : "";
+    header.innerHTML = `<span>${name}</span>${completeIcon}<span class="book-toggle">▶</span>`;
 
     const detail = document.createElement("div");
     detail.className = "book-enemy-detail hidden";
@@ -822,6 +829,10 @@ function renderWeaponBook(buffEl, contentEl) {
       (a) => a.weaponIdRange && a.weaponIdRange[0] <= template.id && template.id <= a.weaponIdRange[1],
     );
     const hasObtainedAny = !!entry;
+    // コンプリート判定：ベース入手済み かつ 全進化段階が obtained === true
+    const isComplete = !!entry && (template.evolutions ?? []).every(
+      (evo) => !!entry.evolutions?.[evo.name]?.obtained
+    );
     const floorText = hasObtainedAny && area ? `${area.min}〜${area.max}階` : "不明";
 
     const section = document.createElement("div");
@@ -831,7 +842,8 @@ function renderWeaponBook(buffEl, contentEl) {
     header.className = "book-enemy-header";
 
     const name = entry ? template.name : "？？？";
-    header.innerHTML = `<span>${name}</span><span class="book-toggle">▶</span>`;
+    const completeIcon = isComplete ? `<span class="book-complete-star">★</span>` : "";
+    header.innerHTML = `<span>${name}</span>${completeIcon}<span class="book-toggle">▶</span>`;
 
     const detail = document.createElement("div");
     detail.className = "book-enemy-detail hidden";
@@ -1217,6 +1229,7 @@ function weaponPassiveLabel(passive) {
     evade:        "回避",          lastStand:    "背水の陣",
     regen:        "再生",
     resurrection: "復活",
+    expBurst: "経験値爆発",
     legendCaptureBoost: "✨捕縛者",  legendExpBoost:   "✨賢者",
     legendAtkBoost:     "✨破壊神",  legendDropBoost:  "✨財宝王",
     legendDmgBoost:     "✨剛力",    legendDmgReduce:  "✨鉄壁",
@@ -1228,6 +1241,7 @@ function weaponPassiveLabel(passive) {
     legendEvade:        "✨幻影",    legendLastStand:  "✨挑戦者",
     legendRegen:        "✨不滅",
     legendResurrection: "✨輪廻転生",
+    legendExpBurst: "✨幸運の女神",
   };
   return labels[passive] ?? passive;
 }
