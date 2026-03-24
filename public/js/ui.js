@@ -1399,7 +1399,8 @@ export function renderStatusScreen() {
   if (weapon?.passive === "hpBoost") hpBoost += weapon.passiveValue ?? 0;
   if (pet?.passive === "legendHpBoost") hpBoost += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendHpBoost") hpBoost += weapon.passiveValue ?? 0;
-  hpBoost += Math.floor(state._regenOverflowHpBoost ?? 0); // 再生超過分は引き続き加算
+  hpBoost += Math.floor(state._regenOverflowHpBoost ?? 0); // 再生超過分加算
+  hpBoost += Math.floor(state._triggerOverflowHpBoost ?? 0); // 根性・被ダメ減少・不死身・復活・輪廻転生の超過分加算
 
   // 反射率（通常）
   let reflectRate = 0;
