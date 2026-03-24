@@ -859,4 +859,3 @@ export function calcOverflowBonuses() {
 
   state._expBurstOverflowExpBoost = Math.floor(overflowExpBoost);
 }
-}
