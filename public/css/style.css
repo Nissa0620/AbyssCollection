@@ -1275,6 +1275,7 @@ button {
 .book-complete-star {
   color: #f0c040;
   font-size: 12px;
+  margin-left: auto;
   margin-right: 6px;
 }
 
