@@ -50,13 +50,13 @@
         </div>
         <!-- 装備・ペット：大ボタン行 -->
         <div class="action-row action-row-main">
-          <button id="inventoryToggleBtn" class="main-nav-btn">
-            <span class="nav-icon">📦</span>
-            <span class="nav-label">インベントリ</span>
-          </button>
           <button id="petToggleBtn" class="main-nav-btn">
             <span class="nav-icon">🐾</span>
             <span class="nav-label">ペット</span>
+          </button>
+          <button id="inventoryToggleBtn" class="main-nav-btn">
+            <span class="nav-icon">📦</span>
+            <span class="nav-label">インベントリ</span>
           </button>
         </div>
         <!-- 図鑑・状態・その他：小ボタン行 -->
@@ -67,7 +67,7 @@
           </button>
           <button id="statusBtn" class="sub-nav-btn">
             <span class="nav-icon">📊</span>
-            <span class="nav-label">状態</span>
+            <span class="nav-label">ステータス</span>
           </button>
           <button id="moreBtn" class="sub-nav-btn">
             <span class="nav-icon">⋯</span>
@@ -528,7 +528,7 @@
           <!-- ミッションタブ -->
           <div id="researchMissions" class="research-tab-content">
             <div class="research-reroll-area">
-              <button id="researchRerollBtn">🔄 リロール（残り<span id="rerollRemaining">--:--:--</span>）</button>
+              <button id="researchRerollBtn">🔄 リロール（貢献P <span id="rerollCostDisplay">5</span>消費）</button>
             </div>
             <ul id="missionList" class="mission-list"></ul>
           </div>

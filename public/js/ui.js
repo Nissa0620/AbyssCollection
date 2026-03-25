@@ -12,7 +12,7 @@ import {
   getBuffPurchaseCost,
   getDropPurchaseCost,
   getCapturePurchaseCost,
-  getRerollRemainingMs,
+  getRerollCost,
   rerollMissions,
   initMissions,
 } from "./research.js";
@@ -1890,29 +1890,11 @@ function renderExchangeList() {
   });
 }
 
-let rerollTimerInterval = null;
-
-function updateRerollTimer() {
+function updateRerollBtn() {
   const btn = document.getElementById("researchRerollBtn");
-  const span = document.getElementById("rerollRemaining");
-
-  if (rerollTimerInterval) clearInterval(rerollTimerInterval);
-
-  function tick() {
-    const ms = getRerollRemainingMs();
-    if (ms <= 0) {
-      span.textContent = "リロール可能";
-      btn.disabled = false;
-    } else {
-      const h = Math.floor(ms / 3600000);
-      const m = Math.floor((ms % 3600000) / 60000);
-      const s = Math.floor((ms % 60000) / 1000);
-      span.textContent = `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-      btn.disabled = true;
-    }
-  }
-  tick();
-  rerollTimerInterval = setInterval(tick, 1000);
+  const cost = getRerollCost();
+  const canAfford = state.research.currentPoints >= cost;
+  btn.disabled = !canAfford;
 }
 
 function openDonateModal(missionId) {
@@ -1982,5 +1964,5 @@ export function renderResearchScreen() {
   renderLevelProgress();
   renderMissions();
   renderExchangeList();
-  updateRerollTimer();
+  updateRerollBtn();
 }

@@ -118,23 +118,18 @@ export function donatePet(missionId, petUid) {
 // =====================
 // リロール処理
 // =====================
-export function canReroll() {
-  const now = Date.now();
-  const last = state.research.lastRerollTime ?? 0;
-  return now - last >= 24 * 60 * 60 * 1000;
+
+// リロールコストを返す（将来的に研究所レベルで変動させる場合はここを修正）
+export function getRerollCost() {
+  return 5;
 }
 
 export function rerollMissions() {
-  if (!canReroll()) return false;
-  state.research.lastRerollTime = Date.now();
+  const cost = getRerollCost();
+  if (state.research.currentPoints < cost) return false;
+  state.research.currentPoints -= cost;
   initMissions();
   return true;
-}
-
-export function getRerollRemainingMs() {
-  const now = Date.now();
-  const next = (state.research.lastRerollTime ?? 0) + 24 * 60 * 60 * 1000;
-  return Math.max(0, next - now);
 }
 
 // =====================

@@ -163,7 +163,6 @@ export function loadGame() {
       totalPointsEarned: 0,
       currentPoints: 0,
       missions: [],
-      lastRerollTime: 0,
       buffPurchaseCount: 0,
       atkBonus: 0,
       hpBonus: 0,
