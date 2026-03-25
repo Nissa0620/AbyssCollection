@@ -324,9 +324,6 @@ export function getRegenHeal() {
     }
   }
 
-  // 超過分をhpBoostに動的反映（毎回上書き）
-  state._regenOverflowHpBoost = Math.max(0, totalRate - 50) * 0.2;
-
   if (totalRate <= 0) return 0;
   const cappedRate = Math.min(totalRate, 50);
   return Math.max(1, Math.floor(state.player.totalHp * cappedRate / 100));
@@ -805,6 +802,22 @@ export function calcOverflowBonuses() {
     if (pet?.passive === "legendResurrection") rate += (pet.passiveValue ?? 0);
     if (weapon?.passive === "legendResurrection") rate += (weapon.passiveValue ?? 0);
     overflowHpBoost += Math.max(0, rate - 80) * 0.2;
+  }
+
+  // 再生（上限50%）
+  {
+    let rate = 0;
+    if (pet?.passive === "regen") rate += (pet.passiveValue ?? 0);
+    if (weapon?.passive === "regen") rate += (weapon.passiveValue ?? 0);
+    overflowHpBoost += Math.max(0, rate - 50) * 0.2;
+  }
+
+  // ✨不滅（上限50%）
+  {
+    let rate = 0;
+    if (pet?.passive === "legendRegen") rate += (pet.passiveValue ?? 0);
+    if (weapon?.passive === "legendRegen") rate += (weapon.passiveValue ?? 0);
+    overflowHpBoost += Math.max(0, rate - 50) * 0.2;
   }
 
   state._triggerOverflowHpBoost = Math.floor(overflowHpBoost);

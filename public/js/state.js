@@ -52,7 +52,7 @@ export const state = {
 
     get totalHp() {
       const buff = (1 + (state.dexBuff.hp - 1) + (state.weaponDexBuff.hp - 1)) * (state.hpBoostMult ?? 1);
-      const overflowHpBoost = 1 + ((state._triggerOverflowHpBoost ?? 0) + (state._regenOverflowHpBoost ?? 0)) / 100;
+      const overflowHpBoost = 1 + (state._triggerOverflowHpBoost ?? 0) / 100;
       const petHp = state.player.equippedPet
         ? Math.floor(_petHp(state.player.equippedPet) * buff)
         : 0;
@@ -113,7 +113,6 @@ export const state = {
   },
   _triggerOverflowDmgBoost: 0,
   _triggerOverflowHpBoost: 0,
-  _regenOverflowHpBoost: 0,
   _expBurstOverflowExpBoost: 0,
   surviveUsed: false,
   resurrectionUsed: false,
