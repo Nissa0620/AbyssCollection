@@ -2123,6 +2123,12 @@ button {
   color: #888;
 }
 
+.achievement-progress {
+  font-size: 11px;
+  color: #88ccff;
+  margin-top: 2px;
+}
+
 /* 実績達成通知ポップアップ */
 .achievement-popup {
   position: fixed;

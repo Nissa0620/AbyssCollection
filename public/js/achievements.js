@@ -4,7 +4,7 @@
 
 import { state } from "./state.js";
 import { addLog } from "./log.js";
-import { normalEnemies, bossEnemies, weaponTemplates, floorTable, legendaryTitles } from "./data/index.js";
+import { normalEnemies, bossEnemies, weaponTemplates, floorTable } from "./data/index.js";
 
 // =====================
 // 実績定義
@@ -54,48 +54,48 @@ export const achievementDefs = [
   ...buildWeaponCollectAchievements(),
 
   // --- 武器合成回数 ---
-  { id: "wsynth10",     category: "synthesis", label: "鍛冶見習い",       desc: "武器を合成する（10回）",      check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 10     },
-  { id: "wsynth100",    category: "synthesis", label: "鍛冶職人",         desc: "武器を合成する（100回）",     check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 100    },
-  { id: "wsynth1000",   category: "synthesis", label: "伝説の鍛冶師",     desc: "武器を合成する（1000回）",    check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 1000   },
-  { id: "wsynth10000",  category: "synthesis", label: "神話の鍛冶師",     desc: "武器を合成する（10000回）",   check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 10000  },
-  { id: "wsynth50000",  category: "synthesis", label: "鍛冶の超越者",     desc: "武器を合成する（50000回）",   check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 50000  },
-  { id: "wsynth100000", category: "synthesis", label: "鍛冶の神",         desc: "武器を合成する（100000回）",  check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 100000 },
+  { id: "wsynth10",     category: "synthesis", label: "鍛冶見習い",       desc: "武器を合成する（10回）",      check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 10,     progress: (s) => ({ current: s.achievements?.weaponSynthCount ?? 0, unit: "回" }) },
+  { id: "wsynth100",    category: "synthesis", label: "鍛冶職人",         desc: "武器を合成する（100回）",     check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 100,    progress: (s) => ({ current: s.achievements?.weaponSynthCount ?? 0, unit: "回" }) },
+  { id: "wsynth1000",   category: "synthesis", label: "伝説の鍛冶師",     desc: "武器を合成する（1000回）",    check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 1000,   progress: (s) => ({ current: s.achievements?.weaponSynthCount ?? 0, unit: "回" }) },
+  { id: "wsynth10000",  category: "synthesis", label: "神話の鍛冶師",     desc: "武器を合成する（10000回）",   check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 10000,  progress: (s) => ({ current: s.achievements?.weaponSynthCount ?? 0, unit: "回" }) },
+  { id: "wsynth50000",  category: "synthesis", label: "鍛冶の超越者",     desc: "武器を合成する（50000回）",   check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 50000,  progress: (s) => ({ current: s.achievements?.weaponSynthCount ?? 0, unit: "回" }) },
+  { id: "wsynth100000", category: "synthesis", label: "鍛冶の神",         desc: "武器を合成する（100000回）",  check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 100000, progress: (s) => ({ current: s.achievements?.weaponSynthCount ?? 0, unit: "回" }) },
 
   // --- ペット合成回数 ---
-  { id: "psynth10",     category: "synthesis", label: "訓練士見習い",     desc: "ペットを合成する（10回）",    check: (s) => (s.achievements?.petSynthCount ?? 0) >= 10     },
-  { id: "psynth100",    category: "synthesis", label: "ペット訓練士",     desc: "ペットを合成する（100回）",   check: (s) => (s.achievements?.petSynthCount ?? 0) >= 100    },
-  { id: "psynth1000",   category: "synthesis", label: "伝説の訓練士",     desc: "ペットを合成する（1000回）",  check: (s) => (s.achievements?.petSynthCount ?? 0) >= 1000   },
-  { id: "psynth10000",  category: "synthesis", label: "神話の訓練士",     desc: "ペットを合成する（10000回）", check: (s) => (s.achievements?.petSynthCount ?? 0) >= 10000  },
-  { id: "psynth50000",  category: "synthesis", label: "調教の超越者",     desc: "ペットを合成する（50000回）", check: (s) => (s.achievements?.petSynthCount ?? 0) >= 50000  },
-  { id: "psynth100000", category: "synthesis", label: "調教の神",         desc: "ペットを合成する（100000回）",check: (s) => (s.achievements?.petSynthCount ?? 0) >= 100000 },
+  { id: "psynth10",     category: "synthesis", label: "訓練士見習い",     desc: "ペットを合成する（10回）",    check: (s) => (s.achievements?.petSynthCount ?? 0) >= 10,     progress: (s) => ({ current: s.achievements?.petSynthCount ?? 0, unit: "回" }) },
+  { id: "psynth100",    category: "synthesis", label: "ペット訓練士",     desc: "ペットを合成する（100回）",   check: (s) => (s.achievements?.petSynthCount ?? 0) >= 100,    progress: (s) => ({ current: s.achievements?.petSynthCount ?? 0, unit: "回" }) },
+  { id: "psynth1000",   category: "synthesis", label: "伝説の訓練士",     desc: "ペットを合成する（1000回）",  check: (s) => (s.achievements?.petSynthCount ?? 0) >= 1000,   progress: (s) => ({ current: s.achievements?.petSynthCount ?? 0, unit: "回" }) },
+  { id: "psynth10000",  category: "synthesis", label: "神話の訓練士",     desc: "ペットを合成する（10000回）", check: (s) => (s.achievements?.petSynthCount ?? 0) >= 10000,  progress: (s) => ({ current: s.achievements?.petSynthCount ?? 0, unit: "回" }) },
+  { id: "psynth50000",  category: "synthesis", label: "調教の超越者",     desc: "ペットを合成する（50000回）", check: (s) => (s.achievements?.petSynthCount ?? 0) >= 50000,  progress: (s) => ({ current: s.achievements?.petSynthCount ?? 0, unit: "回" }) },
+  { id: "psynth100000", category: "synthesis", label: "調教の神",         desc: "ペットを合成する（100000回）",check: (s) => (s.achievements?.petSynthCount ?? 0) >= 100000, progress: (s) => ({ current: s.achievements?.petSynthCount ?? 0, unit: "回" }) },
 
   // --- 極個体ペット数 ---
-  { id: "elitepet1",     category: "ultimate", label: "奇跡の出会い",     desc: "極個体を1体捕まえる",     check: (s) => (s.achievements?.elitePetCount ?? 0) >= 1     },
-  { id: "elitepet10",    category: "ultimate", label: "奇跡の収集家",     desc: "極個体を10体捕まえる",    check: (s) => (s.achievements?.elitePetCount ?? 0) >= 10    },
-  { id: "elitepet100",   category: "ultimate", label: "奇跡の伝道師",     desc: "極個体を100体捕まえる",   check: (s) => (s.achievements?.elitePetCount ?? 0) >= 100   },
-  { id: "elitepet1000",  category: "ultimate", label: "奇跡の支配者",     desc: "極個体を1000体捕まえる",  check: (s) => (s.achievements?.elitePetCount ?? 0) >= 1000  },
-  { id: "elitepet10000", category: "ultimate", label: "奇跡の創造者",     desc: "極個体を10000体捕まえる", check: (s) => (s.achievements?.elitePetCount ?? 0) >= 10000 },
+  { id: "elitepet1",     category: "ultimate", label: "奇跡の出会い",     desc: "極個体を1体捕まえる",     check: (s) => (s.achievements?.elitePetCount ?? 0) >= 1,     progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
+  { id: "elitepet10",    category: "ultimate", label: "奇跡の収集家",     desc: "極個体を10体捕まえる",    check: (s) => (s.achievements?.elitePetCount ?? 0) >= 10,    progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
+  { id: "elitepet100",   category: "ultimate", label: "奇跡の伝道師",     desc: "極個体を100体捕まえる",   check: (s) => (s.achievements?.elitePetCount ?? 0) >= 100,   progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
+  { id: "elitepet1000",  category: "ultimate", label: "奇跡の支配者",     desc: "極個体を1000体捕まえる",  check: (s) => (s.achievements?.elitePetCount ?? 0) >= 1000,  progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
+  { id: "elitepet10000", category: "ultimate", label: "奇跡の創造者",     desc: "極個体を10000体捕まえる", check: (s) => (s.achievements?.elitePetCount ?? 0) >= 10000, progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
 
   // --- 伝説個体ペット数 ---
-  { id: "legpet1",     category: "ultimate", label: "伝説の予感",         desc: "伝説個体を1体捕まえる",     check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 1     },
-  { id: "legpet10",    category: "ultimate", label: "伝説の追跡者",       desc: "伝説個体を10体捕まえる",    check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 10    },
-  { id: "legpet100",   category: "ultimate", label: "伝説の収集家",       desc: "伝説個体を100体捕まえる",   check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 100   },
-  { id: "legpet1000",  category: "ultimate", label: "伝説の支配者",       desc: "伝説個体を1000体捕まえる",  check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 1000  },
-  { id: "legpet10000", category: "ultimate", label: "伝説の創造者",       desc: "伝説個体を10000体捕まえる", check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 10000 },
+  { id: "legpet1",     category: "ultimate", label: "伝説の予感",         desc: "伝説個体を1体捕まえる",     check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 1,     progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
+  { id: "legpet10",    category: "ultimate", label: "伝説の追跡者",       desc: "伝説個体を10体捕まえる",    check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 10,    progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
+  { id: "legpet100",   category: "ultimate", label: "伝説の収集家",       desc: "伝説個体を100体捕まえる",   check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 100,   progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
+  { id: "legpet1000",  category: "ultimate", label: "伝説の支配者",       desc: "伝説個体を1000体捕まえる",  check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 1000,  progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
+  { id: "legpet10000", category: "ultimate", label: "伝説の創造者",       desc: "伝説個体を10000体捕まえる", check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 10000, progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
 
   // --- 究極個体ペット数 ---
-  { id: "legultpet1",     category: "ultimate", label: "伝説との邂逅",   desc: "究極個体を1体捕まえる",     check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1     },
-  { id: "legultpet10",    category: "ultimate", label: "伝説の収縛者",   desc: "究極個体を10体捕まえる",    check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 10    },
-  { id: "legultpet100",   category: "ultimate", label: "究極の伝道師",   desc: "究極個体を100体捕まえる",   check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 100   },
-  { id: "legultpet1000",  category: "ultimate", label: "究極の支配者",   desc: "究極個体を1000体捕まえる",  check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1000  },
-  { id: "legultpet10000", category: "ultimate", label: "究極の創造者",   desc: "究極個体を10000体捕まえる", check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 10000 },
+  { id: "legultpet1",     category: "ultimate", label: "伝説との邂逅",   desc: "究極個体を1体捕まえる",     check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1,     progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
+  { id: "legultpet10",    category: "ultimate", label: "伝説の収縛者",   desc: "究極個体を10体捕まえる",    check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 10,    progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
+  { id: "legultpet100",   category: "ultimate", label: "究極の伝道師",   desc: "究極個体を100体捕まえる",   check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 100,   progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
+  { id: "legultpet1000",  category: "ultimate", label: "究極の支配者",   desc: "究極個体を1000体捕まえる",  check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1000,  progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
+  { id: "legultpet10000", category: "ultimate", label: "究極の創造者",   desc: "究極個体を10000体捕まえる", check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 10000, progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
 
   // --- 極武器数 ---
-  { id: "ultwep1",     category: "ultimate", label: "至高の刃",           desc: "極武器を1本入手する",         check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1     },
-  { id: "ultwep10",    category: "ultimate", label: "至高の武器商",       desc: "極武器を10本入手する",        check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10    },
-  { id: "ultwep100",   category: "ultimate", label: "至高の武器庫",       desc: "極武器を100本入手する",       check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 100   },
-  { id: "ultwep1000",  category: "ultimate", label: "至高の武器神殿",     desc: "極武器を1000本入手する",      check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1000  },
-  { id: "ultwep10000", category: "ultimate", label: "至高の兵器庫",       desc: "極武器を10000本入手する",     check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10000 },
+  { id: "ultwep1",     category: "ultimate", label: "至高の刃",           desc: "極武器を1本入手する",         check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1,     progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
+  { id: "ultwep10",    category: "ultimate", label: "至高の武器商",       desc: "極武器を10本入手する",        check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10,    progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
+  { id: "ultwep100",   category: "ultimate", label: "至高の武器庫",       desc: "極武器を100本入手する",       check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 100,   progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
+  { id: "ultwep1000",  category: "ultimate", label: "至高の武器神殿",     desc: "極武器を1000本入手する",      check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1000,  progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
+  { id: "ultwep10000", category: "ultimate", label: "至高の兵器庫",       desc: "極武器を10000本入手する",     check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10000, progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
 ];
 
 // フロアテーブルをもとに「フロア帯別：全敵捕獲」実績を生成
@@ -125,33 +125,7 @@ function buildCaptureAchievements() {
       };
     });
 
-  // レジェンダリー捕獲実績（固定数4段階）
-  const legendaryStages = [
-    { count: 5,  label: "伝説の収集家・見習い",  desc: "レジェンダリースキル持ちを5種捕獲する" },
-    { count: 10, label: "伝説の収集家・熟練",    desc: "レジェンダリースキル持ちを10種捕獲する" },
-    { count: 15, label: "伝説の収集家・達人",    desc: "レジェンダリースキル持ちを15種捕獲する" },
-    { count: 20, label: "伝説の収集家・伝説",    desc: "レジェンダリースキル持ちを20種捕獲する" },
-  ];
-
-  const legendary = legendaryStages.map(({ count, label, desc }) => ({
-    id: `capture_legendary_${count}`,
-    category: "capture",
-    label,
-    desc,
-    check: (s) => {
-      const legendaryPassives = new Set(
-        Object.values(legendaryTitles).map((t) => t.legendaryPassive)
-      );
-      const captured = new Set(
-        s.player.petList
-          .filter((p) => legendaryPassives.has(p.passive))
-          .map((p) => p.passive)
-      );
-      return captured.size >= count;
-    },
-  }));
-
-  return [...normal, ...legendary];
+  return [...normal];
 }
 
 // フロアテーブルをもとに「フロア帯別：全武器入手」実績を生成
@@ -338,12 +312,18 @@ export function renderAchievements() {
     html += `<ul class="achievement-list">`;
     for (const def of filtered) {
       const done = !!unlocked[def.id];
+      let progressHtml = "";
+      if (!done && def.progress) {
+        const { current, unit } = def.progress(state);
+        progressHtml = `<div class="achievement-progress">現在: ${current.toLocaleString()}${unit}</div>`;
+      }
       html += `
         <li class="achievement-item ${done ? "achievement-done" : "achievement-locked"}">
           <span class="achievement-icon">${done ? "🏆" : "🔒"}</span>
           <div class="achievement-text">
             <div class="achievement-label">${done ? def.label : "???（未解除）"}</div>
             <div class="achievement-desc">${def.desc}</div>
+            ${progressHtml}
           </div>
         </li>`;
     }
