@@ -1002,8 +1002,8 @@ export function updatePetPanel(onPetClick, onPetEquip) {
     const headerEl = document.createElement("div");
     headerEl.className = "pet-group-header";
     // レアランプ判定
-    const hasElite   = groupPets.some((p) => p.isElite);
-    const hasLegend  = groupPets.some((p) => p.isLegendary);
+    const hasElite    = groupPets.some((p) => p.isElite);
+    const hasLegend   = groupPets.some((p) => p.isLegendary && !p.isLegendUltimate);
     const hasUltimate = groupPets.some((p) => p.isLegendUltimate);
     const lampsHtml = (hasElite || hasLegend || hasUltimate) ? `
       <span class="rare-lamps">
