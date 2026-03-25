@@ -918,6 +918,25 @@ export function updateEquippedWeaponInfo(onUnequip) {
   }
 }
 
+// 通常スキルとレジェンダリースキルを同一グループとして判定する
+function isSamePassiveGroup(petPassive, filterPassive) {
+  if (!petPassive || !filterPassive) return false;
+  if (petPassive === filterPassive) return true;
+
+  // filterPassive の「通常スキル版」を取得
+  const normalOfFilter = isLegendaryPassive(filterPassive)
+    ? normalPassiveOf(filterPassive)
+    : filterPassive;
+
+  // petPassive の「通常スキル版」を取得
+  const normalOfPet = isLegendaryPassive(petPassive)
+    ? normalPassiveOf(petPassive)
+    : petPassive;
+
+  // 両者の通常スキル版が一致すれば同一グループ
+  return normalOfFilter !== null && normalOfFilter === normalOfPet;
+}
+
 export function updatePetPanel(onPetClick, onPetEquip) {
   const equippedEl = document.getElementById("equippedPetInfo");
   const listEl = document.getElementById("petList");
@@ -949,7 +968,7 @@ export function updatePetPanel(onPetClick, onPetEquip) {
   listEl.innerHTML = "";
   const filter = state.ui.petFilter ?? "";
   const pets = filter
-    ? state.player.petList.filter((p) => p.passive === filter)
+    ? state.player.petList.filter((p) => isSamePassiveGroup(p.passive, filter))
     : state.player.petList;
   if (pets.length === 0) {
     listEl.innerHTML = `<li class="pet-empty">捕獲したペットがいません</li>`;
