@@ -378,6 +378,18 @@ document.getElementById("inventoryFilterSelect").addEventListener("change", (e) 
   refreshUI();
 });
 
+// 武器一覧 名前検索
+document.getElementById("inventorySearchBtn").addEventListener("click", () => {
+  state.ui.inventoryNameFilter = document.getElementById("inventoryNameInput").value.trim();
+  refreshUI();
+});
+
+// ペット一覧 名前検索
+document.getElementById("petSearchBtn").addEventListener("click", () => {
+  state.ui.petNameFilter = document.getElementById("petNameInput").value.trim();
+  refreshUI();
+});
+
 // =====================
 // 合成ボタン
 // =====================

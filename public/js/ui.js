@@ -60,10 +60,23 @@ export function renderInventory(player, onItemClick, onEquip) {
   const list = document.getElementById("inventoryList");
   list.innerHTML = "";
 
-  const filter = state.ui.inventoryFilter ?? "";
-  const items = filter
-    ? player.inventory.filter((item) => item.passive === filter)
-    : player.inventory;
+  const filter     = state.ui.inventoryFilter ?? "";
+  const nameFilter = (state.ui.inventoryNameFilter ?? "").toLowerCase();
+
+  const items = player.inventory.filter((item) => {
+    if (filter && item.passive !== filter) return false;
+    if (nameFilter) {
+      const template = weaponTemplates.find((t) => t.id === item.templateId);
+      const baseName = template?.name ?? item.name ?? "";
+      const maxLevel = item.level ?? 0;
+      const evoName  = template?.evolutions
+        ? [...template.evolutions].reverse().find((e) => maxLevel >= e.level)?.name ?? ""
+        : "";
+      const searchTarget = (evoName || baseName).toLowerCase();
+      if (!searchTarget.includes(nameFilter)) return false;
+    }
+    return true;
+  });
 
   if (items.length === 0) {
     const empty = document.createElement("li");
@@ -639,6 +652,17 @@ export function renderBook(tab = "enemies") {
 
   contentEl.innerHTML = "";
 
+  // 検索ボタンのイベント登録（毎回上書き）
+  const searchBtn = document.getElementById("bookSearchBtn");
+  const searchInput = document.getElementById("bookNameInput");
+  if (searchBtn && searchInput) {
+    searchInput.value = state.ui.bookNameFilter ?? "";
+    searchBtn.onclick = () => {
+      state.ui.bookNameFilter = searchInput.value.trim();
+      renderBook(tab);
+    };
+  }
+
   if (tab === "enemies") {
     renderEnemyBook(buffEl, contentEl);
   } else {
@@ -796,25 +820,44 @@ function renderEnemyBook(buffEl, contentEl) {
   tabBar.appendChild(tabHidden);
   contentEl.appendChild(tabBar);
 
+  const bookNameFilter = (state.ui.bookNameFilter ?? "").toLowerCase();
+
   if (subTab === "normal") {
     normalEnemies.forEach((enemyDef) => {
+      if (bookNameFilter) {
+        const key   = `normal_${enemyDef.id}`;
+        const entry = state.book.enemies[key];
+        if (!entry) return;
+        if (!entry.name.toLowerCase().includes(bookNameFilter)) return;
+      }
       const titlePool = enemyTitles[enemyDef.titleGroup] ?? Object.values(enemyTitles)[0] ?? [];
       renderEnemyEntry(enemyDef, titlePool);
     });
   } else if (subTab === "boss") {
     bossEnemies.forEach((enemyDef) => {
+      if (bookNameFilter) {
+        const key   = `boss_${enemyDef.id}`;
+        const entry = state.book.enemies[key];
+        if (!entry) return;
+        if (!entry.name.toLowerCase().includes(bookNameFilter)) return;
+      }
       const titlePool = bossTitles[enemyDef.titleGroup] ?? [];
       renderEnemyEntry(enemyDef, titlePool);
     });
   } else if (subTab === "hidden") {
-    renderHiddenBossBook(contentEl);
+    renderHiddenBossBook(contentEl, bookNameFilter);
   }
 }
 
-function renderHiddenBossBook(contentEl) {
+function renderHiddenBossBook(contentEl, nameFilter = "") {
   const hiddenBosses = state.book.hiddenBosses ?? {};
 
   hiddenBossDefs.forEach((def) => {
+    if (nameFilter) {
+      const entry = hiddenBosses[def.id];
+      if (!entry?.defeated) return;
+      if (!def.name.toLowerCase().includes(nameFilter)) return;
+    }
     const entry = hiddenBosses[def.id];
     const defeated       = entry?.defeated       ?? false;
     const weaponObtained = entry?.weaponObtained ?? false;
@@ -891,8 +934,15 @@ function renderWeaponBook(buffEl, contentEl) {
   buffEl.innerHTML = `<div>入手済み：${obtainedWeapons} / ${totalWeapons}</div><div>図鑑バフ：HP +${hpBuff}% / ATK +${atkBuff}%</div>`;
 
   const bookWeapons = state.book.weapons;
+  const bookNameFilter = (state.ui.bookNameFilter ?? "").toLowerCase();
 
   weaponTemplates.forEach((template) => {
+    if (bookNameFilter) {
+      const bookKey = template.isBossDrop ? `boss_${template.id}` : `normal_${template.id}`;
+      const entry   = bookWeapons[bookKey];
+      if (!entry) return;
+      if (!template.name.toLowerCase().includes(bookNameFilter)) return;
+    }
     const bookKey = template.isBossDrop ? `boss_${template.id}` : `normal_${template.id}`;
     const entry = bookWeapons[bookKey];
     const area = Object.values(floorTable).find(
@@ -957,6 +1007,11 @@ function renderWeaponBook(buffEl, contentEl) {
   // 隠しボス武器セクション
   const hiddenBookWeapons = state.book.hiddenBosses ?? {};
   hiddenBossDefs.forEach((def) => {
+    if (bookNameFilter) {
+      const entry = hiddenBookWeapons[def.id];
+      if (!entry?.weaponObtained) return;
+      if (!def.weaponDrop.name.toLowerCase().includes(bookNameFilter)) return;
+    }
     const entry    = hiddenBookWeapons[def.id];
     const obtained = entry?.weaponObtained ?? false;
 
@@ -1078,10 +1133,14 @@ export function updatePetPanel(onPetClick, onPetEquip) {
   updatePetSynthesisUI();
 
   listEl.innerHTML = "";
-  const filter = state.ui.petFilter ?? "";
-  const pets = filter
-    ? state.player.petList.filter((p) => isSamePassiveGroup(p.passive, filter))
-    : state.player.petList;
+  const filter     = state.ui.petFilter ?? "";
+  const nameFilter = (state.ui.petNameFilter ?? "").toLowerCase();
+
+  const pets = state.player.petList.filter((p) => {
+    if (filter && !isSamePassiveGroup(p.passive, filter)) return false;
+    if (nameFilter && !p.name.toLowerCase().includes(nameFilter)) return false;
+    return true;
+  });
   if (pets.length === 0) {
     listEl.innerHTML = `<li class="pet-empty">捕獲したペットがいません</li>`;
     return;
@@ -1998,7 +2057,6 @@ function renderMissions() {
   ul.innerHTML = "";
   for (const mission of state.research.missions) {
     const rareLabel = mission.isRare ? "レア" : "通常";
-    const eligible = getEligiblePets(mission);
     const li = document.createElement("li");
     li.className = "mission-item";
     li.innerHTML = `
@@ -2006,8 +2064,7 @@ function renderMissions() {
         ${mission.enemyName}の${rareLabel}個体（lv${mission.requiredLevel}以上）を寄贈する
       </div>
       <div class="mission-reward">獲得: ${mission.rewardPoints}P</div>
-      <button class="donate-btn" data-mission-id="${mission.id}"
-        ${eligible.length === 0 ? "disabled" : ""}>寄贈する</button>
+      <button class="donate-btn" data-mission-id="${mission.id}">寄贈する</button>
     `;
     ul.appendChild(li);
   }
@@ -2115,20 +2172,59 @@ function openDonateModal(missionId) {
   const ul = document.getElementById("donatePetList");
   ul.innerHTML = "";
 
-  const allEligible = state.player.petList
-    .filter(pet => {
-      if (state.player.equippedPet?.uid === pet.uid) return false;
-      return checkMissionCompletion(mission, pet);
-    })
-    .sort((a, b) => (b.level ?? 0) - (a.level ?? 0));
+  // 同種族の全ペット（装備中含む）を取得
+  const samePets = state.player.petList.filter(
+    pet => pet.enemyId === mission.enemyId && !!pet.isBoss === mission.isBoss
+  );
 
+  // 未捕獲の場合
+  if (samePets.length === 0) {
+    const msg = document.createElement("li");
+    msg.className = "donate-no-pet-msg";
+    msg.textContent = "対象ペットを未捕獲です";
+    ul.appendChild(msg);
+    document.getElementById("donateConfirmBtn").disabled = true;
+    document.getElementById("donateOverlay").classList.remove("hidden");
+    return;
+  }
+
+  // 寄贈可能・条件不足・装備中に分類
   let selectedUid = null;
-  for (const pet of allEligible) {
-    const locked = isLocked(pet.uid);
+
+  // レベル順（降順）でソート
+  const sorted = [...samePets].sort((a, b) => (b.level ?? 0) - (a.level ?? 0));
+
+  for (const pet of sorted) {
+    const isEquipped = state.player.equippedPet?.uid === pet.uid;
+    const isEligible = !isEquipped && checkMissionCompletion(mission, pet);
+    const locked     = isLocked(pet.uid);
+
+    // 条件不足の理由を判定
+    let disabledReason = "";
+    if (isEquipped) {
+      disabledReason = "装備中";
+    } else if (!checkMissionCompletion(mission, pet)) {
+      if ((pet.level ?? 0) < mission.requiredLevel) {
+        disabledReason = `レベル不足（現在Lv.${pet.level ?? 0} / 必要Lv.${mission.requiredLevel}）`;
+      } else if (mission.isRare && !pet.isElite && !pet.isLegendary && !pet.isLegendUltimate) {
+        disabledReason = "レア個体が必要";
+      } else if (!mission.isRare && (pet.isElite || pet.isLegendary || pet.isLegendUltimate)) {
+        disabledReason = "通常個体が必要";
+      } else {
+        disabledReason = "条件不足";
+      }
+    }
+
+    const isGrayedOut = !isEligible || locked;
+
     const li = document.createElement("li");
-    li.className = `pet-item ${locked ? "pet-locked-donate" : ""}`;
-    li.innerHTML = renderPetItemHTML(pet);
-    if (!locked) {
+    li.className = `pet-item ${isGrayedOut ? "pet-locked-donate" : ""}`;
+    li.innerHTML = renderPetItemHTML(pet) +
+      (disabledReason
+        ? `<div class="donate-disabled-reason">⚠️ ${disabledReason}</div>`
+        : "");
+
+    if (isEligible && !locked) {
       li.addEventListener("click", () => {
         ul.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
         li.classList.add("selected");
@@ -2136,6 +2232,7 @@ function openDonateModal(missionId) {
         document.getElementById("donateConfirmBtn").disabled = false;
       });
     }
+
     ul.appendChild(li);
   }
 

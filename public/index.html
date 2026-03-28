@@ -103,6 +103,10 @@
         <select id="inventoryFilterSelect"><option value="">すべて</option></select>
         <button id="selectAllBtn">一括選択</button>
       </div>
+      <div class="toolbar-row-search">
+        <input type="text" id="inventoryNameInput" class="toolbar-search-input" placeholder="名前で検索...">
+        <button id="inventorySearchBtn" class="toolbar-search-btn">検索</button>
+      </div>
       <div class="toolbar-row2">
         <label class="toolbar-label">グループ順</label>
         <select id="weaponGroupSortSelect">
@@ -157,6 +161,10 @@
             <select id="petFilterSelect"><option value="">すべて</option></select>
             <button id="petSelectAllBtn">一括選択</button>
           </div>
+          <div class="toolbar-row-search">
+            <input type="text" id="petNameInput" class="toolbar-search-input" placeholder="名前で検索...">
+            <button id="petSearchBtn" class="toolbar-search-btn">検索</button>
+          </div>
           <div class="toolbar-row2">
             <label class="toolbar-label">グループ順</label>
             <select id="petGroupSortSelect">
@@ -200,6 +208,10 @@
           <button class="book-tab" data-tab="weapons">武器</button>
         </div>
         <div id="bookBuffSummary" class="book-buff-summary"></div>
+        <div class="book-search-bar">
+          <input type="text" id="bookNameInput" class="toolbar-search-input" placeholder="名前で検索...">
+          <button id="bookSearchBtn" class="toolbar-search-btn">検索</button>
+        </div>
         <div id="bookContent" class="book-content"></div>
       </div>
     </div>
