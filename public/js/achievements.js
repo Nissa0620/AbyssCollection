@@ -77,32 +77,31 @@ export const achievementDefs = [
   { id: "psynth100000", category: "synthesis", label: "調教の神",         desc: "ペットを合成する（100000回）",check: (s) => (s.achievements?.petSynthCount ?? 0) >= 100000, progress: (s) => ({ current: s.achievements?.petSynthCount ?? 0, unit: "回" }) },
 
   // --- 極個体ペット数 ---
-  { id: "elitepet1",     category: "ultimate", label: "奇跡の出会い",     desc: "極個体を1体捕まえる",     check: (s) => (s.achievements?.elitePetCount ?? 0) >= 1,     progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
-  { id: "elitepet10",    category: "ultimate", label: "奇跡の収集家",     desc: "極個体を10体捕まえる",    check: (s) => (s.achievements?.elitePetCount ?? 0) >= 10,    progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
-  { id: "elitepet100",   category: "ultimate", label: "奇跡の伝道師",     desc: "極個体を100体捕まえる",   check: (s) => (s.achievements?.elitePetCount ?? 0) >= 100,   progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
-  { id: "elitepet1000",  category: "ultimate", label: "奇跡の支配者",     desc: "極個体を1000体捕まえる",  check: (s) => (s.achievements?.elitePetCount ?? 0) >= 1000,  progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
-  { id: "elitepet10000", category: "ultimate", label: "奇跡の創造者",     desc: "極個体を10000体捕まえる", check: (s) => (s.achievements?.elitePetCount ?? 0) >= 10000, progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
+  { id: "elitepet1",    category: "ultimate", label: "奇跡の出会い",   desc: "極個体を1体捕まえる",    check: (s) => (s.achievements?.elitePetCount ?? 0) >= 1,    progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
+  { id: "elitepet10",   category: "ultimate", label: "奇跡の収集家",   desc: "極個体を10体捕まえる",   check: (s) => (s.achievements?.elitePetCount ?? 0) >= 10,   progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
+  { id: "elitepet100",  category: "ultimate", label: "奇跡の伝道師",   desc: "極個体を100体捕まえる",  check: (s) => (s.achievements?.elitePetCount ?? 0) >= 100,  progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
+  { id: "elitepet1000", category: "ultimate", label: "奇跡の支配者",   desc: "極個体を1000体捕まえる", check: (s) => (s.achievements?.elitePetCount ?? 0) >= 1000, progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
+  { id: "elitepet2000", category: "ultimate", label: "奇跡の体現者",   desc: "極個体を2000体捕まえる", check: (s) => (s.achievements?.elitePetCount ?? 0) >= 2000, progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
+  { id: "elitepet3000", category: "ultimate", label: "奇跡の超越者",   desc: "極個体を3000体捕まえる", check: (s) => (s.achievements?.elitePetCount ?? 0) >= 3000, progress: (s) => ({ current: s.achievements?.elitePetCount ?? 0, unit: "体" }) },
 
   // --- 伝説個体ペット数 ---
-  { id: "legpet1",     category: "ultimate", label: "伝説の予感",         desc: "伝説個体を1体捕まえる",     check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 1,     progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
-  { id: "legpet10",    category: "ultimate", label: "伝説の追跡者",       desc: "伝説個体を10体捕まえる",    check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 10,    progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
-  { id: "legpet100",   category: "ultimate", label: "伝説の収集家",       desc: "伝説個体を100体捕まえる",   check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 100,   progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
-  { id: "legpet1000",  category: "ultimate", label: "伝説の支配者",       desc: "伝説個体を1000体捕まえる",  check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 1000,  progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
-  { id: "legpet10000", category: "ultimate", label: "伝説の創造者",       desc: "伝説個体を10000体捕まえる", check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 10000, progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
+  { id: "legpet1",    category: "ultimate", label: "伝説の予感",   desc: "伝説個体を1体捕まえる",    check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 1,   progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
+  { id: "legpet10",   category: "ultimate", label: "伝説の追跡者", desc: "伝説個体を10体捕まえる",   check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 10,  progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
+  { id: "legpet100",  category: "ultimate", label: "伝説の収集家", desc: "伝説個体を100体捕まえる",  check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 100, progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
+  { id: "legpet500",  category: "ultimate", label: "伝説の覇者",   desc: "伝説個体を500体捕まえる",  check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 500, progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
+  { id: "legpet1000", category: "ultimate", label: "伝説の支配者", desc: "伝説個体を1000体捕まえる", check: (s) => (s.achievements?.legendaryPetCount ?? 0) >= 1000, progress: (s) => ({ current: s.achievements?.legendaryPetCount ?? 0, unit: "体" }) },
 
   // --- 究極個体ペット数 ---
-  { id: "legultpet1",     category: "ultimate", label: "伝説との邂逅",   desc: "究極個体を1体捕まえる",     check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1,     progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
-  { id: "legultpet10",    category: "ultimate", label: "伝説の収縛者",   desc: "究極個体を10体捕まえる",    check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 10,    progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
-  { id: "legultpet100",   category: "ultimate", label: "究極の伝道師",   desc: "究極個体を100体捕まえる",   check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 100,   progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
-  { id: "legultpet1000",  category: "ultimate", label: "究極の支配者",   desc: "究極個体を1000体捕まえる",  check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1000,  progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
-  { id: "legultpet10000", category: "ultimate", label: "究極の創造者",   desc: "究極個体を10000体捕まえる", check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 10000, progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
+  { id: "legultpet1",    category: "ultimate", label: "伝説との邂逅", desc: "究極個体を1体捕まえる",    check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1,    progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
+  { id: "legultpet10",   category: "ultimate", label: "伝説の収縛者", desc: "究極個体を10体捕まえる",   check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 10,   progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
+  { id: "legultpet100",  category: "ultimate", label: "究極の伝道師", desc: "究極個体を100体捕まえる",  check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 100,  progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
+  { id: "legultpet500",  category: "ultimate", label: "究極の覇者",   desc: "究極個体を500体捕まえる",  check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 500,  progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
+  { id: "legultpet1000", category: "ultimate", label: "究極の支配者", desc: "究極個体を1000体捕まえる", check: (s) => (s.achievements?.legendUltimatePetCount ?? 0) >= 1000, progress: (s) => ({ current: s.achievements?.legendUltimatePetCount ?? 0, unit: "体" }) },
 
   // --- 極武器数 ---
-  { id: "ultwep1",     category: "ultimate", label: "至高の刃",           desc: "極武器を1本入手する",         check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1,     progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
-  { id: "ultwep10",    category: "ultimate", label: "至高の武器商",       desc: "極武器を10本入手する",        check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10,    progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
-  { id: "ultwep100",   category: "ultimate", label: "至高の武器庫",       desc: "極武器を100本入手する",       check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 100,   progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
-  { id: "ultwep1000",  category: "ultimate", label: "至高の武器神殿",     desc: "極武器を1000本入手する",      check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1000,  progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
-  { id: "ultwep10000", category: "ultimate", label: "至高の兵器庫",       desc: "極武器を10000本入手する",     check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10000, progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
+  { id: "ultwep1",   category: "ultimate", label: "至高の刃",     desc: "極武器を1本入手する",   check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1,   progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
+  { id: "ultwep10",  category: "ultimate", label: "至高の武器商", desc: "極武器を10本入手する",  check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10,  progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
+  { id: "ultwep100", category: "ultimate", label: "至高の武器庫", desc: "極武器を100本入手する", check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 100, progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
 
   // --- ボス捕獲数 ---
   { id: "bosscatch1",   category: "capture", label: "初めてのボス捕獲",   desc: "ボスを捕獲する（1体）",    check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 1,   progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
