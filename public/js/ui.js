@@ -1821,8 +1821,6 @@ export function showUltimatePopup(entity, type, isHolding = null) {
     statsEl.innerHTML = `ATK ${getPetPower(entity)} ／ HP ${getPetHp(entity)} ／ ${passive}${pval}`;
     overlay.classList.remove("hidden");
     overlay.onclick = () => overlay.classList.add("hidden");
-    const _isHolding = isHolding ?? state.isHolding;
-    if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
     return;
   } else if (type === "pet") {
     subEl.textContent = "極個体を捕獲した！";
@@ -1840,8 +1838,6 @@ export function showUltimatePopup(entity, type, isHolding = null) {
 
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
-  const _isHolding = isHolding ?? state.isHolding;
-  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }
 export function showLegendaryPopup(enemy, mode = "appear", pet = null, isHolding = null) {
   const overlay  = document.getElementById("legendaryOverlay");
@@ -1874,7 +1870,7 @@ export function showLegendaryPopup(enemy, mode = "appear", pet = null, isHolding
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
   const _isHolding = isHolding ?? state.isHolding;
-  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+  if (mode === "appear" && _isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }
 
 export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHolding = null) {
@@ -1908,7 +1904,7 @@ export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHo
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
   const _isHolding = isHolding ?? state.isHolding;
-  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+  if (mode === "appear" && _isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }
 
 export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = null) {
@@ -1938,7 +1934,7 @@ export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = n
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
   const _isHolding = isHolding ?? state.isHolding;
-  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+  if (mode === "appear" && _isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }
 
 // =====================
