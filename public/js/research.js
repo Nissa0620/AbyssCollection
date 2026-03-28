@@ -130,7 +130,7 @@ export function donatePet(missionId, petUid) {
 
 // リロールコストを返す（将来的に研究所レベルで変動させる場合はここを修正）
 export function getRerollCost() {
-  return 5;
+  return 1;
 }
 
 export function rerollMissions() {

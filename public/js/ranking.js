@@ -43,6 +43,7 @@ export async function sendRankingData() {
     level: state.player.level,
     petCount: calcPetBookCount(),
     weaponCount: calcWeaponBookCount(),
+    achievementCount: Object.keys(state.achievements?.unlocked ?? {}).length,
   };
 
   // 前回送信時と変化がなければスキップ
@@ -51,7 +52,8 @@ export async function sendRankingData() {
     currentData.maxFloor !== last.maxFloor ||
     currentData.level !== last.level ||
     currentData.petCount !== last.petCount ||
-    currentData.weaponCount !== last.weaponCount;
+    currentData.weaponCount !== last.weaponCount ||
+    currentData.achievementCount !== last.achievementCount;
 
   if (!hasChanged) return;
 
@@ -63,6 +65,7 @@ export async function sendRankingData() {
       level: currentData.level,
       petCount: currentData.petCount,
       weaponCount: currentData.weaponCount,
+      achievementCount: currentData.achievementCount,
       updatedAt: Date.now(),
     });
     state.lastRankingSentAt = now;

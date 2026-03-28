@@ -615,6 +615,7 @@ async function renderRanking(field) {
     level: (v) => `Lv.${v}`,
     petCount: (v) => `${v}体`,
     weaponCount: (v) => `${v}個`,
+    achievementCount: (v) => `${v ?? 0}個`,
   };
 
   const ul = document.createElement("ul");
@@ -643,6 +644,7 @@ const rankingTabNotes = {
   level: "プレイヤーレベル",
   petCount: "捕獲した種族数",
   weaponCount: "取得した武器種数",
+  achievementCount: "解放した実績数",
 };
 
 document.getElementById("rankingBtn").addEventListener("click", () => {
