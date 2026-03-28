@@ -57,6 +57,7 @@ export function updateDisplay(player, enemy) {
 
 // インベントリ表示処理
 export function renderInventory(player, onItemClick, onEquip) {
+  if (!state.ui.inventoryOpen) return;
   const list = document.getElementById("inventoryList");
   list.innerHTML = "";
 
@@ -355,6 +356,7 @@ export function updatePetVisibility() {
 }
 
 export function updateSynthesisInfo() {
+  if (!state.ui.inventoryOpen) return;
   const info = document.getElementById("synthesisInfo");
   if (!info) return;
   const { baseUid, materialUids } = state.synthesis;
@@ -384,6 +386,7 @@ export function updateSynthesisInfo() {
 // 宝玉タブ表示
 // =====================
 export function renderGemList() {
+  if (!state.ui.inventoryOpen) return;
   const gemSection  = document.getElementById("invGemSection");
   const summaryEl   = document.getElementById("gemBonusSummary");
   const listEl      = document.getElementById("gemList");
@@ -457,6 +460,7 @@ export function updateInventoryTab(tab) {
 // スキルフィルタ選択肢を所持品に合わせて動的更新
 // =====================
 export function updateInventoryFilterOptions() {
+  if (!state.ui.inventoryOpen) return;
   const select = document.getElementById("inventoryFilterSelect");
   if (!select) return;
   const currentValue = select.value;
@@ -480,6 +484,7 @@ export function updateInventoryFilterOptions() {
 }
 
 export function updatePetFilterOptions() {
+  if (!state.ui.petOpen) return;
   const select = document.getElementById("petFilterSelect");
   if (!select) return;
   const passives = [...new Set(
@@ -531,6 +536,7 @@ export function updateButton() {
 }
 
 export function updateSynthesisUI() {
+  if (!state.ui.inventoryOpen) return;
   const synthBtn = document.getElementById("synthesizeBtn");
   if (synthBtn) {
     const { baseUid, materialUids } = state.synthesis;
@@ -589,6 +595,7 @@ export function updatePetSynthesisUI() {
 }
 
 export function updateSynthesisPreview() {
+  if (!state.ui.inventoryOpen) return;
   const previewDiv = document.getElementById("synthesisPreview");
   const preview = getSynthesisPreview();
 
@@ -1108,6 +1115,7 @@ function isSamePassiveGroup(petPassive, filterPassive) {
 }
 
 export function updatePetPanel(onPetClick, onPetEquip) {
+  if (!state.ui.petOpen) return;
   const equippedEl = document.getElementById("equippedPetInfo");
   const listEl = document.getElementById("petList");
   if (!equippedEl || !listEl) return;
