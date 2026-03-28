@@ -2068,15 +2068,19 @@ button {
   padding: 0 10px 6px;
 }
 
+/* ── 実績 固定ヘッダー ── */
+.achievement-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #1e1e1e;
+}
+
 /* ── フィルタータブ ── */
 .achievement-filters {
   display: flex;
   gap: 6px;
   padding: 6px 8px 4px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: #1e1e1e;
 }
 
 .achievement-filter-btn {
@@ -2113,7 +2117,6 @@ button {
   font-size: 0.9rem;
   color: #aaa;
   border-bottom: 1px solid #333;
-  margin-bottom: 8px;
 }
 
 .achievement-category-label {

@@ -55,10 +55,10 @@ export const achievementDefs = [
   ...buildWeaponEvolveAchievements(),
 
   // --- 武器進化回数 ---
-  { id: "wevo10",   category: "weapon_evolve", label: "鍛冶の開眼",       desc: "武器を進化させる（10回）",    check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 10,   progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
-  { id: "wevo100",  category: "weapon_evolve", label: "進化の職人",       desc: "武器を進化させる（100回）",   check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 100,  progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
-  { id: "wevo500",  category: "weapon_evolve", label: "進化の達人",       desc: "武器を進化させる（500回）",   check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 500,  progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
-  { id: "wevo1000", category: "weapon_evolve", label: "進化を極めし者",   desc: "武器を進化させる（1000回）",  check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 1000, progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
+  { id: "wevo10",   category: "weapon", label: "鍛冶の開眼",       desc: "武器を進化させる（10回）",    check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 10,   progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
+  { id: "wevo100",  category: "weapon", label: "進化の職人",       desc: "武器を進化させる（100回）",   check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 100,  progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
+  { id: "wevo500",  category: "weapon", label: "進化の達人",       desc: "武器を進化させる（500回）",   check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 500,  progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
+  { id: "wevo1000", category: "weapon", label: "進化を極めし者",   desc: "武器を進化させる（1000回）",  check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 1000, progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
 
   // --- 武器合成回数 ---
   { id: "wsynth10",     category: "synthesis", label: "鍛冶見習い",       desc: "武器を合成する（10回）",      check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 10,     progress: (s) => ({ current: s.achievements?.weaponSynthCount ?? 0, unit: "回" }) },
@@ -105,10 +105,10 @@ export const achievementDefs = [
   { id: "ultwep10000", category: "ultimate", label: "至高の兵器庫",       desc: "極武器を10000本入手する",     check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10000, progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
 
   // --- ボス捕獲数 ---
-  { id: "bosscatch1",   category: "boss_capture", label: "初めてのボス捕獲",   desc: "ボスを捕獲する（1体）",    check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 1,   progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
-  { id: "bosscatch10",  category: "boss_capture", label: "ボス狩りの始まり",   desc: "ボスを捕獲する（10体）",   check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 10,  progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
-  { id: "bosscatch50",  category: "boss_capture", label: "強者を従える者",     desc: "ボスを捕獲する（50体）",   check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 50,  progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
-  { id: "bosscatch100", category: "boss_capture", label: "百の覇者",           desc: "ボスを捕獲する（100体）",  check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 100, progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
+  { id: "bosscatch1",   category: "capture", label: "初めてのボス捕獲",   desc: "ボスを捕獲する（1体）",    check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 1,   progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
+  { id: "bosscatch10",  category: "capture", label: "ボス狩りの始まり",   desc: "ボスを捕獲する（10体）",   check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 10,  progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
+  { id: "bosscatch50",  category: "capture", label: "強者を従える者",     desc: "ボスを捕獲する（50体）",   check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 50,  progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
+  { id: "bosscatch100", category: "capture", label: "百の覇者",           desc: "ボスを捕獲する（100体）",  check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 100, progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
 
   // --- ボス帯別全捕獲 ---
   ...buildBossCaptureAchievements(),
@@ -190,7 +190,7 @@ function buildWeaponEvolveAchievements() {
     const desc = `${area.min}〜${area.max}階の武器をすべて最終段階まで進化させる`;
     return {
       id: `weapon_evo_${area.min}_${area.max}`,
-      category: "weapon_evolve",
+      category: "weapon",
       label,
       desc,
       check: (s) => {
@@ -229,7 +229,7 @@ function buildBossCaptureAchievements() {
     const desc = `${min}〜${max}階のボスを称号1〜4すべて捕獲する`;
     return {
       id: `boss_capture_${min}_${max}`,
-      category: "boss_capture",
+      category: "capture",
       label,
       desc,
       check: (s) => {
@@ -323,15 +323,13 @@ function processPopupQueue() {
 // =====================
 
 const categoryLabel = {
-  level:        "🧑‍🦯 レベル達成",
-  floor:        "🏔️ ボス突破",
-  capture:      "🐾 捕獲コレクション",
-  weapon:       "⚔️ 武器コレクション",
-  weapon_evolve:"✨ 武器進化",
-  synthesis:    "🔨 合成記録",
-  ultimate:     "✨ 極個体 / 伝説個体 / 究極個体",
-  boss_capture: "👑 ボス捕獲",
-  hidden_boss:  "💀 隠しボス討伐",
+  level:       "🧑‍🦯 レベル達成",
+  floor:       "🏔️ ボス突破",
+  capture:     "🐾 捕獲コレクション",
+  weapon:      "⚔️ 武器コレクション",
+  synthesis:   "🔨 合成記録",
+  ultimate:    "✨ レアコレクション",
+  hidden_boss: "💀 隠しボス討伐",
 };
 
 // 実績画面の現在選択中のカテゴリ・フィルターを保持（モジュールスコープ）
@@ -360,8 +358,11 @@ export function renderAchievements() {
   const total = achievementDefs.length;
   const unlockedCount = Object.keys(unlocked).length;
 
+  // ── 固定ヘッダー開始 ──
+  let html = `<div class="achievement-sticky-header">`;
+
   // ── 全体進捗サマリー ──
-  let html = `<div class="achievement-summary">達成 ${unlockedCount} / ${total}</div>`;
+  html += `<div class="achievement-summary">達成 ${unlockedCount} / ${total}</div>`;
 
   // ── カテゴリタブ ──
   html += `<div class="achievement-tabs">`;
@@ -395,6 +396,9 @@ export function renderAchievements() {
     <button class="achievement-filter-btn${_achActiveFilter === "done"   ? " active" : ""}" data-filter="done">達成済み</button>
     <button class="achievement-filter-btn${_achActiveFilter === "undone" ? " active" : ""}" data-filter="undone">未達成</button>
   </div>`;
+
+  // ── 固定ヘッダー終了 ──
+  html += `</div>`; // .achievement-sticky-header
 
   // ── 実績リスト ──
   const filtered = activeDefs.filter(def => {
