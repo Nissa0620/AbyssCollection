@@ -419,12 +419,13 @@ export function renderAchievements() {
         const { current, unit } = def.progress(state);
         progressHtml = `<div class="achievement-progress">現在: ${current.toLocaleString()}${unit}</div>`;
       }
+      const descText = (!done && def.category === "hidden_boss") ? "？？？" : def.desc;
       html += `
         <li class="achievement-item ${done ? "achievement-done" : "achievement-locked"}">
           <span class="achievement-icon">${done ? "🏆" : "🔒"}</span>
           <div class="achievement-text">
             <div class="achievement-label">${done ? def.label : "???（未解除）"}</div>
-            <div class="achievement-desc">${def.desc}</div>
+            <div class="achievement-desc">${descText}</div>
             ${progressHtml}
           </div>
         </li>`;
