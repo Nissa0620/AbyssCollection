@@ -63,20 +63,10 @@ export function renderInventory(player, onItemClick, onEquip) {
   const filter     = state.ui.inventoryFilter ?? "";
   const nameFilter = (state.ui.inventoryNameFilter ?? "").toLowerCase();
 
-  const items = player.inventory.filter((item) => {
-    if (filter && item.passive !== filter) return false;
-    if (nameFilter) {
-      const template = weaponTemplates.find((t) => t.id === item.templateId);
-      const baseName = template?.name ?? item.name ?? "";
-      const maxLevel = item.level ?? 0;
-      const evoName  = template?.evolutions
-        ? [...template.evolutions].reverse().find((e) => maxLevel >= e.level)?.name ?? ""
-        : "";
-      const searchTarget = (evoName || baseName).toLowerCase();
-      if (!searchTarget.includes(nameFilter)) return false;
-    }
-    return true;
-  });
+  // スキルフィルターのみアイテム単位で適用（nameFilterはグループ化後に適用）
+  const items = filter
+    ? player.inventory.filter((item) => item.passive === filter)
+    : player.inventory;
 
   if (items.length === 0) {
     const empty = document.createElement("li");
@@ -119,7 +109,19 @@ export function renderInventory(player, onItemClick, onEquip) {
     return 0;
   });
 
-  for (const [templateId, groupItems] of sortedGroups) {
+  const filteredGroups = nameFilter
+    ? sortedGroups.filter(([templateId]) => {
+        const template = weaponTemplates.find((t) => t.id === templateId);
+        if (!template) return false;
+        const baseName = template.name.toLowerCase();
+        if (baseName.includes(nameFilter)) return true;
+        return (template.evolutions ?? []).some(
+          (evo) => evo.name.toLowerCase().includes(nameFilter)
+        );
+      })
+    : sortedGroups;
+
+  for (const [templateId, groupItems] of filteredGroups) {
     const template = weaponTemplates.find((t) => t.id === templateId);
     const baseName = template?.name ?? "不明な武器";
 
@@ -468,9 +470,10 @@ export function updateInventoryFilterOptions() {
     opt.textContent = weaponPassiveLabel(passive);
     select.appendChild(opt);
   });
-  if (passives.includes(currentValue)) {
-    select.value = currentValue;
-  } else if (currentValue !== "") {
+  const stateFilter = state.ui.inventoryFilter ?? "";
+  if (passives.includes(stateFilter)) {
+    select.value = stateFilter;
+  } else {
     select.value = "";
     state.ui.inventoryFilter = "";
   }
@@ -479,7 +482,6 @@ export function updateInventoryFilterOptions() {
 export function updatePetFilterOptions() {
   const select = document.getElementById("petFilterSelect");
   if (!select) return;
-  const currentValue = select.value;
   const passives = [...new Set(
     state.player.petList.filter((p) => p.passive).map((p) => p.passive)
   )].sort();
@@ -490,9 +492,10 @@ export function updatePetFilterOptions() {
     opt.textContent = passiveLabelText({ passive });
     select.appendChild(opt);
   });
-  if (passives.includes(currentValue)) {
-    select.value = currentValue;
-  } else if (currentValue !== "") {
+  const stateFilter = state.ui.petFilter ?? "";
+  if (passives.includes(stateFilter)) {
+    select.value = stateFilter;
+  } else {
     select.value = "";
     state.ui.petFilter = "";
   }

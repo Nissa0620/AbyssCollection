@@ -75,6 +75,10 @@ function refreshUI() {
   if (sortSel) sortSel.value = state.ui.sortMode ?? "passive";
   const petSortSel = document.getElementById("petSortSelect");
   if (petSortSel) petSortSel.value = state.ui.petSortMode ?? "passive";
+  const invNameInp = document.getElementById("inventoryNameInput");
+  if (invNameInp) invNameInp.value = state.ui.inventoryNameFilter ?? "";
+  const petNameInp = document.getElementById("petNameInput");
+  if (petNameInp) petNameInp.value = state.ui.petNameFilter ?? "";
   const wGroupSel = document.getElementById("weaponGroupSortSelect");
   if (wGroupSel) wGroupSel.value = state.ui.weaponGroupSort ?? "acquiredDesc";
   const pGroupSel = document.getElementById("petGroupSortSelect");
@@ -144,6 +148,9 @@ function closeInventoryModal() {
   state.synthesis.baseUid = null;
   state.synthesis.materialUids = [];
   state.ui.weaponOpenGroups = {};
+  state.ui.inventoryNameFilter = "";
+  const inp = document.getElementById("inventoryNameInput");
+  if (inp) inp.value = "";
   refreshUI();
 }
 
@@ -152,6 +159,9 @@ function closePetModal() {
   state.petSynthesis.baseUid = null;
   state.petSynthesis.materialUids = [];
   state.ui.petOpenGroups = {};
+  state.ui.petNameFilter = "";
+  const inp = document.getElementById("petNameInput");
+  if (inp) inp.value = "";
   refreshUI();
 }
 
@@ -442,6 +452,9 @@ document.getElementById("bookBtn").addEventListener("click", () => {
 
 document.getElementById("bookCloseBtn").addEventListener("click", () => {
   document.getElementById("bookOverlay").classList.add("hidden");
+  state.ui.bookNameFilter = "";
+  const inp = document.getElementById("bookNameInput");
+  if (inp) inp.value = "";
 });
 
 document.querySelectorAll(".book-tab").forEach((btn) => {
