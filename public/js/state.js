@@ -72,6 +72,7 @@ export const state = {
   book: {
     enemies: {},
     weapons: {},
+    hiddenBosses: {},
   },
   ui: {
     inventoryOpen: false,
@@ -109,7 +110,13 @@ export const state = {
     captureBonus: 0,
     dropPurchaseCount: 0,
     capturePurchaseCount: 0,
-    hiddenBossUnlocked: false,
+    hiddenBossUnlocked_greed:    false,
+    hiddenBossUnlocked_wrath:    false,
+    hiddenBossUnlocked_envy:     false,
+    hiddenBossUnlocked_sloth:    false,
+    hiddenBossUnlocked_gluttony: false,
+    hiddenBossUnlocked_lust:     false,
+    hiddenBossUnlocked_pride:    false,
   },
   _triggerOverflowDmgBoost: 0,
   _triggerOverflowHpBoost: 0,
@@ -138,5 +145,6 @@ export const state = {
     bossCatchCount: 0,
     ultimatePetCount: 0,
     ultimateWeaponCount: 0,
+    hiddenBossFirstKill: {},
   },
 };

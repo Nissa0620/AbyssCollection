@@ -18,6 +18,9 @@ import {
 } from "./research.js";
 import { saveGame } from "./saveLoad.js";
 import { getWeaponDisplayName } from "./weapon.js";
+import { hiddenBossDefs } from "./hiddenBossData.js";
+import { registerHiddenWeaponObtained } from "./book.js";
+import { checkAchievements } from "./achievements.js";
 import {
   normalEnemies,
   bossEnemies,
@@ -650,10 +653,14 @@ function renderEnemyBook(buffEl, contentEl) {
   const allEnemyDefs = [...normalEnemies, ...bossEnemies];
 
   // 総数：各敵の有効称号数を合算
+  const hiddenBossTotal    = hiddenBossDefs.length;
+  const hiddenBossObtained = hiddenBossDefs.filter(def =>
+    state.book.hiddenBosses?.[def.id]?.defeated
+  ).length;
   const totalEnemies = allEnemyDefs.reduce((sum, e) => {
     const hasLegend = !!(e.passive && legendaryTitles[e.passive]);
     return sum + (hasLegend ? 5 : 4);
-  }, 0);
+  }, 0) + hiddenBossTotal;
 
   // 捕獲済み：caught=true の称号数を合算
   const obtainedEnemies = allEnemyDefs.reduce((sum, e) => {
@@ -664,7 +671,7 @@ function renderEnemyBook(buffEl, contentEl) {
     const hasLegend = !!(e.passive && legendaryTitles[e.passive]);
     if (hasLegend) titleIds.push(5);
     return sum + titleIds.filter((id) => entry.titles?.[id]?.caught).length;
-  }, 0);
+  }, 0) + hiddenBossObtained;
 
   buffEl.innerHTML = `<div>捕獲済み：${obtainedEnemies} / ${totalEnemies}</div><div>図鑑バフ：HP +${hpPercent}% / ATK +${atkPercent}%</div>`;
 
@@ -780,8 +787,13 @@ function renderEnemyBook(buffEl, contentEl) {
   tabBoss.textContent = "ボス";
   tabNormal.addEventListener("click", () => { state.ui.bookEnemySubTab = "normal"; renderBook("enemies"); });
   tabBoss.addEventListener("click",   () => { state.ui.bookEnemySubTab = "boss";   renderBook("enemies"); });
+  const tabHidden = document.createElement("button");
+  tabHidden.className = "book-enemy-subtab" + (subTab === "hidden" ? " active" : "");
+  tabHidden.textContent = "隠しボス";
+  tabHidden.addEventListener("click", () => { state.ui.bookEnemySubTab = "hidden"; renderBook("enemies"); });
   tabBar.appendChild(tabNormal);
   tabBar.appendChild(tabBoss);
+  tabBar.appendChild(tabHidden);
   contentEl.appendChild(tabBar);
 
   if (subTab === "normal") {
@@ -789,12 +801,66 @@ function renderEnemyBook(buffEl, contentEl) {
       const titlePool = enemyTitles[enemyDef.titleGroup] ?? Object.values(enemyTitles)[0] ?? [];
       renderEnemyEntry(enemyDef, titlePool);
     });
-  } else {
+  } else if (subTab === "boss") {
     bossEnemies.forEach((enemyDef) => {
       const titlePool = bossTitles[enemyDef.titleGroup] ?? [];
       renderEnemyEntry(enemyDef, titlePool);
     });
+  } else if (subTab === "hidden") {
+    renderHiddenBossBook(contentEl);
   }
+}
+
+function renderHiddenBossBook(contentEl) {
+  const hiddenBosses = state.book.hiddenBosses ?? {};
+
+  hiddenBossDefs.forEach((def) => {
+    const entry = hiddenBosses[def.id];
+    const defeated       = entry?.defeated       ?? false;
+    const weaponObtained = entry?.weaponObtained ?? false;
+
+    const section = document.createElement("div");
+    section.className = "book-enemy";
+
+    const header = document.createElement("div");
+    header.className = "book-enemy-header boss";
+
+    const isComplete  = defeated && weaponObtained;
+    const completeIcon = isComplete ? `<span class="book-complete-star">★</span>` : "";
+    const name = defeated ? def.name : "？？？";
+    header.innerHTML = `<span>💀 ${name}</span>${completeIcon}<span class="book-toggle">▶</span>`;
+
+    const detail = document.createElement("div");
+    detail.className = "book-enemy-detail hidden";
+
+    if (!defeated) {
+      detail.innerHTML = `<div class="book-enemy-meta">七大罪の隠しボス。出現には研究所での解禁が必要。</div>`;
+    } else {
+      detail.innerHTML = `
+        <div class="book-enemy-meta">七大罪：${def.sin}</div>
+        <div class="book-title-row defeated">
+          <span>${def.name}</span>
+          <span class="book-title-buff">HP +1.0% / ATK +1.0%</span>
+          <span>撃破済</span>
+        </div>
+        <div class="book-title-row ${weaponObtained ? "defeated" : ""}">
+          <span>${weaponObtained ? def.weaponDrop.name : "？？？（専用武器）"}</span>
+          <span class="book-title-buff">${weaponObtained ? "HP +1.0% / ATK +1.0%" : ""}</span>
+          <span>${weaponObtained ? "入手済" : "未入手"}</span>
+        </div>
+      `;
+    }
+
+    header.addEventListener("click", () => {
+      const isOpen = !detail.classList.contains("hidden");
+      detail.classList.toggle("hidden");
+      header.querySelector(".book-toggle").textContent = isOpen ? "▶" : "▼";
+    });
+
+    section.appendChild(header);
+    section.appendChild(detail);
+    contentEl.appendChild(section);
+  });
 }
 
 function renderWeaponBook(buffEl, contentEl) {
@@ -802,9 +868,13 @@ function renderWeaponBook(buffEl, contentEl) {
   const atkBuff = Math.round((state.weaponDexBuff.power - 1) * 100);
 
   // 総数：ベース + 全進化段階数を合算
+  const hiddenWeaponTotal    = hiddenBossDefs.length;
+  const hiddenWeaponObtained = hiddenBossDefs.filter(def =>
+    state.book.hiddenBosses?.[def.id]?.weaponObtained
+  ).length;
   const totalWeapons = weaponTemplates.reduce((sum, t) => {
     return sum + 1 + (t.evolutions?.length ?? 0);
-  }, 0);
+  }, 0) + hiddenWeaponTotal;
 
   // 入手済み：ベース入手数 + 進化段階取得数を合算
   const obtainedWeapons = weaponTemplates.reduce((sum, t) => {
@@ -816,7 +886,7 @@ function renderWeaponBook(buffEl, contentEl) {
       if (entry.evolutions?.[evo.name]?.obtained) count++;
     }
     return sum + count;
-  }, 0);
+  }, 0) + hiddenWeaponObtained;
 
   buffEl.innerHTML = `<div>入手済み：${obtainedWeapons} / ${totalWeapons}</div><div>図鑑バフ：HP +${hpBuff}% / ATK +${atkBuff}%</div>`;
 
@@ -870,6 +940,48 @@ function renderWeaponBook(buffEl, contentEl) {
       detail.innerHTML = `
         <div class="book-enemy-meta">出現：${floorText}　${atkRange}</div>
         ${evosHtml}
+      `;
+    }
+
+    header.addEventListener("click", () => {
+      const isOpen = !detail.classList.contains("hidden");
+      detail.classList.toggle("hidden");
+      header.querySelector(".book-toggle").textContent = isOpen ? "▶" : "▼";
+    });
+
+    section.appendChild(header);
+    section.appendChild(detail);
+    contentEl.appendChild(section);
+  });
+
+  // 隠しボス武器セクション
+  const hiddenBookWeapons = state.book.hiddenBosses ?? {};
+  hiddenBossDefs.forEach((def) => {
+    const entry    = hiddenBookWeapons[def.id];
+    const obtained = entry?.weaponObtained ?? false;
+
+    const section = document.createElement("div");
+    section.className = "book-enemy";
+
+    const header = document.createElement("div");
+    header.className = "book-enemy-header";
+    const wName        = obtained ? def.weaponDrop.name : "？？？";
+    const completeIcon = obtained ? `<span class="book-complete-star">★</span>` : "";
+    header.innerHTML = `<span>💀 ${wName}</span>${completeIcon}<span class="book-toggle">▶</span>`;
+
+    const detail = document.createElement("div");
+    detail.className = "book-enemy-detail hidden";
+
+    if (!obtained) {
+      detail.innerHTML = `<div class="book-enemy-meta">七大罪の隠しボスからの専用武器。</div>`;
+    } else {
+      detail.innerHTML = `
+        <div class="book-enemy-meta">入手元：${def.name}（${def.sin}の罪）</div>
+        <div class="book-title-row defeated">
+          <span>${def.weaponDrop.name}</span>
+          <span class="book-title-buff">HP +1.0% / ATK +1.0%</span>
+          <span>入手済</span>
+        </div>
       `;
     }
 
@@ -1760,6 +1872,97 @@ export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = n
 }
 
 // =====================
+// 隠しボスモーダル
+// =====================
+
+export function showHiddenBossPopup(def) {
+  const overlay = document.getElementById("hiddenBossOverlay");
+  const nameEl  = document.getElementById("hiddenBossName");
+  const sinEl   = document.getElementById("hiddenBossSin");
+  if (!overlay || !nameEl || !sinEl) return;
+
+  sinEl.textContent  = `【七大罪：${def.sin}】`;
+  nameEl.textContent = def.name;
+  overlay.classList.remove("hidden");
+  overlay.onclick = () => overlay.classList.add("hidden");
+
+  const _isHolding = state.isHolding;
+  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+}
+
+export function showHiddenBossRewardModal(def, basePower, baseHp, weaponBaseAtk, weaponBaseHp, passiveValue) {
+  // 貢献P付与
+  state.research.currentPoints = (state.research.currentPoints ?? 0) + 50;
+
+  // 専用ペット生成・付与
+  const pet = {
+    uid:              `${Date.now()}_${Math.random()}`,
+    enemyId:          def.id,
+    isBoss:           true,
+    isHiddenBoss:     true,
+    titleId:          null,
+    name:             def.petDrop.name,
+    basePower,
+    totalPower:       basePower,
+    baseHp,
+    totalHp:          baseHp,
+    passive:          def.petDrop.passive,
+    passiveValue,
+    level:            20,
+    acquiredOrder:    state.acquiredCounter++,
+    isLegendary:      false,
+    isLegendUltimate: false,
+    isElite:          false,
+  };
+  state.player.petList.push(pet);
+
+  // 専用武器生成・付与
+  const weapon = {
+    uid:              `${Date.now()}_${Math.random()}_w`,
+    templateId:       def.weaponDrop.templateId,
+    name:             def.weaponDrop.name,
+    baseAtk:          weaponBaseAtk,
+    totalAtk:         weaponBaseAtk,
+    baseHp:           weaponBaseHp,
+    totalHp:          weaponBaseHp,
+    level:            0,
+    passive:          def.weaponDrop.passive,
+    passiveValue,
+    isHiddenBossDrop: true,
+    acquiredOrder:    state.acquiredCounter++,
+  };
+  state.player.inventory.push(weapon);
+  registerHiddenWeaponObtained(def.id, def.weaponDrop.name);
+
+  // 初撃破フラグ記録
+  if (!state.achievements.hiddenBossFirstKill) {
+    state.achievements.hiddenBossFirstKill = {};
+  }
+  if (!state.achievements.hiddenBossFirstKill[def.id]) {
+    state.achievements.hiddenBossFirstKill[def.id] = true;
+  }
+
+  addLog(`💀 ${def.name} を撃破した！`);
+  addLog(`🎁 貢献P +50・経験値・専用ペット・専用武器を入手！`);
+
+  // 実績チェック
+  checkAchievements();
+
+  // モーダル表示
+  const overlay = document.getElementById("hiddenBossRewardOverlay");
+  if (overlay) {
+    document.getElementById("hiddenBossRewardSin").textContent    = `【七大罪：${def.sin}】`;
+    document.getElementById("hiddenBossRewardName").textContent   = `${def.name} を撃破！`;
+    document.getElementById("hiddenBossRewardPoints").textContent = "貢献P +50";
+    document.getElementById("hiddenBossRewardPet").textContent    = `専用ペット「${def.petDrop.name}」を入手！`;
+    document.getElementById("hiddenBossRewardWeapon").textContent = `専用武器「${def.weaponDrop.name}」を入手！`;
+    overlay.classList.remove("hidden");
+  }
+
+  saveGame();
+}
+
+// =====================
 // 研究所UI
 // =====================
 
@@ -1865,12 +2068,17 @@ function renderExchangeList() {
         ${r.currentPoints < getCapturePurchaseCost() || r.capturePurchaseCount >= 100 ? "disabled" : ""}>交換</button>
     </li>
     ${r.level >= 5
-      ? `<li class="exchange-item">
-           <span>🔥 隠しボス解禁${r.hiddenBossUnlocked ? "（解禁済み）" : ""}</span>
-           <span>800P</span>
-           <button data-type="hiddenBoss"
-             ${r.hiddenBossUnlocked || r.currentPoints < 800 ? "disabled" : ""}>交換</button>
-         </li>`
+      ? hiddenBossDefs.map(def => {
+          const sinKey   = def.id.replace("hidden_", "");
+          const unlocked = r[def.unlockKey];
+          return `
+            <li class="exchange-item">
+              <span>💀 【${def.sin}】${def.name} 解禁${unlocked ? "（解禁済み）" : ""}</span>
+              <span>300P</span>
+              <button data-type="hiddenBoss_${sinKey}"
+                ${unlocked || r.currentPoints < 300 ? "disabled" : ""}>交換</button>
+            </li>`;
+        }).join("")
       : `<li class="exchange-item exchange-locked">
            <span>???</span><span>???</span>
            <span class="exchange-hint">研究所Lv.5で解禁</span>

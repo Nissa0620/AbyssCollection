@@ -112,6 +112,19 @@ export const achievementDefs = [
 
   // --- ボス帯別全捕獲 ---
   ...buildBossCaptureAchievements(),
+
+  // --- 隠しボス初撃破 ---
+  { id: "hbkill_greed",    category: "hidden_boss", label: "強欲の断罪者",   desc: "強欲の罪・マモナスを初めて撃破する",     check: (s) => !!(s.achievements?.hiddenBossFirstKill?.["hidden_greed"])    },
+  { id: "hbkill_wrath",    category: "hidden_boss", label: "憤怒の断罪者",   desc: "憤怒の罪・ラグナロスを初めて撃破する",   check: (s) => !!(s.achievements?.hiddenBossFirstKill?.["hidden_wrath"])    },
+  { id: "hbkill_envy",     category: "hidden_boss", label: "嫉妬の断罪者",   desc: "嫉妬の罪・ゼルヴィアを初めて撃破する",   check: (s) => !!(s.achievements?.hiddenBossFirstKill?.["hidden_envy"])     },
+  { id: "hbkill_sloth",    category: "hidden_boss", label: "怠惰の断罪者",   desc: "怠惰の罪・ベルフェゴンを初めて撃破する", check: (s) => !!(s.achievements?.hiddenBossFirstKill?.["hidden_sloth"])    },
+  { id: "hbkill_gluttony", category: "hidden_boss", label: "暴食の断罪者",   desc: "暴食の罪・グルマンダを初めて撃破する",   check: (s) => !!(s.achievements?.hiddenBossFirstKill?.["hidden_gluttony"]) },
+  { id: "hbkill_lust",     category: "hidden_boss", label: "色欲の断罪者",   desc: "色欲の罪・アスタレスを初めて撃破する",   check: (s) => !!(s.achievements?.hiddenBossFirstKill?.["hidden_lust"])     },
+  { id: "hbkill_pride",    category: "hidden_boss", label: "傲慢の断罪者",   desc: "傲慢の罪・ルシフェルナを初めて撃破する", check: (s) => !!(s.achievements?.hiddenBossFirstKill?.["hidden_pride"])    },
+  { id: "hbkill_all",      category: "hidden_boss", label: "七大罪の終焉者", desc: "七大罪のボスをすべて初めて撃破する",     check: (s) => {
+    const kills = s.achievements?.hiddenBossFirstKill ?? {};
+    return ["hidden_greed","hidden_wrath","hidden_envy","hidden_sloth","hidden_gluttony","hidden_lust","hidden_pride"].every(id => !!kills[id]);
+  }},
 ];
 
 // フロアテーブルをもとに「フロア帯別：全敵捕獲」実績を生成
@@ -318,6 +331,7 @@ const categoryLabel = {
   synthesis:    "🔨 合成記録",
   ultimate:     "✨ 極個体 / 伝説個体 / 究極個体",
   boss_capture: "👑 ボス捕獲",
+  hidden_boss:  "💀 隠しボス討伐",
 };
 
 // 実績画面の現在選択中のカテゴリ・フィルターを保持（モジュールスコープ）

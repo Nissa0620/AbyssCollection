@@ -1,17 +1,19 @@
 import { normalEnemies, bossEnemies } from "./data/index.js";
 import { state } from "./state.js";
+import { hiddenBossDefs } from "./hiddenBossData.js";
 
 // =====================
 // ミッションパターン定義
 // =====================
 const MISSION_PATTERNS = [
-  { isRare: false, requiredLevel: 5,  rewardPoints: 1  },
-  { isRare: false, requiredLevel: 10, rewardPoints: 2  },
-  { isRare: false, requiredLevel: 20, rewardPoints: 3  },
-  { isRare: true,  requiredLevel: 5,  rewardPoints: 10 },
-  { isRare: true,  requiredLevel: 10, rewardPoints: 15 },
-  { isRare: true,  requiredLevel: 20, rewardPoints: 20 },
+  { isRare: false, requiredLevel: 5,  rewardPoints: 1,  weight: 30 },
+  { isRare: false, requiredLevel: 10, rewardPoints: 2,  weight: 30 },
+  { isRare: false, requiredLevel: 20, rewardPoints: 3,  weight: 30 },
+  { isRare: true,  requiredLevel: 5,  rewardPoints: 10, weight: 3  },
+  { isRare: true,  requiredLevel: 10, rewardPoints: 15, weight: 3  },
+  { isRare: true,  requiredLevel: 20, rewardPoints: 20, weight: 4  },
 ];
+// 合計weight=100、レア合計=10/100=10%
 
 // =====================
 // 捕獲済み種族の取得
@@ -37,7 +39,13 @@ export function generateMission() {
   if (species.length === 0) return null;
 
   const enemy = species[Math.floor(Math.random() * species.length)];
-  const pattern = MISSION_PATTERNS[Math.floor(Math.random() * MISSION_PATTERNS.length)];
+  const totalWeight = MISSION_PATTERNS.reduce((sum, p) => sum + p.weight, 0);
+  let rand = Math.random() * totalWeight;
+  let pattern = MISSION_PATTERNS[MISSION_PATTERNS.length - 1];
+  for (const p of MISSION_PATTERNS) {
+    rand -= p.weight;
+    if (rand <= 0) { pattern = p; break; }
+  }
 
   return {
     id: `${Date.now()}_${Math.random()}`,
@@ -64,6 +72,7 @@ export function initMissions() {
 // ミッション達成判定
 // =====================
 export function checkMissionCompletion(mission, pet) {
+  if (pet.isHiddenBoss) return false;   // 隠しボスペットは寄贈不可
   if (pet.enemyId !== mission.enemyId) return false;
   if (!!pet.isBoss !== mission.isBoss) return false;
   if ((pet.level ?? 0) < mission.requiredLevel) return false;
@@ -192,13 +201,17 @@ export function exchangeReward(type) {
     r.capturePurchaseCount += 1;
     return true;
   }
-  if (type === "hiddenBoss") {
-    if (r.level < 5) return false;
-    if (r.hiddenBossUnlocked) return false;
-    if (r.currentPoints < 800) return false;
-    r.currentPoints -= 800;
-    r.hiddenBossUnlocked = true;
-    return true;
+  for (const def of hiddenBossDefs) {
+    const sinKey = def.id.replace("hidden_", "");
+    if (type === `hiddenBoss_${sinKey}`) {
+      const key = def.unlockKey;
+      if (r.level < 5) return false;
+      if (r[key]) return false;
+      if (r.currentPoints < 300) return false;
+      r.currentPoints -= 300;
+      r[key] = true;
+      return true;
+    }
   }
   return false;
 }

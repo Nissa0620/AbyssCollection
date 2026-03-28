@@ -196,10 +196,13 @@ function isHolding() {
 }
 
 function isAppearanceModalOpen() {
-  return ["eliteOverlay", "legendaryOverlay", "legendUltimateOverlay"].some((id) => {
+  const modeOverlay = ["eliteOverlay", "legendaryOverlay", "legendUltimateOverlay"].some((id) => {
     const el = document.getElementById(id);
     return el && !el.classList.contains("hidden") && el.dataset.mode === "appear";
   });
+  if (modeOverlay) return true;
+  const hiddenBossEl = document.getElementById("hiddenBossOverlay");
+  return hiddenBossEl ? !hiddenBossEl.classList.contains("hidden") : false;
 }
 
 function doAttack() {
@@ -462,6 +465,13 @@ document.getElementById("researchCloseBtn").addEventListener("click", () => {
 
 document.getElementById("donateCloseBtn").addEventListener("click", () => {
   document.getElementById("donateOverlay").classList.add("hidden");
+});
+
+document.getElementById("hiddenBossRewardCloseBtn")?.addEventListener("click", () => {
+  document.getElementById("hiddenBossRewardOverlay").classList.add("hidden");
+  state.phase = "next";
+  saveGame();
+  refreshUI();
 });
 
 document.getElementById("researchRerollBtn").addEventListener("click", () => {

@@ -7,7 +7,8 @@ import { addLog, clearLogs } from "./log.js";
 import { saveGame } from "./saveLoad.js";
 import { registerEnemyDefeated, registerEnemySeen, updateBookUltimate, updateWeaponBookUltimate } from "./book.js";
 import { isUltimateWeapon } from "./drop.js";
-import { showUltimatePopup, showElitePopup, showLegendaryPopup, showLegendUltimatePopup } from "./ui.js";
+import { showUltimatePopup, showElitePopup, showLegendaryPopup, showLegendUltimatePopup, showHiddenBossPopup } from "./ui.js";
+import { hiddenBossDefs } from "./hiddenBossData.js";
 import { checkAchievements } from "./achievements.js";
 import { registerWeaponDropped } from "./weaponBook.js";
 import { tryCatch, hasDoubleAttack, hasTripleAttack, hasSurvivePassive, hasLegendSurvive, hasResurrection, hasLegendResurrection, getDropMultiplier, getDmgBoostMultiplier, getDmgReduceMultiplier, getReflectDamage, getLegendReflectDamage, getDrainHeal, getLegendDrainHeal, getCritMultiplier, getGiantKillerMultiplier, getBossSlayerMultiplier, tryEvade, tryLegendEvade, getLastStandMultiplier, getLegendLastStandMultiplier, getRegenHeal } from "./pet.js";
@@ -212,6 +213,9 @@ export function enemyAttack() {
 }
 
 function defeatEnemy() {
+  // 隠しボスは gameFlow.js 側で専用処理をするため、ここでは何もしない
+  if (state.enemy?.isHiddenBoss) return;
+
   addLog(state.enemy.name + " を撃破");
   registerEnemyDefeated(state.enemy.enemyId, state.enemy.titleId, state.enemy.baseName, state.enemy.titleName, state.enemy.isBoss, state.enemy.name);
 
@@ -285,6 +289,17 @@ export function createEnemy() {
   const bossEnemyId = bossFloorMap[state.floor];
   if (bossEnemyId) {
     return createBossEnemy(bossEnemyId);
+  }
+
+  // 解禁済み隠しボスを収集し、0.1% で出現させる
+  const unlockedHiddenBosses = hiddenBossDefs.filter(
+    def => state.research?.[def.unlockKey]
+  );
+  if (unlockedHiddenBosses.length > 0 && Math.random() < 0.001) {
+    const def = unlockedHiddenBosses[
+      Math.floor(Math.random() * unlockedHiddenBosses.length)
+    ];
+    return createHiddenBossEnemy(def);
   }
 
   const area = getCurrentArea(state.floor);
@@ -398,6 +413,60 @@ export function createEnemy() {
   } else {
     addLog(state.enemy.name + " が出現した！");
   }
+  return state.enemy;
+}
+
+function createHiddenBossEnemy(def) {
+  // maxFloor 以下で最大のボスフロアを特定
+  const bossFloors = Object.keys(bossFloorMap).map(Number).sort((a, b) => a - b);
+  const targetFloor = bossFloors.filter(f => f <= state.maxFloor).at(-1) ?? bossFloors[0];
+  const bossBandKey = `boss-${targetFloor}`;
+  const bossBand = floorTable[bossBandKey];
+
+  // 強度：対応ボスの5倍
+  const hpScale    = 1 + targetFloor * 0.5;
+  const atkScale   = 1 + targetFloor * 0.6;
+  const totalHp    = Math.floor(bossBand.baseHp    * hpScale * 5);
+  const totalPower = Math.floor(bossBand.basePower * atkScale * 5);
+
+  // ペットのbasePower/baseHp
+  const petBasePower = Math.floor(bossBand.petPower.max * 3.0);
+  const petBaseHp    = Math.floor(bossBand.petHp.max   * 3.0);
+
+  // 武器のbaseAtk/baseHp
+  const weaponBaseAtk = Math.floor((bossBand.petPower.min + bossBand.petPower.max) / 2 * 0.10);
+  const weaponBaseHp  = Math.floor(bossBand.petHp.max * 1.4);
+
+  // passiveValue
+  const dynamicPassiveValue = Math.floor(bossBand.passiveValue.buff.max * 2.0);
+
+  // 経験値
+  const hiddenBossExp = Math.floor((5 + targetFloor * 10) * 2.0 * 3);
+
+  state.enemy = {
+    enemyId:       def.id,
+    name:          def.name,
+    baseName:      def.name,
+    titleId:       null,
+    titleName:     "",
+    totalHp,
+    hp:            totalHp,
+    totalPower,
+    exp:           hiddenBossExp,
+    isBoss:        true,
+    isHiddenBoss:  true,
+    hiddenBossId:  def.id,
+    hiddenBossDef: def,
+    _petBasePower:        petBasePower,
+    _petBaseHp:           petBaseHp,
+    _weaponBaseAtk:       weaponBaseAtk,
+    _weaponBaseHp:        weaponBaseHp,
+    _dynamicPassiveValue: dynamicPassiveValue,
+  };
+
+  clearLogs();
+  addLog(`💀【隠しボス】${def.name}が現れた！`);
+  showHiddenBossPopup(def);
   return state.enemy;
 }
 

@@ -1,11 +1,13 @@
 import { state } from "./state.js";
 import { createEnemy } from "./battle.js";
+import { showHiddenBossRewardModal } from "./ui.js";
 import { playerAttack, enemyAttack } from "./battle.js";
 import { healPlayerFull, gainExp } from "./player.js";
 import { saveGame } from "./saveLoad.js";
 import { getExpMultiplier, getExpBurstMultiplier, getLegendExpBurstMultiplier, calcOverflowBonuses } from "./pet.js";
 import { addLog } from "./log.js";
 import { checkAchievements } from "./achievements.js";
+import { registerHiddenBossDefeated } from "./book.js";
 
 export function handlePhase() {
   switch (state.phase) {
@@ -37,6 +39,31 @@ function battlePhase() {
   }
 
   if (result.type === "victory") {
+    if (state.enemy?.isHiddenBoss) {
+      // 経験値付与（通常フローと同様）
+      const expMult        = getExpMultiplier();
+      const burstMult      = getExpBurstMultiplier();
+      const legendBurstMult = getLegendExpBurstMultiplier();
+      const finalBurstMult = legendBurstMult > 1 ? legendBurstMult : burstMult;
+      const researchExpBonus = state.research?.expBonus ?? 0;
+      const finalExp = Math.floor(state.enemy.exp * expMult * finalBurstMult) + researchExpBonus;
+      if (legendBurstMult > 1) addLog("✨✨ 経験値大爆発！取得経験値が5倍！");
+      else if (burstMult > 1) addLog("✨ 経験値爆発！取得経験値が2倍！");
+      gainExp(finalExp);
+      healPlayerFull();
+
+      const def  = state.enemy.hiddenBossDef;
+      const pPow = state.enemy._petBasePower;
+      const pHp  = state.enemy._petBaseHp;
+      const wAtk = state.enemy._weaponBaseAtk;
+      const wHp  = state.enemy._weaponBaseHp;
+      const pval = state.enemy._dynamicPassiveValue;
+      state.enemy = null;
+      registerHiddenBossDefeated(def.id, def.name);
+      showHiddenBossRewardModal(def, pPow, pHp, wAtk, wHp, pval);
+      return;
+    }
+
     const expMult = getExpMultiplier();
     const burstMult = getExpBurstMultiplier();
     const legendBurstMult = getLegendExpBurstMultiplier();

@@ -2792,3 +2792,106 @@ button {
   color: #666;
   cursor: not-allowed;
 }
+
+/* =====================
+   隠しボス出現モーダル
+   ===================== */
+.hidden-boss-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.hidden-boss-overlay.hidden {
+  display: none;
+}
+
+.hidden-boss-modal {
+  background: #0a0a0a;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 24px 32px;
+  text-align: center;
+  animation:
+    ultimate-modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+    hidden-boss-aurora 3s 0.3s linear infinite;
+}
+
+.hidden-boss-modal-label {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.hidden-boss-modal-sin {
+  font-size: 0.9rem;
+  color: #aaaaaa;
+  margin-bottom: 4px;
+}
+
+.hidden-boss-modal-name {
+  font-size: 1.3rem;
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.hidden-boss-modal-hint {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+@keyframes hidden-boss-aurora {
+  0%   { box-shadow: 0 0 16px 4px rgba(255,255,255,0.3); }
+  25%  { box-shadow: 0 0 24px 8px rgba(200,200,200,0.4); }
+  50%  { box-shadow: 0 0 32px 12px rgba(255,255,255,0.5); }
+  75%  { box-shadow: 0 0 24px 8px rgba(200,200,200,0.4); }
+  100% { box-shadow: 0 0 16px 4px rgba(255,255,255,0.3); }
+}
+
+/* =====================
+   隠しボス報酬モーダル
+   ===================== */
+.hidden-boss-reward-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+}
+
+.hidden-boss-reward-sin {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.hidden-boss-reward-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.hidden-boss-reward-row {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  padding: 6px;
+  background: #1a1a1a;
+  border-radius: 6px;
+  border: 1px solid #333;
+}
+
+.hidden-boss-reward-close-btn {
+  margin-top: 8px;
+  padding: 10px 24px;
+  background: #2a2a3a;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}

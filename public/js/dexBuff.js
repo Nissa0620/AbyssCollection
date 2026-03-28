@@ -1,4 +1,5 @@
 import { normalEnemies, bossEnemies, weaponTemplates, floorTable } from "./data/index.js";
+import { hiddenBossDefs } from "./hiddenBossData.js";
 
 const BASE_WEAPON_DEX_BUFF = { hp: 0.20, power: 0.20 };
 
@@ -85,4 +86,35 @@ export function recalcWeaponDexBuff(state) {
 
   state.weaponDexBuff.hp = hp;
   state.weaponDexBuff.power = power;
+}
+
+export function recalcHiddenBossDexBuff(state) {
+  const HIDDEN_BOSS_DEX_BUFF   = { hp: 1.0, power: 1.0 };  // 撃破1体あたり → dexBuff に加算
+  const HIDDEN_WEAPON_DEX_BUFF = { hp: 1.0, power: 1.0 };  // 武器入手1本あたり → weaponDexBuff に加算
+
+  const hiddenBosses = state.book.hiddenBosses ?? {};
+
+  let enemyHpBonus    = 0;  // dexBuff（敵図鑑）用
+  let enemyPowerBonus = 0;
+  let weaponHpBonus    = 0; // weaponDexBuff（武器図鑑）用
+  let weaponPowerBonus = 0;
+
+  for (const def of hiddenBossDefs) {
+    const entry = hiddenBosses[def.id];
+    if (!entry) continue;
+    if (entry.defeated) {
+      enemyHpBonus    += HIDDEN_BOSS_DEX_BUFF.hp;
+      enemyPowerBonus += HIDDEN_BOSS_DEX_BUFF.power;
+    }
+    if (entry.weaponObtained) {
+      weaponHpBonus    += HIDDEN_WEAPON_DEX_BUFF.hp;
+      weaponPowerBonus += HIDDEN_WEAPON_DEX_BUFF.power;
+    }
+  }
+
+  // recalcDexBuff / recalcWeaponDexBuff の後に呼ぶこと
+  state.dexBuff.hp          += enemyHpBonus    / 100;
+  state.dexBuff.power       += enemyPowerBonus / 100;
+  state.weaponDexBuff.hp    += weaponHpBonus   / 100;
+  state.weaponDexBuff.power += weaponPowerBonus / 100;
 }

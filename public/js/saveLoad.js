@@ -1,7 +1,8 @@
 import { state } from "./state.js";
-import { recalcDexBuff, recalcWeaponDexBuff } from "./dexBuff.js";
+import { recalcDexBuff, recalcWeaponDexBuff, recalcHiddenBossDexBuff } from "./dexBuff.js";
 import { getHpBoostMultiplier, getPetPower, getPetHp, calcOverflowBonuses } from "./pet.js";
 import { initMissions } from "./research.js";
+import { hiddenBossDefs } from "./hiddenBossData.js";
 
 const SAVE_KEY = "abyssSave";
 
@@ -103,6 +104,7 @@ export function loadGame() {
   // 古いセーブデータ対応：バフを再計算して正しい値に上書き
   recalcDexBuff(state);
   recalcWeaponDexBuff(state);
+  recalcHiddenBossDexBuff(state);
   state.hpBoostMult = getHpBoostMultiplier();
 
   // マイグレーション：extraHit → expBurst、legendExtraHit → legendExpBurst
@@ -173,12 +175,43 @@ export function loadGame() {
       captureBonus: 0,
       dropPurchaseCount: 0,
       capturePurchaseCount: 0,
-      hiddenBossUnlocked: false,
+      hiddenBossUnlocked_greed:    false,
+      hiddenBossUnlocked_wrath:    false,
+      hiddenBossUnlocked_envy:     false,
+      hiddenBossUnlocked_sloth:    false,
+      hiddenBossUnlocked_gluttony: false,
+      hiddenBossUnlocked_lust:     false,
+      hiddenBossUnlocked_pride:    false,
     };
   }
   // ミッションが空なら初期生成
   if (state.research.missions.length === 0 && state.maxFloor >= 500) {
     initMissions();
+  }
+
+  // 旧フラグ（hiddenBossUnlocked: true）→ 7体全解禁として引き継ぐ
+  if (state.research.hiddenBossUnlocked === true) {
+    for (const def of hiddenBossDefs) {
+      state.research[def.unlockKey] = true;
+    }
+    delete state.research.hiddenBossUnlocked;
+  }
+
+  // 各フラグが未定義なら false で初期化
+  for (const def of hiddenBossDefs) {
+    if (state.research[def.unlockKey] === undefined) {
+      state.research[def.unlockKey] = false;
+    }
+  }
+
+  // 初撃破フラグが未定義なら初期化
+  if (!state.achievements.hiddenBossFirstKill) {
+    state.achievements.hiddenBossFirstKill = {};
+  }
+
+  // book.hiddenBossesが未定義なら初期化
+  if (!state.book.hiddenBosses) {
+    state.book.hiddenBosses = {};
   }
 
   return true;

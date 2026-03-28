@@ -1,6 +1,6 @@
 import { state } from "./state.js";
 import { weaponTemplates } from "./data/index.js";
-import { recalcWeaponDexBuff } from "./dexBuff.js";
+import { recalcWeaponDexBuff, recalcHiddenBossDexBuff } from "./dexBuff.js";
 import { addLog } from "./log.js";
 
 // ドロップ時に初期形を記録
@@ -17,6 +17,7 @@ export function registerWeaponDropped(templateId, isBossDrop = false) {
     addLog(`📘 ${template.name}を図鑑に登録した`);
   }
   recalcWeaponDexBuff(state);
+  recalcHiddenBossDexBuff(state);
 }
 
 // 進化時に記録
@@ -30,5 +31,6 @@ export function registerWeaponEvolved(templateId, evoName, isBossDrop = false) {
     entry.evolutions[evoName] = { obtained: true };
     addLog(`📘 ${evoName}を図鑑に登録した`);
     recalcWeaponDexBuff(state);
+    recalcHiddenBossDexBuff(state);
   }
 }

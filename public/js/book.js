@@ -1,6 +1,7 @@
 import { state } from "./state.js";
 import { addLog } from "./log.js";
-import { recalcDexBuff } from "./dexBuff.js";
+import { recalcDexBuff, recalcWeaponDexBuff, recalcHiddenBossDexBuff } from "./dexBuff.js";
+import { hiddenBossDefs } from "./hiddenBossData.js";
 import { isUltimatePet } from "./pet.js";
 import { isUltimateWeapon } from "./drop.js";
 
@@ -52,6 +53,8 @@ export function registerEnemyDefeated(enemyId, titleId, enemyName, titleName, is
   entry.titles[titleId].seen = true;
   entry.titles[titleId].defeated = true;
   recalcDexBuff(state);
+  recalcWeaponDexBuff(state);
+  recalcHiddenBossDexBuff(state);
 }
 
 // 捕獲済ペットの究極フラグを更新（捕獲・合成後に呼ぶ）
@@ -67,6 +70,35 @@ export function updateBookUltimate() {
     );
     entry.hasUltimate = hasUltimate;
   }
+}
+
+// 隠しボス撃破時に図鑑登録
+export function registerHiddenBossDefeated(hiddenBossId, name) {
+  if (!state.book.hiddenBosses) state.book.hiddenBosses = {};
+  if (!state.book.hiddenBosses[hiddenBossId]) {
+    state.book.hiddenBosses[hiddenBossId] = { name, defeated: false, weaponObtained: false };
+  }
+  if (!state.book.hiddenBosses[hiddenBossId].defeated) {
+    state.book.hiddenBosses[hiddenBossId].defeated = true;
+    addLog(`📘 ${name} を図鑑に登録した`);
+  }
+  recalcDexBuff(state);
+  recalcWeaponDexBuff(state);
+  recalcHiddenBossDexBuff(state);
+}
+
+// 隠しボス武器入手時に図鑑登録
+export function registerHiddenWeaponObtained(hiddenBossId, weaponName) {
+  if (!state.book.hiddenBosses) state.book.hiddenBosses = {};
+  if (!state.book.hiddenBosses[hiddenBossId]) {
+    state.book.hiddenBosses[hiddenBossId] = { name: "", defeated: false, weaponObtained: false };
+  }
+  if (!state.book.hiddenBosses[hiddenBossId].weaponObtained) {
+    state.book.hiddenBosses[hiddenBossId].weaponObtained = true;
+    addLog(`📘 武器「${weaponName}」を図鑑に登録した`);
+  }
+  recalcWeaponDexBuff(state);
+  recalcHiddenBossDexBuff(state);
 }
 
 // 武器図鑑の究極フラグを更新
