@@ -549,6 +549,9 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
 
   const enemyFullName = state.enemy?.name ?? def.name;
   if (!state.achievements) state.achievements = {};
+  if (isBoss) {
+    state.achievements.bossCatchCount = (state.achievements.bossCatchCount ?? 0) + 1;
+  }
 
   if (isLegendUltimate) {
     state.achievements.legendUltimatePetCount = (state.achievements.legendUltimatePetCount ?? 0) + 1;
@@ -701,7 +704,7 @@ export function executePetSynthesis() {
   state.petSynthesis.baseUid = null;
   state.petSynthesis.materialUids = [];
   if (!state.achievements) state.achievements = {};
-  state.achievements.petSynthCount = (state.achievements.petSynthCount ?? 0) + 1;
+  state.achievements.petSynthCount = (state.achievements.petSynthCount ?? 0) + materialUids.length;
   checkAchievements();
   return true;
 }

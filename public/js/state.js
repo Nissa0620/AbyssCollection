@@ -134,6 +134,8 @@ export const state = {
     unlocked: {},
     weaponSynthCount: 0,
     petSynthCount: 0,
+    weaponEvolveCount: 0,
+    bossCatchCount: 0,
     ultimatePetCount: 0,
     ultimateWeaponCount: 0,
   },

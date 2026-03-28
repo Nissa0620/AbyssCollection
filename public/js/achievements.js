@@ -23,8 +23,6 @@ export const achievementDefs = [
   { id: "lv900",    category: "level", label: "深淵の覇者",         desc: "Lv.900 に到達する",    check: (s) => s.player.level >= 900    },
   { id: "lv1000",   category: "level", label: "深淵の支配者",       desc: "Lv.1000 に到達する",   check: (s) => s.player.level >= 1000   },
   { id: "lv10000",  category: "level", label: "深淵を統べる者",     desc: "Lv.10000 に到達する",  check: (s) => s.player.level >= 10000  },
-  { id: "lv50000",  category: "level", label: "超越者",             desc: "Lv.50000 に到達する",  check: (s) => s.player.level >= 50000  },
-  { id: "lv100000", category: "level", label: "深淵を司る神",       desc: "Lv.100000 に到達する", check: (s) => s.player.level >= 100000 },
 
   // --- ボス突破 ---
   { id: "floor100",  category: "floor", label: "深淵の入り口",   desc: "地下100階のボスを突破する",   check: (s) => s.maxFloor > 100  },
@@ -52,6 +50,15 @@ export const achievementDefs = [
 
   // --- 武器コレクション（フロア帯別 全入手） ---
   ...buildWeaponCollectAchievements(),
+
+  // --- 武器進化コンプリート（フロア帯別 全進化） ---
+  ...buildWeaponEvolveAchievements(),
+
+  // --- 武器進化回数 ---
+  { id: "wevo10",   category: "weapon_evolve", label: "鍛冶の開眼",       desc: "武器を進化させる（10回）",    check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 10,   progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
+  { id: "wevo100",  category: "weapon_evolve", label: "進化の職人",       desc: "武器を進化させる（100回）",   check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 100,  progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
+  { id: "wevo500",  category: "weapon_evolve", label: "進化の達人",       desc: "武器を進化させる（500回）",   check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 500,  progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
+  { id: "wevo1000", category: "weapon_evolve", label: "進化を極めし者",   desc: "武器を進化させる（1000回）",  check: (s) => (s.achievements?.weaponEvolveCount ?? 0) >= 1000, progress: (s) => ({ current: s.achievements?.weaponEvolveCount ?? 0, unit: "回" }) },
 
   // --- 武器合成回数 ---
   { id: "wsynth10",     category: "synthesis", label: "鍛冶見習い",       desc: "武器を合成する（10回）",      check: (s) => (s.achievements?.weaponSynthCount ?? 0) >= 10,     progress: (s) => ({ current: s.achievements?.weaponSynthCount ?? 0, unit: "回" }) },
@@ -96,6 +103,15 @@ export const achievementDefs = [
   { id: "ultwep100",   category: "ultimate", label: "至高の武器庫",       desc: "極武器を100本入手する",       check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 100,   progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
   { id: "ultwep1000",  category: "ultimate", label: "至高の武器神殿",     desc: "極武器を1000本入手する",      check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 1000,  progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
   { id: "ultwep10000", category: "ultimate", label: "至高の兵器庫",       desc: "極武器を10000本入手する",     check: (s) => (s.achievements?.ultimateWeaponCount ?? 0) >= 10000, progress: (s) => ({ current: s.achievements?.ultimateWeaponCount ?? 0, unit: "本" }) },
+
+  // --- ボス捕獲数 ---
+  { id: "bosscatch1",   category: "boss_capture", label: "初めてのボス捕獲",   desc: "ボスを捕獲する（1体）",    check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 1,   progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
+  { id: "bosscatch10",  category: "boss_capture", label: "ボス狩りの始まり",   desc: "ボスを捕獲する（10体）",   check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 10,  progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
+  { id: "bosscatch50",  category: "boss_capture", label: "強者を従える者",     desc: "ボスを捕獲する（50体）",   check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 50,  progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
+  { id: "bosscatch100", category: "boss_capture", label: "百の覇者",           desc: "ボスを捕獲する（100体）",  check: (s) => (s.achievements?.bossCatchCount ?? 0) >= 100, progress: (s) => ({ current: s.achievements?.bossCatchCount ?? 0, unit: "体" }) },
+
+  // --- ボス帯別全捕獲 ---
+  ...buildBossCaptureAchievements(),
 ];
 
 // フロアテーブルをもとに「フロア帯別：全敵捕獲」実績を生成
@@ -147,6 +163,72 @@ function buildWeaponCollectAchievements() {
           s.player.inventory.some((w) => w.templateId === t.id && !w.isBossDrop) ||
           // 図鑑に登録済みでも可
           s.book.weapons[`normal_${t.id}`] != null
+        );
+      },
+    };
+  });
+}
+
+// フロアテーブルをもとに「フロア帯別：全武器最終進化」実績を生成
+function buildWeaponEvolveAchievements() {
+  return Object.values(floorTable).filter((area) => area.min != null).map((area) => {
+    const [minId, maxId] = area.weaponIdRange;
+    const label = `${area.min}〜${area.max}階の進化完遂`;
+    const desc = `${area.min}〜${area.max}階の武器をすべて最終段階まで進化させる`;
+    return {
+      id: `weapon_evo_${area.min}_${area.max}`,
+      category: "weapon_evolve",
+      label,
+      desc,
+      check: (s) => {
+        const targetWeapons = weaponTemplates.filter(
+          (w) => !w.isBossDrop && w.id >= minId && w.id <= maxId
+        );
+        return targetWeapons.every((t) => {
+          if (!t.evolutions || t.evolutions.length === 0) return true;
+          const finalEvo = t.evolutions[t.evolutions.length - 1];
+          const bookKey = `normal_${t.id}`;
+          const entry = s.book?.weapons?.[bookKey];
+          return entry?.evolutions?.[finalEvo.name]?.obtained === true;
+        });
+      },
+    };
+  });
+}
+
+// 1000階ごとのボス帯別全捕獲実績を生成
+function buildBossCaptureAchievements() {
+  const bands = [
+    { min: 100,  max: 1000  },
+    { min: 1100, max: 2000  },
+    { min: 2100, max: 3000  },
+    { min: 3100, max: 4000  },
+    { min: 4100, max: 5000  },
+    { min: 5100, max: 6000  },
+    { min: 6100, max: 7000  },
+    { min: 7100, max: 8000  },
+    { min: 8100, max: 9000  },
+    { min: 9100, max: 10000 },
+  ];
+
+  return bands.map(({ min, max }) => {
+    const label = `${min}〜${max}階のボス捕獲王`;
+    const desc = `${min}〜${max}階のボスを称号1〜4すべて捕獲する`;
+    return {
+      id: `boss_capture_${min}_${max}`,
+      category: "boss_capture",
+      label,
+      desc,
+      check: (s) => {
+        const targetBosses = bossEnemies.filter(
+          (e) => e.bossFloors.some((f) => f >= min && f <= max)
+        );
+        return targetBosses.every((e) =>
+          [1, 2, 3, 4].every((titleId) =>
+            s.player.petList.some(
+              (p) => p.enemyId === e.id && p.isBoss === true && p.titleId === titleId
+            )
+          )
         );
       },
     };
@@ -228,12 +310,14 @@ function processPopupQueue() {
 // =====================
 
 const categoryLabel = {
-  level:     "🧑‍🦯 レベル達成",
-  floor:     "🏔️ ボス突破",
-  capture:   "🐾 捕獲コレクション",
-  weapon:    "⚔️ 武器コレクション",
-  synthesis: "🔨 合成記録",
-  ultimate:  "✨ 極個体 / 伝説個体 / 究極個体",
+  level:        "🧑‍🦯 レベル達成",
+  floor:        "🏔️ ボス突破",
+  capture:      "🐾 捕獲コレクション",
+  weapon:       "⚔️ 武器コレクション",
+  weapon_evolve:"✨ 武器進化",
+  synthesis:    "🔨 合成記録",
+  ultimate:     "✨ 極個体 / 伝説個体 / 究極個体",
+  boss_capture: "👑 ボス捕獲",
 };
 
 // 実績画面の現在選択中のカテゴリ・フィルターを保持（モジュールスコープ）

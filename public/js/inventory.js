@@ -178,6 +178,9 @@ export function executeSynthesis() {
           addLog(`✨ ${prevName} が ${evo.name} に進化した！`);
           registerWeaponEvolved(newWeapon.templateId, evo.name, isBossDrop);
         }
+        if (!state.achievements) state.achievements = {};
+        state.achievements.weaponEvolveCount =
+          (state.achievements.weaponEvolveCount ?? 0) + passedEvos.length;
       }
   }
 
@@ -201,7 +204,7 @@ export function executeSynthesis() {
   state.synthesis.baseUid = null;
   state.synthesis.materialUids = [];
   if (!state.achievements) state.achievements = {};
-  state.achievements.weaponSynthCount = (state.achievements.weaponSynthCount ?? 0) + 1;
+  state.achievements.weaponSynthCount = (state.achievements.weaponSynthCount ?? 0) + materialUids.length;
   checkAchievements();
   return true;
 }
