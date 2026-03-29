@@ -105,7 +105,10 @@ export const state = {
     totalPointsEarned: 0,
     currentPoints: 0,
     missions: [],
-    buffPurchaseCount: 0,
+    buffPurchaseCount: 0,   // 旧共有カウンター（互換維持のため残す）
+    atkPurchaseCount: 0,
+    hpPurchaseCount: 0,
+    expPurchaseCount: 0,
     atkBonus: 0,
     hpBonus: 0,
     expBonus: 0,

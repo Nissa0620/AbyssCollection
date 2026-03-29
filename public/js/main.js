@@ -217,7 +217,9 @@ function isAppearanceModalOpen() {
   });
   if (modeOverlay) return true;
   const hiddenBossEl = document.getElementById("hiddenBossOverlay");
-  return hiddenBossEl ? !hiddenBossEl.classList.contains("hidden") : false;
+  if (hiddenBossEl && !hiddenBossEl.classList.contains("hidden")) return true;
+  const rewardEl = document.getElementById("hiddenBossRewardOverlay");
+  return rewardEl ? !rewardEl.classList.contains("hidden") : false;
 }
 
 function doAttack() {
@@ -309,7 +311,7 @@ document.getElementById("petOverlay").addEventListener("click", (e) => {
   const unequipBtn = e.target.closest(".pet-unequip-btn");
 
   if (equipBtn) {
-    equipPet(parseFloat(equipBtn.dataset.uid));
+    equipPet(equipBtn.dataset.uid);
     refreshHpBoost();
     refreshUI();
   } else if (unequipBtn) {

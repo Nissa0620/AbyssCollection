@@ -9,7 +9,9 @@ import {
   checkMissionCompletion,
   donatePet,
   exchangeReward,
-  getBuffPurchaseCost,
+  getAtkPurchaseCost,
+  getHpPurchaseCost,
+  getExpPurchaseCost,
   getDropPurchaseCost,
   getCapturePurchaseCost,
   getRerollCost,
@@ -1484,7 +1486,7 @@ export function updateSynthesisClasses() {
   document.querySelectorAll("#inventoryList .pet-item, .pet-group-body .pet-item").forEach((li) => {
     const uidAttr = li.querySelector("[data-uid]")?.dataset.uid;
     if (!uidAttr) return;
-    const uid = parseFloat(uidAttr);
+    const uid = uidAttr;
     const item = state.player.inventory.find((w) => w.uid === uid);
     if (!item) return;
 
@@ -1515,7 +1517,7 @@ export function updateSynthesisClasses() {
   document.querySelectorAll("#petList .pet-item, .pet-group-body .pet-item").forEach((li) => {
     const uidAttr = li.querySelector("[data-uid]")?.dataset.uid;
     if (!uidAttr) return;
-    const uid = parseFloat(uidAttr);
+    const uid = uidAttr;
     const pet = state.player.petList.find((p) => p.uid === uid);
     if (!pet) return;
 
@@ -2091,7 +2093,7 @@ function renderMissions() {
     li.className = "mission-item";
     li.innerHTML = `
       <div class="mission-desc">
-        ${mission.enemyName}の${rareLabel}個体（lv${mission.requiredLevel}以上）を寄贈する
+        ${mission.enemyName}の${rareLabel}個体（+${mission.requiredLevel}以上）を寄贈する
       </div>
       <div class="mission-reward">獲得: ${mission.rewardPoints}P</div>
       <div class="mission-btn-row">
@@ -2155,24 +2157,25 @@ function renderLevelProgress() {
 function renderExchangeList() {
   const r = state.research;
   const ul = document.getElementById("exchangeList");
-  const buffCost = getBuffPurchaseCost();
+  const atkCost = getAtkPurchaseCost();
+  const hpCost  = getHpPurchaseCost();
+  const expCost = getExpPurchaseCost();
 
   ul.innerHTML = `
     <li class="exchange-item">
       <span>ATK +10</span>
-      <span>${buffCost}P</span>
-      <button data-type="atk" ${r.currentPoints < buffCost ? "disabled" : ""}>交換</button>
-      <span class="exchange-note">累計購入回数で全景品共通コスト上昇（現在${r.buffPurchaseCount}回）</span>
+      <span>${atkCost}P</span>
+      <button data-type="atk" ${r.currentPoints < atkCost ? "disabled" : ""}>交換</button>
     </li>
     <li class="exchange-item">
       <span>HP +30</span>
-      <span>${buffCost}P</span>
-      <button data-type="hp" ${r.currentPoints < buffCost ? "disabled" : ""}>交換</button>
+      <span>${hpCost}P</span>
+      <button data-type="hp" ${r.currentPoints < hpCost ? "disabled" : ""}>交換</button>
     </li>
     <li class="exchange-item">
       <span>経験値 +10</span>
-      <span>${buffCost}P</span>
-      <button data-type="exp" ${r.currentPoints < buffCost ? "disabled" : ""}>交換</button>
+      <span>${expCost}P</span>
+      <button data-type="exp" ${r.currentPoints < expCost ? "disabled" : ""}>交換</button>
     </li>
     <li class="exchange-item">
       <span>ドロップ率 +0.1%（${r.dropBonus}/100回）</span>
@@ -2229,7 +2232,7 @@ function openDonateModal(missionId) {
 
   const rareLabel = mission.isRare ? "レア" : "通常";
   document.getElementById("donateCondition").textContent =
-    `${mission.enemyName}の${rareLabel}個体（lv${mission.requiredLevel}以上）`;
+    `${mission.enemyName}の${rareLabel}個体（強化値+${mission.requiredLevel}以上）`;
 
   const ul = document.getElementById("donatePetList");
   ul.innerHTML = "";

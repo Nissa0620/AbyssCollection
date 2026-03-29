@@ -144,8 +144,16 @@ export function rerollMissions() {
 // =====================
 // 貢献P交換処理
 // =====================
-export function getBuffPurchaseCost() {
-  return 5 + (state.research.buffPurchaseCount ?? 0);
+export function getAtkPurchaseCost() {
+  return 5 + (state.research.atkPurchaseCount ?? 0);
+}
+
+export function getHpPurchaseCost() {
+  return 5 + (state.research.hpPurchaseCount ?? 0);
+}
+
+export function getExpPurchaseCost() {
+  return 5 + (state.research.expPurchaseCount ?? 0);
 }
 
 export function getDropPurchaseCost() {
@@ -160,27 +168,27 @@ export function exchangeReward(type) {
   const r = state.research;
 
   if (type === "atk") {
-    const cost = getBuffPurchaseCost();
+    const cost = getAtkPurchaseCost();
     if (r.currentPoints < cost) return false;
     r.currentPoints -= cost;
     r.atkBonus += 10;
-    r.buffPurchaseCount += 1;
+    r.atkPurchaseCount = (r.atkPurchaseCount ?? 0) + 1;
     return true;
   }
   if (type === "hp") {
-    const cost = getBuffPurchaseCost();
+    const cost = getHpPurchaseCost();
     if (r.currentPoints < cost) return false;
     r.currentPoints -= cost;
     r.hpBonus += 30;
-    r.buffPurchaseCount += 1;
+    r.hpPurchaseCount = (r.hpPurchaseCount ?? 0) + 1;
     return true;
   }
   if (type === "exp") {
-    const cost = getBuffPurchaseCost();
+    const cost = getExpPurchaseCost();
     if (r.currentPoints < cost) return false;
     r.currentPoints -= cost;
     r.expBonus += 10;
-    r.buffPurchaseCount += 1;
+    r.expPurchaseCount = (r.expPurchaseCount ?? 0) + 1;
     return true;
   }
   if (type === "drop") {

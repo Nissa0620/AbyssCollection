@@ -39,7 +39,7 @@ function createWeapon(template) {
     : null;
 
   return {
-    uid: Date.now() + Math.random(),
+    uid: `${Date.now()}_${Math.random()}`,
     templateId: template.id,
     isBossDrop: template.isBossDrop ?? false,
     name: template.name,

@@ -505,7 +505,7 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
   }
 
   const pet = {
-    uid: Date.now() + Math.random(),
+    uid: `${Date.now()}_${Math.random()}`,
     enemyId: def.id,
     isBoss,
     titleId,

@@ -2,7 +2,8 @@
 
 import { getDropWeapon } from "./drop.js";
 import { rollBossGems } from "./data/gems.js";
-import { normalEnemies, bossEnemies, floorTable, enemyTitles, bossTitles, bossFloorMap, legendaryTitles, getCurrentAreaKey } from "./data/index.js";import { state } from "./state.js";
+import { normalEnemies, bossEnemies, floorTable, enemyTitles, bossTitles, bossFloorMap, legendaryTitles, getCurrentAreaKey } from "./data/index.js";
+import { state } from "./state.js";
 import { addLog, clearLogs } from "./log.js";
 import { saveGame } from "./saveLoad.js";
 import { registerEnemyDefeated, registerEnemySeen, updateBookUltimate, updateWeaponBookUltimate } from "./book.js";
@@ -239,7 +240,7 @@ function defeatEnemy() {
     const dropped = getDropWeapon(dropMult, state.enemy.enemyId);
     if (dropped) {
       state.player.inventory.push(dropped);
-      addLog("⚔️" + dropped.name + " を手に入れた");
+      addLog("⚔️ " + dropped.name + " を手に入れた");
       registerWeaponDropped(dropped.templateId, false);
       updateWeaponBookUltimate();
       if (isUltimateWeapon(dropped)) {

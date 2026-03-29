@@ -37,12 +37,13 @@ export function loadGame() {
         + (state.research?.atkBonus ?? 0);
     },
     get totalHp() {
-      const buff = (1 + (state.dexBuff.hp - 1) + (state.weaponDexBuff.hp - 1)) * state.hpBoostMult;
+      const buff = (1 + (state.dexBuff.hp - 1) + (state.weaponDexBuff.hp - 1)) * (state.hpBoostMult ?? 1);
+      const overflowHpBoost = 1 + (state._triggerOverflowHpBoost ?? 0) / 100;
       const petHp = state.player.equippedPet
         ? Math.floor(getPetHp(state.player.equippedPet) * buff)
         : 0;
       const weaponHp = Math.floor((state.player.equippedWeapon?.totalHp ?? 0) * buff);
-      return Math.floor(this.baseHp * buff) + petHp + weaponHp
+      return Math.floor(this.baseHp * buff * overflowHpBoost) + petHp + weaponHp
         + (state.research?.hpBonus ?? 0);
     },
   };
@@ -168,6 +169,9 @@ export function loadGame() {
       currentPoints: 0,
       missions: [],
       buffPurchaseCount: 0,
+      atkPurchaseCount: 0,
+      hpPurchaseCount: 0,
+      expPurchaseCount: 0,
       atkBonus: 0,
       hpBonus: 0,
       expBonus: 0,
@@ -184,6 +188,11 @@ export function loadGame() {
       hiddenBossUnlocked_pride:    false,
     };
   }
+  // 旧セーブ対応：個別購入カウンターが未定義なら 0 で初期化
+  if (state.research.atkPurchaseCount == null) state.research.atkPurchaseCount = 0;
+  if (state.research.hpPurchaseCount  == null) state.research.hpPurchaseCount  = 0;
+  if (state.research.expPurchaseCount == null) state.research.expPurchaseCount = 0;
+
   // ミッションが空なら初期生成
   if (state.research.missions.length === 0 && state.maxFloor >= 500) {
     initMissions();
@@ -213,6 +222,24 @@ export function loadGame() {
   if (!state.book.hiddenBosses) {
     state.book.hiddenBosses = {};
   }
+
+  // マイグレーション：数値型UIDを文字列型に変換
+  for (const pet of state.player.petList ?? []) {
+    if (typeof pet.uid === "number") pet.uid = String(pet.uid);
+  }
+  if (state.player.equippedPet && typeof state.player.equippedPet.uid === "number") {
+    state.player.equippedPet.uid = String(state.player.equippedPet.uid);
+  }
+  for (const weapon of state.player.inventory ?? []) {
+    if (typeof weapon.uid === "number") weapon.uid = String(weapon.uid);
+  }
+  if (state.player.equippedWeapon && typeof state.player.equippedWeapon.uid === "number") {
+    state.player.equippedWeapon.uid = String(state.player.equippedWeapon.uid);
+  }
+  if (typeof state.synthesis?.baseUid === "number") state.synthesis.baseUid = String(state.synthesis.baseUid);
+  state.synthesis.materialUids = (state.synthesis?.materialUids ?? []).map(u => typeof u === "number" ? String(u) : u);
+  if (typeof state.petSynthesis?.baseUid === "number") state.petSynthesis.baseUid = String(state.petSynthesis.baseUid);
+  state.petSynthesis.materialUids = (state.petSynthesis?.materialUids ?? []).map(u => typeof u === "number" ? String(u) : u);
 
   return true;
 }
