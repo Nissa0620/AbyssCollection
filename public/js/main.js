@@ -704,3 +704,9 @@ setInterval(() => {
 setInterval(() => {
   sendRankingData();
 }, 30 * 60 * 1000);
+
+// ===== デバッグ用：リリース前に必ず削除 =====
+state.research.level = 5;
+state.research.currentPoints = 2000;
+saveGame();
+// ============================================
