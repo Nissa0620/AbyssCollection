@@ -4,7 +4,7 @@ import { addLog } from "./log.js";
 import { getSynthesisPreview } from "./inventory.js";
 import { isFavorite, toggleFavorite, isLocked, toggleLock } from "./listPrefs.js";
 import { isUltimateWeapon } from "./drop.js";
-import { isUltimatePet, getPetSynthesisPreview, getPetPower, getPetHp, toggleSelectAllSamePets, passiveLabels } from "./pet.js";
+import { isUltimatePet, getPetSynthesisPreview, getPetPower, getPetHp, toggleSelectAllSamePets, passiveLabels, calcOverflowBonuses } from "./pet.js";
 import {
   checkMissionCompletion,
   donatePet,
@@ -895,7 +895,7 @@ function renderHiddenBossBook(contentEl, nameFilter = "") {
     detail.className = "book-enemy-detail hidden";
 
     if (!defeated) {
-      detail.innerHTML = `<div class="book-enemy-meta">七大罪の隠しボス。出現には研究所での解禁が必要。</div>`;
+      detail.innerHTML = `<div class="book-enemy-meta">隠しボス。出現には研究所での解禁が必要。</div>`;
     } else {
       detail.innerHTML = `
         <div class="book-enemy-meta">七大罪：${def.sin}</div>
@@ -1046,7 +1046,7 @@ function renderWeaponBook(buffEl, contentEl) {
     detail.className = "book-enemy-detail hidden";
 
     if (!obtained) {
-      detail.innerHTML = `<div class="book-enemy-meta">七大罪の隠しボスからの専用武器。</div>`;
+      detail.innerHTML = `<div class="book-enemy-meta">隠しボスからの専用武器。</div>`;
     } else {
       detail.innerHTML = `
         <div class="book-enemy-meta">入手元：${def.name}（${def.sin}の罪）</div>
@@ -2129,6 +2129,7 @@ function renderMissions() {
       state.floor = targetFloor;
       state.phase = "battle";
       if (_createEnemyCallback) _createEnemyCallback();
+      calcOverflowBonuses();
 
       state.ui.stayOnFloor = true;
       const stayChk = document.getElementById("stayOnFloorChk");

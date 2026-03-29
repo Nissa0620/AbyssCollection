@@ -4843,7 +4843,7 @@ export const normalWeaponTemplates = [
   },
   {
     id: 270,
-    name: "終末神の杖",
+    name: "奈落の杖",
     floorBand: "6701-6799",
     passive: "reflect",
     passiveType: "trigger",
@@ -4854,9 +4854,9 @@ export const normalWeaponTemplates = [
     maxHp: 5401,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "永劫終の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇終末の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫覇末の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "永劫の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
+      { level: 200, name: "覇終の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
+      { level: 500, name: "永劫覇終の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
     ],
   },
   {

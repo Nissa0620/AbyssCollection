@@ -612,17 +612,17 @@ export const bossTitles = {
   ],
   // id=2: リヴァイアサン
   boss_2: [
-    { id: 1, name: "凶暴な", hpRate: 1.0,  atkRate: 1.0,  expRate: 1.0,  weight: 40 },
-    { id: 2, name: "灼熱の", hpRate: 1.5,  atkRate: 1.1,  expRate: 1.3,  weight: 30 },
+    { id: 1, name: "冷静な", hpRate: 1.0,  atkRate: 1.0,  expRate: 1.0,  weight: 40 },
+    { id: 2, name: "凶暴な", hpRate: 1.5,  atkRate: 1.1,  expRate: 1.3,  weight: 30 },
     { id: 3, name: "蒼天の", hpRate: 1.3,  atkRate: 1.3,  expRate: 1.5,  weight: 20 },
     { id: 4, name: "古龍の", hpRate: 1.2,  atkRate: 1.8,  expRate: 1.8,  weight: 10 },
   ],
   // id=3: イフリート
   boss_3: [
-    { id: 1, name: "邪悪なる", hpRate: 1.0,  atkRate: 1.0,  expRate: 1.0,  weight: 40 },
-    { id: 2, name: "奈落の", hpRate: 1.5,  atkRate: 1.1,  expRate: 1.3,  weight: 30 },
-    { id: 3, name: "終焉の", hpRate: 1.3,  atkRate: 1.3,  expRate: 1.5,  weight: 20 },
-    { id: 4, name: "支配者の", hpRate: 1.2,  atkRate: 1.8,  expRate: 1.8,  weight: 10 },
+    { id: 1, name: "乱暴な", hpRate: 1.0,  atkRate: 1.0,  expRate: 1.0,  weight: 40 },
+    { id: 2, name: "邪悪なる", hpRate: 1.5,  atkRate: 1.1,  expRate: 1.3,  weight: 30 },
+    { id: 3, name: "奈落の", hpRate: 1.3,  atkRate: 1.3,  expRate: 1.5,  weight: 20 },
+    { id: 4, name: "終焉の", hpRate: 1.2,  atkRate: 1.8,  expRate: 1.8,  weight: 10 },
   ],
   // id=4: ヒュドラ
   boss_4: [

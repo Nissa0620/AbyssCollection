@@ -445,6 +445,7 @@ floorJumpBtn.addEventListener("click", () => {
   state.floor = target;
   state.phase = "battle";
   createEnemy();
+  calcOverflowBonuses();
 
   saveGame();
   refreshUI();

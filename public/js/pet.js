@@ -419,7 +419,7 @@ export function getLegendExpBurstMultiplier() {
   return 1;
 }
 
-// 幻影：回避時に完全無敵1ターン（フラグを立てる）（上限90%）
+// 幻影：90%で今ターンの攻撃を回避し、次ターンも完全無敵にする（上限90%）
 export function tryLegendEvade() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
@@ -472,7 +472,7 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
   // レジェンダリー称号の場合はlegendaryTitlesのpassiveMultを使い、スキルIDも変換
   let passive = def.passive;
   let mult = titlePassiveMult[titleId] ?? 1.0;
-  if (isLegendary && def.passive && legendaryTitles[def.passive]) {
+  if ((isLegendary || isLegendUltimate) && def.passive && legendaryTitles[def.passive]) {
     const legend = legendaryTitles[def.passive];
     passive = legend.legendaryPassive;
     mult = legend.passiveMult;

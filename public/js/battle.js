@@ -131,8 +131,11 @@ export function enemyAttack() {
     return { type: "battle" };
   }
 
-  // 幻影：今ターンに発動したら次ターン無敵（今ターンはダメージ受ける）
-  tryLegendEvade();
+  // 幻影：今ターンも回避判定し、成功なら次ターン無敵もセット
+  if (tryLegendEvade()) {
+    addLog("✨ 幻影で回避！次のターンも無敵！");
+    return { type: "battle" };
+  }
 
   // 鉄壁：3ターンに1回ダメージ無効化
   const _pet = state.player.equippedPet;
