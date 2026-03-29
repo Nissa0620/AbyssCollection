@@ -2189,22 +2189,27 @@ function renderExchangeList() {
       <button data-type="capture"
         ${r.currentPoints < getCapturePurchaseCost() || r.capturePurchaseCount >= 100 ? "disabled" : ""}>交換</button>
     </li>
-    ${r.level >= 5
-      ? hiddenBossDefs.map(def => {
-          const sinKey   = def.id.replace("hidden_", "");
-          const unlocked = r[def.unlockKey];
+    ${hiddenBossDefs.map(def => {
+        const sinKey   = def.id.replace("hidden_", "");
+        const unlocked = r[def.unlockKey];
+        if (r.level >= 5) {
           return `
             <li class="exchange-item">
-              <span>💀 【${def.sin}】${def.name} 解禁${unlocked ? "（解禁済み）" : ""}</span>
+              <span>💀 ${def.itemName}${unlocked ? "（解禁済み）" : ""}</span>
               <span>300P</span>
               <button data-type="hiddenBoss_${sinKey}"
                 ${unlocked || r.currentPoints < 300 ? "disabled" : ""}>交換</button>
             </li>`;
-        }).join("")
-      : `<li class="exchange-item exchange-locked">
-           <span>???</span><span>???</span>
-           <span class="exchange-hint">研究所Lv.5で解禁</span>
-         </li>`
+        } else {
+          return `
+            <li class="exchange-item exchange-locked">
+              <span>💀 ???</span>
+              <span>???P</span>
+              <button disabled>交換</button>
+              <span class="exchange-hint">研究所Lv.5で解禁</span>
+            </li>`;
+        }
+      }).join("")
     }
   `;
 

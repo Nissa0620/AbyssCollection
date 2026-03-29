@@ -3,6 +3,7 @@ export const hiddenBossDefs = [
     id: "hidden_greed",
     sin: "強欲",
     name: "強欲の罪・マモナス",
+    itemName: "強欲の証",
     unlockKey: "hiddenBossUnlocked_greed",
     petDrop: {
       name: "強欲の罪・マモナス",
@@ -18,6 +19,7 @@ export const hiddenBossDefs = [
     id: "hidden_wrath",
     sin: "憤怒",
     name: "憤怒の罪・ラグナロス",
+    itemName: "憤怒の証",
     unlockKey: "hiddenBossUnlocked_wrath",
     petDrop: {
       name: "憤怒の罪・ラグナロス",
@@ -33,6 +35,7 @@ export const hiddenBossDefs = [
     id: "hidden_envy",
     sin: "嫉妬",
     name: "嫉妬の罪・ゼルヴィア",
+    itemName: "嫉妬の証",
     unlockKey: "hiddenBossUnlocked_envy",
     petDrop: {
       name: "嫉妬の罪・ゼルヴィア",
@@ -48,6 +51,7 @@ export const hiddenBossDefs = [
     id: "hidden_sloth",
     sin: "怠惰",
     name: "怠惰の罪・ベルフェゴン",
+    itemName: "怠惰の証",
     unlockKey: "hiddenBossUnlocked_sloth",
     petDrop: {
       name: "怠惰の罪・ベルフェゴン",
@@ -63,6 +67,7 @@ export const hiddenBossDefs = [
     id: "hidden_gluttony",
     sin: "暴食",
     name: "暴食の罪・グルマンダ",
+    itemName: "暴食の証",
     unlockKey: "hiddenBossUnlocked_gluttony",
     petDrop: {
       name: "暴食の罪・グルマンダ",
@@ -78,6 +83,7 @@ export const hiddenBossDefs = [
     id: "hidden_lust",
     sin: "色欲",
     name: "色欲の罪・アスタレス",
+    itemName: "色欲の証",
     unlockKey: "hiddenBossUnlocked_lust",
     petDrop: {
       name: "色欲の罪・アスタレス",
@@ -93,6 +99,7 @@ export const hiddenBossDefs = [
     id: "hidden_pride",
     sin: "傲慢",
     name: "傲慢の罪・ルシフェルナ",
+    itemName: "傲慢の証",
     unlockKey: "hiddenBossUnlocked_pride",
     petDrop: {
       name: "傲慢の罪・ルシフェルナ",
