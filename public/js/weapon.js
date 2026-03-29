@@ -5,7 +5,7 @@ export function getWeaponDisplayName(weapon) {
   const template = weaponTemplates.find(
     (t) => t.id === weapon.templateId && !!t.isBossDrop === isBossDrop
   );
-  if (!template) return "Unknown";
+  if (!template) return weapon.name ?? "Unknown";
 
   let evolvedName = template.name;
   template.evolutions.forEach((evo) => {

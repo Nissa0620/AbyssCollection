@@ -132,7 +132,7 @@ export function renderInventory(player, onItemClick, onEquip) {
 
   for (const [templateId, groupItems] of filteredGroups) {
     const template = weaponTemplates.find((t) => t.id === templateId);
-    const baseName = template?.name ?? "不明な武器";
+    const baseName = template?.name ?? groupItems[0]?.name ?? "不明な武器";
 
     // 所持中の最高進化名を取得
     const maxLevel = Math.max(...groupItems.map((w) => w.level ?? 0));
