@@ -34,6 +34,12 @@ import {
   isLegendaryPassive,
 } from "./data/index.js";
 
+// main.js からコールバックを受け取る（循環import回避）
+let _refreshUICallback = null;
+export function setRefreshCallback(fn) { _refreshUICallback = fn; }
+let _createEnemyCallback = null;
+export function setCreateEnemyCallback(fn) { _createEnemyCallback = fn; }
+
 // 表示更新処理
 export function updateDisplay(player, enemy) {
   document.getElementById("playerHp").textContent =
@@ -1851,6 +1857,7 @@ export function showLegendaryPopup(enemy, mode = "appear", pet = null, isHolding
   overlay.dataset.mode = mode;
 
   if (mode === "captured") {
+    state.forceStopHold = true;
     subEl.textContent = enemy.isBoss ? "🎉 伝説のボスを捕獲した！" : "🎉 伝説の個体を捕獲した！";
     nameEl.textContent = enemy.name;
     skillEl.textContent = legendTitleName ? `【${legendTitleName}】の加護を持つ` : "";
@@ -1885,6 +1892,7 @@ export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHo
   overlay.dataset.mode = mode;
 
   if (mode === "captured") {
+    state.forceStopHold = true;
     subEl.textContent = enemy.isBoss ? "🎉 究極のボスを捕獲した！" : "🎉 究極個体を捕獲した！";
     nameEl.textContent = enemy.name;
     skillEl.textContent = legendTitleName ? `【${legendTitleName}】の加護を持つ` : "";
@@ -1917,6 +1925,7 @@ export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = n
   overlay.dataset.mode = mode;
 
   if (mode === "captured") {
+    state.forceStopHold = true;
     subEl.textContent = enemy.isBoss ? "🎉 極個体のボスを捕獲した！" : "🎉 極個体を捕獲した！";
     nameEl.textContent = enemy.name;
     if (statsEl && pet) {
@@ -2059,6 +2068,20 @@ function getEligiblePets(mission) {
   });
 }
 
+function getTargetFloor(mission) {
+  if (mission.isBoss) {
+    const enemy = bossEnemies.find(e => e.id === mission.enemyId);
+    if (!enemy) return null;
+    return parseInt(enemy.floorBand.replace("boss-", ""), 10);
+  } else {
+    const enemy = normalEnemies.find(e => e.id === mission.enemyId);
+    if (!enemy) return null;
+    const parts = enemy.floorBand.split("-").map(Number);
+    const mid = Math.round((parts[0] + parts[1]) / 2);
+    return Math.max(50, Math.floor(mid / 50) * 50);
+  }
+}
+
 function renderMissions() {
   const ul = document.getElementById("missionList");
   ul.innerHTML = "";
@@ -2071,7 +2094,10 @@ function renderMissions() {
         ${mission.enemyName}の${rareLabel}個体（lv${mission.requiredLevel}以上）を寄贈する
       </div>
       <div class="mission-reward">獲得: ${mission.rewardPoints}P</div>
-      <button class="donate-btn" data-mission-id="${mission.id}">寄贈する</button>
+      <div class="mission-btn-row">
+        <button class="donate-btn" data-mission-id="${mission.id}">寄贈する</button>
+        <button class="go-catch-btn" data-enemy-id="${mission.enemyId}" data-is-boss="${mission.isBoss}">捕まえに行く</button>
+      </div>
     `;
     ul.appendChild(li);
   }
@@ -2079,6 +2105,35 @@ function renderMissions() {
   ul.querySelectorAll(".donate-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       openDonateModal(btn.dataset.missionId);
+    });
+  });
+
+  ul.querySelectorAll(".go-catch-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const enemyId = Number(btn.dataset.enemyId);
+      const isBoss  = btn.dataset.isBoss === "true";
+
+      const targetFloor = getTargetFloor({ enemyId, isBoss });
+      if (!targetFloor) return;
+
+      if (targetFloor > state.maxFloor) {
+        alert(`まだ到達していないフロアです（${targetFloor}階）`);
+        return;
+      }
+
+      document.getElementById("researchOverlay").classList.add("hidden");
+
+      state.lastSelectedFloor = targetFloor;
+      state.floor = targetFloor;
+      state.phase = "battle";
+      if (_createEnemyCallback) _createEnemyCallback();
+
+      state.ui.stayOnFloor = true;
+      const stayChk = document.getElementById("stayOnFloorChk");
+      if (stayChk) stayChk.checked = true;
+
+      saveGame();
+      if (_refreshUICallback) _refreshUICallback();
     });
   });
 }
@@ -2198,7 +2253,7 @@ function openDonateModal(missionId) {
   // 寄贈可能・条件不足・装備中に分類
   let selectedUid = null;
 
-  // レベル順（降順）でソート
+  // 強化値順（降順）でソート
   const sorted = [...samePets].sort((a, b) => (b.level ?? 0) - (a.level ?? 0));
 
   for (const pet of sorted) {
@@ -2212,7 +2267,7 @@ function openDonateModal(missionId) {
       disabledReason = "装備中";
     } else if (!checkMissionCompletion(mission, pet)) {
       if ((pet.level ?? 0) < mission.requiredLevel) {
-        disabledReason = `レベル不足（現在Lv.${pet.level ?? 0} / 必要Lv.${mission.requiredLevel}）`;
+        disabledReason = `強化値不足（現在+${pet.level ?? 0} / 必要+${mission.requiredLevel}）`;
       } else if (mission.isRare && !pet.isElite && !pet.isLegendary && !pet.isLegendUltimate) {
         disabledReason = "レア個体が必要";
       } else if (!mission.isRare && (pet.isElite || pet.isLegendary || pet.isLegendUltimate)) {

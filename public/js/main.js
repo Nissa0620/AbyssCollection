@@ -25,6 +25,8 @@ import {
   updatePetFilterOptions,
   updateSynthesisClasses,
   renderResearchScreen,
+  setRefreshCallback,
+  setCreateEnemyCallback,
 } from "./ui.js";
 import { state } from "./state.js";
 import { addLog } from "./log.js";
@@ -92,6 +94,9 @@ function refreshUI() {
     return getPetPower(b) - getPetPower(a);
   });
 }
+
+setRefreshCallback(refreshUI);
+setCreateEnemyCallback(createEnemy);
 
 function refreshHpBoost() {
   state.hpBoostMult = getHpBoostMultiplier();
@@ -208,7 +213,7 @@ function isHolding() {
 function isAppearanceModalOpen() {
   const modeOverlay = ["eliteOverlay", "legendaryOverlay", "legendUltimateOverlay"].some((id) => {
     const el = document.getElementById(id);
-    return el && !el.classList.contains("hidden") && el.dataset.mode === "appear";
+    return el && !el.classList.contains("hidden");
   });
   if (modeOverlay) return true;
   const hiddenBossEl = document.getElementById("hiddenBossOverlay");
@@ -227,7 +232,8 @@ function startHold() {
   doAttack(); // 最初の1回は即時実行
   attackInterval = setInterval(() => {
     // ゲームオーバーや次フェーズ以外のときだけ連続実行
-    if (state.phase === "gameover") {
+    if (state.phase === "gameover" || state.forceStopHold) {
+      state.forceStopHold = false;
       stopHold();
       return;
     }

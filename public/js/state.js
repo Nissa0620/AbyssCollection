@@ -133,6 +133,7 @@ export const state = {
   drainAtkBonus: 0,
   regenTurnCount: 0,
   isHolding: null, // main.jsから設定されるコールバック（長押し判定用）
+  forceStopHold: false, // ui.jsから設定：捕獲モーダル等で長押し強制停止
   lastSelectedFloor: 1,
   acquiredCounter: 0,
   migrated: {},
