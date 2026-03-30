@@ -12,7 +12,7 @@ import { showUltimatePopup, showElitePopup, showLegendaryPopup, showLegendUltima
 import { hiddenBossDefs } from "./hiddenBossData.js";
 import { checkAchievements } from "./achievements.js";
 import { registerWeaponDropped } from "./weaponBook.js";
-import { tryCatch, hasDoubleAttack, hasTripleAttack, hasSurvivePassive, hasLegendSurvive, hasResurrection, hasLegendResurrection, getDropMultiplier, getDmgBoostMultiplier, getDmgReduceMultiplier, getReflectDamage, getLegendReflectDamage, getDrainHeal, getLegendDrainHeal, getCritMultiplier, getGiantKillerMultiplier, getBossSlayerMultiplier, tryEvade, tryLegendEvade, getLastStandMultiplier, getLegendLastStandMultiplier, getRegenHeal } from "./pet.js";
+import { tryCatch, hasDoubleAttack, hasTripleAttack, hasSurvivePassive, hasLegendSurvive, hasResurrection, hasLegendResurrection, getDropMultiplier, getDmgBoostMultiplier, getDmgReduceMultiplier, getReflectDamage, getLegendReflectDamage, getDrainHeal, getLegendDrainHeal, getCritMultiplier, getGiantKillerMultiplier, getBossSlayerMultiplier, tryEvade, getLastStandMultiplier, getLegendLastStandMultiplier, getRegenHeal } from "./pet.js";
 
 let enemy;
 
@@ -125,15 +125,12 @@ export function enemyAttack() {
     return { type: "battle" };
   }
 
-  // 通常回避判定
+  // 回避判定（evade・legendEvade を合算、上限70%）
   if (tryEvade()) {
-    addLog("✨ 回避！");
-    return { type: "battle" };
-  }
-
-  // 幻影：今ターンも回避判定し、成功なら次ターン無敵もセット
-  if (tryLegendEvade()) {
-    addLog("✨ 幻影で回避！次のターンも無敵！");
+    const hasLegendEvade =
+      state.player.equippedPet?.passive === "legendEvade" ||
+      state.player.equippedWeapon?.passive === "legendEvade";
+    addLog(hasLegendEvade ? "✨ 幻影で回避！次のターンも無敵！" : "✨ 回避！");
     return { type: "battle" };
   }
 

@@ -270,16 +270,25 @@ export function getBossSlayerMultiplier() {
   return 1 + bonus / 100;
 }
 
-// 回避：攻撃を確率で回避するか（上限90%）
+// 回避：攻撃を確率で回避するか（evade・legendEvade を合算、上限70%）
 export function tryEvade() {
   const pet = state.player.equippedPet;
   const weapon = state.player.equippedWeapon;
   let rate = 0;
-  if (pet?.passive === "evade") rate += (pet.passiveValue ?? 0);
-  if (weapon?.passive === "evade") rate += (weapon.passiveValue ?? 0);
+  if (pet?.passive === "evade")          rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "evade")       rate += (weapon.passiveValue ?? 0);
+  if (pet?.passive === "legendEvade")    rate += (pet.passiveValue ?? 0);
+  if (weapon?.passive === "legendEvade") rate += (weapon.passiveValue ?? 0);
   if (rate <= 0) return false;
 
-  return Math.random() < Math.min(rate / 100, 0.9);
+  const hasLegendEvade =
+    pet?.passive === "legendEvade" || weapon?.passive === "legendEvade";
+
+  if (Math.random() < Math.min(rate / 100, 0.7)) {
+    if (hasLegendEvade) state.legendEvadeActive = true;
+    return true;
+  }
+  return false;
 }
 
 // 背水：HP30%以下で攻撃力倍率上昇
@@ -417,21 +426,6 @@ export function getLegendExpBurstMultiplier() {
 
   if (Math.random() < Math.min(rate / 100, 1.0)) return 5;
   return 1;
-}
-
-// 幻影：90%で今ターンの攻撃を回避し、次ターンも完全無敵にする（上限90%）
-export function tryLegendEvade() {
-  const pet = state.player.equippedPet;
-  const weapon = state.player.equippedWeapon;
-  let rate = 0;
-  if (pet?.passive === "legendEvade") rate += (pet.passiveValue ?? 0);
-  if (weapon?.passive === "legendEvade") rate += (weapon.passiveValue ?? 0);
-  if (rate <= 0) return false;
-  if (Math.random() < Math.min(rate / 100, 0.9)) {
-    state.legendEvadeActive = true;
-    return true;
-  }
-  return false;
 }
 
 // 背水の陣：HP50%以下で発動（通常lastStandは30%）
@@ -836,12 +830,12 @@ export function calcOverflowBonuses() {
     overflowDmgBoost += Math.max(0, rate - 100) * 0.2;
   }
 
-  // 回避（上限90%）
+  // 回避（上限70%）
   {
     let rate = 0;
     if (pet?.passive === "evade" || pet?.passive === "legendEvade") rate += (pet.passiveValue ?? 0);
     if (weapon?.passive === "evade" || weapon?.passive === "legendEvade") rate += (weapon.passiveValue ?? 0);
-    overflowDmgBoost += Math.max(0, rate - 90) * 0.2;
+    overflowDmgBoost += Math.max(0, rate - 70) * 0.2;
   }
 
   // ✨連撃王（上限100%）

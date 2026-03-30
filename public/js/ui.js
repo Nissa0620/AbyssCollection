@@ -251,6 +251,7 @@ function renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip) {
     const li = document.createElement("li");
     const isUltW = isUltimateWeapon(item);
     li.className = "pet-item" + (isEquipped ? " equipped" : "") + (isUltW ? " ultimate" : "");
+    if (item.isHiddenBossDrop) li.classList.add("pet-hidden-boss");
 
     // 合成選択クラス（常時）
     li.classList.remove("synth-base", "synth-material", "synth-candidate", "synth-disabled");
@@ -1323,10 +1324,11 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
     const li = document.createElement("li");
     const isUltP = isUltimatePet(pet);
     li.className = "pet-item" + (isEquipped ? " equipped" : "");
-    if (pet.isLegendUltimate) li.classList.add("pet-legend-ultimate");
-    else if (pet.isLegendary)  li.classList.add("pet-legendary");
-    else if (pet.isElite)      li.classList.add("pet-elite");
-    else if (isUltP)           li.classList.add("ultimate");
+    if (pet.isLegendUltimate)   li.classList.add("pet-legend-ultimate");
+    else if (pet.isLegendary)   li.classList.add("pet-legendary");
+    else if (pet.isElite)       li.classList.add("pet-elite");
+    else if (isUltP)            li.classList.add("ultimate");
+    if (pet.isHiddenBoss)       li.classList.add("pet-hidden-boss");
     if (isBase) {
       li.classList.add("synth-base");
     } else if (isMaterial) {
@@ -1796,7 +1798,7 @@ export function renderStatusScreen() {
       ${legendExpBurstRate > 0 ? cappedRow("経験値大爆発 発生率", legendExpBurstRate, 100) : ""}
       ${giantKiller > 0 ? row("巨人殺し 効果率", `+${giantKiller}%`) : ""}
       ${bossSlayer > 0 ? row("ボス特効 効果率", `+${bossSlayer}%`) : ""}
-      ${evadeRate > 0 ? cappedRow("回避 発生率", evadeRate, 90) : ""}
+      ${evadeRate > 0 ? cappedRow("回避 発生率", evadeRate, 70) : ""}
       ${lastStand > 0 ? row("背水の陣 効果率", `+${lastStand}%`) : ""}
       ${regenRate > 0 ? cappedRow("再生率", regenRate, 50, "%/ターン") : ""}
       ${resurrectionRate > 0 ? cappedRow("復活 発生率", resurrectionRate, 100) : ""}
@@ -1960,6 +1962,11 @@ export function showHiddenBossPopup(def) {
 
   sinEl.textContent  = `【七大罪：${def.sin}】`;
   nameEl.textContent = def.name;
+
+  const descEl = document.getElementById("hiddenBossDesc");
+  if (descEl) {
+    descEl.textContent = "撃破すると専用ペット・専用武器が確定入手できます";
+  }
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
 
@@ -2033,6 +2040,8 @@ export function showHiddenBossRewardModal(def, basePower, baseHp, weaponBaseAtk,
     document.getElementById("hiddenBossRewardPoints").textContent = "貢献P +50";
     document.getElementById("hiddenBossRewardPet").textContent    = `専用ペット「${def.petDrop.name}」を入手！`;
     document.getElementById("hiddenBossRewardWeapon").textContent = `専用武器「${def.weaponDrop.name}」を入手！`;
+    const noteEl = document.getElementById("hiddenBossRewardNote");
+    if (noteEl) noteEl.textContent = "※ 隠しボスのペット・武器にはレア個体はありません";
     overlay.classList.remove("hidden");
   }
 

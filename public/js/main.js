@@ -233,8 +233,7 @@ function startHold() {
   state.isHolding = isHolding;
   doAttack(); // 最初の1回は即時実行
   attackInterval = setInterval(() => {
-    // ゲームオーバーや次フェーズ以外のときだけ連続実行
-    if (state.phase === "gameover" || state.forceStopHold) {
+    if (state.forceStopHold) {
       state.forceStopHold = false;
       stopHold();
       return;
