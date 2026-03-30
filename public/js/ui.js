@@ -152,6 +152,8 @@ export function renderInventory(player, onItemClick, onEquip) {
 
     const headerEl = document.createElement("div");
     headerEl.className = "pet-group-header";
+    const isHiddenBossWeaponGroup = groupItems.some((w) => w.isHiddenBossDrop);
+    if (isHiddenBossWeaponGroup) headerEl.classList.add("hidden-boss-group");
     // 極武器ランプ判定（isUltimateWeapon = 全ステ最大値、ペットの極個体に相当）
     const hasEliteWeapon = groupItems.some((w) => isUltimateWeapon(w));
     const weaponLampsHtml = hasEliteWeapon
@@ -251,7 +253,6 @@ function renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip) {
     const li = document.createElement("li");
     const isUltW = isUltimateWeapon(item);
     li.className = "pet-item" + (isEquipped ? " equipped" : "") + (isUltW ? " ultimate" : "");
-    if (item.isHiddenBossDrop) li.classList.add("pet-hidden-boss");
 
     // 合成選択クラス（常時）
     li.classList.remove("synth-base", "synth-material", "synth-candidate", "synth-disabled");
@@ -887,7 +888,7 @@ function renderHiddenBossBook(contentEl, nameFilter = "") {
     const header = document.createElement("div");
     header.className = "book-enemy-header boss";
 
-    const isComplete  = defeated && weaponObtained;
+    const isComplete  = defeated;
     const completeIcon = isComplete ? `<span class="book-complete-star">★</span>` : "";
     const name = defeated ? def.name : "？？？";
     header.innerHTML = `<span>💀 ${name}</span>${completeIcon}<span class="book-toggle">▶</span>`;
@@ -904,11 +905,6 @@ function renderHiddenBossBook(contentEl, nameFilter = "") {
           <span>${def.name}</span>
           <span class="book-title-buff">HP +1.0% / ATK +1.0%</span>
           <span>撃破済</span>
-        </div>
-        <div class="book-title-row ${weaponObtained ? "defeated" : ""}">
-          <span>${weaponObtained ? def.weaponDrop.name : "？？？（専用武器）"}</span>
-          <span class="book-title-buff">${weaponObtained ? "HP +1.0% / ATK +1.0%" : ""}</span>
-          <span>${weaponObtained ? "入手済" : "未入手"}</span>
         </div>
       `;
     }
@@ -1211,6 +1207,8 @@ export function updatePetPanel(onPetClick, onPetEquip) {
 
     const headerEl = document.createElement("div");
     headerEl.className = "pet-group-header";
+    const isHiddenBossGroup = groupPets.some((p) => p.isHiddenBoss);
+    if (isHiddenBossGroup) headerEl.classList.add("hidden-boss-group");
     // レアランプ判定
     const hasElite    = groupPets.some((p) => p.isElite);
     const hasLegend   = groupPets.some((p) => p.isLegendary && !p.isLegendUltimate);
@@ -1328,7 +1326,6 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
     else if (pet.isLegendary)   li.classList.add("pet-legendary");
     else if (pet.isElite)       li.classList.add("pet-elite");
     else if (isUltP)            li.classList.add("ultimate");
-    if (pet.isHiddenBoss)       li.classList.add("pet-hidden-boss");
     if (isBase) {
       li.classList.add("synth-base");
     } else if (isMaterial) {

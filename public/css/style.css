@@ -1429,12 +1429,6 @@ button {
   border-left: 3px solid #c82020;
 }
 
-/* 隠しボスドロップ（白銀） */
-.pet-item.pet-hidden-boss {
-  background: #141414;
-  border: 1px solid #484848;
-  border-left: 3px solid #c0c0c0;
-}
 
 /* 図鑑 究極バッジ */
 .book-ultimate {
@@ -2358,6 +2352,21 @@ button {
 }
 
 .pet-group-header:hover {
+  background: #333;
+}
+
+/* 隠しボスドロップ グループヘッダー（白銀） */
+.pet-group-header.hidden-boss-group {
+  background: #2a2a2a;
+  box-shadow: inset 0 0 8px rgba(192, 192, 192, 0.25);
+}
+
+.pet-group-header.hidden-boss-group .pet-group-name {
+  color: #d8d8d8;
+  text-shadow: 0 0 6px rgba(220, 220, 220, 0.6);
+}
+
+.pet-group-header.hidden-boss-group:hover {
   background: #333;
 }
 
