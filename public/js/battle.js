@@ -296,7 +296,7 @@ export function createEnemy() {
   const unlockedHiddenBosses = hiddenBossDefs.filter(
     def => state.research?.[def.unlockKey]
   );
-  if (unlockedHiddenBosses.length > 0 && Math.random() < 0.1) {
+  if (unlockedHiddenBosses.length > 0 && Math.random() < 0.001) {
     const def = unlockedHiddenBosses[
       Math.floor(Math.random() * unlockedHiddenBosses.length)
     ];
