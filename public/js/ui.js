@@ -903,8 +903,7 @@ function renderHiddenBossBook(contentEl, nameFilter = "") {
         <div class="book-enemy-meta">七大罪：${def.sin}</div>
         <div class="book-title-row defeated">
           <span>${def.name}</span>
-          <span class="book-title-buff">HP +1.0% / ATK +1.0%</span>
-          <span>撃破済</span>
+          <span>捕獲済</span>
         </div>
       `;
     }
@@ -1050,7 +1049,7 @@ function renderWeaponBook(buffEl, contentEl) {
         <div class="book-title-row defeated">
           <span>${def.weaponDrop.name}</span>
           <span class="book-title-buff">HP +1.0% / ATK +1.0%</span>
-          <span>入手済</span>
+          <span>取得済</span>
         </div>
       `;
     }
