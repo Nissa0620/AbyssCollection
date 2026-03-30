@@ -359,8 +359,8 @@ export function createEnemy() {
 
     // 1-99F帯のみ低い比率でスタート（チュートリアル帯）
     const isFirstBand = bandStart === 1;
-    const ratioStart = isFirstBand ? 0.005 : 0.20;
-    const ratioEnd   = isFirstBand ? 0.05  : 0.35;
+    const ratioStart = isFirstBand ? 0.005 : 0.80;
+    const ratioEnd   = isFirstBand ? 0.05  : 1.20;
     const statRatio  = ratioStart + t * (ratioEnd - ratioStart);
 
     totalHp    = Math.floor(bossHp  * statRatio * (base.hpRate    ?? 1.0) * title.hpRate);

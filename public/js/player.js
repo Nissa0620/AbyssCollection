@@ -17,8 +17,8 @@ function levelUp() {
   player.level += 1;
   player.nextExp = Math.floor(player.nextExp * 1.01);
 
-  player.baseHp += Math.floor(player.level * 0.6);
-  player.basePower += Math.floor(player.level * 0.4);
+  player.baseHp += Math.floor(player.level * 0.3);
+  player.basePower += Math.floor(player.level * 0.2);
 
   state.logs.push(`Lv.${player.level}にレベルアップした `);
 }
