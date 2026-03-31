@@ -5,7 +5,6 @@ import { rollBossGems } from "./data/gems.js";
 import { normalEnemies, bossEnemies, floorTable, enemyTitles, bossTitles, bossFloorMap, legendaryTitles, getCurrentAreaKey } from "./data/index.js";
 import { state } from "./state.js";
 import { addLog, clearLogs } from "./log.js";
-import { saveGame } from "./saveLoad.js";
 import { registerEnemyDefeated, registerEnemySeen, updateBookUltimate, updateWeaponBookUltimate } from "./book.js";
 import { isUltimateWeapon } from "./drop.js";
 import { showUltimatePopup, showElitePopup, showLegendaryPopup, showLegendUltimatePopup, showHiddenBossPopup } from "./ui.js";
@@ -252,7 +251,7 @@ function defeatEnemy() {
     }
   }
   checkAchievements();
-  saveGame();
+  // saveGame は gameFlow.js の nextPhase / gameOverPhase で行うため削除
 }
 
 function getCurrentArea(floor) {

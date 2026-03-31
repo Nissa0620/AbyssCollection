@@ -10,7 +10,7 @@ export function saveGame() {
   state.lastSaveTime = Date.now();
   try {
     const json = JSON.stringify(state);
-    const compressed = LZString.compress(json);
+    const compressed = LZString.compressToUTF16(json);
     localStorage.setItem(SAVE_KEY, compressed);
   } catch (e) {
     if (e.name === "QuotaExceededError") {
@@ -27,9 +27,18 @@ export function loadGame() {
 
   let parsed;
   try {
-    // 旧データ（非圧縮JSON）と新データ（圧縮済み）の両方に対応
-    // 非圧縮JSONは必ず "{" で始まるため、それで判定する
-    const json = raw.startsWith("{") ? raw : LZString.decompress(raw);
+    let json;
+    if (raw.startsWith("{")) {
+      // 旧データ（非圧縮JSON）
+      json = raw;
+    } else {
+      // 新データ（compressToUTF16）または旧compress形式（移行期対応）
+      json = LZString.decompressFromUTF16(raw);
+      if (!json) {
+        // UTF16展開に失敗した場合、旧compress形式として再試行
+        json = LZString.decompress(raw);
+      }
+    }
     if (!json) {
       console.error("loadGame: decompress returned null");
       return false;

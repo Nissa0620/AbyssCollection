@@ -21,7 +21,6 @@ export function handlePhase() {
       gameOverPhase();
       break;
   }
-  saveGame();
 }
 
 function battlePhase() {
@@ -98,6 +97,7 @@ function nextPhase() {
   state._triggerOverflowHpBoost = 0;
   state._expBurstOverflowExpBoost = 0;
   calcOverflowBonuses(); // 超過分を装備スキル値から計算してstateに設定
+  saveGame(); // フロア移動完了時のみ保存
 }
 
 function gameOverPhase() {
@@ -115,4 +115,5 @@ function gameOverPhase() {
   state._triggerOverflowHpBoost = 0;
   state._expBurstOverflowExpBoost = 0;
   calcOverflowBonuses(); // 超過分を装備スキル値から計算してstateに設定
+  saveGame(); // ゲームオーバー時も保存（HP全快のタイミングで記録）
 }
