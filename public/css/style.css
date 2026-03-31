@@ -2424,7 +2424,7 @@ button {
 }
 
 .pet-group-toggle {
-  font-size: 16px;       /* 11px → 16px */
+  font-size: 14px;       /* 11px → 16px */
   color: #888;
   flex-shrink: 0;
   padding: 4px 6px;      /* タップ領域を拡大 */
@@ -2465,7 +2465,7 @@ button {
   background: none;
   border: none;
   color: #888;
-  font-size: 18px;       /* 13px → 18px */
+  font-size: 14px;       /* 13px → 18px */
   cursor: pointer;
   padding: 4px 8px;      /* タップ領域を拡大 */
   flex-shrink: 0;
