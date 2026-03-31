@@ -8,14 +8,38 @@ const SAVE_KEY = "abyssSave";
 
 export function saveGame() {
   state.lastSaveTime = Date.now();
-  localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+  try {
+    const json = JSON.stringify(state);
+    const compressed = LZString.compress(json);
+    localStorage.setItem(SAVE_KEY, compressed);
+  } catch (e) {
+    if (e.name === "QuotaExceededError") {
+      alert("⚠️ セーブ容量が上限に達しました。不要なペット・武器を合成してください。");
+    } else {
+      console.error("saveGame error:", e);
+    }
+  }
 }
 
 export function loadGame() {
-  const data = localStorage.getItem(SAVE_KEY);
-  if (!data) return false;
+  const raw = localStorage.getItem(SAVE_KEY);
+  if (!raw) return false;
 
-  const parsed = JSON.parse(data);
+  let parsed;
+  try {
+    // 旧データ（非圧縮JSON）と新データ（圧縮済み）の両方に対応
+    // 非圧縮JSONは必ず "{" で始まるため、それで判定する
+    const json = raw.startsWith("{") ? raw : LZString.decompress(raw);
+    if (!json) {
+      console.error("loadGame: decompress returned null");
+      return false;
+    }
+    parsed = JSON.parse(json);
+  } catch (e) {
+    console.error("loadGame: failed to parse save data", e);
+    return false;
+  }
+
   Object.assign(state, parsed);
   state.player = {
     ...state.player,
