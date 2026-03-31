@@ -2315,7 +2315,6 @@ function openDonateModal(missionId) {
   document.getElementById("donateConfirmBtn").disabled = true;
   document.getElementById("donateConfirmBtn").onclick = () => {
     if (!selectedUid) return;
-    if (!confirm(`このペットを寄贈してよいですか？`)) return;
     const success = donatePet(missionId, selectedUid);
     if (success) {
       document.getElementById("donateOverlay").classList.add("hidden");
