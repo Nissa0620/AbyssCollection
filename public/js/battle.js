@@ -21,14 +21,10 @@ export function getEnemy() {
   return enemy;
 }
 
-function applyDamage(attacker, target) {
+function applyDamage(attacker) {
   const min = Math.floor(attacker.totalPower * 0.6);
   const max = attacker.totalPower;
   const damage = Math.floor(Math.random() * (max - min + 1)) + min;
-
-  target.hp -= damage;
-  if (target.hp < 0) target.hp = 0;
-
   return damage;
 }
 
@@ -43,9 +39,8 @@ export function playerAttack() {
   const lastStandMult = Math.max(getLastStandMultiplier(), getLegendLastStandMultiplier());
   const totalMult = dmgMult * critMult * giantMult * bossMult * lastStandMult;
 
-  let damage = applyDamage(state.player, state.enemy);
-  damage = Math.floor(damage * totalMult);
-  state.enemy.hp -= Math.floor(damage * (totalMult - 1));
+  let damage = Math.floor(applyDamage(state.player) * totalMult);
+  state.enemy.hp -= damage;
   if (state.enemy.hp < 0) state.enemy.hp = 0;
 
   const critText = critMult > 1 ? " ⚡クリティカル！" : "";
@@ -76,9 +71,8 @@ export function playerAttack() {
   // 2回攻撃 or 3回攻撃（連撃王）
   const attackCount = hasTripleAttack() ? 2 : (hasDoubleAttack() ? 1 : 0);
   for (let i = 0; i < attackCount && state.enemy.hp > 0; i++) {
-    let dmg = applyDamage(state.player, state.enemy);
-    dmg = Math.floor(dmg * totalMult);
-    state.enemy.hp -= Math.floor(dmg * (totalMult - 1));
+    let dmg = Math.floor(applyDamage(state.player) * totalMult);
+    state.enemy.hp -= dmg;
     if (state.enemy.hp < 0) state.enemy.hp = 0;
     addLog("▶ " + (i === 0 && attackCount === 1 ? "2回目" : `${i + 2}回目`) + " " + dmg + " ダメージ");
     const h = getDrainHeal(dmg);
@@ -147,7 +141,9 @@ export function enemyAttack() {
     }
   }
 
-  let damage = applyDamage(state.enemy, state.player);
+  let damage = applyDamage(state.enemy);
+  state.player.hp -= damage;
+  if (state.player.hp < 0) state.player.hp = 0;
 
   // 被ダメ減少
   const reduceMult = getDmgReduceMultiplier();
