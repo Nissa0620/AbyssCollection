@@ -1857,7 +1857,6 @@ export function showLegendaryPopup(enemy, mode = "appear", pet = null, isHolding
   overlay.dataset.mode = mode;
 
   if (mode === "captured") {
-    state.forceStopHold = true;
     subEl.textContent = enemy.isBoss ? "🎉 伝説のボスを捕獲した！" : "🎉 伝説の個体を捕獲した！";
     nameEl.textContent = enemy.name;
     skillEl.textContent = legendTitleName ? `【${legendTitleName}】の加護を持つ` : "";
@@ -1877,7 +1876,7 @@ export function showLegendaryPopup(enemy, mode = "appear", pet = null, isHolding
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
   const _isHolding = isHolding ?? state.isHolding;
-  if (mode === "appear" && _isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }
 
 export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHolding = null) {
@@ -1892,7 +1891,6 @@ export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHo
   overlay.dataset.mode = mode;
 
   if (mode === "captured") {
-    state.forceStopHold = true;
     subEl.textContent = enemy.isBoss ? "🎉 究極のボスを捕獲した！" : "🎉 究極個体を捕獲した！";
     nameEl.textContent = enemy.name;
     skillEl.textContent = legendTitleName ? `【${legendTitleName}】の加護を持つ` : "";
@@ -1912,7 +1910,7 @@ export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHo
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
   const _isHolding = isHolding ?? state.isHolding;
-  if (mode === "appear" && _isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }
 
 export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = null) {
@@ -1925,7 +1923,6 @@ export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = n
   overlay.dataset.mode = mode;
 
   if (mode === "captured") {
-    state.forceStopHold = true;
     subEl.textContent = enemy.isBoss ? "🎉 極個体のボスを捕獲した！" : "🎉 極個体を捕獲した！";
     nameEl.textContent = enemy.name;
     if (statsEl && pet) {
@@ -1943,7 +1940,7 @@ export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = n
   overlay.classList.remove("hidden");
   overlay.onclick = () => overlay.classList.add("hidden");
   const _isHolding = isHolding ?? state.isHolding;
-  if (mode === "appear" && _isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
+  if (_isHolding && _isHolding()) setTimeout(() => overlay.classList.add("hidden"), 2000);
 }
 
 // =====================
