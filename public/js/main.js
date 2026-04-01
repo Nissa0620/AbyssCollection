@@ -38,7 +38,7 @@ import {
   handleSynthesisSelection,
   toggleSelectAllSameWeapons,
 } from "./inventory.js";
-import { saveGame, loadGame } from "./saveLoad.js";
+import { saveGame, loadGame, deleteGame } from "./saveLoad.js";
 import { renderAchievements } from "./achievements.js";
 import { rerollMissions } from "./research.js";
 import { sendRankingData, fetchRanking, isNameTaken } from "./ranking.js";
@@ -70,7 +70,6 @@ function refreshUI() {
   updateEquippedWeaponInfo(refreshUI);
   updateInventoryFilterOptions();
   updatePetFilterOptions();
-  saveGame();
   updateFloorJumpOptions(state.floor);
 
   const sortSel = document.getElementById("weaponSortSelect");
@@ -539,8 +538,9 @@ document.getElementById("resetCancelBtn").addEventListener("click", () => {
 });
 
 document.getElementById("resetConfirmBtn").addEventListener("click", () => {
-  localStorage.removeItem("abyssSave");
-  location.reload();
+  deleteGame().finally(() => {
+    location.reload();
+  });
 });
 
 // =====================
@@ -684,16 +684,18 @@ document.querySelectorAll(".ranking-tab").forEach((btn) => {
 // =====================
 // ゲーム開始
 // =====================
-if (!loadGame()) {
-  init();
-} else {
-  state.phase = "battle";
-  state.enemy = null;
-  createEnemy(); // 現在のフロアで敵を生成（floor++しない）
-  refreshUI();
-}
-stayChk.checked = state.ui.stayOnFloor ?? false;
-checkPlayerName();
+loadGame().then((loaded) => {
+  if (!loaded) {
+    init();
+  } else {
+    state.phase = "battle";
+    state.enemy = null;
+    createEnemy(); // 現在のフロアで敵を生成（floor++しない）
+    refreshUI();
+  }
+  stayChk.checked = state.ui.stayOnFloor ?? false;
+  checkPlayerName();
+});
 
 // 10秒ごとに保存
 setInterval(() => {

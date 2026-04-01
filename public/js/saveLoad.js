@@ -5,50 +5,131 @@ import { initMissions } from "./research.js";
 import { hiddenBossDefs } from "./hiddenBossData.js";
 
 const SAVE_KEY = "abyssSave";
+const DB_NAME  = "abyssDB";
+const DB_VERSION = 1;
+const STORE_NAME = "saves";
+
+// =====================
+// IndexedDB ヘルパー
+// =====================
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME, { keyPath: "key" });
+      }
+    };
+    req.onsuccess = (e) => resolve(e.target.result);
+    req.onerror   = (e) => reject(e.target.error);
+  });
+}
+
+function dbGet(db, key) {
+  return new Promise((resolve, reject) => {
+    const tx  = db.transaction(STORE_NAME, "readonly");
+    const req = tx.objectStore(STORE_NAME).get(key);
+    req.onsuccess = (e) => resolve(e.target.result?.data ?? null);
+    req.onerror   = (e) => reject(e.target.error);
+  });
+}
+
+function dbPut(db, key, data) {
+  return new Promise((resolve, reject) => {
+    const tx  = db.transaction(STORE_NAME, "readwrite");
+    const req = tx.objectStore(STORE_NAME).put({ key, data });
+    req.onsuccess = () => resolve();
+    req.onerror   = (e) => reject(e.target.error);
+  });
+}
+
+function dbDelete(db, key) {
+  return new Promise((resolve, reject) => {
+    const tx  = db.transaction(STORE_NAME, "readwrite");
+    const req = tx.objectStore(STORE_NAME).delete(key);
+    req.onsuccess = () => resolve();
+    req.onerror   = (e) => reject(e.target.error);
+  });
+}
+
+// =====================
+// saveGame（非同期・ノンブロッキング）
+// =====================
 
 export function saveGame() {
   state.lastSaveTime = Date.now();
+  const json = JSON.stringify(state);
+  openDB()
+    .then((db) => dbPut(db, SAVE_KEY, json))
+    .catch((e) => console.error("saveGame error:", e));
+}
+
+// =====================
+// deleteGame（リセット用）
+// =====================
+
+export async function deleteGame() {
   try {
-    const json = JSON.stringify(state);
-    const compressed = LZString.compressToUTF16(json);
-    localStorage.setItem(SAVE_KEY, compressed);
+    const db = await openDB();
+    await dbDelete(db, SAVE_KEY);
   } catch (e) {
-    if (e.name === "QuotaExceededError") {
-      alert("⚠️ セーブ容量が上限に達しました。不要なペット・武器を合成してください。");
-    } else {
-      console.error("saveGame error:", e);
-    }
+    console.error("deleteGame error:", e);
   }
 }
 
-export function loadGame() {
-  const raw = localStorage.getItem(SAVE_KEY);
-  if (!raw) return false;
+// =====================
+// loadGame（起動時1回だけ呼ぶ・async）
+// =====================
 
-  let parsed;
+export async function loadGame() {
+  let json = null;
+
   try {
-    let json;
-    if (raw.startsWith("{")) {
-      // 旧データ（非圧縮JSON）
-      json = raw;
-    } else {
-      // 新データ（compressToUTF16）または旧compress形式（移行期対応）
-      json = LZString.decompressFromUTF16(raw);
-      if (!json) {
-        // UTF16展開に失敗した場合、旧compress形式として再試行
-        json = LZString.decompress(raw);
+    // ── ① localStorageからの移行処理（1回限り）──
+    const legacy = localStorage.getItem(SAVE_KEY);
+    if (legacy) {
+      // 旧データを展開
+      if (legacy.startsWith("{")) {
+        json = legacy;
+      } else {
+        json = LZString.decompressFromUTF16(legacy);
+        if (!json) json = LZString.decompress(legacy);
+      }
+      if (json) {
+        // IndexedDB に移行して localStorage を削除
+        const db = await openDB();
+        await dbPut(db, SAVE_KEY, json);
+        localStorage.removeItem(SAVE_KEY);
+        console.log("saveLoad: localStorage → IndexedDB 移行完了");
+      } else {
+        console.error("loadGame: legacy decompress failed");
+        localStorage.removeItem(SAVE_KEY); // 壊れたデータは削除
       }
     }
+
+    // ── ② IndexedDB から読み込み ──
     if (!json) {
-      console.error("loadGame: decompress returned null");
-      return false;
+      const db = await openDB();
+      json = await dbGet(db, SAVE_KEY);
     }
-    parsed = JSON.parse(json);
   } catch (e) {
-    console.error("loadGame: failed to parse save data", e);
+    console.error("loadGame: storage error", e);
     return false;
   }
 
+  if (!json) return false;
+
+  let parsed;
+  try {
+    parsed = JSON.parse(json);
+  } catch (e) {
+    console.error("loadGame: JSON.parse failed", e);
+    return false;
+  }
+
+  // ── 以下は既存のマイグレーション処理をそのまま維持 ──
   Object.assign(state, parsed);
   state.player = {
     ...state.player,
