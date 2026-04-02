@@ -8,6 +8,7 @@ import { isUltimatePet, getPetSynthesisPreview, getPetPower, getPetHp, toggleSel
 import {
   checkMissionCompletion,
   donatePet,
+  donatePets,
   exchangeReward,
   getAtkPurchaseCost,
   getHpPurchaseCost,
@@ -2110,7 +2111,7 @@ function renderMissions() {
     li.className = "mission-item";
     li.innerHTML = `
       <div class="mission-desc">
-        ${mission.enemyName}の${rareLabel}個体（+${mission.requiredLevel}以上）を寄贈する
+        ${mission.enemyName}の${rareLabel}個体を${mission.requiredCount}体寄贈する
       </div>
       <div class="mission-reward">獲得: ${mission.rewardPoints}P</div>
       <div class="mission-btn-row">
@@ -2384,49 +2385,90 @@ export function openDonateModal(missionId) {
 
   const rareLabel = mission.isRare ? "レア" : "通常";
   document.getElementById("donateCondition").textContent =
-    `${mission.enemyName}の${rareLabel}個体（強化値+${mission.requiredLevel}以上）`;
+    `${mission.enemyName}の${rareLabel}個体を${mission.requiredCount}体寄贈する`;
 
   const ul = document.getElementById("donatePetList");
   ul.innerHTML = "";
 
-  // 同種族の全ペット（装備中含む）を取得
-  const samePets = state.player.petList.filter(
-    pet => pet.enemyId === mission.enemyId && !!pet.isBoss === mission.isBoss
+  // 条件を満たすペット（装備中・ロック除外）を取得
+  const eligiblePets = state.player.petList.filter(pet =>
+    !isLocked(pet.uid) &&
+    state.player.equippedPet?.uid !== pet.uid &&
+    checkMissionCompletion(mission, pet)
   );
 
-  // 未捕獲の場合
-  if (samePets.length === 0) {
+  // 条件を満たさないペット（同種族）を取得
+  const ineligiblePets = state.player.petList.filter(pet =>
+    pet.enemyId === mission.enemyId &&
+    !!pet.isBoss === mission.isBoss &&
+    !eligiblePets.some(e => e.uid === pet.uid)
+  );
+
+  // 選択中のUID管理
+  let selectedUids = [];
+
+  // 選択状態の更新とボタン制御
+  function updateDonateConfirmBtn() {
+    const confirmBtn = document.getElementById("donateConfirmBtn");
+    const count = selectedUids.length;
+    const required = mission.requiredCount;
+    if (count === 0) {
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = `寄贈する（0 / ${required}体）`;
+    } else if (count < required) {
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = `寄贈する（${count} / ${required}体）`;
+    } else {
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = `寄贈する（${count} / ${required}体）`;
+    }
+  }
+
+  // ペットアイテムのクリック処理（選択トグル）
+  function handlePetClick(pet, li) {
+    const idx = selectedUids.indexOf(pet.uid);
+    if (idx === -1) {
+      selectedUids.push(pet.uid);
+      li.classList.add("selected");
+    } else {
+      selectedUids.splice(idx, 1);
+      li.classList.remove("selected");
+    }
+    updateDonateConfirmBtn();
+  }
+
+  // 条件を満たすペットを表示
+  const allPets = [
+    ...eligiblePets.sort((a, b) => (b.level ?? 0) - (a.level ?? 0)),
+    ...ineligiblePets.sort((a, b) => (b.level ?? 0) - (a.level ?? 0)),
+  ];
+
+  if (allPets.length === 0) {
     const msg = document.createElement("li");
     msg.className = "donate-no-pet-msg";
     msg.textContent = "対象ペットを未捕獲です";
     ul.appendChild(msg);
     document.getElementById("donateConfirmBtn").disabled = true;
-    // 合成タブを初期化してタブを寄贈タブにリセット
+    document.getElementById("donateConfirmBtn").textContent = `寄贈する（0 / ${mission.requiredCount}体）`;
     resetDonateSynthTab(missionId);
     switchDonateTab("donate");
+    document.getElementById("donateOverlay").dataset.missionId = missionId;
     document.getElementById("donateOverlay").classList.remove("hidden");
     return;
   }
 
-  // 寄贈可能・条件不足・装備中に分類
-  let selectedUid = null;
-
-  // 強化値順（降順）でソート
-  const sorted = [...samePets].sort((a, b) => (b.level ?? 0) - (a.level ?? 0));
-
-  for (const pet of sorted) {
+  for (const pet of allPets) {
     const isEquipped = state.player.equippedPet?.uid === pet.uid;
-    const isEligible = !isEquipped && checkMissionCompletion(mission, pet);
-    const locked     = isLocked(pet.uid);
+    const locked = isLocked(pet.uid);
+    const isEligible = eligiblePets.some(e => e.uid === pet.uid);
 
-    // 条件不足の理由を判定
     let disabledReason = "";
     if (isEquipped) {
       disabledReason = "装備中";
-    } else if (!checkMissionCompletion(mission, pet)) {
-      if ((pet.level ?? 0) < mission.requiredLevel) {
-        disabledReason = `強化値不足（現在+${pet.level ?? 0} / 必要+${mission.requiredLevel}）`;
-      } else if (mission.isRare && !pet.isElite && !pet.isLegendary && !pet.isLegendUltimate) {
+    } else if (locked) {
+      disabledReason = "ロック中";
+    } else if (!isEligible) {
+      if (mission.isRare && !pet.isElite && !pet.isLegendary && !pet.isLegendUltimate) {
         disabledReason = "レア個体が必要";
       } else if (!mission.isRare && (pet.isElite || pet.isLegendary || pet.isLegendUltimate)) {
         disabledReason = "通常個体が必要";
@@ -2435,31 +2477,44 @@ export function openDonateModal(missionId) {
       }
     }
 
-    const isGrayedOut = !isEligible || locked;
-
     const li = document.createElement("li");
-    li.className = `pet-item ${isGrayedOut ? "pet-locked-donate" : ""}`;
+    li.className = `pet-item ${!isEligible ? "pet-locked-donate" : ""}`;
+    li.dataset.uid = pet.uid;
     li.innerHTML = renderPetItemHTML(pet) +
-      (disabledReason
-        ? `<div class="donate-disabled-reason">⚠️ ${disabledReason}</div>`
-        : "");
+      (disabledReason ? `<div class="donate-disabled-reason">⚠️ ${disabledReason}</div>` : "");
 
-    if (isEligible && !locked) {
-      li.addEventListener("click", () => {
-        ul.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
-        li.classList.add("selected");
-        selectedUid = pet.uid;
-        document.getElementById("donateConfirmBtn").disabled = false;
-      });
+    if (isEligible) {
+      li.addEventListener("click", () => handlePetClick(pet, li));
     }
 
     ul.appendChild(li);
   }
 
-  document.getElementById("donateConfirmBtn").disabled = true;
+  // 一括選択ボタンのクリック処理
+  const selectAllBtn = document.getElementById("donateSelectAllBtn");
+  selectAllBtn.onclick = () => {
+    // 選択中をリセット
+    selectedUids = [];
+    ul.querySelectorAll("li").forEach(li => li.classList.remove("selected"));
+
+    // 条件を満たすペットをrequiredCount体まで自動選択
+    const autoSelect = eligiblePets
+      .sort((a, b) => (b.level ?? 0) - (a.level ?? 0))
+      .slice(0, mission.requiredCount);
+
+    for (const pet of autoSelect) {
+      selectedUids.push(pet.uid);
+      const li = ul.querySelector(`li[data-uid="${pet.uid}"]`);
+      if (li) li.classList.add("selected");
+    }
+
+    updateDonateConfirmBtn();
+  };
+
+  // 寄贈ボタンのクリック処理
   document.getElementById("donateConfirmBtn").onclick = () => {
-    if (!selectedUid) return;
-    const success = donatePet(missionId, selectedUid);
+    if (selectedUids.length < mission.requiredCount) return;
+    const success = donatePets(missionId, selectedUids);
     if (success) {
       document.getElementById("donateOverlay").classList.add("hidden");
       renderResearchScreen();
@@ -2467,11 +2522,9 @@ export function openDonateModal(missionId) {
     }
   };
 
-  // 合成タブを初期化してタブを寄贈タブにリセット
+  updateDonateConfirmBtn();
   resetDonateSynthTab(missionId);
   switchDonateTab("donate");
-
-  // missionIdをdata属性に保持（ペットモーダルから戻るときに使用）
   document.getElementById("donateOverlay").dataset.missionId = missionId;
   document.getElementById("donateOverlay").classList.remove("hidden");
 }

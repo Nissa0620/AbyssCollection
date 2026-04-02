@@ -6,12 +6,12 @@ import { hiddenBossDefs } from "./hiddenBossData.js";
 // ミッションパターン定義
 // =====================
 const MISSION_PATTERNS = [
-  { isRare: false, requiredLevel: 5,  rewardPoints: 1,  weight: 30 },
-  { isRare: false, requiredLevel: 10, rewardPoints: 2,  weight: 30 },
-  { isRare: false, requiredLevel: 20, rewardPoints: 3,  weight: 30 },
-  { isRare: true,  requiredLevel: 5,  rewardPoints: 10, weight: 3  },
-  { isRare: true,  requiredLevel: 10, rewardPoints: 15, weight: 3  },
-  { isRare: true,  requiredLevel: 20, rewardPoints: 20, weight: 4  },
+  { isRare: false, requiredCount: 5,  rewardPoints: 1,  weight: 30 },
+  { isRare: false, requiredCount: 10, rewardPoints: 2,  weight: 30 },
+  { isRare: false, requiredCount: 20, rewardPoints: 3,  weight: 30 },
+  { isRare: true,  requiredCount: 1,  rewardPoints: 10, weight: 3  },
+  { isRare: true,  requiredCount: 2,  rewardPoints: 15, weight: 3  },
+  { isRare: true,  requiredCount: 3,  rewardPoints: 20, weight: 4  },
 ];
 // 合計weight=100、レア合計=10/100=10%
 
@@ -53,7 +53,7 @@ export function generateMission() {
     isBoss: enemy.isBoss ?? false,
     enemyName: enemy.name,
     isRare: pattern.isRare,
-    requiredLevel: pattern.requiredLevel,
+    requiredCount: pattern.requiredCount,
     rewardPoints: pattern.rewardPoints,
     completed: false,
   };
@@ -71,11 +71,11 @@ export function initMissions() {
 // =====================
 // ミッション達成判定
 // =====================
+// 1体のペットがミッションの種別条件を満たすか（個体種別チェック）
 export function checkMissionCompletion(mission, pet) {
-  if (pet.isHiddenBoss) return false;   // 隠しボスペットは寄贈不可
+  if (pet.isHiddenBoss) return false;
   if (pet.enemyId !== mission.enemyId) return false;
   if (!!pet.isBoss !== mission.isBoss) return false;
-  if ((pet.level ?? 0) < mission.requiredLevel) return false;
   if (mission.isRare) {
     if (!pet.isElite && !pet.isLegendary && !pet.isLegendUltimate) return false;
   } else {
@@ -111,6 +111,35 @@ export function donatePet(missionId, petUid) {
   if (!checkMissionCompletion(mission, pet)) return false;
 
   state.player.petList.splice(petIndex, 1);
+
+  state.research.currentPoints += mission.rewardPoints;
+  state.research.totalPointsEarned += mission.rewardPoints;
+
+  updateResearchLevel();
+
+  state.research.missions = state.research.missions.filter(m => m.id !== missionId);
+  const newMission = generateMission();
+  if (newMission) state.research.missions.push(newMission);
+
+  return true;
+}
+
+// 複数体まとめて寄贈
+export function donatePets(missionId, petUids) {
+  const mission = state.research.missions.find(m => m.id === missionId);
+  if (!mission) return false;
+  if (petUids.length < mission.requiredCount) return false;
+
+  // 全ペットが条件を満たすか確認
+  for (const uid of petUids) {
+    const pet = state.player.petList.find(p => p.uid === uid);
+    if (!pet) return false;
+    if (state.player.equippedPet?.uid === uid) return false;
+    if (!checkMissionCompletion(mission, pet)) return false;
+  }
+
+  // 寄贈実行（petListから削除）
+  state.player.petList = state.player.petList.filter(p => !petUids.includes(p.uid));
 
   state.research.currentPoints += mission.rewardPoints;
   state.research.totalPointsEarned += mission.rewardPoints;

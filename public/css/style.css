@@ -3137,3 +3137,12 @@ button {
 .donate-tab-content.hidden {
   display: none;
 }
+
+/* 寄贈モーダル一括選択ボタン行 */
+.donate-select-all-row {
+  padding: 8px 14px 0;
+}
+
+.donate-select-all-row .secondary-btn {
+  width: 100%;
+}

@@ -43,7 +43,7 @@ import {
 } from "./inventory.js";
 import { saveGame, loadGame, deleteGame } from "./saveLoad.js";
 import { renderAchievements } from "./achievements.js";
-import { rerollMissions } from "./research.js";
+import { rerollMissions, initMissions } from "./research.js";
 import { sendRankingData, fetchRanking, isNameTaken } from "./ranking.js";
 import { equipPet, unequipPet, handlePetSynthesisSelection, executePetSynthesis, toggleSelectAllSamePets, getHpBoostMultiplier, getPetPower, getPetHp, calcOverflowBonuses } from "./pet.js";
 
@@ -754,6 +754,14 @@ loadGame().then((loaded) => {
     state.phase = "battle";
     state.enemy = null;
     createEnemy(); // 現在のフロアで敵を生成（floor++しない）
+
+    // 旧形式（requiredLevelあり）のミッションが残っていれば強制リセット
+    const hasLegacyMission = state.research.missions.some(m => m.requiredLevel != null);
+    if (hasLegacyMission) {
+      initMissions();
+      saveGame();
+    }
+
     refreshUI();
   }
   stayChk.checked = state.ui.stayOnFloor ?? false;
