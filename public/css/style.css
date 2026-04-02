@@ -3106,3 +3106,34 @@ button {
 .secondary-btn:active {
   filter: brightness(0.85);
 }
+
+/* 寄贈モーダルタブ */
+.donate-tabs {
+  display: flex;
+  border-bottom: 1px solid #333;
+  margin: 0 14px;
+}
+
+.donate-tab {
+  flex: 1;
+  padding: 8px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.donate-tab.active {
+  color: #ccc;
+  border-bottom: 2px solid #3a6ea5;
+}
+
+.donate-tab-content {
+  display: block;
+}
+
+.donate-tab-content.hidden {
+  display: none;
+}

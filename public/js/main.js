@@ -28,6 +28,8 @@ import {
   setRefreshCallback,
   setCreateEnemyCallback,
   openDonateModal,
+  switchDonateTab,
+  resetDonateSynthTab,
 } from "./ui.js";
 import { state } from "./state.js";
 import { addLog } from "./log.js";
@@ -168,14 +170,6 @@ function closePetModal() {
   const inp = document.getElementById("petNameInput");
   if (inp) inp.value = "";
   refreshUI();
-
-  // 寄贈モーダルからペットモーダルを開いた場合、寄贈モーダルを再表示する
-  const donateOverlay = document.getElementById("donateOverlay");
-  const reopenMissionId = donateOverlay.dataset.reopenAfterPet;
-  if (reopenMissionId !== undefined && reopenMissionId !== "") {
-    donateOverlay.dataset.reopenAfterPet = "";
-    openDonateModal(Number(reopenMissionId));
-  }
 }
 
 // =====================
@@ -549,17 +543,23 @@ document.getElementById("donateCloseBtn").addEventListener("click", () => {
   document.getElementById("donateOverlay").classList.add("hidden");
 });
 
-document.getElementById("donateToSynthBtn").addEventListener("click", () => {
-  // 現在の寄贈対象ミッションIDを退避
-  const currentMissionId = document.getElementById("donateOverlay").dataset.missionId ?? null;
-  // 寄贈モーダルを一時非表示
-  document.getElementById("donateOverlay").classList.add("hidden");
-  // ペットモーダルを開く
-  state.ui.petOpen = true;
-  state.ui.inventoryOpen = false;
-  refreshUI();
-  // ペットモーダルを閉じたときに寄贈モーダルを再表示するフックを設定
-  document.getElementById("donateOverlay").dataset.reopenAfterPet = currentMissionId ?? "";
+// 寄贈モーダルのタブ切替
+document.querySelectorAll(".donate-tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    switchDonateTab(btn.dataset.tab);
+  });
+});
+
+// 合成タブの合成ボタン
+document.getElementById("donateSynthBtn").addEventListener("click", () => {
+  const missionId = Number(document.getElementById("donateOverlay").dataset.missionId);
+  const success = executePetSynthesis();
+  if (success) {
+    saveGame();
+    // 合成成功後、寄贈タブに切り替えてリストを更新
+    openDonateModal(missionId);
+    switchDonateTab("donate");
+  }
 });
 
 document.getElementById("hiddenBossRewardCloseBtn")?.addEventListener("click", () => {
