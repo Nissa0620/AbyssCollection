@@ -174,7 +174,7 @@ function closePetModal() {
   const reopenMissionId = donateOverlay.dataset.reopenAfterPet;
   if (reopenMissionId !== undefined && reopenMissionId !== "") {
     donateOverlay.dataset.reopenAfterPet = "";
-    openDonateModal(reopenMissionId);
+    openDonateModal(Number(reopenMissionId));
   }
 }
 
