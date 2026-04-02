@@ -55,15 +55,33 @@ function dbDelete(db, key) {
 }
 
 // =====================
+// DBインスタンスキャッシュ
+// =====================
+
+let _db = null;
+
+async function getDB() {
+  if (_db) return _db;
+  _db = await openDB();
+  _db.onclose = () => { _db = null; }; // 切断時に自動リセット
+  return _db;
+}
+
+// =====================
 // saveGame（非同期・ノンブロッキング）
 // =====================
 
-export function saveGame() {
+export async function saveGame() {
   state.lastSaveTime = Date.now();
   const json = JSON.stringify(state);
-  openDB()
-    .then((db) => dbPut(db, SAVE_KEY, json))
-    .catch((e) => console.error("saveGame error:", e));
+  try {
+    const db = await getDB();
+    await dbPut(db, SAVE_KEY, json);
+  } catch (e) {
+    console.error("saveGame error:", e);
+    // getDB()が失敗した場合はキャッシュをリセットして次回再接続を試みる
+    _db = null;
+  }
 }
 
 // =====================
@@ -72,10 +90,11 @@ export function saveGame() {
 
 export async function deleteGame() {
   try {
-    const db = await openDB();
+    const db = await getDB();
     await dbDelete(db, SAVE_KEY);
   } catch (e) {
     console.error("deleteGame error:", e);
+    _db = null;
   }
 }
 

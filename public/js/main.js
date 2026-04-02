@@ -204,6 +204,7 @@ const attackBtn = document.getElementById("attackBtn");
 
 let attackInterval = null;
 let isTouching = false;
+let isProcessing = false;
 
 function isHolding() {
   return isTouching && attackInterval !== null;
@@ -223,8 +224,11 @@ function isAppearanceModalOpen() {
 
 function doAttack() {
   if (isAppearanceModalOpen()) return;
+  if (isProcessing) return;
+  isProcessing = true;
   handlePhase();
   refreshUI();
+  isProcessing = false;
 }
 
 function startHold() {
@@ -697,10 +701,10 @@ loadGame().then((loaded) => {
   checkPlayerName();
 });
 
-// 10秒ごとに保存
+// 3秒ごとに保存
 setInterval(() => {
   saveGame();
-}, 10000);
+}, 3000);
 
 // 30分ごとにランキング送信
 setInterval(() => {
