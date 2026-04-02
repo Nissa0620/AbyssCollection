@@ -10,8 +10,8 @@ const MISSION_PATTERNS = [
   { isRare: false, requiredCount: 10, rewardPoints: 2,  weight: 30 },
   { isRare: false, requiredCount: 20, rewardPoints: 3,  weight: 30 },
   { isRare: true,  requiredCount: 1,  rewardPoints: 10, weight: 3  },
-  { isRare: true,  requiredCount: 2,  rewardPoints: 15, weight: 3  },
-  { isRare: true,  requiredCount: 3,  rewardPoints: 20, weight: 4  },
+  { isRare: true,  requiredCount: 2,  rewardPoints: 20, weight: 3  },
+  { isRare: true,  requiredCount: 3,  rewardPoints: 30, weight: 4  },
 ];
 // 合計weight=100、レア合計=10/100=10%
 
