@@ -1813,6 +1813,9 @@ export function renderStatusScreen() {
 // 極個体ポップアップ
 // =====================
 export function showUltimatePopup(entity, type, isHolding = null) {
+  // 設定によりモーダルをスキップ（ultimatePopupは捕獲時のみ）
+  if (!(state.ui.showCaptureModal ?? true)) return;
+
   const overlay = document.getElementById("ultimateOverlay");
   const subEl  = document.getElementById("ultimateSub");
   const nameEl = document.getElementById("ultimateName");
@@ -1846,6 +1849,10 @@ export function showUltimatePopup(entity, type, isHolding = null) {
   overlay.onclick = () => overlay.classList.add("hidden");
 }
 export function showLegendaryPopup(enemy, mode = "appear", pet = null, isHolding = null) {
+  // 設定によりモーダルをスキップ
+  if (mode === "appear"   && !(state.ui.showAppearModal  ?? true)) return;
+  if (mode === "captured" && !(state.ui.showCaptureModal ?? true)) return;
+
   const overlay  = document.getElementById("legendaryOverlay");
   const subEl    = document.getElementById("legendarySub");
   const nameEl   = document.getElementById("legendaryName");
@@ -1880,6 +1887,10 @@ export function showLegendaryPopup(enemy, mode = "appear", pet = null, isHolding
 }
 
 export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHolding = null) {
+  // 設定によりモーダルをスキップ
+  if (mode === "appear"   && !(state.ui.showAppearModal  ?? true)) return;
+  if (mode === "captured" && !(state.ui.showCaptureModal ?? true)) return;
+
   const overlay  = document.getElementById("legendUltimateOverlay");
   const subEl    = document.getElementById("legendUltimateSub");
   const nameEl   = document.getElementById("legendUltimateName");
@@ -1914,6 +1925,10 @@ export function showLegendUltimatePopup(enemy, mode = "appear", pet = null, isHo
 }
 
 export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = null) {
+  // 設定によりモーダルをスキップ
+  if (mode === "appear"   && !(state.ui.showAppearModal  ?? true)) return;
+  if (mode === "captured" && !(state.ui.showCaptureModal ?? true)) return;
+
   const overlay = document.getElementById("eliteOverlay");
   const subEl   = document.getElementById("eliteSub");
   const nameEl  = document.getElementById("eliteName");
@@ -2234,7 +2249,7 @@ function updateRerollBtn() {
   btn.disabled = !canAfford;
 }
 
-function openDonateModal(missionId) {
+export function openDonateModal(missionId) {
   const mission = state.research.missions.find(m => m.id === missionId);
   if (!mission) return;
 
@@ -2320,6 +2335,8 @@ function openDonateModal(missionId) {
     }
   };
 
+  // missionIdをdata属性に保持（ペットモーダルから戻るときに使用）
+  document.getElementById("donateOverlay").dataset.missionId = missionId;
   document.getElementById("donateOverlay").classList.remove("hidden");
 }
 

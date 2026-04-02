@@ -532,6 +532,40 @@
           <button id="rankingBtn"     class="more-item-btn">🏆 ランキング</button>
           <button id="researchBtn"    class="more-item-btn">🔬 研究所</button>
           <button id="helpBtn"        class="more-item-btn">❓ 説明</button>
+          <button id="settingBtn"     class="more-item-btn">⚙️ 設定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 設定モーダル -->
+    <div id="settingOverlay" class="book-overlay hidden">
+      <div class="book-modal setting-modal">
+        <div class="book-header">
+          <span>⚙️ 設定</span>
+          <button id="settingCloseBtn">✕</button>
+        </div>
+        <div class="setting-modal-body">
+          <div class="setting-item">
+            <span class="setting-label">出現モーダルを表示する<br><small>（伝説・究極・極個体の出現時）</small></span>
+            <label class="setting-toggle">
+              <input type="checkbox" id="showAppearModalChk">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <span class="setting-label">捕獲モーダルを表示する<br><small>（伝説・究極・極個体の捕獲時）</small></span>
+            <label class="setting-toggle">
+              <input type="checkbox" id="showCaptureModalChk">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <span class="setting-label">一括選択にレア個体を含める<br><small>（ペット合成の一括選択時）</small></span>
+            <label class="setting-toggle">
+              <input type="checkbox" id="includeRareInSelectAllChk">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -589,7 +623,10 @@
         </div>
         <p id="donateCondition" class="donate-condition"></p>
         <ul id="donatePetList" class="pet-list book-content"></ul>
-        <button id="donateConfirmBtn" class="primary-btn" disabled>寄贈する</button>
+        <div class="donate-btn-row">
+          <button id="donateToSynthBtn" class="secondary-btn">🔗 合成する</button>
+          <button id="donateConfirmBtn" class="primary-btn" disabled>寄贈する</button>
+        </div>
       </div>
     </div>
 

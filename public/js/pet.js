@@ -712,15 +712,16 @@ export function toggleSelectAllSamePets() {
   const base = petList.find((p) => p.uid === baseUid);
   if (!base) return;
 
-  // レア個体・ロック済みを除外
+  // レア個体除外オンオフ設定を参照
+  const includeRare = state.ui.includeRareInSelectAll ?? false;
+
+  // ロック済みを除外、レア個体は設定に応じて除外
   const sameUids = petList
     .filter((p) =>
       p.uid !== baseUid &&
       p.enemyId === base.enemyId &&
       p.isBoss === base.isBoss &&
-      !p.isLegendUltimate &&
-      !p.isLegendary &&
-      !p.isElite &&
+      (includeRare || (!p.isLegendUltimate && !p.isLegendary && !p.isElite)) &&
       !isLocked(p.uid)
     )
     .map((p) => p.uid);

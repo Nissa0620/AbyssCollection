@@ -27,6 +27,7 @@ import {
   renderResearchScreen,
   setRefreshCallback,
   setCreateEnemyCallback,
+  openDonateModal,
 } from "./ui.js";
 import { state } from "./state.js";
 import { addLog } from "./log.js";
@@ -167,6 +168,14 @@ function closePetModal() {
   const inp = document.getElementById("petNameInput");
   if (inp) inp.value = "";
   refreshUI();
+
+  // 寄贈モーダルからペットモーダルを開いた場合、寄贈モーダルを再表示する
+  const donateOverlay = document.getElementById("donateOverlay");
+  const reopenMissionId = donateOverlay.dataset.reopenAfterPet;
+  if (reopenMissionId !== undefined && reopenMissionId !== "") {
+    donateOverlay.dataset.reopenAfterPet = "";
+    openDonateModal(reopenMissionId);
+  }
 }
 
 // =====================
@@ -184,6 +193,43 @@ document.getElementById("moreOverlay").addEventListener("click", (e) => {
   if (e.target === e.currentTarget) {
     e.currentTarget.classList.add("hidden");
   }
+});
+
+// =====================
+// 設定モーダル
+// =====================
+document.getElementById("settingBtn").addEventListener("click", () => {
+  document.getElementById("moreOverlay").classList.add("hidden");
+  // チェックボックスの状態を現在の設定に合わせる
+  document.getElementById("showAppearModalChk").checked = state.ui.showAppearModal ?? true;
+  document.getElementById("showCaptureModalChk").checked = state.ui.showCaptureModal ?? true;
+  document.getElementById("includeRareInSelectAllChk").checked = state.ui.includeRareInSelectAll ?? false;
+  document.getElementById("settingOverlay").classList.remove("hidden");
+});
+
+document.getElementById("settingCloseBtn").addEventListener("click", () => {
+  document.getElementById("settingOverlay").classList.add("hidden");
+});
+
+document.getElementById("settingOverlay").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) {
+    e.currentTarget.classList.add("hidden");
+  }
+});
+
+document.getElementById("showAppearModalChk").addEventListener("change", (e) => {
+  state.ui.showAppearModal = e.target.checked;
+  saveGame();
+});
+
+document.getElementById("showCaptureModalChk").addEventListener("change", (e) => {
+  state.ui.showCaptureModal = e.target.checked;
+  saveGame();
+});
+
+document.getElementById("includeRareInSelectAllChk").addEventListener("change", (e) => {
+  state.ui.includeRareInSelectAll = e.target.checked;
+  saveGame();
 });
 
 // =====================
@@ -501,6 +547,19 @@ document.getElementById("researchCloseBtn").addEventListener("click", () => {
 
 document.getElementById("donateCloseBtn").addEventListener("click", () => {
   document.getElementById("donateOverlay").classList.add("hidden");
+});
+
+document.getElementById("donateToSynthBtn").addEventListener("click", () => {
+  // 現在の寄贈対象ミッションIDを退避
+  const currentMissionId = document.getElementById("donateOverlay").dataset.missionId ?? null;
+  // 寄贈モーダルを一時非表示
+  document.getElementById("donateOverlay").classList.add("hidden");
+  // ペットモーダルを開く
+  state.ui.petOpen = true;
+  state.ui.inventoryOpen = false;
+  refreshUI();
+  // ペットモーダルを閉じたときに寄贈モーダルを再表示するフックを設定
+  document.getElementById("donateOverlay").dataset.reopenAfterPet = currentMissionId ?? "";
 });
 
 document.getElementById("hiddenBossRewardCloseBtn")?.addEventListener("click", () => {
