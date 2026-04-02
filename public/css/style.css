@@ -3146,3 +3146,29 @@ button {
 .donate-select-all-row .secondary-btn {
   width: 100%;
 }
+
+/* 寄贈モーダル */
+.donate-modal {
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+.donate-pet-list {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.donate-footer {
+  flex-shrink: 0;
+  padding: 10px 14px;
+  background: #1a1a1a;
+  border-top: 1px solid #333;
+}
+
+.donate-footer .primary-btn {
+  width: 100%;
+  margin: 0;
+}

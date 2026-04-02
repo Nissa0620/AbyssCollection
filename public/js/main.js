@@ -28,8 +28,6 @@ import {
   setRefreshCallback,
   setCreateEnemyCallback,
   openDonateModal,
-  switchDonateTab,
-  resetDonateSynthTab,
 } from "./ui.js";
 import { state } from "./state.js";
 import { addLog } from "./log.js";
@@ -543,24 +541,6 @@ document.getElementById("donateCloseBtn").addEventListener("click", () => {
   document.getElementById("donateOverlay").classList.add("hidden");
 });
 
-// 寄贈モーダルのタブ切替
-document.querySelectorAll(".donate-tab").forEach(btn => {
-  btn.addEventListener("click", () => {
-    switchDonateTab(btn.dataset.tab);
-  });
-});
-
-// 合成タブの合成ボタン
-document.getElementById("donateSynthBtn").addEventListener("click", () => {
-  const missionId = Number(document.getElementById("donateOverlay").dataset.missionId);
-  const success = executePetSynthesis();
-  if (success) {
-    saveGame();
-    // 合成成功後、寄贈タブに切り替えてリストを更新
-    openDonateModal(missionId);
-    switchDonateTab("donate");
-  }
-});
 
 document.getElementById("hiddenBossRewardCloseBtn")?.addEventListener("click", () => {
   document.getElementById("hiddenBossRewardOverlay").classList.add("hidden");

@@ -2250,135 +2250,6 @@ function updateRerollBtn() {
   btn.disabled = !canAfford;
 }
 
-// 寄贈モーダルのタブ切替
-export function switchDonateTab(tab) {
-  const donateWrap = document.getElementById("donatePetListWrap");
-  const synthWrap  = document.getElementById("donateSynthWrap");
-  document.querySelectorAll(".donate-tab").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.tab === tab);
-  });
-  donateWrap.classList.toggle("hidden", tab !== "donate");
-  synthWrap.classList.toggle("hidden",  tab !== "synth");
-}
-
-// 合成タブのリセット・再描画
-export function resetDonateSynthTab(missionId) {
-  const mission = state.research.missions.find(m => m.id === missionId);
-  if (!mission) return;
-
-  // petSynthesisの選択状態をリセット
-  state.petSynthesis.baseUid = null;
-  state.petSynthesis.materialUids = [];
-
-  const ul = document.getElementById("donateSynthPetList");
-  const hintEl    = document.getElementById("donateSynthHint");
-  const previewEl = document.getElementById("donateSynthPreview");
-  const synthBtn  = document.getElementById("donateSynthBtn");
-  if (!ul) return;
-
-  ul.innerHTML = "";
-  hintEl.textContent = "ベースにするペットをタップしてください";
-  previewEl.textContent = "";
-  synthBtn.disabled = true;
-
-  // 対象種族のペットのみ取得（装備中も含む）
-  const samePets = state.player.petList.filter(
-    p => p.enemyId === mission.enemyId && !!p.isBoss === !!mission.isBoss
-  );
-
-  if (samePets.length === 0) {
-    ul.innerHTML = `<li class="pet-empty">対象ペットがいません</li>`;
-    return;
-  }
-
-  // 強化値降順でソート
-  const sorted = [...samePets].sort((a, b) => (b.level ?? 0) - (a.level ?? 0));
-
-  for (const pet of sorted) {
-    const li = document.createElement("li");
-    li.className = "pet-item";
-    li.dataset.uid = pet.uid;
-    li.innerHTML = renderPetItemHTML(pet);
-
-    li.addEventListener("click", () => {
-      handleDonateSynthClick(pet.uid, mission, ul, hintEl, previewEl, synthBtn);
-    });
-
-    ul.appendChild(li);
-  }
-}
-
-// 合成タブのペットクリック処理
-function handleDonateSynthClick(uid, mission, ul, hintEl, previewEl, synthBtn) {
-  const synth = state.petSynthesis;
-
-  // ベース未選択 → ベースにセット
-  if (!synth.baseUid) {
-    synth.baseUid = uid;
-    updateDonateSynthUI(mission, ul, hintEl, previewEl, synthBtn);
-    return;
-  }
-
-  // ベースを再タップ → 選択解除
-  if (uid === synth.baseUid) {
-    synth.baseUid = null;
-    synth.materialUids = [];
-    updateDonateSynthUI(mission, ul, hintEl, previewEl, synthBtn);
-    return;
-  }
-
-  // 素材トグル
-  const i = synth.materialUids.indexOf(uid);
-  if (i === -1) {
-    synth.materialUids.push(uid);
-  } else {
-    synth.materialUids.splice(i, 1);
-  }
-
-  updateDonateSynthUI(mission, ul, hintEl, previewEl, synthBtn);
-}
-
-// 合成タブのUI更新（選択状態・プレビュー反映）
-function updateDonateSynthUI(mission, ul, hintEl, previewEl, synthBtn) {
-  const synth = state.petSynthesis;
-
-  // 各リストアイテムの選択状態を更新
-  ul.querySelectorAll("li[data-uid]").forEach(li => {
-    const uid = li.dataset.uid;
-    li.classList.remove("synth-base", "synth-material");
-    if (uid === synth.baseUid) {
-      li.classList.add("synth-base");
-    } else if (synth.materialUids.includes(uid)) {
-      li.classList.add("synth-material");
-    }
-  });
-
-  // ヒントとプレビューを更新
-  if (!synth.baseUid) {
-    hintEl.textContent = "ベースにするペットをタップしてください";
-    previewEl.textContent = "";
-    synthBtn.disabled = true;
-    return;
-  }
-
-  if (synth.materialUids.length === 0) {
-    hintEl.textContent = "素材にするペットをタップしてください";
-    previewEl.textContent = "";
-    synthBtn.disabled = true;
-    return;
-  }
-
-  // プレビュー計算（getPetSynthesisPreviewを流用）
-  const preview = getPetSynthesisPreview();
-  if (preview) {
-    previewEl.textContent =
-      `強化値: +${preview.oldLevel} → +${preview.newLevel} ／ ATK ${preview.oldPower} → ${preview.newPower} ／ HP ${preview.oldHp} → ${preview.newHp}`;
-    synthBtn.disabled = false;
-  }
-
-  hintEl.textContent = `素材: ${synth.materialUids.length}体選択中`;
-}
-
 export function openDonateModal(missionId) {
   const mission = state.research.missions.find(m => m.id === missionId);
   if (!mission) return;
@@ -2450,8 +2321,6 @@ export function openDonateModal(missionId) {
     ul.appendChild(msg);
     document.getElementById("donateConfirmBtn").disabled = true;
     document.getElementById("donateConfirmBtn").textContent = `寄贈する（0 / ${mission.requiredCount}体）`;
-    resetDonateSynthTab(missionId);
-    switchDonateTab("donate");
     document.getElementById("donateOverlay").dataset.missionId = missionId;
     document.getElementById("donateOverlay").classList.remove("hidden");
     return;
@@ -2523,8 +2392,6 @@ export function openDonateModal(missionId) {
   };
 
   updateDonateConfirmBtn();
-  resetDonateSynthTab(missionId);
-  switchDonateTab("donate");
   document.getElementById("donateOverlay").dataset.missionId = missionId;
   document.getElementById("donateOverlay").classList.remove("hidden");
 }

@@ -616,34 +616,18 @@
 
     <!-- 寄贈用ペット選択モーダル -->
     <div id="donateOverlay" class="book-overlay hidden">
-      <div class="book-modal">
+      <div class="book-modal donate-modal">
         <div class="book-header">
-          <h2 id="donateModalTitle">ペットを選択</h2>
+          <h2>ペットを選択</h2>
           <button id="donateCloseBtn">✕</button>
         </div>
         <p id="donateCondition" class="donate-condition"></p>
-
-        <!-- タブ -->
-        <div class="donate-tabs">
-          <button class="donate-tab active" data-tab="donate">寄贈</button>
-          <button class="donate-tab" data-tab="synth">合成</button>
+        <div class="donate-select-all-row">
+          <button id="donateSelectAllBtn" class="secondary-btn">⚡ 一括選択</button>
         </div>
-
-        <!-- 寄贈タブ -->
-        <div id="donatePetListWrap" class="donate-tab-content">
-          <div class="donate-select-all-row">
-            <button id="donateSelectAllBtn" class="secondary-btn">⚡ 一括選択</button>
-          </div>
-          <ul id="donatePetList" class="pet-list book-content"></ul>
+        <ul id="donatePetList" class="pet-list donate-pet-list"></ul>
+        <div class="donate-footer">
           <button id="donateConfirmBtn" class="primary-btn" disabled>寄贈する</button>
-        </div>
-
-        <!-- 合成タブ -->
-        <div id="donateSynthWrap" class="donate-tab-content hidden">
-          <div id="donateSynthHint" class="synth-hint-text"></div>
-          <div id="donateSynthPreview" class="synth-preview-text"></div>
-          <ul id="donateSynthPetList" class="pet-list book-content"></ul>
-          <button id="donateSynthBtn" class="primary-btn" disabled>合成する</button>
         </div>
       </div>
     </div>
