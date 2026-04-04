@@ -1,6 +1,6 @@
 import { state } from "./state.js";
 import { normalEnemies, bossEnemies, floorTable } from "./data/index.js";
-import { isLocked } from "./listPrefs.js";
+import { isLocked, getLockedSet } from "./listPrefs.js";
 import { addLog } from "./log.js";
 import { getTitleName, legendaryTitles, normalPassiveOf, isLegendaryPassive } from "./data/index.js";
 import { updateBookUltimate } from "./book.js";
@@ -712,17 +712,18 @@ export function toggleSelectAllSamePets() {
   const base = petList.find((p) => p.uid === baseUid);
   if (!base) return;
 
-  // レア個体除外オンオフ設定を参照
   const includeRare = state.ui.includeRareInSelectAll ?? false;
 
-  // ロック済みを除外、レア個体は設定に応じて除外
+  // ロックSetを1回だけ取得してキャッシュ（Bug #1修正）
+  const lockedSet = getLockedSet();
+
   const sameUids = petList
     .filter((p) =>
       p.uid !== baseUid &&
       p.enemyId === base.enemyId &&
       p.isBoss === base.isBoss &&
       (includeRare || (!p.isLegendUltimate && !p.isLegendary && !p.isElite)) &&
-      !isLocked(p.uid)
+      !lockedSet.has(String(p.uid))
     )
     .map((p) => p.uid);
 
@@ -869,4 +870,93 @@ export function calcOverflowBonuses() {
   }
 
   state._expBurstOverflowExpBoost = Math.floor(overflowExpBoost);
+}
+
+// =====================
+// ペット一括廃棄
+// =====================
+// condition: "nonRare" | "all"
+// - nonRare: isElite/isLegendary/isLegendUltimate=false のもの（ロック・装備中除外）
+// - all: ロック・装備中以外すべて
+export function discardPets(condition) {
+  const petList = state.player.petList;
+  const equippedUid = state.player.equippedPet?.uid ?? null;
+
+  // ロックSetを1回だけ取得してキャッシュ（Bug #1修正）
+  const lockedSet = getLockedSet();
+
+  const targets = petList.filter((p) => {
+    if (lockedSet.has(String(p.uid))) return false;
+    if (p.uid === equippedUid) return false;
+    if (condition === "nonRare") {
+      return !p.isElite && !p.isLegendary && !p.isLegendUltimate;
+    }
+    if (condition === "all") return true;
+    return false;
+  });
+
+  if (targets.length === 0) return 0;
+
+  const uidsToRemove = new Set(targets.map((p) => p.uid));
+  state.player.petList = petList.filter((p) => !uidsToRemove.has(p.uid));
+  addLog(`🐾 ${targets.length}体のペットを廃棄した`);
+
+  // 廃棄後は合成選択をリセット（Bug #3修正）
+  state.petSynthesis.baseUid = null;
+  state.petSynthesis.materialUids = [];
+
+  return targets.length;
+}
+
+// =====================
+// ペット一括合成（究極個体をベースとして各グループを自動合成）
+// =====================
+export function bulkSynthesizeUltimatePets() {
+  const equippedUid = state.player.equippedPet?.uid ?? null;
+  let totalSynthed = 0;
+
+  // ロックSetを1回だけ取得してキャッシュ（Bug #1修正）
+  const lockedSet = getLockedSet();
+
+  // グループキー → { baseUid, materialUids } をUID文字列のみで構築
+  // ※ executePetSynthesis() が state.player.petList を差し替えるため
+  //   オブジェクト参照は持たず、UID文字列だけを保持する（Bug #2修正）
+
+  // 1パス目：究極個体のUIDを記録
+  const groupMap = new Map();
+  for (const p of state.player.petList) {
+    const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
+    if (!groupMap.has(key)) groupMap.set(key, { baseUid: null, materialUids: [] });
+    const entry = groupMap.get(key);
+    if (isUltimatePet(p) && entry.baseUid === null) {
+      entry.baseUid = p.uid;
+    }
+  }
+
+  // 2パス目：素材UIDを記録（究極個体がいるグループのみ）
+  for (const p of state.player.petList) {
+    const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
+    const entry = groupMap.get(key);
+    if (!entry || entry.baseUid === null) continue;
+    if (p.uid === entry.baseUid) continue;
+    if (isUltimatePet(p)) continue;
+    if (lockedSet.has(String(p.uid))) continue;
+    if (p.uid === equippedUid) continue;
+    entry.materialUids.push(p.uid);
+  }
+
+  // グループごとに合成実行
+  for (const [, entry] of groupMap) {
+    if (!entry.baseUid || entry.materialUids.length === 0) continue;
+
+    state.petSynthesis.baseUid = entry.baseUid;
+    state.petSynthesis.materialUids = [...entry.materialUids];
+
+    const success = executePetSynthesis();
+    if (success) {
+      totalSynthed += entry.materialUids.length; // Bug #4修正：success確認後に加算
+    }
+  }
+
+  return totalSynthed;
 }

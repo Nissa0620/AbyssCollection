@@ -32,18 +32,22 @@ import {
 import { state } from "./state.js";
 import { addLog } from "./log.js";
 import { handlePhase } from "./gameFlow.js";
-import { equipWeapon } from "./inventory.js";
-import { getWeaponDisplayName } from "./weapon.js";
 import {
+  equipWeapon,
   executeSynthesis,
   handleSynthesisSelection,
   toggleSelectAllSameWeapons,
+  discardWeapons,
+  bulkSynthesizeUltimateWeapons,
 } from "./inventory.js";
+import { getWeaponDisplayName } from "./weapon.js";
 import { saveGame, loadGame, deleteGame } from "./saveLoad.js";
 import { renderAchievements } from "./achievements.js";
 import { rerollMissions, initMissions } from "./research.js";
 import { sendRankingData, fetchRanking, isNameTaken } from "./ranking.js";
-import { equipPet, unequipPet, handlePetSynthesisSelection, executePetSynthesis, toggleSelectAllSamePets, getHpBoostMultiplier, getPetPower, getPetHp, calcOverflowBonuses } from "./pet.js";
+import { equipPet, unequipPet, handlePetSynthesisSelection, executePetSynthesis, toggleSelectAllSamePets, getHpBoostMultiplier, getPetPower, getPetHp, calcOverflowBonuses, discardPets, bulkSynthesizeUltimatePets } from "./pet.js";
+import { isLocked } from "./listPrefs.js";
+import { isUltimateWeapon } from "./drop.js";
 
 // =====================
 // 初期化
@@ -722,6 +726,149 @@ document.querySelectorAll(".ranking-tab").forEach((btn) => {
     if (noteEl) noteEl.textContent = rankingTabNotes[btn.dataset.field] ?? "";
     renderRanking(btn.dataset.field);
   });
+});
+
+// =====================
+// 廃棄・一括合成 共通状態
+// =====================
+let _discardMode = null;    // "weapon" | "pet"
+let _discardCondition = null; // "nonUltimate" | "nonRare" | "all"
+let _bulkSynthMode = null;  // "weapon" | "pet"
+
+// =====================
+// 武器一括廃棄ボタン → 条件選択メニューを表示
+// =====================
+document.getElementById("weaponDiscardBtn").addEventListener("click", () => {
+  _discardMode = "weapon";
+  document.getElementById("discardMenuTitle").textContent = "武器の廃棄条件を選択";
+  document.getElementById("discardMenuBtn1").textContent = "究極個体以外を廃棄";
+  document.getElementById("discardMenuBtn1").dataset.condition = "nonUltimate";
+  document.getElementById("discardMenuBtn2").textContent = "全て廃棄（ロック・装備中除外）";
+  document.getElementById("discardMenuBtn2").dataset.condition = "all";
+  document.getElementById("discardMenuOverlay").classList.remove("hidden");
+});
+
+// =====================
+// ペット一括廃棄ボタン → 条件選択メニューを表示
+// =====================
+document.getElementById("petDiscardBtn").addEventListener("click", () => {
+  _discardMode = "pet";
+  document.getElementById("discardMenuTitle").textContent = "ペットの廃棄条件を選択";
+  document.getElementById("discardMenuBtn1").textContent = "レア個体以外を廃棄（極・伝説・究極伝説を残す）";
+  document.getElementById("discardMenuBtn1").dataset.condition = "nonRare";
+  document.getElementById("discardMenuBtn2").textContent = "全て廃棄（ロック・装備中除外）";
+  document.getElementById("discardMenuBtn2").dataset.condition = "all";
+  document.getElementById("discardMenuOverlay").classList.remove("hidden");
+});
+
+// =====================
+// 廃棄条件選択メニュー：条件ボタン
+// =====================
+["discardMenuBtn1", "discardMenuBtn2"].forEach((id) => {
+  document.getElementById(id).addEventListener("click", (e) => {
+    _discardCondition = e.currentTarget.dataset.condition;
+    document.getElementById("discardMenuOverlay").classList.add("hidden");
+
+    // 廃棄対象が0件かどうかプレビューチェック
+    let count = 0;
+    if (_discardMode === "weapon") {
+      const inv = state.player.inventory;
+      const equippedUid = state.player.equippedWeapon?.uid ?? null;
+      count = inv.filter((w) => {
+        if (isLocked(w.uid)) return false;
+        if (w.uid === equippedUid) return false;
+        if (_discardCondition === "nonUltimate") return !isUltimateWeapon(w);
+        return true;
+      }).length;
+    } else {
+      const petList = state.player.petList;
+      const equippedUid = state.player.equippedPet?.uid ?? null;
+      count = petList.filter((p) => {
+        if (isLocked(p.uid)) return false;
+        if (p.uid === equippedUid) return false;
+        if (_discardCondition === "nonRare") return !p.isElite && !p.isLegendary && !p.isLegendUltimate;
+        return true;
+      }).length;
+    }
+
+    if (count === 0) {
+      addLog("廃棄対象がありません");
+      return;
+    }
+
+    document.getElementById("discardConfirmMsg").textContent =
+      `選択した条件で廃棄しますか？`;
+    document.getElementById("discardConfirmOverlay").classList.remove("hidden");
+  });
+});
+
+// 廃棄条件メニュー：キャンセル
+document.getElementById("discardMenuCancelBtn").addEventListener("click", () => {
+  document.getElementById("discardMenuOverlay").classList.add("hidden");
+  _discardMode = null;
+  _discardCondition = null;
+});
+
+// 廃棄確認：キャンセル
+document.getElementById("discardCancelBtn").addEventListener("click", () => {
+  document.getElementById("discardConfirmOverlay").classList.add("hidden");
+  _discardMode = null;
+  _discardCondition = null;
+});
+
+// 廃棄確認：実行
+document.getElementById("discardConfirmBtn").addEventListener("click", () => {
+  document.getElementById("discardConfirmOverlay").classList.add("hidden");
+  let count = 0;
+  if (_discardMode === "weapon") {
+    count = discardWeapons(_discardCondition);
+  } else if (_discardMode === "pet") {
+    count = discardPets(_discardCondition);
+  }
+  _discardMode = null;
+  _discardCondition = null;
+  if (count > 0) saveGame();
+  refreshUI();
+});
+
+// =====================
+// 武器一括合成ボタン → 確認ダイアログ表示
+// =====================
+document.getElementById("weaponBulkSynthBtn").addEventListener("click", () => {
+  _bulkSynthMode = "weapon";
+  document.getElementById("bulkSynthConfirmMsg").textContent =
+    "究極個体をベースに武器を一括合成しますか？";
+  document.getElementById("bulkSynthConfirmOverlay").classList.remove("hidden");
+});
+
+// =====================
+// ペット一括合成ボタン → 確認ダイアログ表示
+// =====================
+document.getElementById("petBulkSynthBtn").addEventListener("click", () => {
+  _bulkSynthMode = "pet";
+  document.getElementById("bulkSynthConfirmMsg").textContent =
+    "究極個体をベースにペットを一括合成しますか？";
+  document.getElementById("bulkSynthConfirmOverlay").classList.remove("hidden");
+});
+
+// 一括合成確認：キャンセル
+document.getElementById("bulkSynthCancelBtn").addEventListener("click", () => {
+  document.getElementById("bulkSynthConfirmOverlay").classList.add("hidden");
+  _bulkSynthMode = null;
+});
+
+// 一括合成確認：実行
+document.getElementById("bulkSynthConfirmBtn").addEventListener("click", () => {
+  document.getElementById("bulkSynthConfirmOverlay").classList.add("hidden");
+  let count = 0;
+  if (_bulkSynthMode === "weapon") {
+    count = bulkSynthesizeUltimateWeapons();
+  } else if (_bulkSynthMode === "pet") {
+    count = bulkSynthesizeUltimatePets();
+  }
+  _bulkSynthMode = null;
+  if (count > 0) saveGame();
+  refreshUI();
 });
 
 // =====================

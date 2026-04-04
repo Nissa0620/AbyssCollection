@@ -2,7 +2,7 @@ import { state } from "./state.js";
 import { getTitleName } from "./data/index.js";
 import { addLog } from "./log.js";
 import { getSynthesisPreview } from "./inventory.js";
-import { isFavorite, toggleFavorite, isLocked, toggleLock } from "./listPrefs.js";
+import { isFavorite, toggleFavorite, isLocked, toggleLock, getLockedSet } from "./listPrefs.js";
 import { isUltimateWeapon } from "./drop.js";
 import { isUltimatePet, getPetSynthesisPreview, getPetPower, getPetHp, toggleSelectAllSamePets, passiveLabels, calcOverflowBonuses } from "./pet.js";
 import {
@@ -130,6 +130,8 @@ export function renderInventory(player, onItemClick, onEquip) {
         );
       })
     : sortedGroups;
+
+  const lockedSet = getLockedSet();
 
   for (const [templateId, groupItems] of filteredGroups) {
     const template = weaponTemplates.find((t) => t.id === templateId);
@@ -278,7 +280,7 @@ function renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip) {
     const weaponPassiveText = item.passive
       ? `${weaponPassiveLabel(item.passive)}${item.passiveValue != null ? `(${item.passiveValue}%)` : ""}`
       : "";
-    const locked = isLocked(item.uid);
+    const locked = lockedSet.has(String(item.uid));
     li.innerHTML = `
       <div class="pet-item-bar"></div>
       <div class="pet-item-body">
@@ -307,7 +309,7 @@ function renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip) {
       e.stopPropagation();
       if (e.target.closest("button")) return;
       const isBase = item.uid === state.synthesis.baseUid;
-      if (isLocked(item.uid) && state.synthesis.baseUid !== null && !isBase) return;
+      if (lockedSet.has(String(item.uid)) && state.synthesis.baseUid !== null && !isBase) return;
       onItemClick(item.uid);
     };
 
@@ -1311,6 +1313,7 @@ function getNormalSkillLabel(passive) {
 }
 
 function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
+  const lockedSet = getLockedSet();
   groupPets.forEach((pet) => {
     const { baseUid, materialUids } = state.petSynthesis;
     const isEquipped = state.player.equippedPet?.uid === pet.uid;
@@ -1342,7 +1345,7 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
       }
     }
 
-    const locked = isLocked(pet.uid);
+    const locked = lockedSet.has(String(pet.uid));
     li.innerHTML = `
       <div class="pet-item-bar"></div>
       <div class="pet-item-body">
@@ -1371,7 +1374,7 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
       e.stopPropagation();
       if (e.target.closest("button")) return;
       const isBase = pet.uid === state.petSynthesis.baseUid;
-      if (isLocked(pet.uid) && state.petSynthesis.baseUid !== null && !isBase) return;
+      if (lockedSet.has(String(pet.uid)) && state.petSynthesis.baseUid !== null && !isBase) return;
       if (onPetClick) onPetClick(pet.uid);
     };
 
@@ -2262,8 +2265,9 @@ export function openDonateModal(missionId) {
   ul.innerHTML = "";
 
   // 条件を満たすペット（装備中・ロック除外）を取得
+  const lockedSet = getLockedSet();
   const eligiblePets = state.player.petList.filter(pet =>
-    !isLocked(pet.uid) &&
+    !lockedSet.has(String(pet.uid)) &&
     state.player.equippedPet?.uid !== pet.uid &&
     checkMissionCompletion(mission, pet)
   );
@@ -2328,7 +2332,7 @@ export function openDonateModal(missionId) {
 
   for (const pet of allPets) {
     const isEquipped = state.player.equippedPet?.uid === pet.uid;
-    const locked = isLocked(pet.uid);
+    const locked = lockedSet.has(String(pet.uid));
     const isEligible = eligiblePets.some(e => e.uid === pet.uid);
 
     let disabledReason = "";

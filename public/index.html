@@ -104,6 +104,8 @@
       <div class="toolbar-row1">
         <select id="inventoryFilterSelect"><option value="">すべて</option></select>
         <button id="selectAllBtn">一括選択</button>
+        <button id="weaponDiscardBtn">一括廃棄▼</button>
+        <button id="weaponBulkSynthBtn">一括合成</button>
       </div>
       <div class="toolbar-row-search">
         <input type="text" id="inventoryNameInput" class="toolbar-search-input" placeholder="名前で検索...">
@@ -162,6 +164,8 @@
           <div class="toolbar-row1">
             <select id="petFilterSelect"><option value="">すべて</option></select>
             <button id="petSelectAllBtn">一括選択</button>
+            <button id="petDiscardBtn">一括廃棄▼</button>
+            <button id="petBulkSynthBtn">一括合成</button>
           </div>
           <div class="toolbar-row-search">
             <input type="text" id="petNameInput" class="toolbar-search-input" placeholder="名前で検索...">
@@ -628,6 +632,48 @@
         <ul id="donatePetList" class="pet-list donate-pet-list"></ul>
         <div class="donate-footer">
           <button id="donateConfirmBtn" class="primary-btn" disabled>寄贈する</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 廃棄確認ダイアログ -->
+    <div id="discardConfirmOverlay" class="book-overlay hidden">
+      <div class="book-modal reset-confirm-modal">
+        <div class="reset-confirm-body">
+          <p id="discardConfirmMsg">廃棄しますか？</p>
+          <p class="reset-confirm-sub">この操作は元に戻せません</p>
+        </div>
+        <div class="reset-confirm-footer">
+          <button id="discardCancelBtn">キャンセル</button>
+          <button id="discardConfirmBtn">廃棄する</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 一括廃棄条件選択メニュー -->
+    <div id="discardMenuOverlay" class="book-overlay hidden">
+      <div class="book-modal reset-confirm-modal">
+        <div class="reset-confirm-body">
+          <p id="discardMenuTitle">廃棄条件を選択</p>
+        </div>
+        <div class="reset-confirm-footer" style="flex-direction: column; gap: 8px;">
+          <button id="discardMenuBtn1" class="discard-menu-btn"></button>
+          <button id="discardMenuBtn2" class="discard-menu-btn"></button>
+          <button id="discardMenuCancelBtn">キャンセル</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 一括合成確認ダイアログ -->
+    <div id="bulkSynthConfirmOverlay" class="book-overlay hidden">
+      <div class="book-modal reset-confirm-modal">
+        <div class="reset-confirm-body">
+          <p id="bulkSynthConfirmMsg">一括合成しますか？</p>
+          <p class="reset-confirm-sub">究極個体をベースに同種を全て合成します</p>
+        </div>
+        <div class="reset-confirm-footer">
+          <button id="bulkSynthCancelBtn">キャンセル</button>
+          <button id="bulkSynthConfirmBtn">合成する</button>
         </div>
       </div>
     </div>

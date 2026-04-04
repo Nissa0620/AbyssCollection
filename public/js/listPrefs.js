@@ -38,3 +38,8 @@ export function toggleLock(uid) {
   set.has(key) ? set.delete(key) : set.add(key);
   saveSet(LOCK_KEY, set);
 }
+
+// ロックされているUIDのSetを一括取得（ループ内でのキャッシュ用）
+export function getLockedSet() {
+  return loadSet(LOCK_KEY);
+}
