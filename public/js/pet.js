@@ -941,7 +941,7 @@ export function bulkSynthesizeUltimatePets() {
     if (!entry || entry.baseUid === null) continue;
     if (p.uid === entry.baseUid) continue;
     if (isTrueUltimate(p)) continue;
-    if (p.isElite || p.isLegendary || p.isLegendUltimate) continue;
+    if (p.isLegendUltimate) continue;
     if (lockedSet.has(String(p.uid))) continue;
     if (p.uid === equippedUid) continue;
     entry.materialUids.push(p.uid);
