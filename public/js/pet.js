@@ -917,11 +917,10 @@ export function bulkSynthesizeUltimatePets() {
 
   const lockedSet = getLockedSet();
 
-  // 究極個体の判定：isUltimatePet() を満たし、かつ isElite/isLegendary/isLegendUltimate でないもの
+  // 究極個体の判定：isLegendUltimate であるもの
   // 極個体は titleId=4 かつ全ステ最大で生成されるため isUltimatePet() を通過してしまう。
   // フラグによる除外が必須。
-  const isTrueUltimate = (p) =>
-    isUltimatePet(p) && !p.isElite && !p.isLegendary && !p.isLegendUltimate;
+  const isTrueUltimate = (p) => p.isLegendUltimate === true;
 
   // 1パス目：真の究極個体のUIDをグループごとに記録
   const groupMap = new Map();
