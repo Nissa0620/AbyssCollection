@@ -1,6 +1,7 @@
 import { state } from "./state.js";
 import { addLog } from "./log.js";
-import { isLocked } from "./listPrefs.js";
+import { isLocked, getLockedSet } from "./listPrefs.js";
+import { isUltimateWeapon } from "./drop.js";
 import { getWeaponDisplayName } from "./weapon.js";
 import { saveGame } from "./saveLoad.js";
 import { registerWeaponEvolved } from "./weaponBook.js";
@@ -59,12 +60,14 @@ export function toggleSelectAllSameWeapons() {
   const base = inv.find((item) => item.uid === synth.baseUid);
   if (!base) return;
 
-  // ロック済みを除外
+  // ロックSetを1回だけ取得してキャッシュ
+  const lockedSet = getLockedSet();
+
   const sameWeaponUids = inv
     .filter((item) =>
       item.uid !== base.uid &&
       item.templateId === base.templateId &&
-      !isLocked(item.uid)
+      !lockedSet.has(String(item.uid))
     )
     .map((item) => item.uid);
 
@@ -252,4 +255,91 @@ export function getSynthesisPreview() {
     oldTotalHp,
     newTotalHp,
   };
+}
+
+// =====================
+// 武器一括廃棄
+// =====================
+// condition: "nonUltimate" | "all"
+// - nonUltimate: isUltimateWeapon()=false のもの（ロック・装備中除外）
+// - all: ロック・装備中以外すべて
+export function discardWeapons(condition) {
+  const inv = state.player.inventory;
+  const equippedUid = state.player.equippedWeapon?.uid ?? null;
+
+  // ロックSetを1回だけ取得してキャッシュ（Bug #1修正）
+  const lockedSet = getLockedSet();
+
+  const targets = inv.filter((w) => {
+    if (lockedSet.has(String(w.uid))) return false;
+    if (w.uid === equippedUid) return false;
+    if (condition === "nonUltimate") return !isUltimateWeapon(w);
+    if (condition === "all") return true;
+    return false;
+  });
+
+  if (targets.length === 0) return 0;
+
+  const uidsToRemove = new Set(targets.map((w) => w.uid));
+  state.player.inventory = inv.filter((w) => !uidsToRemove.has(w.uid));
+  addLog(`⚔️ ${targets.length}個の武器を廃棄した`);
+
+  // 廃棄後は合成選択をリセット（Bug #3修正）
+  state.synthesis.baseUid = null;
+  state.synthesis.materialUids = [];
+
+  return targets.length;
+}
+
+// =====================
+// 武器一括合成（究極個体をベースとして各グループを自動合成）
+// =====================
+export function bulkSynthesizeUltimateWeapons() {
+  const equippedUid = state.player.equippedWeapon?.uid ?? null;
+  let totalSynthed = 0;
+
+  // ロックSetを1回だけ取得してキャッシュ（Bug #1修正）
+  const lockedSet = getLockedSet();
+
+  // グループキー → { baseUid, materialUids } をUID文字列のみで構築
+  // ※ executeSynthesis() が state.player.inventory を差し替えるため
+  //   オブジェクト参照は持たず、UID文字列だけを保持する（Bug #2修正）
+
+  // 1パス目：究極個体のUIDを記録
+  const groupMap = new Map();
+  for (const w of state.player.inventory) {
+    const key = `${w.templateId}_${w.isBossDrop ? "1" : "0"}`;
+    if (!groupMap.has(key)) groupMap.set(key, { baseUid: null, materialUids: [] });
+    const entry = groupMap.get(key);
+    if (isUltimateWeapon(w) && entry.baseUid === null) {
+      entry.baseUid = w.uid;
+    }
+  }
+
+  // 2パス目：素材UIDを記録（究極個体がいるグループのみ）
+  for (const w of state.player.inventory) {
+    const key = `${w.templateId}_${w.isBossDrop ? "1" : "0"}`;
+    const entry = groupMap.get(key);
+    if (!entry || entry.baseUid === null) continue;
+    if (w.uid === entry.baseUid) continue;
+    if (isUltimateWeapon(w)) continue;
+    if (lockedSet.has(String(w.uid))) continue;
+    if (w.uid === equippedUid) continue;
+    entry.materialUids.push(w.uid);
+  }
+
+  // グループごとに合成実行
+  for (const [, entry] of groupMap) {
+    if (!entry.baseUid || entry.materialUids.length === 0) continue;
+
+    state.synthesis.baseUid = entry.baseUid;
+    state.synthesis.materialUids = [...entry.materialUids];
+
+    const success = executeSynthesis();
+    if (success) {
+      totalSynthed += entry.materialUids.length; // Bug #4修正：success確認後に加算
+    }
+  }
+
+  return totalSynthed;
 }

@@ -90,6 +90,9 @@ export const state = {
     weaponGroupSort: "acquiredDesc",
     petOpenGroups: {},
     weaponOpenGroups: {},
+    showAppearModal: true,   // 出現モーダル表示設定
+    showCaptureModal: true,  // 捕獲モーダル表示設定
+    includeRareInSelectAll: false, // 一括選択にレア個体を含めるか
   },
   synthesisMode: false,
   synthesis: {

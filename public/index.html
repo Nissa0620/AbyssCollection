@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>アビスコレクション</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
   </head>
   <body>
     <div class="game-container">
@@ -101,7 +103,8 @@
     <div class="inventory-toolbar" id="invWeaponToolbar">
       <div class="toolbar-row1">
         <select id="inventoryFilterSelect"><option value="">すべて</option></select>
-        <button id="selectAllBtn">一括選択</button>
+        <button id="weaponDiscardBtn">一括廃棄▼</button>
+        <button id="weaponBulkSynthBtn">一括合成</button>
       </div>
       <div class="toolbar-row-search">
         <input type="text" id="inventoryNameInput" class="toolbar-search-input" placeholder="名前で検索...">
@@ -139,6 +142,7 @@
 
         <!-- 合成ボタン（モーダル下部に固定） -->
         <div class="panel-modal-footer">
+          <button id="selectAllBtn" class="footer-select-all-btn hidden">一括選択</button>
           <button id="synthesizeBtn">合成する</button>
         </div>
       </div>
@@ -159,7 +163,8 @@
         <div class="inventory-toolbar">
           <div class="toolbar-row1">
             <select id="petFilterSelect"><option value="">すべて</option></select>
-            <button id="petSelectAllBtn">一括選択</button>
+            <button id="petDiscardBtn">一括廃棄▼</button>
+            <button id="petBulkSynthBtn">一括合成</button>
           </div>
           <div class="toolbar-row-search">
             <input type="text" id="petNameInput" class="toolbar-search-input" placeholder="名前で検索...">
@@ -191,6 +196,7 @@
 
         <!-- 合成ボタン（モーダル下部に固定） -->
         <div class="panel-modal-footer">
+          <button id="petSelectAllBtn" class="footer-select-all-btn hidden">一括選択</button>
           <button id="petSynthesizeBtn">合成する</button>
         </div>
       </div>
@@ -530,6 +536,40 @@
           <button id="rankingBtn"     class="more-item-btn">🏆 ランキング</button>
           <button id="researchBtn"    class="more-item-btn">🔬 研究所</button>
           <button id="helpBtn"        class="more-item-btn">❓ 説明</button>
+          <button id="settingBtn"     class="more-item-btn">⚙️ 設定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 設定モーダル -->
+    <div id="settingOverlay" class="book-overlay hidden">
+      <div class="book-modal setting-modal">
+        <div class="book-header">
+          <span>⚙️ 設定</span>
+          <button id="settingCloseBtn">✕</button>
+        </div>
+        <div class="setting-modal-body">
+          <div class="setting-item">
+            <span class="setting-label">出現モーダルを表示する<br><small>（伝説・究極・極個体の出現時）</small></span>
+            <label class="setting-toggle">
+              <input type="checkbox" id="showAppearModalChk">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <span class="setting-label">捕獲モーダルを表示する<br><small>（伝説・究極・極個体の捕獲時）</small></span>
+            <label class="setting-toggle">
+              <input type="checkbox" id="showCaptureModalChk">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <span class="setting-label">一括選択にレア個体を含める<br><small>（ペット合成の一括選択時）</small></span>
+            <label class="setting-toggle">
+              <input type="checkbox" id="includeRareInSelectAllChk">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -580,14 +620,61 @@
 
     <!-- 寄贈用ペット選択モーダル -->
     <div id="donateOverlay" class="book-overlay hidden">
-      <div class="book-modal">
+      <div class="book-modal donate-modal">
         <div class="book-header">
           <h2>ペットを選択</h2>
           <button id="donateCloseBtn">✕</button>
         </div>
         <p id="donateCondition" class="donate-condition"></p>
-        <ul id="donatePetList" class="pet-list book-content"></ul>
-        <button id="donateConfirmBtn" class="primary-btn" disabled>寄贈する</button>
+        <div class="donate-select-all-row">
+          <button id="donateSelectAllBtn" class="secondary-btn">⚡ 一括選択</button>
+        </div>
+        <ul id="donatePetList" class="pet-list donate-pet-list"></ul>
+        <div class="donate-footer">
+          <button id="donateConfirmBtn" class="primary-btn" disabled>寄贈する</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 廃棄確認ダイアログ -->
+    <div id="discardConfirmOverlay" class="book-overlay hidden">
+      <div class="book-modal reset-confirm-modal">
+        <div class="reset-confirm-body">
+          <p id="discardConfirmMsg">廃棄しますか？</p>
+          <p class="reset-confirm-sub">この操作は元に戻せません</p>
+        </div>
+        <div class="reset-confirm-footer">
+          <button id="discardCancelBtn">キャンセル</button>
+          <button id="discardConfirmBtn">廃棄する</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 一括廃棄条件選択メニュー -->
+    <div id="discardMenuOverlay" class="book-overlay hidden">
+      <div class="book-modal reset-confirm-modal">
+        <div class="reset-confirm-body">
+          <p id="discardMenuTitle">廃棄条件を選択</p>
+        </div>
+        <div class="reset-confirm-footer" style="flex-direction: column; gap: 8px;">
+          <button id="discardMenuBtn1" class="discard-menu-btn"></button>
+          <button id="discardMenuBtn2" class="discard-menu-btn"></button>
+          <button id="discardMenuCancelBtn">キャンセル</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 一括合成確認ダイアログ -->
+    <div id="bulkSynthConfirmOverlay" class="book-overlay hidden">
+      <div class="book-modal reset-confirm-modal">
+        <div class="reset-confirm-body">
+          <p id="bulkSynthConfirmMsg">一括合成しますか？</p>
+          <p class="reset-confirm-sub">究極個体/極武器をベースに同種を全て合成します</p>
+        </div>
+        <div class="reset-confirm-footer">
+          <button id="bulkSynthCancelBtn">キャンセル</button>
+          <button id="bulkSynthConfirmBtn">合成する</button>
+        </div>
       </div>
     </div>
 

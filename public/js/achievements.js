@@ -141,12 +141,10 @@ function buildCaptureAchievements() {
         desc,
         check: (s) => {
           const targetEnemies = normalEnemies.filter((e) => e.floorBand === bandKey);
-          // 全敵 × 称号1〜4 がすべてpetListにある
+          // 全敵 × 称号1〜4 がすべて図鑑にcaught済み
           return targetEnemies.every((e) =>
             [1, 2, 3, 4].every((titleId) =>
-              s.player.petList.some(
-                (p) => p.enemyId === e.id && !p.isBoss && p.titleId === titleId
-              )
+              s.book?.enemies?.[`normal_${e.id}`]?.titles?.[titleId]?.caught === true
             )
           );
         },
@@ -237,9 +235,7 @@ function buildBossCaptureAchievements() {
         );
         return targetBosses.every((e) =>
           [1, 2, 3, 4].every((titleId) =>
-            s.player.petList.some(
-              (p) => p.enemyId === e.id && p.isBoss === true && p.titleId === titleId
-            )
+            s.book?.enemies?.[`boss_${e.id}`]?.titles?.[titleId]?.caught === true
           )
         );
       },
