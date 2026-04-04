@@ -837,7 +837,7 @@ document.getElementById("discardConfirmBtn").addEventListener("click", () => {
 document.getElementById("weaponBulkSynthBtn").addEventListener("click", () => {
   _bulkSynthMode = "weapon";
   document.getElementById("bulkSynthConfirmMsg").textContent =
-    "究極個体をベースに武器を一括合成しますか？";
+    "極個体をベースに武器を一括合成しますか？";
   document.getElementById("bulkSynthConfirmOverlay").classList.remove("hidden");
 });
 
