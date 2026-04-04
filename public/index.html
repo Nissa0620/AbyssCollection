@@ -103,7 +103,6 @@
     <div class="inventory-toolbar" id="invWeaponToolbar">
       <div class="toolbar-row1">
         <select id="inventoryFilterSelect"><option value="">すべて</option></select>
-        <button id="selectAllBtn">一括選択</button>
         <button id="weaponDiscardBtn">一括廃棄▼</button>
         <button id="weaponBulkSynthBtn">一括合成</button>
       </div>
@@ -143,6 +142,7 @@
 
         <!-- 合成ボタン（モーダル下部に固定） -->
         <div class="panel-modal-footer">
+          <button id="selectAllBtn" class="footer-select-all-btn hidden">一括選択</button>
           <button id="synthesizeBtn">合成する</button>
         </div>
       </div>
@@ -163,7 +163,6 @@
         <div class="inventory-toolbar">
           <div class="toolbar-row1">
             <select id="petFilterSelect"><option value="">すべて</option></select>
-            <button id="petSelectAllBtn">一括選択</button>
             <button id="petDiscardBtn">一括廃棄▼</button>
             <button id="petBulkSynthBtn">一括合成</button>
           </div>
@@ -197,6 +196,7 @@
 
         <!-- 合成ボタン（モーダル下部に固定） -->
         <div class="panel-modal-footer">
+          <button id="petSelectAllBtn" class="footer-select-all-btn hidden">一括選択</button>
           <button id="petSynthesizeBtn">合成する</button>
         </div>
       </div>

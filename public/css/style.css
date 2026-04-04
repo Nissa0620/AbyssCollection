@@ -732,10 +732,12 @@ button {
   border-top: 1px solid #444;
   background: #1e1e1e;
   flex-shrink: 0;
+  display: flex;
+  gap: 8px;
 }
 
 .panel-modal-footer button {
-  width: 100%;
+  flex: 1;
   padding: 12px;
   font-size: 15px;
   background: #3a6ea5;
@@ -3241,4 +3243,19 @@ button {
   background: #1a3a5a;
   color: #cce8ff;
   border: 1px solid #2a5a8a;
+}
+
+/* フッター内の一括選択ボタン */
+.footer-select-all-btn {
+  background: #2e4a6a;
+  color: #aaccee;
+  border: 1px solid #3a5a7a;
+  flex: 0 0 auto;
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+.footer-select-all-btn:hover {
+  background: #3a5a7a;
+  color: #fff;
 }

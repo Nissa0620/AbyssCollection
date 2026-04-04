@@ -554,6 +554,11 @@ export function updateSynthesisUI() {
     const { baseUid, materialUids } = state.synthesis;
     synthBtn.disabled = !(baseUid !== null && materialUids.length > 0);
   }
+  const selectAllBtn = document.getElementById("selectAllBtn");
+  if (selectAllBtn) {
+    const { baseUid } = state.synthesis;
+    selectAllBtn.classList.toggle("hidden", baseUid === null);
+  }
   const infoEl = document.getElementById("synthesisInfo");
   if (infoEl) {
     const { baseUid, materialUids } = state.synthesis;
@@ -578,6 +583,11 @@ export function updatePetSynthesisUI() {
   if (synthBtn) {
     const { baseUid, materialUids } = state.petSynthesis;
     synthBtn.disabled = !(baseUid !== null && materialUids.length > 0);
+  }
+  const petSelectAllBtn = document.getElementById("petSelectAllBtn");
+  if (petSelectAllBtn) {
+    const { baseUid } = state.petSynthesis;
+    petSelectAllBtn.classList.toggle("hidden", baseUid === null);
   }
   const hintEl = document.getElementById("petSynthesisHint");
   if (hintEl) {
