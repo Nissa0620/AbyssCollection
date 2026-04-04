@@ -131,8 +131,6 @@ export function renderInventory(player, onItemClick, onEquip) {
       })
     : sortedGroups;
 
-  const lockedSet = getLockedSet();
-
   for (const [templateId, groupItems] of filteredGroups) {
     const template = weaponTemplates.find((t) => t.id === templateId);
     const baseName = template?.name ?? groupItems[0]?.name ?? "不明な武器";
@@ -249,6 +247,7 @@ export function renderInventory(player, onItemClick, onEquip) {
 }
 
 function renderWeaponGroupBody(bodyEl, groupItems, onItemClick, onEquip) {
+  const lockedSet = getLockedSet();
   groupItems.forEach((item) => {
     const isEquipped = state.player.equippedWeapon === item;
     const displayName = getWeaponDisplayName(item);

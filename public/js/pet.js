@@ -915,31 +915,34 @@ export function bulkSynthesizeUltimatePets() {
   const equippedUid = state.player.equippedPet?.uid ?? null;
   let totalSynthed = 0;
 
-  // ロックSetを1回だけ取得してキャッシュ（Bug #1修正）
   const lockedSet = getLockedSet();
 
-  // グループキー → { baseUid, materialUids } をUID文字列のみで構築
-  // ※ executePetSynthesis() が state.player.petList を差し替えるため
-  //   オブジェクト参照は持たず、UID文字列だけを保持する（Bug #2修正）
+  // 究極個体の判定：isUltimatePet() を満たし、かつ isElite/isLegendary/isLegendUltimate でないもの
+  // 極個体は titleId=4 かつ全ステ最大で生成されるため isUltimatePet() を通過してしまう。
+  // フラグによる除外が必須。
+  const isTrueUltimate = (p) =>
+    isUltimatePet(p) && !p.isElite && !p.isLegendary && !p.isLegendUltimate;
 
-  // 1パス目：究極個体のUIDを記録
+  // 1パス目：真の究極個体のUIDをグループごとに記録
   const groupMap = new Map();
   for (const p of state.player.petList) {
     const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
     if (!groupMap.has(key)) groupMap.set(key, { baseUid: null, materialUids: [] });
     const entry = groupMap.get(key);
-    if (isUltimatePet(p) && entry.baseUid === null) {
+    if (isTrueUltimate(p) && entry.baseUid === null) {
       entry.baseUid = p.uid;
     }
   }
 
-  // 2パス目：素材UIDを記録（究極個体がいるグループのみ）
+  // 2パス目：素材UIDを記録
+  // 究極個体・極個体・伝説個体・レジェンド究極個体・ロック・装備中を素材から除外
   for (const p of state.player.petList) {
     const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
     const entry = groupMap.get(key);
     if (!entry || entry.baseUid === null) continue;
     if (p.uid === entry.baseUid) continue;
-    if (isUltimatePet(p)) continue;
+    if (isTrueUltimate(p)) continue;
+    if (p.isElite || p.isLegendary || p.isLegendUltimate) continue;
     if (lockedSet.has(String(p.uid))) continue;
     if (p.uid === equippedUid) continue;
     entry.materialUids.push(p.uid);
@@ -954,7 +957,7 @@ export function bulkSynthesizeUltimatePets() {
 
     const success = executePetSynthesis();
     if (success) {
-      totalSynthed += entry.materialUids.length; // Bug #4修正：success確認後に加算
+      totalSynthed += entry.materialUids.length;
     }
   }
 
