@@ -90,13 +90,18 @@ function refreshUI() {
   const pGroupSel = document.getElementById("petGroupSortSelect");
   if (pGroupSel) pGroupSel.value = state.ui.petGroupSort ?? "acquiredDesc";
 
-  sortInventory(state.player);
-  const petMode = state.ui.petSortMode ?? "passive";
-  state.player.petList.sort((a, b) => {
-    if (petMode === "hp") return getPetHp(b) - getPetHp(a);
-    if (petMode === "passive") return (b.passiveValue ?? 0) - (a.passiveValue ?? 0);
-    return getPetPower(b) - getPetPower(a);
-  });
+  // モーダルが開いているときだけソートを実行
+  if (state.ui.inventoryOpen) {
+    sortInventory(state.player);
+  }
+  if (state.ui.petOpen) {
+    const petMode = state.ui.petSortMode ?? "passive";
+    state.player.petList.sort((a, b) => {
+      if (petMode === "hp") return getPetHp(b) - getPetHp(a);
+      if (petMode === "passive") return (b.passiveValue ?? 0) - (a.passiveValue ?? 0);
+      return getPetPower(b) - getPetPower(a);
+    });
+  }
 }
 
 setRefreshCallback(refreshUI);
