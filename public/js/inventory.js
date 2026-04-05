@@ -115,7 +115,7 @@ export function synthesize(base, material) {
         .filter((evo) => evo.level > base.level && evo.level <= newLevel && evo.passiveMult)
         .sort((a, b) => b.level - a.level)[0];
       if (passedEvo) {
-        newPassiveValue = Math.min(Math.floor(basePassiveValue * passedEvo.passiveMult), 100);
+        newPassiveValue = Math.floor(basePassiveValue * passedEvo.passiveMult);
       }
     }
   }
