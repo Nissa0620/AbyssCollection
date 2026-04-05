@@ -59,6 +59,7 @@ function dbDelete(db, key) {
 // =====================
 
 let _db = null;
+let _saveChain = Promise.resolve();
 
 async function getDB() {
   if (_db) return _db;
@@ -68,20 +69,22 @@ async function getDB() {
 }
 
 // =====================
-// saveGame（非同期・ノンブロッキング）
+// saveGame（非同期・直列キュー）
 // =====================
 
-export async function saveGame() {
-  state.lastSaveTime = Date.now();
-  const json = JSON.stringify(state);
-  try {
-    const db = await getDB();
-    await dbPut(db, SAVE_KEY, json);
-  } catch (e) {
-    console.error("saveGame error:", e);
-    // getDB()が失敗した場合はキャッシュをリセットして次回再接続を試みる
-    _db = null;
-  }
+export function saveGame() {
+  _saveChain = _saveChain.then(async () => {
+    state.lastSaveTime = Date.now();
+    const json = JSON.stringify(state);
+    try {
+      const db = await getDB();
+      await dbPut(db, SAVE_KEY, json);
+    } catch (e) {
+      console.error("saveGame error:", e);
+      // getDB()が失敗した場合はキャッシュをリセットして次回再接続を試みる
+      _db = null;
+    }
+  });
 }
 
 // =====================
