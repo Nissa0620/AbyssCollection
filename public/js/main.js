@@ -268,9 +268,12 @@ function doAttack() {
   if (isAppearanceModalOpen()) return;
   if (isProcessing) return;
   isProcessing = true;
-  handlePhase();
-  refreshUI();
-  isProcessing = false;
+  try {
+    handlePhase();
+    refreshUI();
+  } finally {
+    isProcessing = false;
+  }
 }
 
 function startHold() {
