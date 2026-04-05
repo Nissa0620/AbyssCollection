@@ -59,6 +59,8 @@ function dbDelete(db, key) {
 // =====================
 
 let _db = null;
+let _isSaving   = false;
+let _pendingSave = false;
 
 async function getDB() {
   if (_db) return _db;
@@ -68,10 +70,21 @@ async function getDB() {
 }
 
 // =====================
-// saveGame（非同期・ノンブロッキング）
+// saveGame（デバウンス方式・最大2件待機）
 // =====================
 
-export async function saveGame() {
+export function saveGame() {
+  if (_isSaving) {
+    // 保存中なら「次に1回だけ保存する」フラグを立てるだけ
+    _pendingSave = true;
+    return;
+  }
+  _doSave();
+}
+
+async function _doSave() {
+  _isSaving    = true;
+  _pendingSave = false;
   state.lastSaveTime = Date.now();
   const json = JSON.stringify(state);
   try {
@@ -81,6 +94,12 @@ export async function saveGame() {
     console.error("saveGame error:", e);
     // getDB()が失敗した場合はキャッシュをリセットして次回再接続を試みる
     _db = null;
+  } finally {
+    _isSaving = false;
+    if (_pendingSave) {
+      // 保存中に新しいリクエストがあった場合、もう1回だけ実行
+      _doSave();
+    }
   }
 }
 

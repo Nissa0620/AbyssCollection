@@ -250,6 +250,11 @@ function buildBossCaptureAchievements() {
 export function checkAchievements() {
   if (!state.achievements) state.achievements = { unlocked: {} };
 
+  // 未解除の実績が1件もなければスキップ
+  const hasUnlocked = state.achievements.unlocked;
+  const hasRemaining = achievementDefs.some((def) => !hasUnlocked[def.id]);
+  if (!hasRemaining) return;
+
   const newly = [];
 
   for (const def of achievementDefs) {
@@ -309,8 +314,10 @@ function processPopupQueue() {
   // 自動で閉じる（2500ms後）
   const autoTimer = setTimeout(dismiss, 2500);
 
-  // タッチ/クリックでも閉じる
-  document.addEventListener("pointerdown", dismiss, { once: true });
+  // タッチ/クリックでも閉じる（ただし攻撃ボタンのホールド中は登録しない）
+  if (!state.isHolding?.()) {
+    document.addEventListener("pointerdown", dismiss, { once: true });
+  }
 }
 
 // =====================

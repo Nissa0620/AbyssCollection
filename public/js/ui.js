@@ -579,6 +579,7 @@ export function updateSynthesisUI() {
 }
 
 export function updatePetSynthesisUI() {
+  if (!state.ui.petOpen) return;
   const synthBtn = document.getElementById("petSynthesizeBtn");
   if (synthBtn) {
     const { baseUid, materialUids } = state.petSynthesis;
@@ -642,10 +643,23 @@ export function updateExpBar() {
   expBar.style.width = `${percent}%`;
 }
 
+// 最後に生成した maxMultiple を記憶する
+let _lastFloorJumpMax = -1;
+
 // 階層移動
 export function updateFloorJumpOptions() {
   const select = document.getElementById("floorJumpSelect");
   if (!select) return;
+
+  const max = state.maxFloor;
+  const maxMultiple = Math.floor(max / 50) * 50;
+
+  // maxFloor が前回と変わっていなければ再生成しない
+  if (maxMultiple === _lastFloorJumpMax) {
+    select.value = String(state.lastSelectedFloor ?? 1);
+    return;
+  }
+  _lastFloorJumpMax = maxMultiple;
 
   select.innerHTML = "";
 
@@ -654,19 +668,13 @@ export function updateFloorJumpOptions() {
   first.textContent = "1階";
   select.appendChild(first);
 
-  const max = state.maxFloor;
-  if (max < 50) {
-    // 最後に選択したフロアを復元
-    select.value = String(state.lastSelectedFloor ?? 1);
-    return;
-  }
-
-  const maxMultiple = Math.floor(max / 50) * 50;
-  for (let f = 50; f <= maxMultiple; f += 50) {
-    const opt = document.createElement("option");
-    opt.value = String(f);
-    opt.textContent = `${f}階`;
-    select.appendChild(opt);
+  if (max >= 50) {
+    for (let f = 50; f <= maxMultiple; f += 50) {
+      const opt = document.createElement("option");
+      opt.value = String(f);
+      opt.textContent = `${f}階`;
+      select.appendChild(opt);
+    }
   }
 
   // 最後に選択したフロアを復元
@@ -1101,11 +1109,12 @@ export function updateEquippedWeaponInfo(onUnequip) {
         </div>
       </div>
     `;
-    document.getElementById("unequipWeaponBtn")?.addEventListener("click", () => {
+    // onclick で上書きすることでリスナーの多重登録を防ぐ
+    document.getElementById("unequipWeaponBtn").onclick = () => {
       addLog(`⚔️ ${getWeaponDisplayName(w)} を外した`);
       state.player.equippedWeapon = null;
       onUnequip?.();
-    });
+    };
   } else {
     el.innerHTML = `<div class="equipped-pet-empty">武器未装備</div>`;
   }
