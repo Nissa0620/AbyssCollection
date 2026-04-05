@@ -12,9 +12,9 @@ export const normalWeaponTemplates = [
     maxHp: 15,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "溶解の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "腐食の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "虚無溶解の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "溶解の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "腐食の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "虚無溶解の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -30,9 +30,9 @@ export const normalWeaponTemplates = [
     maxHp: 15,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "鋭牙の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "獣牙の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "魔狼牙の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "鋭牙の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "獣牙の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "魔狼牙の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -48,9 +48,9 @@ export const normalWeaponTemplates = [
     maxHp: 15,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "毒沼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "猛毒の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "邪毒霧の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "毒沼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "猛毒の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "邪毒霧の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -66,9 +66,9 @@ export const normalWeaponTemplates = [
     maxHp: 15,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "蔓延の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "大樹の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "古森覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "蔓延の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "大樹の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "古森覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -84,9 +84,9 @@ export const normalWeaponTemplates = [
     maxHp: 56,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "乱刃の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "狂乱の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鬼刃覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "乱刃の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "狂乱の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鬼刃覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -102,9 +102,9 @@ export const normalWeaponTemplates = [
     maxHp: 56,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "重鉄の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "鎧鉄の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "覇鉄神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "重鉄の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "鎧鉄の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "覇鉄神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -120,9 +120,9 @@ export const normalWeaponTemplates = [
     maxHp: 56,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "夜翼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "闇翼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深夜翼の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "夜翼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "闇翼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深夜翼の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -138,9 +138,9 @@ export const normalWeaponTemplates = [
     maxHp: 56,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "猛爪の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "鋭爪の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "凶爪鬼の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "猛爪の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "鋭爪の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "凶爪鬼の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -156,9 +156,9 @@ export const normalWeaponTemplates = [
     maxHp: 103,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "剛力の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇力の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鬼王覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "剛力の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇力の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鬼王覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -174,9 +174,9 @@ export const normalWeaponTemplates = [
     maxHp: 103,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "狼牙の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "銀牙の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "月狼牙の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "狼牙の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "銀牙の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "月狼牙の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -192,9 +192,9 @@ export const normalWeaponTemplates = [
     maxHp: 103,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "巨爪の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇爪の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "熊王爪の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "巨爪の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇爪の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "熊王爪の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -210,9 +210,9 @@ export const normalWeaponTemplates = [
     maxHp: 103,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "猛突の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇突の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "荒野突の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "猛突の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇突の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "荒野突の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -228,9 +228,9 @@ export const normalWeaponTemplates = [
     maxHp: 155,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "猛虎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "剣虎覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "猛虎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "剣虎覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -246,9 +246,9 @@ export const normalWeaponTemplates = [
     maxHp: 155,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "蠍毒の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "猛毒獅の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蠍王毒の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "蠍毒の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "猛毒獅の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蠍王毒の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -264,9 +264,9 @@ export const normalWeaponTemplates = [
     maxHp: 155,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "竜鱗の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇竜鱗の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "若竜鱗の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "竜鱗の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇竜鱗の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "若竜鱗の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -282,9 +282,9 @@ export const normalWeaponTemplates = [
     maxHp: 155,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "大風の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇風の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "巨鳥覇風の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "大風の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇風の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "巨鳥覇風の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -300,9 +300,9 @@ export const normalWeaponTemplates = [
     maxHp: 209,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "迅雷の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇雷の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天雷覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "迅雷の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇雷の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天雷覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -318,9 +318,9 @@ export const normalWeaponTemplates = [
     maxHp: 209,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "黒翼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "闇羽の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗夜鴉の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "黒翼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "闇羽の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗夜鴉の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -336,9 +336,9 @@ export const normalWeaponTemplates = [
     maxHp: 209,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "疾風の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇風霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "嵐霊の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "疾風の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇風霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "嵐霊の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -354,9 +354,9 @@ export const normalWeaponTemplates = [
     maxHp: 209,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "鋭顎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇顎の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "古鰐覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "鋭顎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇顎の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "古鰐覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -372,9 +372,9 @@ export const normalWeaponTemplates = [
     maxHp: 267,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "魔炎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "冥魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "堕魔将覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "魔炎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "冥魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "堕魔将覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -390,9 +390,9 @@ export const normalWeaponTemplates = [
     maxHp: 267,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "惑乱の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "魅了覇の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "夢魔惑の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "惑乱の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "魅了覇の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "夢魔惑の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -408,9 +408,9 @@ export const normalWeaponTemplates = [
     maxHp: 267,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "邪炎の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "魔神覇の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "邪神覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "邪炎の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "魔神覇の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "邪神覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -426,9 +426,9 @@ export const normalWeaponTemplates = [
     maxHp: 267,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "業火の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "獄炎覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥犬覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "業火の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "獄炎覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥犬覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -444,9 +444,9 @@ export const normalWeaponTemplates = [
     maxHp: 326,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "猛毒刺の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇毒蠍の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蠍王毒刺の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "猛毒刺の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇毒蠍の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蠍王毒刺の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -462,9 +462,9 @@ export const normalWeaponTemplates = [
     maxHp: 326,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "堅鱗の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇鱗の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "竜人覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "堅鱗の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇鱗の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "竜人覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -480,9 +480,9 @@ export const normalWeaponTemplates = [
     maxHp: 326,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "妖翼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇妖鳥の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天妖覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "妖翼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇妖鳥の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天妖覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -498,9 +498,9 @@ export const normalWeaponTemplates = [
     maxHp: 326,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "石砕の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇岩の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "巨岩覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "石砕の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇岩の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "巨岩覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -516,9 +516,9 @@ export const normalWeaponTemplates = [
     maxHp: 387,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "死骸の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "亡骸の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "骨王覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "死骸の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "亡骸の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "骨王覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -534,9 +534,9 @@ export const normalWeaponTemplates = [
     maxHp: 387,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "腐乱の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇腐の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "亡者覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "腐乱の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇腐の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "亡者覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -552,9 +552,9 @@ export const normalWeaponTemplates = [
     maxHp: 387,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "魔炎の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇鬼神の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥魔炎の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "魔炎の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇鬼神の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥魔炎の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -570,9 +570,9 @@ export const normalWeaponTemplates = [
     maxHp: 387,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "竜翼の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇飛竜の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "毒翼竜の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "竜翼の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇飛竜の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "毒翼竜の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -588,9 +588,9 @@ export const normalWeaponTemplates = [
     maxHp: 449,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "死霊の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死霊の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死霊王覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "死霊の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死霊の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死霊王覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -606,9 +606,9 @@ export const normalWeaponTemplates = [
     maxHp: 449,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "幽冥の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇幽霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "亡霊覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "幽冥の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇幽霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "亡霊覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -624,9 +624,9 @@ export const normalWeaponTemplates = [
     maxHp: 449,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "怪火の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇鬼火の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫火の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "怪火の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇鬼火の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫火の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -642,9 +642,9 @@ export const normalWeaponTemplates = [
     maxHp: 449,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "烈炎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇炎竜の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "業火竜の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "烈炎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇炎竜の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "業火竜の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -660,9 +660,9 @@ export const normalWeaponTemplates = [
     maxHp: 514,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "水流の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇水霊の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深海霊の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "水流の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇水霊の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深海霊の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -678,9 +678,9 @@ export const normalWeaponTemplates = [
     maxHp: 514,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "合成獣の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇異形の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "三頭覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "合成獣の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇異形の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "三頭覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -696,9 +696,9 @@ export const normalWeaponTemplates = [
     maxHp: 514,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "鉄牛の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇牛頭の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "迷宮牛の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "鉄牛の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇牛頭の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "迷宮牛の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -714,9 +714,9 @@ export const normalWeaponTemplates = [
     maxHp: 514,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥府牙の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇三頭の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "地獄門の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥府牙の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇三頭の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "地獄門の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -732,9 +732,9 @@ export const normalWeaponTemplates = [
     maxHp: 579,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "偽装の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇騙しの覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "完全模倣の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "偽装の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇騙しの覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "完全模倣の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -750,9 +750,9 @@ export const normalWeaponTemplates = [
     maxHp: 579,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "石眼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇石化の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "完全石化の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "石眼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇石化の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "完全石化の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -768,9 +768,9 @@ export const normalWeaponTemplates = [
     maxHp: 579,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "石翼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇石翼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "不死石翼の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "石翼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇石翼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "不死石翼の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -786,9 +786,9 @@ export const normalWeaponTemplates = [
     maxHp: 579,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "収穫の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死刈り覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "収穫の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死刈り覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -804,9 +804,9 @@ export const normalWeaponTemplates = [
     maxHp: 646,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "侵食の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇砂虫の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深砂蠕の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "侵食の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇砂虫の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深砂蠕の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -822,9 +822,9 @@ export const normalWeaponTemplates = [
     maxHp: 646,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "嘆きの魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇哭声の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死告げ声の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "嘆きの魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇哭声の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死告げ声の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -840,9 +840,9 @@ export const normalWeaponTemplates = [
     maxHp: 646,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "幻影の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇亡魂の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "不滅霊の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "幻影の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇亡魂の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "不滅霊の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -858,9 +858,9 @@ export const normalWeaponTemplates = [
     maxHp: 646,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "蛇眼の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇蛇頭の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "石化蛇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "蛇眼の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇蛇頭の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "石化蛇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -876,9 +876,9 @@ export const normalWeaponTemplates = [
     maxHp: 714,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "骨砕の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇鬣犬の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "群狩覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "骨砕の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇鬣犬の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "群狩覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -894,9 +894,9 @@ export const normalWeaponTemplates = [
     maxHp: 714,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍牙の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷狼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極寒狼の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍牙の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷狼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極寒狼の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -912,9 +912,9 @@ export const normalWeaponTemplates = [
     maxHp: 714,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "疾風の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐鷹の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天嵐鷹の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "疾風の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐鷹の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天嵐鷹の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -930,9 +930,9 @@ export const normalWeaponTemplates = [
     maxHp: 714,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "重鉄の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇鋼鉄の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "覇鉄巨人の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "重鉄の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇鋼鉄の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "覇鉄巨人の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -948,9 +948,9 @@ export const normalWeaponTemplates = [
     maxHp: 783,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇刃の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影刃の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "闇精霊の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇刃の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影刃の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "闇精霊の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -966,9 +966,9 @@ export const normalWeaponTemplates = [
     maxHp: 783,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "魅血の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇吸血の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫血の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "魅血の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇吸血の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫血の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -984,9 +984,9 @@ export const normalWeaponTemplates = [
     maxHp: 783,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "猛毒虫の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇這蟲の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深毒蠕の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "猛毒虫の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇這蟲の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深毒蠕の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1002,9 +1002,9 @@ export const normalWeaponTemplates = [
     maxHp: 783,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "猛爪の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇獣戦の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "獣王戦の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "猛爪の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇獣戦の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "獣王戦の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1020,9 +1020,9 @@ export const normalWeaponTemplates = [
     maxHp: 853,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "覇王の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "魔王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鬼王覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "覇王の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "魔王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鬼王覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1038,9 +1038,9 @@ export const normalWeaponTemplates = [
     maxHp: 853,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "夢魔の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇悪夢の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫夢の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "夢魔の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇悪夢の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫夢の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1056,9 +1056,9 @@ export const normalWeaponTemplates = [
     maxHp: 853,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "疾風霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇風霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "嵐霊覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "疾風霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇風霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "嵐霊覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1074,9 +1074,9 @@ export const normalWeaponTemplates = [
     maxHp: 853,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "岩砕の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇岩獣の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "山砕覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "岩砕の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇岩獣の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "山砕覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1092,9 +1092,9 @@ export const normalWeaponTemplates = [
     maxHp: 924,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇深淵の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落這いの神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇深淵の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落這いの神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1110,9 +1110,9 @@ export const normalWeaponTemplates = [
     maxHp: 924,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "召霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死霊術の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥術覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "召霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死霊術の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥術覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1128,9 +1128,9 @@ export const normalWeaponTemplates = [
     maxHp: 924,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥翼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇冥甲の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死騎覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥翼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇冥甲の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死騎覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1146,9 +1146,9 @@ export const normalWeaponTemplates = [
     maxHp: 924,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇斬の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影斬の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "虚影覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇斬の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影斬の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "虚影覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1164,9 +1164,9 @@ export const normalWeaponTemplates = [
     maxHp: 996,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "禁呪の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇封呪の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶禁呪の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "禁呪の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇封呪の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶禁呪の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1182,9 +1182,9 @@ export const normalWeaponTemplates = [
     maxHp: 996,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血宴の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇吸血の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "乾血覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血宴の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇吸血の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "乾血覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1200,9 +1200,9 @@ export const normalWeaponTemplates = [
     maxHp: 996,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "業炎の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇炎魔の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "獄炎覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "業炎の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇炎魔の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "獄炎覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1218,9 +1218,9 @@ export const normalWeaponTemplates = [
     maxHp: 996,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "巨岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇岩巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "崩山覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "巨岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇岩巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "崩山覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1236,9 +1236,9 @@ export const normalWeaponTemplates = [
     maxHp: 1069,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇呪の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇邪呪の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥呪覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇呪の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇邪呪の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥呪覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1254,9 +1254,9 @@ export const normalWeaponTemplates = [
     maxHp: 1069,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍山の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷巨の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極霜覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍山の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷巨の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極霜覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1272,9 +1272,9 @@ export const normalWeaponTemplates = [
     maxHp: 1069,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "砂穿の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇砂蠕の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "砂漠蠕の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "砂穿の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇砂蠕の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "砂漠蠕の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1290,9 +1290,9 @@ export const normalWeaponTemplates = [
     maxHp: 1069,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "結晶の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇水晶の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "虹晶覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "結晶の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇水晶の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "虹晶覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1308,9 +1308,9 @@ export const normalWeaponTemplates = [
     maxHp: 1143,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1326,9 +1326,9 @@ export const normalWeaponTemplates = [
     maxHp: 1143,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍呪の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷呪の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極寒魔の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍呪の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷呪の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極寒魔の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1344,9 +1344,9 @@ export const normalWeaponTemplates = [
     maxHp: 1143,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "猛毒蛇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇毒蛇の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "七頭覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "猛毒蛇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇毒蛇の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "七頭覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1362,9 +1362,9 @@ export const normalWeaponTemplates = [
     maxHp: 1143,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥府の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇冥騎の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "地獄騎の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥府の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇冥騎の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "地獄騎の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1380,9 +1380,9 @@ export const normalWeaponTemplates = [
     maxHp: 1217,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵剣の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵剣の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落歩の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵剣の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵剣の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落歩の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1398,9 +1398,9 @@ export const normalWeaponTemplates = [
     maxHp: 1217,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "禁術の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇黒魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶禁術の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "禁術の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇黒魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶禁術の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1416,9 +1416,9 @@ export const normalWeaponTemplates = [
     maxHp: 1217,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "死骸竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇骨竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "不死竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "死骸竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇骨竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "不死竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1434,9 +1434,9 @@ export const normalWeaponTemplates = [
     maxHp: 1217,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "泥砕の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇泥巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深泥覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "泥砕の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇泥巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深泥覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1452,9 +1452,9 @@ export const normalWeaponTemplates = [
     maxHp: 1293,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "毒絲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇蜘蛛の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絲王覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "毒絲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇蜘蛛の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絲王覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1470,9 +1470,9 @@ export const normalWeaponTemplates = [
     maxHp: 1293,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "喰霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇魂喰の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "魂喰王の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "喰霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇魂喰の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "魂喰王の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1488,9 +1488,9 @@ export const normalWeaponTemplates = [
     maxHp: 1293,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "迅電の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇雷鷹の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天雷鷹の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "迅電の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇雷鷹の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天雷鷹の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1506,9 +1506,9 @@ export const normalWeaponTemplates = [
     maxHp: 1293,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "熔岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇熔岩の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "噴火覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "熔岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇熔岩の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "噴火覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1524,9 +1524,9 @@ export const normalWeaponTemplates = [
     maxHp: 1369,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "腐食の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇酸蝕の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "完全溶解の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "腐食の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇酸蝕の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "完全溶解の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1542,9 +1542,9 @@ export const normalWeaponTemplates = [
     maxHp: 1369,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "影呪の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落魔の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "影呪の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落魔の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1560,9 +1560,9 @@ export const normalWeaponTemplates = [
     maxHp: 1369,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "烈嵐の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐巨の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天嵐覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "烈嵐の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐巨の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天嵐覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1578,9 +1578,9 @@ export const normalWeaponTemplates = [
     maxHp: 1369,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落巨の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落巨の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1596,9 +1596,9 @@ export const normalWeaponTemplates = [
     maxHp: 1445,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "死炎竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死王竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "死炎竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死王竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1614,9 +1614,9 @@ export const normalWeaponTemplates = [
     maxHp: 1445,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇毒の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇夜影の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深夜影の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇毒の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇夜影の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深夜影の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1632,9 +1632,9 @@ export const normalWeaponTemplates = [
     maxHp: 1445,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血岩の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血泥の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血岩覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血岩の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血泥の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血岩覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1650,9 +1650,9 @@ export const normalWeaponTemplates = [
     maxHp: 1445,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅炎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅竜の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "真紅覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅炎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅竜の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "真紅覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1668,9 +1668,9 @@ export const normalWeaponTemplates = [
     maxHp: 1523,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍狐の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷狐の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極狐覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍狐の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷狐の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極狐覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1686,9 +1686,9 @@ export const normalWeaponTemplates = [
     maxHp: 1523,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "樹霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇森霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "古森霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "樹霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇森霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "古森霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1704,9 +1704,9 @@ export const normalWeaponTemplates = [
     maxHp: 1523,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "暗殺の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死影の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶影覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "暗殺の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死影の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶影覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1722,9 +1722,9 @@ export const normalWeaponTemplates = [
     maxHp: 1523,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "熔炎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇熔岩獣の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼熱覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "熔炎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇熔岩獣の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼熱覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1740,9 +1740,9 @@ export const normalWeaponTemplates = [
     maxHp: 1601,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "空虚の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落虚の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "空虚の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落虚の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1758,9 +1758,9 @@ export const normalWeaponTemplates = [
     maxHp: 1601,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "黒炎の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇堕鳳の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "黒鳳覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "黒炎の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇堕鳳の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "黒鳳覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1776,9 +1776,9 @@ export const normalWeaponTemplates = [
     maxHp: 1601,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "腐竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "不死竜覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "腐竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "不死竜覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1794,9 +1794,9 @@ export const normalWeaponTemplates = [
     maxHp: 1601,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1812,9 +1812,9 @@ export const normalWeaponTemplates = [
     maxHp: 1679,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇小鬼の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影鬼の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗黒鬼の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇小鬼の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影鬼の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗黒鬼の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1830,9 +1830,9 @@ export const normalWeaponTemplates = [
     maxHp: 1679,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇凍霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極冥霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇凍霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極冥霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1848,9 +1848,9 @@ export const normalWeaponTemplates = [
     maxHp: 1679,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "烈風霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天嵐霊の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "烈風霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天嵐霊の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1866,9 +1866,9 @@ export const normalWeaponTemplates = [
     maxHp: 1679,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血戦の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血戦の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血王戦の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血戦の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血戦の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血王戦の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1884,9 +1884,9 @@ export const normalWeaponTemplates = [
     maxHp: 1759,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥術の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶冥術の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥術の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶冥術の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1902,9 +1902,9 @@ export const normalWeaponTemplates = [
     maxHp: 1759,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "暗翼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇夜鷹の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深夜鷹の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "暗翼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇夜鷹の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深夜鷹の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1920,9 +1920,9 @@ export const normalWeaponTemplates = [
     maxHp: 1759,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "結晶の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇水晶の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "虹晶覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "結晶の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇水晶の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "虹晶覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1938,9 +1938,9 @@ export const normalWeaponTemplates = [
     maxHp: 1759,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "熔岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇火山の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "噴熔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "熔岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇火山の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "噴熔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1956,9 +1956,9 @@ export const normalWeaponTemplates = [
     maxHp: 1839,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵呪の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落魔女の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵呪の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落魔女の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1974,9 +1974,9 @@ export const normalWeaponTemplates = [
     maxHp: 1839,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇巨の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影巨の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落巨の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇巨の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影巨の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落巨の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -1992,9 +1992,9 @@ export const normalWeaponTemplates = [
     maxHp: 1839,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血炎の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血王竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血炎の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血王竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2010,9 +2010,9 @@ export const normalWeaponTemplates = [
     maxHp: 1839,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極氷覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極氷覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2028,9 +2028,9 @@ export const normalWeaponTemplates = [
     maxHp: 1919,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "暗黒竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇黒竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "闇王竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "暗黒竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇黒竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "闇王竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2046,9 +2046,9 @@ export const normalWeaponTemplates = [
     maxHp: 1919,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "猛毒の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇毒魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "邪毒覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "猛毒の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇毒魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "邪毒覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2064,9 +2064,9 @@ export const normalWeaponTemplates = [
     maxHp: 1919,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "雷竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天嵐竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "雷竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天嵐竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2082,9 +2082,9 @@ export const normalWeaponTemplates = [
     maxHp: 1919,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "熔岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇熔巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼岩覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "熔岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇熔巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼岩覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2100,9 +2100,9 @@ export const normalWeaponTemplates = [
     maxHp: 2000,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "空虚の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落歩覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "空虚の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落歩覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2118,9 +2118,9 @@ export const normalWeaponTemplates = [
     maxHp: 2000,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "召死の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死霊魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥魔女の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "召死の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死霊魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥魔女の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2136,9 +2136,9 @@ export const normalWeaponTemplates = [
     maxHp: 2000,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極寒竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極寒竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2154,9 +2154,9 @@ export const normalWeaponTemplates = [
     maxHp: 2000,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵霊の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵霊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落霊覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵霊の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵霊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落霊覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2172,9 +2172,9 @@ export const normalWeaponTemplates = [
     maxHp: 2082,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅炎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅戦の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "真紅戦の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅炎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅戦の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "真紅戦の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2190,9 +2190,9 @@ export const normalWeaponTemplates = [
     maxHp: 2082,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗冥霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗冥霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2208,9 +2208,9 @@ export const normalWeaponTemplates = [
     maxHp: 2082,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "雷巨の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐巨の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天雷巨の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "雷巨の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐巨の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天雷巨の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2226,9 +2226,9 @@ export const normalWeaponTemplates = [
     maxHp: 2082,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血呪の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血魔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血魔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血呪の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血魔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血魔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2244,9 +2244,9 @@ export const normalWeaponTemplates = [
     maxHp: 2164,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "死岩の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死巨の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死巨覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "死岩の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死巨の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死巨覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2262,9 +2262,9 @@ export const normalWeaponTemplates = [
     maxHp: 2164,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇這の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇夜這の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深夜這の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇這の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇夜這の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深夜這の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2280,9 +2280,9 @@ export const normalWeaponTemplates = [
     maxHp: 2164,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "極寒竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇凍竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深凍竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "極寒竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇凍竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深凍竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2298,9 +2298,9 @@ export const normalWeaponTemplates = [
     maxHp: 2164,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "熔呪の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇熔魔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼熱魔の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "熔呪の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇熔魔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼熱魔の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2316,9 +2316,9 @@ export const normalWeaponTemplates = [
     maxHp: 2247,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "空虚獣の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無獣の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落獣の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "空虚獣の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無獣の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落獣の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2334,9 +2334,9 @@ export const normalWeaponTemplates = [
     maxHp: 2247,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵戦の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵戦の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落戦の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵戦の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵戦の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落戦の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2352,9 +2352,9 @@ export const normalWeaponTemplates = [
     maxHp: 2247,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "真紅霊の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "真紅霊の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2370,9 +2370,9 @@ export const normalWeaponTemplates = [
     maxHp: 2247,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "暗黒巨の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇黒巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "闇王巨の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "暗黒巨の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇黒巨の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "闇王巨の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2388,9 +2388,9 @@ export const normalWeaponTemplates = [
     maxHp: 2330,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "猛毒竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇毒竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "邪毒竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "猛毒竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇毒竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "邪毒竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2406,9 +2406,9 @@ export const normalWeaponTemplates = [
     maxHp: 2330,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "雷呪の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天嵐魔の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "雷呪の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天嵐魔の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2424,9 +2424,9 @@ export const normalWeaponTemplates = [
     maxHp: 2330,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "業炎の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇炎巨の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "獄炎巨の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "業炎の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇炎巨の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "獄炎巨の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2442,9 +2442,9 @@ export const normalWeaponTemplates = [
     maxHp: 2330,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "空虚魔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無魔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落魔の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "空虚魔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無魔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落魔の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2460,9 +2460,9 @@ export const normalWeaponTemplates = [
     maxHp: 2414,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "召死巨の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死霊巨の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥巨覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "召死巨の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死霊巨の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥巨覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2478,9 +2478,9 @@ export const normalWeaponTemplates = [
     maxHp: 2414,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍戦の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷戦の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極寒戦の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍戦の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷戦の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極寒戦の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2496,9 +2496,9 @@ export const normalWeaponTemplates = [
     maxHp: 2414,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2514,9 +2514,9 @@ export const normalWeaponTemplates = [
     maxHp: 2414,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇獣の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影獣の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗冥獣の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇獣の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影獣の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗冥獣の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2532,9 +2532,9 @@ export const normalWeaponTemplates = [
     maxHp: 2498,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅炎竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅飛竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "真紅竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅炎竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅飛竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "真紅竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2550,9 +2550,9 @@ export const normalWeaponTemplates = [
     maxHp: 2498,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血冥霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血冥霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2568,9 +2568,9 @@ export const normalWeaponTemplates = [
     maxHp: 2498,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥呪魔の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死魔女の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶冥魔の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥呪魔の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死魔女の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶冥魔の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2586,9 +2586,9 @@ export const normalWeaponTemplates = [
     maxHp: 2498,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍鎧の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷鎧の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極氷戦の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍鎧の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷鎧の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極氷戦の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2604,9 +2604,9 @@ export const normalWeaponTemplates = [
     maxHp: 2583,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "熔炎竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇熔竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼炎竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "熔炎竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇熔竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼炎竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2622,9 +2622,9 @@ export const normalWeaponTemplates = [
     maxHp: 2583,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "空虚巨の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無巨の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落巨覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "空虚巨の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無巨の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落巨覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2640,9 +2640,9 @@ export const normalWeaponTemplates = [
     maxHp: 2583,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "召霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死霊霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥霊覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "召霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死霊霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥霊覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2658,9 +2658,9 @@ export const normalWeaponTemplates = [
     maxHp: 2583,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍霊の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷霊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極氷霊の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍霊の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷霊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極氷霊の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2676,9 +2676,9 @@ export const normalWeaponTemplates = [
     maxHp: 2668,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵術の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落術の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵術の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落術の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2694,9 +2694,9 @@ export const normalWeaponTemplates = [
     maxHp: 2668,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅呪の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "真紅魔の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅呪の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅魔の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "真紅魔の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2712,9 +2712,9 @@ export const normalWeaponTemplates = [
     maxHp: 2668,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇飛竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影飛の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗竜覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇飛竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影飛の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗竜覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2730,9 +2730,9 @@ export const normalWeaponTemplates = [
     maxHp: 2668,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "雷戦の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐戦の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天嵐戦の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "雷戦の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐戦の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天嵐戦の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2748,9 +2748,9 @@ export const normalWeaponTemplates = [
     maxHp: 2753,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血幽の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血冥鬼の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血幽の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血冥鬼の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2766,9 +2766,9 @@ export const normalWeaponTemplates = [
     maxHp: 2753,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "死岩巨の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死巨神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死巨神覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "死岩巨の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死巨神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死巨神覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2784,9 +2784,9 @@ export const normalWeaponTemplates = [
     maxHp: 2753,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "業炎魔の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇炎魔女の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "獄炎魔の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "業炎魔の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇炎魔女の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "獄炎魔の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2802,9 +2802,9 @@ export const normalWeaponTemplates = [
     maxHp: 2753,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "空虚霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落霊覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "空虚霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落霊覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2820,9 +2820,9 @@ export const normalWeaponTemplates = [
     maxHp: 2840,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "召霊獣の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死霊獣の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥獣覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "召霊獣の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死霊獣の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥獣覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2838,9 +2838,9 @@ export const normalWeaponTemplates = [
     maxHp: 2840,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍術の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷術の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極術覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍術の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷術の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極術覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2856,9 +2856,9 @@ export const normalWeaponTemplates = [
     maxHp: 2840,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵甲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵騎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落騎の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵甲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵騎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落騎の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2874,9 +2874,9 @@ export const normalWeaponTemplates = [
     maxHp: 2840,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅炎巨の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅巨の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "真紅巨の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅炎巨の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅巨の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "真紅巨の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2892,9 +2892,9 @@ export const normalWeaponTemplates = [
     maxHp: 2926,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇戦の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影戦の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗黒戦の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇戦の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影戦の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗黒戦の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2910,9 +2910,9 @@ export const normalWeaponTemplates = [
     maxHp: 2926,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血炎飛の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血飛竜の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血炎竜の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血炎飛の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血飛竜の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血炎竜の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2928,9 +2928,9 @@ export const normalWeaponTemplates = [
     maxHp: 2926,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥歩の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死歩の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶死歩の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥歩の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死歩の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶死歩の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2946,9 +2946,9 @@ export const normalWeaponTemplates = [
     maxHp: 2926,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "極霜霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇凍霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深凍霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "極霜霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇凍霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深凍霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2964,9 +2964,9 @@ export const normalWeaponTemplates = [
     maxHp: 3013,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "熔戦の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇熔戦の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼岩戦の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "熔戦の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇熔戦の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼岩戦の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -2982,9 +2982,9 @@ export const normalWeaponTemplates = [
     maxHp: 3013,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "空虚竜の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無竜の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落竜覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "空虚竜の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無竜の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落竜覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3000,9 +3000,9 @@ export const normalWeaponTemplates = [
     maxHp: 3013,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "召霊戦の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死霊戦の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥戦覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "召霊戦の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死霊戦の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥戦覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3018,9 +3018,9 @@ export const normalWeaponTemplates = [
     maxHp: 3013,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍甲の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷甲の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極甲覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍甲の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷甲の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極甲覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3036,9 +3036,9 @@ export const normalWeaponTemplates = [
     maxHp: 3100,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵魔の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵魔法の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落魔の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵魔の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵魔法の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落魔の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3054,9 +3054,9 @@ export const normalWeaponTemplates = [
     maxHp: 3100,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅霊の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅霊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "真紅霊覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅霊の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅霊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "真紅霊覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3072,9 +3072,9 @@ export const normalWeaponTemplates = [
     maxHp: 3100,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇魔の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗黒魔の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇魔の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗黒魔の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3090,9 +3090,9 @@ export const normalWeaponTemplates = [
     maxHp: 3100,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "雷霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天雷霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "雷霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天雷霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3108,9 +3108,9 @@ export const normalWeaponTemplates = [
     maxHp: 3188,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血術の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血術の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血術覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血術の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血術の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血術覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3126,9 +3126,9 @@ export const normalWeaponTemplates = [
     maxHp: 3188,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥飛竜の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死飛の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死飛覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥飛竜の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死飛の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死飛覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3144,9 +3144,9 @@ export const normalWeaponTemplates = [
     maxHp: 3188,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "業炎戦の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇炎戦の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "獄炎戦の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "業炎戦の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇炎戦の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "獄炎戦の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3162,9 +3162,9 @@ export const normalWeaponTemplates = [
     maxHp: 3188,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "空虚鬼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無鬼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落鬼覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "空虚鬼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無鬼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落鬼覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3180,9 +3180,9 @@ export const normalWeaponTemplates = [
     maxHp: 3276,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "召霊竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死霊飛の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥竜覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "召霊竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死霊飛の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥竜覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3198,9 +3198,9 @@ export const normalWeaponTemplates = [
     maxHp: 3276,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍魔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷魔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極魔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍魔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷魔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極魔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3216,9 +3216,9 @@ export const normalWeaponTemplates = [
     maxHp: 3276,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵獣の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵獣の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落獣覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵獣の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵獣の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落獣覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3234,9 +3234,9 @@ export const normalWeaponTemplates = [
     maxHp: 3276,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅禁呪の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅呪の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "真紅呪の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅禁呪の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅呪の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "真紅呪の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3252,9 +3252,9 @@ export const normalWeaponTemplates = [
     maxHp: 3365,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇甲の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影甲の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗黒甲の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇甲の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影甲の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗黒甲の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3270,9 +3270,9 @@ export const normalWeaponTemplates = [
     maxHp: 3365,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血魔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血魔法の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血魔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血魔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血魔法の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血魔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3288,9 +3288,9 @@ export const normalWeaponTemplates = [
     maxHp: 3365,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥術道の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死術の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶冥道の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥術道の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死術の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶冥道の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3306,9 +3306,9 @@ export const normalWeaponTemplates = [
     maxHp: 3365,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍獣の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷獣の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極寒獣の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍獣の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷獣の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極寒獣の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3324,9 +3324,9 @@ export const normalWeaponTemplates = [
     maxHp: 3454,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "熔霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇熔霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼熱霊の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "熔霊の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇熔霊の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼熱霊の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3342,9 +3342,9 @@ export const normalWeaponTemplates = [
     maxHp: 3454,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "空虚甲の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無甲の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落甲覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "空虚甲の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無甲の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落甲覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3360,9 +3360,9 @@ export const normalWeaponTemplates = [
     maxHp: 3454,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "召霊魔の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死霊魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥魔覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "召霊魔の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死霊魔の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥魔覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3378,9 +3378,9 @@ export const normalWeaponTemplates = [
     maxHp: 3454,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍野獣の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷野の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極野覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍野獣の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷野の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極野覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3396,9 +3396,9 @@ export const normalWeaponTemplates = [
     maxHp: 3543,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵飛竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵飛の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落飛の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵飛竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵飛の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落飛の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3414,9 +3414,9 @@ export const normalWeaponTemplates = [
     maxHp: 3543,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅魔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅魔法の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "真紅魔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅魔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅魔法の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "真紅魔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3432,9 +3432,9 @@ export const normalWeaponTemplates = [
     maxHp: 3543,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇術の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影術の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗黒術の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇術の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影術の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗黒術の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3450,9 +3450,9 @@ export const normalWeaponTemplates = [
     maxHp: 3543,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "雷甲の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐甲の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天嵐甲の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "雷甲の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐甲の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天嵐甲の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3468,9 +3468,9 @@ export const normalWeaponTemplates = [
     maxHp: 3633,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血野獣の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血獣の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血獣覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血野獣の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血獣の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血獣覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3486,9 +3486,9 @@ export const normalWeaponTemplates = [
     maxHp: 3633,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥魔法の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死魔法の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死魔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥魔法の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死魔法の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死魔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3504,9 +3504,9 @@ export const normalWeaponTemplates = [
     maxHp: 3633,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "業炎竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇炎飛竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "獄炎竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "業炎竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇炎飛竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "獄炎竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3522,9 +3522,9 @@ export const normalWeaponTemplates = [
     maxHp: 3633,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "空虚戦の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無戦の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落戦覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "空虚戦の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無戦の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落戦覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3540,9 +3540,9 @@ export const normalWeaponTemplates = [
     maxHp: 3723,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "召霊甲の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇死霊甲の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥甲覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "召霊甲の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇死霊甲の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥甲覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3558,9 +3558,9 @@ export const normalWeaponTemplates = [
     maxHp: 3723,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍飛竜の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇氷飛の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "極飛覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍飛竜の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇氷飛の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "極飛覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3576,9 +3576,9 @@ export const normalWeaponTemplates = [
     maxHp: 3723,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵禁呪の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵呪の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落呪の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵禁呪の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵呪の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落呪の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3594,9 +3594,9 @@ export const normalWeaponTemplates = [
     maxHp: 3723,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅甲の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅甲の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "真紅甲の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅甲の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅甲の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "真紅甲の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3612,9 +3612,9 @@ export const normalWeaponTemplates = [
     maxHp: 3813,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "骸骨赤刃の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅骸の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "紅骸覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "骸骨赤刃の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅骸の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "紅骸覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3630,9 +3630,9 @@ export const normalWeaponTemplates = [
     maxHp: 3813,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "腐毒の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇腐沼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深腐覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "腐毒の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇腐沼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深腐覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3648,9 +3648,9 @@ export const normalWeaponTemplates = [
     maxHp: 3813,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "烈嵐竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇翼嵐の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天翼嵐の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "烈嵐竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇翼嵐の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天翼嵐の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3666,9 +3666,9 @@ export const normalWeaponTemplates = [
     maxHp: 3813,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "覇鉄の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "黒鉄覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鉄王覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "覇鉄の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "黒鉄覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鉄王覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3684,9 +3684,9 @@ export const normalWeaponTemplates = [
     maxHp: 3904,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "蒼魔炎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇蒼炎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蒼炎覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "蒼魔炎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇蒼炎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蒼炎覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3702,9 +3702,9 @@ export const normalWeaponTemplates = [
     maxHp: 3904,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "影狼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇闇狼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥狼覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "影狼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇闇狼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥狼覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3720,9 +3720,9 @@ export const normalWeaponTemplates = [
     maxHp: 3904,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "結晶毒の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇水蠍の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "虹蠍覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "結晶毒の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇水蠍の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "虹蠍覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3738,9 +3738,9 @@ export const normalWeaponTemplates = [
     maxHp: 3904,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "灼鱗の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇焦鱗の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼土覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "灼鱗の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇焦鱗の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼土覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3756,9 +3756,9 @@ export const normalWeaponTemplates = [
     maxHp: 3995,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥甲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇幽甲の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥騎覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥甲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇幽甲の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥騎覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3774,9 +3774,9 @@ export const normalWeaponTemplates = [
     maxHp: 3995,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵触の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇触手の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落触の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵触の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇触手の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落触の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3792,9 +3792,9 @@ export const normalWeaponTemplates = [
     maxHp: 3995,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "猛毒樹の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇毒樹の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "邪毒樹の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "猛毒樹の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇毒樹の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "邪毒樹の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3810,9 +3810,9 @@ export const normalWeaponTemplates = [
     maxHp: 3995,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "嘆怨の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇亡嘆の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深怨覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "嘆怨の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇亡嘆の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深怨覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3828,9 +3828,9 @@ export const normalWeaponTemplates = [
     maxHp: 4087,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "鋼殻の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇鋼甲の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鋼王甲の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "鋼殻の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇鋼甲の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鋼王甲の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3846,9 +3846,9 @@ export const normalWeaponTemplates = [
     maxHp: 4087,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅炎霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇紅炎の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "紅蓮覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅炎霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇紅炎の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "紅蓮覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3864,9 +3864,9 @@ export const normalWeaponTemplates = [
     maxHp: 4087,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "砂毒蛇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇砂蛇の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "砂王蛇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "砂毒蛇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇砂蛇の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "砂王蛇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3882,9 +3882,9 @@ export const normalWeaponTemplates = [
     maxHp: 4087,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥海の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇冥海の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死海覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥海の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇冥海の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死海覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3900,9 +3900,9 @@ export const normalWeaponTemplates = [
     maxHp: 4178,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇影の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影暗の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗影覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇影の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影暗の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗影覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3918,9 +3918,9 @@ export const normalWeaponTemplates = [
     maxHp: 4178,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "魅血の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血眼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血眼覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "魅血の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血眼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血眼覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3936,9 +3936,9 @@ export const normalWeaponTemplates = [
     maxHp: 4178,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "灼地の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇熔地の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼地覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "灼地の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇熔地の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼地覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3954,9 +3954,9 @@ export const normalWeaponTemplates = [
     maxHp: 4178,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深蝕の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇侵蝕の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落蝕の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深蝕の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇侵蝕の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落蝕の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3972,9 +3972,9 @@ export const normalWeaponTemplates = [
     maxHp: 4271,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "神鷹の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "天覇鷹の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天神鷹の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "神鷹の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "天覇鷹の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天神鷹の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -3990,9 +3990,9 @@ export const normalWeaponTemplates = [
     maxHp: 4271,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "淵海の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵魚の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落魚の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "淵海の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵魚の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落魚の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4008,9 +4008,9 @@ export const normalWeaponTemplates = [
     maxHp: 4271,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "烈嵐鬼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐鬼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天嵐鬼の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "烈嵐鬼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐鬼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天嵐鬼の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4026,9 +4026,9 @@ export const normalWeaponTemplates = [
     maxHp: 4271,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "岩砕土の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇崩土の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "山崩覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "岩砕土の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇崩土の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "山崩覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4044,9 +4044,9 @@ export const normalWeaponTemplates = [
     maxHp: 4363,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血甲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血騎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血霊覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血甲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血騎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血霊覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4062,9 +4062,9 @@ export const normalWeaponTemplates = [
     maxHp: 4363,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深海蛸の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇幻蛸の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落蛸の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深海蛸の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇幻蛸の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落蛸の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4080,9 +4080,9 @@ export const normalWeaponTemplates = [
     maxHp: 4363,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "砕骨狼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇砕狼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "骨砕覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "砕骨狼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇砕狼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "骨砕覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4098,9 +4098,9 @@ export const normalWeaponTemplates = [
     maxHp: 4363,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "業炎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇炎犬の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "獄犬覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "業炎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇炎犬の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "獄犬覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4116,9 +4116,9 @@ export const normalWeaponTemplates = [
     maxHp: 4456,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "腐蝕竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇腐竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深腐竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "腐蝕竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇腐竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深腐竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4134,9 +4134,9 @@ export const normalWeaponTemplates = [
     maxHp: 4456,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "縛魂の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇縛魂の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "死神縛の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "縛魂の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇縛魂の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "死神縛の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4152,9 +4152,9 @@ export const normalWeaponTemplates = [
     maxHp: 4456,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "暗黒翼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇堕天の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "黒天使の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "暗黒翼の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇堕天の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "黒天使の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4170,9 +4170,9 @@ export const normalWeaponTemplates = [
     maxHp: 4456,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "灼鉄巨の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇灼鉄の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼鉄覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "灼鉄巨の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇灼鉄の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼鉄覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4188,9 +4188,9 @@ export const normalWeaponTemplates = [
     maxHp: 4549,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "魔銀狼の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇銀狼の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "銀狼覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "魔銀狼の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇銀狼の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "銀狼覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4206,9 +4206,9 @@ export const normalWeaponTemplates = [
     maxHp: 4549,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "煙毒の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇煙毒の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "毒煙覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "煙毒の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇煙毒の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "毒煙覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4224,9 +4224,9 @@ export const normalWeaponTemplates = [
     maxHp: 4549,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血魂の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇吸魂の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血魂覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血魂の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇吸魂の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血魂覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4242,9 +4242,9 @@ export const normalWeaponTemplates = [
     maxHp: 4549,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥府番の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇冥番の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥番覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥府番の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇冥番の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥番覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4260,9 +4260,9 @@ export const normalWeaponTemplates = [
     maxHp: 4642,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "覇嵐竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇竜嵐の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天嵐竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "覇嵐竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇竜嵐の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天嵐竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4278,9 +4278,9 @@ export const normalWeaponTemplates = [
     maxHp: 4642,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "結印の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇封印の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "虹封印の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "結印の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇封印の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "虹封印の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4296,9 +4296,9 @@ export const normalWeaponTemplates = [
     maxHp: 4642,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵混の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇混沌の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落混の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵混の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇混沌の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落混の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4314,9 +4314,9 @@ export const normalWeaponTemplates = [
     maxHp: 4642,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "永劫炎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇不死の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "永劫炎の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇不死の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4332,9 +4332,9 @@ export const normalWeaponTemplates = [
     maxHp: 4736,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "影霧の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇霧蛇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深霧蛇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "影霧の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇霧蛇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深霧蛇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4350,9 +4350,9 @@ export const normalWeaponTemplates = [
     maxHp: 4736,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "呪縛鎖の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇鎖呪の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "縛魔覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "呪縛鎖の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇鎖呪の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "縛魔覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4368,9 +4368,9 @@ export const normalWeaponTemplates = [
     maxHp: 4736,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "海嵐鯨の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇荒鯨の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "嵐鯨覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "海嵐鯨の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇荒鯨の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "嵐鯨覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4386,9 +4386,9 @@ export const normalWeaponTemplates = [
     maxHp: 4736,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "大地守の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇守護の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "地守覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "大地守の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇守護の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "地守覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4404,9 +4404,9 @@ export const normalWeaponTemplates = [
     maxHp: 4830,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "蒼雷の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇雷神の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蒼天雷の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "蒼雷の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇雷神の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蒼天雷の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4422,9 +4422,9 @@ export const normalWeaponTemplates = [
     maxHp: 4830,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "封竜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇封竜の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗封竜の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "封竜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇封竜の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗封竜の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4440,9 +4440,9 @@ export const normalWeaponTemplates = [
     maxHp: 4830,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深血の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血海の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血海覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深血の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血海の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血海覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4458,9 +4458,9 @@ export const normalWeaponTemplates = [
     maxHp: 4830,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "混渦の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇渦巻の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "混沌覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "混渦の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇渦巻の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "混沌覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4476,9 +4476,9 @@ export const normalWeaponTemplates = [
     maxHp: 4925,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇魔竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落竜王の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇魔竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落竜王の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4494,9 +4494,9 @@ export const normalWeaponTemplates = [
     maxHp: 4925,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "永劫滅の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇滅神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫覇滅の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "永劫滅の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇滅神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫覇滅の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4512,9 +4512,9 @@ export const normalWeaponTemplates = [
     maxHp: 4925,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "侵略の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚侵の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "虚空覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "侵略の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚侵の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "虚空覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4530,9 +4530,9 @@ export const normalWeaponTemplates = [
     maxHp: 4925,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "泥腐の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇腐泥の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深腐泥の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "泥腐の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇腐泥の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深腐泥の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4548,9 +4548,9 @@ export const normalWeaponTemplates = [
     maxHp: 5019,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "天光の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇光神の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天光覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "天光の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇光神の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天光覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4566,9 +4566,9 @@ export const normalWeaponTemplates = [
     maxHp: 5019,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "岩盤の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇岩甲の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "岩甲覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "岩盤の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇岩甲の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "岩甲覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4584,9 +4584,9 @@ export const normalWeaponTemplates = [
     maxHp: 5019,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "嵐霊竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇渦竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "嵐渦覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "嵐霊竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇渦竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "嵐渦覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4602,9 +4602,9 @@ export const normalWeaponTemplates = [
     maxHp: 5019,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍夜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇凍結の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深凍霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍夜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇凍結の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深凍霊の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4620,9 +4620,9 @@ export const normalWeaponTemplates = [
     maxHp: 5114,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血骸の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇亡骸の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血骸竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血骸の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇亡骸の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血骸竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4638,9 +4638,9 @@ export const normalWeaponTemplates = [
     maxHp: 5114,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "混沌神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇暗黒の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "混神覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "混沌神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇暗黒の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "混神覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4656,9 +4656,9 @@ export const normalWeaponTemplates = [
     maxHp: 5114,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵奈の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇奈落の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵奈の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇奈落の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4674,9 +4674,9 @@ export const normalWeaponTemplates = [
     maxHp: 5114,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "永劫虚の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫虚覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "永劫虚の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫虚覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4692,9 +4692,9 @@ export const normalWeaponTemplates = [
     maxHp: 5210,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "蒼侵の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇蒼食の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蒼炎侵の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "蒼侵の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇蒼食の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蒼炎侵の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4710,9 +4710,9 @@ export const normalWeaponTemplates = [
     maxHp: 5210,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥霜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇霜冥の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥霜覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥霜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇霜冥の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥霜覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4728,9 +4728,9 @@ export const normalWeaponTemplates = [
     maxHp: 5210,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "海嵐鳥の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐神の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "海嵐覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "海嵐鳥の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐神の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "海嵐覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4746,9 +4746,9 @@ export const normalWeaponTemplates = [
     maxHp: 5210,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "岩砕魔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇大魔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "砕岩覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "岩砕魔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇大魔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "砕岩覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4764,9 +4764,9 @@ export const normalWeaponTemplates = [
     maxHp: 5305,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "紅蓮竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇炎竜王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "紅炎竜覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "紅蓮竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇炎竜王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "紅炎竜覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4782,9 +4782,9 @@ export const normalWeaponTemplates = [
     maxHp: 5305,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深海絶の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇絶鯨の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶鯨覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深海絶の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇絶鯨の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶鯨覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4800,9 +4800,9 @@ export const normalWeaponTemplates = [
     maxHp: 5305,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥喰の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇魂喰の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥喰覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥喰の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇魂喰の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥喰覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4818,9 +4818,9 @@ export const normalWeaponTemplates = [
     maxHp: 5305,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "混崩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇崩壊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "崩壊覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "混崩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇崩壊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "崩壊覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4836,9 +4836,9 @@ export const normalWeaponTemplates = [
     maxHp: 5401,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵奈神の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇奈神の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵奈神の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇奈神の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4854,9 +4854,9 @@ export const normalWeaponTemplates = [
     maxHp: 5401,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "永劫の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇終の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫覇終の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "永劫の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇終の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫覇終の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4872,9 +4872,9 @@ export const normalWeaponTemplates = [
     maxHp: 5401,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深紅甲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇魔甲の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深紅覇甲の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深紅甲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇魔甲の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深紅覇甲の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4890,9 +4890,9 @@ export const normalWeaponTemplates = [
     maxHp: 5401,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "泥海の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇腐泥竜の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深腐竜の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "泥海の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇腐泥竜の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深腐竜の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4908,9 +4908,9 @@ export const normalWeaponTemplates = [
     maxHp: 5497,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "天嵐雷の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇神雷の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天神雷の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "天嵐雷の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇神雷の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天神雷の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4926,9 +4926,9 @@ export const normalWeaponTemplates = [
     maxHp: 5497,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "黒鉄要の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇黒要の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鉄要覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "黒鉄要の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇黒要の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鉄要覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4944,9 +4944,9 @@ export const normalWeaponTemplates = [
     maxHp: 5497,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "煉魔の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇煉炎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "煉獄覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "煉魔の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇煉炎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "煉獄覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4962,9 +4962,9 @@ export const normalWeaponTemplates = [
     maxHp: 5497,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇淵狼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影狼王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥狼王覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇淵狼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影狼王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥狼王覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4980,9 +4980,9 @@ export const normalWeaponTemplates = [
     maxHp: 5594,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "結晶毒の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇毒蠍王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蠍王覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "結晶毒の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇毒蠍王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蠍王覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -4998,9 +4998,9 @@ export const normalWeaponTemplates = [
     maxHp: 5594,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "灼熔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇灼熔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼熔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "灼熔の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇灼熔の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼熔覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5016,9 +5016,9 @@ export const normalWeaponTemplates = [
     maxHp: 5594,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥霊騎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇亡霊の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥騎覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥霊騎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇亡霊の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥騎覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5034,9 +5034,9 @@ export const normalWeaponTemplates = [
     maxHp: 5594,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深触の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇異触の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落触覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深触の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇異触の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落触覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5052,9 +5052,9 @@ export const normalWeaponTemplates = [
     maxHp: 5691,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "古毒樹の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇古樹の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "古樹覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "古毒樹の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇古樹の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "古樹覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5070,9 +5070,9 @@ export const normalWeaponTemplates = [
     maxHp: 5691,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "絶嘆の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嘆鬼の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶嘆覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "絶嘆の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嘆鬼の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶嘆覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5088,9 +5088,9 @@ export const normalWeaponTemplates = [
     maxHp: 5691,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "鋼甲虫の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇魔甲虫の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鋼虫覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "鋼甲虫の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇魔甲虫の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鋼虫覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5106,9 +5106,9 @@ export const normalWeaponTemplates = [
     maxHp: 5691,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "虹炎の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虹炎の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "紅蓮覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "虹炎の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虹炎の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "紅蓮覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5124,9 +5124,9 @@ export const normalWeaponTemplates = [
     maxHp: 5788,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "砂毒蛇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇砂蛇王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "砂王蛇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "砂毒蛇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇砂蛇王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "砂王蛇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5142,9 +5142,9 @@ export const normalWeaponTemplates = [
     maxHp: 5788,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥水の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇冥水の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥水覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥水の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇冥水の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥水覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5160,9 +5160,9 @@ export const normalWeaponTemplates = [
     maxHp: 5788,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "幻殺の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇幻殺の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "幻殺覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "幻殺の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇幻殺の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "幻殺覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5178,9 +5178,9 @@ export const normalWeaponTemplates = [
     maxHp: 5788,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深血の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血公の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深血覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深血の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血公の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深血覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5196,9 +5196,9 @@ export const normalWeaponTemplates = [
     maxHp: 5885,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "灼溶竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇溶竜王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼竜覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "灼溶竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇溶竜王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼竜覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5214,9 +5214,9 @@ export const normalWeaponTemplates = [
     maxHp: 5885,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "奈侵の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇永侵の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落侵覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "奈侵の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇永侵の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落侵覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5232,9 +5232,9 @@ export const normalWeaponTemplates = [
     maxHp: 5885,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "天翼王の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇天鷹王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天神鷹王の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "天翼王の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇天鷹王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天神鷹王の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5250,9 +5250,9 @@ export const normalWeaponTemplates = [
     maxHp: 5885,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "奈落魚の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵大魚の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落魚覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "奈落魚の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵大魚の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落魚覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5268,9 +5268,9 @@ export const normalWeaponTemplates = [
     maxHp: 5982,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "嵐古の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐鬼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "嵐神覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "嵐古の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐鬼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "嵐神覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5286,9 +5286,9 @@ export const normalWeaponTemplates = [
     maxHp: 5982,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "大崩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇大岩の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "崩岩覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "大崩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇大岩の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "崩岩覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5304,9 +5304,9 @@ export const normalWeaponTemplates = [
     maxHp: 5982,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "蒼天雷の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇雷鳥王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蒼神雷覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "蒼天雷の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇雷鳥王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蒼神雷覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5322,9 +5322,9 @@ export const normalWeaponTemplates = [
     maxHp: 5982,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "暗封竜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇封神竜の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗神竜覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "暗封竜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇封神竜の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗神竜覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5340,9 +5340,9 @@ export const normalWeaponTemplates = [
     maxHp: 6080,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血深の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血海獣の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血海覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血深の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血海獣の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血海覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5358,9 +5358,9 @@ export const normalWeaponTemplates = [
     maxHp: 6080,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "混大渦の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇混渦神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "混神覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "混大渦の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇混渦神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "混神覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5376,9 +5376,9 @@ export const normalWeaponTemplates = [
     maxHp: 6080,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵魔覇の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇魔竜王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇竜王の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵魔覇の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇魔竜王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇竜王の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5394,9 +5394,9 @@ export const normalWeaponTemplates = [
     maxHp: 6080,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "永劫覇の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇滅神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫覇滅神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "永劫覇の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇滅神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫覇滅神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5412,9 +5412,9 @@ export const normalWeaponTemplates = [
     maxHp: 6178,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "虚侵神の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇混侵の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "虚空神覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "虚侵神の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇混侵の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "虚空神覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5430,9 +5430,9 @@ export const normalWeaponTemplates = [
     maxHp: 6178,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "泥腐王の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇腐霊王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "腐霊覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "泥腐王の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇腐霊王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "腐霊覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5448,9 +5448,9 @@ export const normalWeaponTemplates = [
     maxHp: 6178,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "天光聖の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇光神聖の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天聖光覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "天光聖の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇光神聖の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天聖光覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5466,9 +5466,9 @@ export const normalWeaponTemplates = [
     maxHp: 6178,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "岩甲神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇重甲神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "岩神甲覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "岩甲神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇重甲神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "岩神甲覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5484,9 +5484,9 @@ export const normalWeaponTemplates = [
     maxHp: 6277,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "嵐渦竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐渦の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "嵐渦神覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "嵐渦竜の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐渦の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "嵐渦神覇の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5502,9 +5502,9 @@ export const normalWeaponTemplates = [
     maxHp: 6277,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凍夜王の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇深凍王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深凍霊覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凍夜王の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇深凍王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深凍霊覇の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5520,9 +5520,9 @@ export const normalWeaponTemplates = [
     maxHp: 6277,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血骸竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇亡骸竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血竜神覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血骸竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇亡骸竜の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血竜神覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5538,9 +5538,9 @@ export const normalWeaponTemplates = [
     maxHp: 6277,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "混崩神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇崩暗神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "崩神覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "混崩神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇崩暗神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "崩神覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5556,9 +5556,9 @@ export const normalWeaponTemplates = [
     maxHp: 6375,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵竜神の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇奈落竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇竜神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵竜神の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇奈落竜の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇竜神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5574,9 +5574,9 @@ export const normalWeaponTemplates = [
     maxHp: 6375,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "永劫滅の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇終滅神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫覇滅神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "永劫滅の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇終滅神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫覇滅神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5592,9 +5592,9 @@ export const normalWeaponTemplates = [
     maxHp: 6375,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深紅覇甲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇魔甲覇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深紅覇神甲の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深紅覇甲の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇魔甲覇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深紅覇神甲の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5610,9 +5610,9 @@ export const normalWeaponTemplates = [
     maxHp: 6375,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "腐海竜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇腐竜王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深腐竜王の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "腐海竜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇腐竜王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深腐竜王の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5628,9 +5628,9 @@ export const normalWeaponTemplates = [
     maxHp: 6474,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "天嵐雷王の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇神雷王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天雷王覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "天嵐雷王の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇神雷王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天雷王覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5646,9 +5646,9 @@ export const normalWeaponTemplates = [
     maxHp: 6474,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "黒鉄要神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇黒要神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鉄神覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "黒鉄要神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇黒要神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鉄神覇の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5664,9 +5664,9 @@ export const normalWeaponTemplates = [
     maxHp: 6474,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "煉魔覇の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇煉炎覇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "煉獄覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "煉魔覇の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇煉炎覇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "煉獄覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5682,9 +5682,9 @@ export const normalWeaponTemplates = [
     maxHp: 6474,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇淵覇狼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影狼覇王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥狼覇王の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇淵覇狼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影狼覇王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥狼覇王の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5700,9 +5700,9 @@ export const normalWeaponTemplates = [
     maxHp: 6573,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "結晶毒覇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇毒蠍覇王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蠍覇王の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "結晶毒覇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇毒蠍覇王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蠍覇王の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5718,9 +5718,9 @@ export const normalWeaponTemplates = [
     maxHp: 6573,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "灼熔覇の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇灼熔覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼熔覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "灼熔覇の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇灼熔覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼熔覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5736,9 +5736,9 @@ export const normalWeaponTemplates = [
     maxHp: 6573,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥霊覇騎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇亡霊覇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥覇騎の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥霊覇騎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇亡霊覇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥覇騎の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5754,9 +5754,9 @@ export const normalWeaponTemplates = [
     maxHp: 6573,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深触覇の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇異触覇の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落触覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深触覇の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇異触覇の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落触覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5772,9 +5772,9 @@ export const normalWeaponTemplates = [
     maxHp: 6672,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "古毒王の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇古樹王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "古樹覇王の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "古毒王の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇古樹王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "古樹覇王の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5790,9 +5790,9 @@ export const normalWeaponTemplates = [
     maxHp: 6672,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "絶嘆神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嘆鬼神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶嘆覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "絶嘆神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嘆鬼神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶嘆覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5808,9 +5808,9 @@ export const normalWeaponTemplates = [
     maxHp: 6672,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "鋼甲覇虫の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇魔甲覇虫の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鋼覇虫の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "鋼甲覇虫の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇魔甲覇虫の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鋼覇虫の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5826,9 +5826,9 @@ export const normalWeaponTemplates = [
     maxHp: 6672,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "虹炎覇の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虹炎覇の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "紅蓮覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "虹炎覇の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虹炎覇の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "紅蓮覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5844,9 +5844,9 @@ export const normalWeaponTemplates = [
     maxHp: 6772,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "砂毒覇蛇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇砂蛇覇王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "砂王覇蛇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "砂毒覇蛇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇砂蛇覇王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "砂王覇蛇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5862,9 +5862,9 @@ export const normalWeaponTemplates = [
     maxHp: 6772,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥水覇の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇冥水覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥水覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥水覇の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇冥水覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥水覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5880,9 +5880,9 @@ export const normalWeaponTemplates = [
     maxHp: 6772,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "幻殺覇の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇幻殺覇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "幻殺覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "幻殺覇の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇幻殺覇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "幻殺覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5898,9 +5898,9 @@ export const normalWeaponTemplates = [
     maxHp: 6772,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深血覇の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血覇公の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深血覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深血覇の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血覇公の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深血覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5916,9 +5916,9 @@ export const normalWeaponTemplates = [
     maxHp: 6872,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "灼溶覇竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇溶竜覇王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼覇竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "灼溶覇竜の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇溶竜覇王の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼覇竜の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5934,9 +5934,9 @@ export const normalWeaponTemplates = [
     maxHp: 6872,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "奈侵覇の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇永侵覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇侵神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "奈侵覇の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇永侵覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇侵神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5952,9 +5952,9 @@ export const normalWeaponTemplates = [
     maxHp: 6872,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "天翼覇王の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇天鷹覇王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天神鷹覇王の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "天翼覇王の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇天鷹覇王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天神鷹覇王の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5970,9 +5970,9 @@ export const normalWeaponTemplates = [
     maxHp: 6872,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "奈落覇魚の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇淵大覇魚の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇魚神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "奈落覇魚の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇淵大覇魚の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇魚神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -5988,9 +5988,9 @@ export const normalWeaponTemplates = [
     maxHp: 6972,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "嵐古覇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇嵐覇鬼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "嵐神覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "嵐古覇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇嵐覇鬼の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "嵐神覇の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6006,9 +6006,9 @@ export const normalWeaponTemplates = [
     maxHp: 6972,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "大崩覇の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇大岩覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "崩覇岩の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "大崩覇の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇大岩覇の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "崩覇岩の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6024,9 +6024,9 @@ export const normalWeaponTemplates = [
     maxHp: 6972,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "蒼天覇雷の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇雷鳥覇王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蒼神覇雷の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "蒼天覇雷の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇雷鳥覇王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蒼神覇雷の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6042,9 +6042,9 @@ export const normalWeaponTemplates = [
     maxHp: 6972,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "暗封覇竜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇封覇神竜の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "暗覇神竜の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "暗封覇竜の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇封覇神竜の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "暗覇神竜の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6060,9 +6060,9 @@ export const normalWeaponTemplates = [
     maxHp: 7072,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血深覇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血海覇獣の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血覇海神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血深覇の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血海覇獣の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血覇海神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6078,9 +6078,9 @@ export const normalWeaponTemplates = [
     maxHp: 7072,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "混大覇渦の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇混渦覇神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "混覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "混大覇渦の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇混渦覇神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "混覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6096,9 +6096,9 @@ export const normalWeaponTemplates = [
     maxHp: 7072,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵覇帝の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇魔竜覇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇帝竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵覇帝の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇魔竜覇の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇帝竜の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6114,9 +6114,9 @@ export const normalWeaponTemplates = [
     maxHp: 7072,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "永劫覇帝の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇滅覇神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫覇帝神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "永劫覇帝の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇滅覇神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫覇帝神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6132,9 +6132,9 @@ export const normalWeaponTemplates = [
     maxHp: 7173,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深紅神覇の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇覇甲神の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深紅覇甲神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深紅神覇の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇覇甲神の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深紅覇甲神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6150,9 +6150,9 @@ export const normalWeaponTemplates = [
     maxHp: 7173,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "腐海覇帝の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇腐竜覇帝の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深腐竜覇帝の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "腐海覇帝の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇腐竜覇帝の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深腐竜覇帝の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6168,9 +6168,9 @@ export const normalWeaponTemplates = [
     maxHp: 7173,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "天嵐覇帝の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇覇神雷帝の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "天覇雷帝の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "天嵐覇帝の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇覇神雷帝の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "天覇雷帝の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6186,9 +6186,9 @@ export const normalWeaponTemplates = [
     maxHp: 7173,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "黒鉄覇神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇黒覇要神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鉄覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "黒鉄覇神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇黒覇要神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鉄覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6204,9 +6204,9 @@ export const normalWeaponTemplates = [
     maxHp: 7274,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "煉覇魔の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇覇炎帝の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "煉獄覇帝の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "煉覇魔の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇覇炎帝の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "煉獄覇帝の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6222,9 +6222,9 @@ export const normalWeaponTemplates = [
     maxHp: 7274,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇淵覇神狼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇覇影狼神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥覇狼神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇淵覇神狼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇覇影狼神の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥覇狼神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6240,9 +6240,9 @@ export const normalWeaponTemplates = [
     maxHp: 7274,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "結晶覇神毒の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇覇毒蠍神の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蠍覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "結晶覇神毒の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇覇毒蠍神の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蠍覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6258,9 +6258,9 @@ export const normalWeaponTemplates = [
     maxHp: 7274,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "灼覇熔神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇覇灼熔神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "灼熔覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "灼覇熔神の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇覇灼熔神の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "灼熔覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6276,9 +6276,9 @@ export const normalWeaponTemplates = [
     maxHp: 7375,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥覇霊神騎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇覇亡神騎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥覇神騎の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥覇霊神騎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇覇亡神騎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥覇神騎の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6294,9 +6294,9 @@ export const normalWeaponTemplates = [
     maxHp: 7375,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深覇触神の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇覇異神触の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇神触の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深覇触神の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇覇異神触の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇神触の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6312,9 +6312,9 @@ export const normalWeaponTemplates = [
     maxHp: 7375,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "覇王の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇王滅の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "覇王神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "覇王の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇王滅の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "覇王神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6330,9 +6330,9 @@ export const normalWeaponTemplates = [
     maxHp: 7375,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "覇王魔の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇王幻の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "覇王神縛の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "覇王魔の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇王幻の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "覇王神縛の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6348,9 +6348,9 @@ export const normalWeaponTemplates = [
     maxHp: 7476,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "覇王雷の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇王滅弓の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "覇王神矢の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "覇王雷の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇王滅弓の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "覇王神矢の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6366,9 +6366,9 @@ export const normalWeaponTemplates = [
     maxHp: 7476,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "覇王重の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇王砕の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "覇王神斧の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "覇王重の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇王砕の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "覇王神斧の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6384,9 +6384,9 @@ export const normalWeaponTemplates = [
     maxHp: 7476,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵覇王業の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "深淵覇王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深淵覇王神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵覇王業の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "深淵覇王の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深淵覇王神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6402,9 +6402,9 @@ export const normalWeaponTemplates = [
     maxHp: 7476,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵覇王魔の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "深淵覇王幻の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深淵覇王神杖の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵覇王魔の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "深淵覇王幻の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深淵覇王神杖の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6420,9 +6420,9 @@ export const normalWeaponTemplates = [
     maxHp: 7577,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵覇王雷の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "深淵覇王滅弓の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深淵覇王神矢の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵覇王雷の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "深淵覇王滅弓の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深淵覇王神矢の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6438,9 +6438,9 @@ export const normalWeaponTemplates = [
     maxHp: 7577,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵覇王重の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "深淵覇王砕の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深淵覇王神斧の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵覇王重の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "深淵覇王砕の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深淵覇王神斧の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6456,9 +6456,9 @@ export const normalWeaponTemplates = [
     maxHp: 7577,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "奈落覇龍業の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "奈落覇龍の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇龍神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "奈落覇龍業の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "奈落覇龍の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇龍神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6474,9 +6474,9 @@ export const normalWeaponTemplates = [
     maxHp: 7577,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "奈落覇龍魔の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "奈落覇龍幻の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇龍神杖の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "奈落覇龍魔の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "奈落覇龍幻の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇龍神杖の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6492,9 +6492,9 @@ export const normalWeaponTemplates = [
     maxHp: 7679,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "奈落覇龍雷の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "奈落覇龍滅弓の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇龍神矢の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "奈落覇龍雷の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "奈落覇龍滅弓の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇龍神矢の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6510,9 +6510,9 @@ export const normalWeaponTemplates = [
     maxHp: 7679,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "奈落覇龍岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "奈落覇龍砕の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落覇龍神斧の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "奈落覇龍岩の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "奈落覇龍砕の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落覇龍神斧の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6528,9 +6528,9 @@ export const normalWeaponTemplates = [
     maxHp: 7679,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "触腕の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇触腕の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "触腕覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "触腕の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇触腕の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "触腕覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6546,9 +6546,9 @@ export const normalWeaponTemplates = [
     maxHp: 7679,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "闇翼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇闇翼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "闇翼覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "闇翼の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇闇翼の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "闇翼覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6564,9 +6564,9 @@ export const normalWeaponTemplates = [
     maxHp: 7781,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "骸合の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇骸合の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "骸合覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "骸合の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇骸合の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "骸合覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6582,9 +6582,9 @@ export const normalWeaponTemplates = [
     maxHp: 7781,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "粘着の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇粘着の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "粘着覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "粘着の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇粘着の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "粘着覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6600,9 +6600,9 @@ export const normalWeaponTemplates = [
     maxHp: 7781,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "菌糸の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇菌糸の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "菌糸覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "菌糸の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇菌糸の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "菌糸覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6618,9 +6618,9 @@ export const normalWeaponTemplates = [
     maxHp: 7781,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇深淵の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深淵覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇深淵の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深淵覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6636,9 +6636,9 @@ export const normalWeaponTemplates = [
     maxHp: 7883,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "虚無の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚無の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "虚無覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "虚無の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚無の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "虚無覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6654,9 +6654,9 @@ export const normalWeaponTemplates = [
     maxHp: 7883,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "滅却の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇滅却の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "滅却覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "滅却の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇滅却の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "滅却覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6672,9 +6672,9 @@ export const normalWeaponTemplates = [
     maxHp: 7883,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "砂嵐の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇砂嵐の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "砂嵐覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "砂嵐の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇砂嵐の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "砂嵐覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6690,9 +6690,9 @@ export const normalWeaponTemplates = [
     maxHp: 7883,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "甲殻の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇甲殻の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "甲殻覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "甲殻の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇甲殻の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "甲殻覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6708,9 +6708,9 @@ export const normalWeaponTemplates = [
     maxHp: 7985,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "蠅群の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇蠅群の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蠅群覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "蠅群の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇蠅群の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蠅群覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6726,9 +6726,9 @@ export const normalWeaponTemplates = [
     maxHp: 7985,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "石化の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇石化の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "石化覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "石化の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇石化の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "石化覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6744,9 +6744,9 @@ export const normalWeaponTemplates = [
     maxHp: 7985,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "肉塊の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇肉塊の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "肉塊覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "肉塊の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇肉塊の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "肉塊覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6762,9 +6762,9 @@ export const normalWeaponTemplates = [
     maxHp: 7985,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "血塊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇血塊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "血塊覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "血塊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇血塊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "血塊覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6780,9 +6780,9 @@ export const normalWeaponTemplates = [
     maxHp: 8088,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "首無しの魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇首無の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "首無覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "首無しの魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇首無の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "首無覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6798,9 +6798,9 @@ export const normalWeaponTemplates = [
     maxHp: 8088,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "虚体の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇虚体の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "虚体覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "虚体の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇虚体の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "虚体覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6816,9 +6816,9 @@ export const normalWeaponTemplates = [
     maxHp: 8088,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "深淵炎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇深淵炎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "深淵炎覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "深淵炎の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇深淵炎の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "深淵炎覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6834,9 +6834,9 @@ export const normalWeaponTemplates = [
     maxHp: 8088,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "堕天の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇堕天の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "堕天覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "堕天の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇堕天の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "堕天覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6852,9 +6852,9 @@ export const normalWeaponTemplates = [
     maxHp: 8191,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "誘惑の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇誘惑の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "誘惑覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "誘惑の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇誘惑の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "誘惑覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6870,9 +6870,9 @@ export const normalWeaponTemplates = [
     maxHp: 8191,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "幽霊の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇幽霊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "幽霊覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "幽霊の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇幽霊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "幽霊覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6888,9 +6888,9 @@ export const normalWeaponTemplates = [
     maxHp: 8191,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "凶鬼の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇凶鬼の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "凶鬼覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "凶鬼の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇凶鬼の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "凶鬼覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6906,9 +6906,9 @@ export const normalWeaponTemplates = [
     maxHp: 8191,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "堕落王の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇堕落王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "堕落王覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "堕落王の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇堕落王の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "堕落王覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6924,9 +6924,9 @@ export const normalWeaponTemplates = [
     maxHp: 8294,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "鮮血の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇鮮血の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "鮮血覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "鮮血の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇鮮血の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "鮮血覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6942,9 +6942,9 @@ export const normalWeaponTemplates = [
     maxHp: 8294,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥府の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇冥府の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥府覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥府の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇冥府の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥府覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6960,9 +6960,9 @@ export const normalWeaponTemplates = [
     maxHp: 8294,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "混沌の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇混沌の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "混沌覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "混沌の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇混沌の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "混沌覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6978,9 +6978,9 @@ export const normalWeaponTemplates = [
     maxHp: 8294,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "影獣の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影獣の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "影獣覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "影獣の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影獣の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "影獣覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -6996,9 +6996,9 @@ export const normalWeaponTemplates = [
     maxHp: 8397,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "邪兵の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇邪兵の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "邪兵覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "邪兵の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇邪兵の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "邪兵覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7014,9 +7014,9 @@ export const normalWeaponTemplates = [
     maxHp: 8397,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "蠕動の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇蠕動の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "蠕動覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "蠕動の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇蠕動の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "蠕動覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7032,9 +7032,9 @@ export const normalWeaponTemplates = [
     maxHp: 8397,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "影霊の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇影霊の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "影霊覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "影霊の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇影霊の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "影霊覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7050,9 +7050,9 @@ export const normalWeaponTemplates = [
     maxHp: 8397,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "奈落霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇奈落霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "奈落霊覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "奈落霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇奈落霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "奈落霊覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7068,9 +7068,9 @@ export const normalWeaponTemplates = [
     maxHp: 8501,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥界獣の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇冥界獣の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥界獣覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥界獣の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇冥界獣の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥界獣覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7086,9 +7086,9 @@ export const normalWeaponTemplates = [
     maxHp: 8501,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "亡骸鬼の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇亡骸鬼の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "亡骸鬼覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "亡骸鬼の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇亡骸鬼の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "亡骸鬼覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7104,9 +7104,9 @@ export const normalWeaponTemplates = [
     maxHp: 8501,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "禁忌の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇禁忌の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "禁忌覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "禁忌の業剣",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇禁忌の覇剣", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "禁忌覇神の神剣",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7122,9 +7122,9 @@ export const normalWeaponTemplates = [
     maxHp: 8501,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "冥府霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇冥府霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "冥府霊覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "冥府霊の魔杖",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇冥府霊の覇杖", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "冥府霊覇神の神杖",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7140,9 +7140,9 @@ export const normalWeaponTemplates = [
     maxHp: 8604,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "絶望の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇絶望の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "絶望覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "絶望の魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇絶望の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "絶望覇神の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7158,9 +7158,9 @@ export const normalWeaponTemplates = [
     maxHp: 8604,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "崩壊の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "覇崩壊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "崩壊覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "崩壊の魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "覇崩壊の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "崩壊覇神の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7176,9 +7176,9 @@ export const normalWeaponTemplates = [
     maxHp: 8604,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "永劫覇神に認められた魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "永劫覇神の加護の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫覇神滅の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "永劫覇神に認められた魔弓",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "永劫覇神の加護の覇弓", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫覇神滅の神弓",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
   {
@@ -7194,9 +7194,9 @@ export const normalWeaponTemplates = [
     maxHp: 8604,
     dropRate: 0.25,
     evolutions: [
-      { level: 50,  name: "永劫覇神に認められた魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 1.3 },
-      { level: 200, name: "永劫覇神の加護の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 1.6 },
-      { level: 500, name: "永劫覇神滅の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 2.0 },
+      { level: 50,  name: "永劫覇神に認められた魔斧",  dexBuff: { hp: 0.80, power: 0.80 }, passiveMult: 3.0 },
+      { level: 200, name: "永劫覇神の加護の覇斧", dexBuff: { hp: 1.50, power: 1.50 }, passiveMult: 5.0 },
+      { level: 500, name: "永劫覇神滅の神斧",  dexBuff: { hp: 3.00, power: 3.00 }, passiveMult: 10.0 },
     ],
   },
 ];

@@ -434,7 +434,7 @@ function createHiddenBossEnemy(def) {
   const weaponBaseHp  = Math.floor(bossBand.petHp.max * 1.4);
 
   // passiveValue
-  const dynamicPassiveValue = Math.floor(bossBand.passiveValue.buff.max * 2.0);
+  const dynamicPassiveValue = Math.floor(bossBand.passiveValue.buff.max * 3.0);
 
   // 経験値
   const hiddenBossExp = Math.floor((5 + targetFloor * 10) * 2.0 * 3);
