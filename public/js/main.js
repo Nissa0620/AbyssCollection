@@ -53,6 +53,8 @@ import { isUltimateWeapon } from "./drop.js";
 // 初期化
 // =====================
 
+let _lastPetSortMode = null;
+
 function init() {
   state.phase = "next";
   refreshUI();
@@ -71,10 +73,8 @@ function refreshUI() {
   updateSynthesisInfo();
   updateSynthesisPreview();
   updateExpBar();
-  updatePetPanel(handlePetSynthesisClick, handlePetEquip);
   updateEquippedWeaponInfo(refreshUI);
   updateInventoryFilterOptions();
-  updatePetFilterOptions();
   updateFloorJumpOptions(state.floor);
 
   const sortSel = document.getElementById("weaponSortSelect");
@@ -94,13 +94,19 @@ function refreshUI() {
   if (state.ui.inventoryOpen) {
     sortInventory(state.player);
   }
+  // ペットパネルが開いているときだけ更新する
   if (state.ui.petOpen) {
+    updatePetFilterOptions();
     const petMode = state.ui.petSortMode ?? "passive";
-    state.player.petList.sort((a, b) => {
-      if (petMode === "hp") return getPetHp(b) - getPetHp(a);
-      if (petMode === "passive") return (b.passiveValue ?? 0) - (a.passiveValue ?? 0);
-      return getPetPower(b) - getPetPower(a);
-    });
+    if (petMode !== _lastPetSortMode) {
+      _lastPetSortMode = petMode;
+      state.player.petList.sort((a, b) => {
+        if (petMode === "hp") return getPetHp(b) - getPetHp(a);
+        if (petMode === "passive") return (b.passiveValue ?? 0) - (a.passiveValue ?? 0);
+        return getPetPower(b) - getPetPower(a);
+      });
+    }
+    updatePetPanel(handlePetSynthesisClick, handlePetEquip);
   }
 }
 
@@ -174,6 +180,7 @@ function closePetModal() {
   state.petSynthesis.materialUids = [];
   state.ui.petOpenGroups = {};
   state.ui.petNameFilter = "";
+  _lastPetSortMode = null;
   const inp = document.getElementById("petNameInput");
   if (inp) inp.value = "";
   refreshUI();
@@ -387,6 +394,7 @@ document.getElementById("inventoryOverlay").addEventListener("click", (e) => {
 // ペットソートセレクト
 document.getElementById("petSortSelect").addEventListener("change", (e) => {
   state.ui.petSortMode = e.target.value;
+  _lastPetSortMode = null;  // 強制的に次のrefreshUIでソートさせる
   const mode = state.ui.petSortMode;
   state.player.petList.sort((a, b) => {
     if (mode === "hp") return getPetHp(b) - getPetHp(a);
