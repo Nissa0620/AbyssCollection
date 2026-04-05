@@ -250,6 +250,11 @@ function buildBossCaptureAchievements() {
 export function checkAchievements() {
   if (!state.achievements) state.achievements = { unlocked: {} };
 
+  // 未解除の実績が1件もなければスキップ
+  const hasUnlocked = state.achievements.unlocked;
+  const hasRemaining = achievementDefs.some((def) => !hasUnlocked[def.id]);
+  if (!hasRemaining) return;
+
   const newly = [];
 
   for (const def of achievementDefs) {

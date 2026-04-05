@@ -45,16 +45,21 @@ export function registerEnemyDefeated(enemyId, titleId, enemyName, titleName, is
   const entry = enemiesBook[key];
   entry.defeatedCount++;
 
-  if (!entry.titles[titleId]) {
+  const isNewTitle = !entry.titles[titleId];
+  if (isNewTitle) {
     entry.titles[titleId] = { seen: true, defeated: false };
     addLog(`📘 ${fullDisplayName ?? (titleName + enemyName)}を図鑑に登録した`);
   }
 
   entry.titles[titleId].seen = true;
   entry.titles[titleId].defeated = true;
-  recalcDexBuff(state);
-  recalcWeaponDexBuff(state);
-  recalcHiddenBossDexBuff(state);
+
+  // 新規図鑑登録時のみdexBuffを再計算（既登録の敵を再撃破してもバフは変わらない）
+  if (isNewTitle) {
+    recalcDexBuff(state);
+    recalcWeaponDexBuff(state);
+    recalcHiddenBossDexBuff(state);
+  }
 }
 
 // 捕獲済ペットの究極フラグを更新（捕獲・合成後に呼ぶ）
