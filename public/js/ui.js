@@ -37,6 +37,18 @@ import {
   isLegendaryPassive,
 } from "./data/index.js";
 
+// renderLogs 用：前回レンダリング済みのログ件数を記憶
+let _lastLogCount = 0;
+
+// updateDisplay 用：前回表示した値を記憶
+const _displayCache = {
+  playerHp: null,
+  enemyHp: null,
+  enemyName: null,
+  floorDisplay: null,
+  playerAttack: null,
+};
+
 // main.js からコールバックを受け取る（循環import回避）
 let _refreshUICallback = null;
 export function setRefreshCallback(fn) { _refreshUICallback = fn; }
@@ -45,20 +57,20 @@ export function setCreateEnemyCallback(fn) { _createEnemyCallback = fn; }
 
 // 表示更新処理
 export function updateDisplay(player, enemy) {
-  document.getElementById("playerHp").textContent =
-    "HP : " + player.hp + " / " + player.totalHp;
+  const vals = {
+    playerHp:     "HP : " + player.hp + " / " + player.totalHp,
+    enemyHp:      enemy ? "HP : " + enemy.hp + " / " + enemy.totalHp : "",
+    enemyName:    enemy ? enemy.name : "???",
+    floorDisplay: "地下" + state.floor + "階層",
+    playerAttack: "攻撃力 : " + player.totalPower,
+  };
 
-  document.getElementById("enemyHp").textContent =
-    enemy ? "HP : " + enemy.hp + " / " + enemy.totalHp : "";
-
-  document.getElementById("enemyName").textContent =
-    enemy ? enemy.name : "???";
-
-  document.getElementById("floorDisplay").textContent =
-    "地下" + state.floor + "階層";
-
-  document.getElementById("playerAttack").textContent =
-    "攻撃力 : " + player.totalPower;
+  for (const [id, val] of Object.entries(vals)) {
+    if (_displayCache[id] !== val) {
+      document.getElementById(id).textContent = val;
+      _displayCache[id] = val;
+    }
+  }
 
   const nextExpEl = document.getElementById("nextExp");
   if (nextExpEl) nextExpEl.textContent = "";
@@ -521,13 +533,21 @@ export function updatePetFilterOptions() {
 // ログ表示処理
 export function renderLogs(logs) {
   const logArea = document.getElementById("log");
-  logArea.innerHTML = "";
 
-  logs.forEach((log) => {
+  // ログが減った場合（clearLogs後など）は全クリアしてリセット
+  if (logs.length < _lastLogCount) {
+    logArea.innerHTML = "";
+    _lastLogCount = 0;
+  }
+
+  // 前回以降に追加された分だけ追記する
+  for (let i = _lastLogCount; i < logs.length; i++) {
     const p = document.createElement("p");
-    p.textContent = log;
+    p.textContent = logs[i];
     logArea.appendChild(p);
-  });
+  }
+  _lastLogCount = logs.length;
+
   logArea.scrollTop = logArea.scrollHeight;
 }
 
