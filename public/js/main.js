@@ -299,7 +299,7 @@ function startHold() {
       return;
     }
     doAttack();
-  }, 300);
+  }, 200);
 }
 
 function stopHold() {
