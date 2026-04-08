@@ -568,6 +568,21 @@
               <span class="toggle-slider"></span>
             </label>
           </div>
+          <hr class="setting-divider">
+          <!-- 引き継ぎコード -->
+          <div class="transfer-section">
+            <h3 class="transfer-title">データ引き継ぎ</h3>
+            <button id="exportCodeBtn">引き継ぎコードを発行</button>
+            <div id="exportCodeResult" style="display:none;">
+              <p>以下のコードをメモしてください（30日間有効）</p>
+              <div id="exportCodeDisplay"></div>
+              <button id="copyCodeBtn">コピー</button>
+            </div>
+            <hr>
+            <input type="text" id="importCodeInput" placeholder="XXXX-XXXX" maxlength="9">
+            <button id="importCodeBtn">コードで引き継ぐ</button>
+            <p id="importCodeMsg"></p>
+          </div>
         </div>
       </div>
     </div>

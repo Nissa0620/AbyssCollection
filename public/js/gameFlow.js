@@ -10,6 +10,7 @@ import { checkAchievements } from "./achievements.js";
 import { registerHiddenBossDefeated } from "./book.js";
 
 export function handlePhase() {
+  const prevPhase = state.phase;
   switch (state.phase) {
     case "battle":
       battlePhase();
@@ -21,6 +22,11 @@ export function handlePhase() {
       gameOverPhase();
       break;
   }
+  if (prevPhase === "next" || prevPhase === "gameover" || state._floorJustChanged) {
+    state._floorJustChanged = false;
+    return "floorChanged";
+  }
+  return "battle";
 }
 
 function battlePhase() {
@@ -80,6 +86,7 @@ function battlePhase() {
 }
 
 function nextPhase() {
+  state._floorJustChanged = true; // ← フロア移動フラグ
   if (!state.ui.stayOnFloor) state.floor++;
   createEnemy();
   state.maxFloor = Math.max(state.maxFloor, state.floor);

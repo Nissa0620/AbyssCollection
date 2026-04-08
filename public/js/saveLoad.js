@@ -10,7 +10,64 @@ const DB_VERSION = 1;
 const STORE_NAME = "saves";
 
 // =====================
-// IndexedDB ヘルパー
+// UID取得待機（最大10秒）
+// =====================
+
+function waitForUid(timeoutMs = 10000) {
+  return new Promise((resolve, reject) => {
+    if (window._uid) return resolve(window._uid);
+    const start = Date.now();
+    const timer = setInterval(() => {
+      if (window._uid) {
+        clearInterval(timer);
+        resolve(window._uid);
+      } else if (Date.now() - start > timeoutMs) {
+        clearInterval(timer);
+        reject(new Error("UID取得タイムアウト"));
+      }
+    }, 100);
+  });
+}
+
+// =====================
+// Firestore セーブ・ロード
+// =====================
+
+async function firebaseSave(json) {
+  try {
+    const uid = await waitForUid();
+    const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
+    await setDoc(doc(window._db, "saves", uid, "data", "save"), { json, updatedAt: Date.now() });
+  } catch (e) {
+    console.error("firebaseSave error:", e);
+  }
+}
+
+async function firebaseLoad() {
+  try {
+    const uid = await waitForUid();
+    const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
+    const snap = await getDoc(doc(window._db, "saves", uid, "data", "save"));
+    if (snap.exists()) return snap.data().json ?? null;
+    return null;
+  } catch (e) {
+    console.error("firebaseLoad error:", e);
+    return null;
+  }
+}
+
+async function firebaseDelete() {
+  try {
+    const uid = await waitForUid();
+    const { doc, deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
+    await deleteDoc(doc(window._db, "saves", uid, "data", "save"));
+  } catch (e) {
+    console.error("firebaseDelete error:", e);
+  }
+}
+
+// =====================
+// IndexedDB ヘルパー（移行処理用に残す）
 // =====================
 
 function openDB() {
@@ -55,27 +112,14 @@ function dbDelete(db, key) {
 }
 
 // =====================
-// DBインスタンスキャッシュ
+// saveGame（デバウンス方式）
 // =====================
 
-let _db = null;
 let _isSaving   = false;
 let _pendingSave = false;
 
-async function getDB() {
-  if (_db) return _db;
-  _db = await openDB();
-  _db.onclose = () => { _db = null; }; // 切断時に自動リセット
-  return _db;
-}
-
-// =====================
-// saveGame（デバウンス方式・最大2件待機）
-// =====================
-
 export function saveGame() {
   if (_isSaving) {
-    // 保存中なら「次に1回だけ保存する」フラグを立てるだけ
     _pendingSave = true;
     return;
   }
@@ -88,16 +132,12 @@ async function _doSave() {
   state.lastSaveTime = Date.now();
   const json = JSON.stringify(state);
   try {
-    const db = await getDB();
-    await dbPut(db, SAVE_KEY, json);
+    await firebaseSave(json);
   } catch (e) {
     console.error("saveGame error:", e);
-    // getDB()が失敗した場合はキャッシュをリセットして次回再接続を試みる
-    _db = null;
   } finally {
     _isSaving = false;
     if (_pendingSave) {
-      // 保存中に新しいリクエストがあった場合、もう1回だけ実行
       _doSave();
     }
   }
@@ -109,11 +149,9 @@ async function _doSave() {
 
 export async function deleteGame() {
   try {
-    const db = await getDB();
-    await dbDelete(db, SAVE_KEY);
+    await firebaseDelete();
   } catch (e) {
     console.error("deleteGame error:", e);
-    _db = null;
   }
 }
 
@@ -128,7 +166,6 @@ export async function loadGame() {
     // ── ① localStorageからの移行処理（1回限り）──
     const legacy = localStorage.getItem(SAVE_KEY);
     if (legacy) {
-      // 旧データを展開
       if (legacy.startsWith("{")) {
         json = legacy;
       } else {
@@ -136,22 +173,40 @@ export async function loadGame() {
         if (!json) json = LZString.decompress(legacy);
       }
       if (json) {
-        // IndexedDB に移行して localStorage を削除
-        const db = await openDB();
-        await dbPut(db, SAVE_KEY, json);
         localStorage.removeItem(SAVE_KEY);
-        console.log("saveLoad: localStorage → IndexedDB 移行完了");
+        console.log("saveLoad: localStorage → Firebase 移行完了");
       } else {
         console.error("loadGame: legacy decompress failed");
-        localStorage.removeItem(SAVE_KEY); // 壊れたデータは削除
+        localStorage.removeItem(SAVE_KEY);
       }
     }
 
-    // ── ② IndexedDB から読み込み ──
+    // ── ② IndexedDBからの移行処理（1回限り）──
     if (!json) {
-      const db = await openDB();
-      json = await dbGet(db, SAVE_KEY);
+      try {
+        const idb = await openDB();
+        const idbJson = await dbGet(idb, SAVE_KEY);
+        if (idbJson) {
+          json = idbJson;
+          // IndexedDBのデータを削除（移行済みフラグ代わり）
+          await dbDelete(idb, SAVE_KEY);
+          console.log("saveLoad: IndexedDB → Firebase 移行完了");
+        }
+      } catch (e) {
+        console.warn("IndexedDB移行スキップ:", e);
+      }
     }
+
+    // ── ③ Firebaseから読み込み ──
+    if (!json) {
+      json = await firebaseLoad();
+    }
+
+    // ── ④ 移行データをFirebaseに保存 ──
+    if (json) {
+      await firebaseSave(json);
+    }
+
   } catch (e) {
     console.error("loadGame: storage error", e);
     return false;
@@ -200,16 +255,10 @@ export async function loadGame() {
     },
   };
 
-  // 古いセーブデータ対応：gemsが無ければ初期化
-  if (!state.player.gems) {
-    state.player.gems = [];
-  }
+  if (!state.player.gems) state.player.gems = [];
 
-  // マイグレーション：ペットのlevelフィールド追加（旧データはlevel=0に初期化）
   for (const pet of state.player.petList ?? []) {
-    if (pet.level == null) {
-      pet.level = 0;
-    }
+    if (pet.level == null) pet.level = 0;
     delete pet.power;
     delete pet.bonusPower;
     delete pet.hp;
@@ -223,7 +272,6 @@ export async function loadGame() {
     delete state.player.equippedPet.bonusHp;
   }
 
-  // 古いセーブデータ対応：有効でないフィルター値をリセット
   const validPassives = new Set([
     "", "captureBoost", "expBoost", "atkBoost", "dropBoost",
     "dmgBoost", "dmgReduce", "hpBoost", "doubleAttack", "survive",
@@ -242,7 +290,6 @@ export async function loadGame() {
     if (state.ui) state.ui.petFilter = "";
   }
 
-  // 古いセーブデータ対応：achievementsが無ければ初期化
   if (!state.achievements) {
     state.achievements = {
       unlocked: {},
@@ -254,13 +301,12 @@ export async function loadGame() {
       ultimateWeaponCount: 0,
     };
   }
-  // 古いセーブデータ対応：バフを再計算して正しい値に上書き
+
   recalcDexBuff(state);
   recalcWeaponDexBuff(state);
   recalcHiddenBossDexBuff(state);
   state.hpBoostMult = getHpBoostMultiplier();
 
-  // マイグレーション：extraHit → expBurst、legendExtraHit → legendExpBurst
   const passiveMigrateMap = { extraHit: "expBurst", legendExtraHit: "legendExpBurst" };
   for (const pet of state.player?.petList ?? []) {
     if (passiveMigrateMap[pet.passive]) pet.passive = passiveMigrateMap[pet.passive];
@@ -275,11 +321,8 @@ export async function loadGame() {
     state.player.equippedWeapon.passive = passiveMigrateMap[state.player.equippedWeapon.passive];
   }
 
-  // ロード後に超過分ボーナスを計算
   calcOverflowBonuses();
 
-  // マイグレーション：捕獲済フラグの補完
-  // petList に存在するペットは必ず caught = true にする
   if (state.player?.petList && state.book?.enemies) {
     for (const pet of state.player.petList) {
       const bookKey = pet.isBoss ? `boss_${pet.enemyId}` : `normal_${pet.enemyId}`;
@@ -293,7 +336,6 @@ export async function loadGame() {
     }
   }
 
-  // マイグレーション：acquiredOrderが存在しない場合は一括付与
   if (!state.migrated?.acquiredOrder) {
     let counter = 0;
     for (const pet of state.player.petList ?? []) {
@@ -307,13 +349,11 @@ export async function loadGame() {
     if (!state.acquiredCounter) state.acquiredCounter = counter;
   }
 
-  // ロード時にアコーディオン開閉状態をリセット
   if (state.ui) {
     state.ui.petOpenGroups = {};
     state.ui.weaponOpenGroups = {};
   }
 
-  // 研究所データの初期化（旧セーブデータ対応）
   if (!state.research) {
     state.research = {
       level: 0,
@@ -340,17 +380,14 @@ export async function loadGame() {
       hiddenBossUnlocked_pride:    false,
     };
   }
-  // 旧セーブ対応：個別購入カウンターが未定義なら 0 で初期化
   if (state.research.atkPurchaseCount == null) state.research.atkPurchaseCount = 0;
   if (state.research.hpPurchaseCount  == null) state.research.hpPurchaseCount  = 0;
   if (state.research.expPurchaseCount == null) state.research.expPurchaseCount = 0;
 
-  // ミッションが空なら初期生成
   if (state.research.missions.length === 0 && state.maxFloor >= 500) {
     initMissions();
   }
 
-  // 旧フラグ（hiddenBossUnlocked: true）→ 7体全解禁として引き継ぐ
   if (state.research.hiddenBossUnlocked === true) {
     for (const def of hiddenBossDefs) {
       state.research[def.unlockKey] = true;
@@ -358,24 +395,20 @@ export async function loadGame() {
     delete state.research.hiddenBossUnlocked;
   }
 
-  // 各フラグが未定義なら false で初期化
   for (const def of hiddenBossDefs) {
     if (state.research[def.unlockKey] === undefined) {
       state.research[def.unlockKey] = false;
     }
   }
 
-  // 初撃破フラグが未定義なら初期化
   if (!state.achievements.hiddenBossFirstKill) {
     state.achievements.hiddenBossFirstKill = {};
   }
 
-  // book.hiddenBossesが未定義なら初期化
   if (!state.book.hiddenBosses) {
     state.book.hiddenBosses = {};
   }
 
-  // マイグレーション：数値型UIDを文字列型に変換
   for (const pet of state.player.petList ?? []) {
     if (typeof pet.uid === "number") pet.uid = String(pet.uid);
   }
@@ -394,4 +427,60 @@ export async function loadGame() {
   state.petSynthesis.materialUids = (state.petSynthesis?.materialUids ?? []).map(u => typeof u === "number" ? String(u) : u);
 
   return true;
+}
+
+// =====================
+// エクスポート（引き継ぎコード生成）
+// =====================
+
+export async function exportSaveCode() {
+  try {
+    const json = JSON.stringify(state);
+    const code = generateCode();
+    const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
+    await setDoc(doc(window._db, "transferCodes", code), {
+      json,
+      createdAt: Date.now(),
+      expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30日
+    });
+    return code;
+  } catch (e) {
+    console.error("exportSaveCode error:", e);
+    return null;
+  }
+}
+
+// =====================
+// インポート（引き継ぎコード読み込み）
+// =====================
+
+export async function importSaveCode(code) {
+  try {
+    const normalized = code.replace(/-/g, "").toUpperCase();
+    const formattedCode = normalized.slice(0, 4) + "-" + normalized.slice(4, 8);
+    const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
+    const snap = await getDoc(doc(window._db, "transferCodes", formattedCode));
+    if (!snap.exists()) return { success: false, error: "コードが見つかりません" };
+    const data = snap.data();
+    if (Date.now() > data.expiresAt) return { success: false, error: "コードの有効期限が切れています" };
+    // Firebaseに保存して再ロード
+    await firebaseSave(data.json);
+    return { success: true, json: data.json };
+  } catch (e) {
+    console.error("importSaveCode error:", e);
+    return { success: false, error: "読み込みに失敗しました" };
+  }
+}
+
+// =====================
+// コード生成ヘルパー
+// =====================
+
+function generateCode() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // 紛らわしい文字を除外
+  let code = "";
+  for (let i = 0; i < 8; i++) {
+    code += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return code.slice(0, 4) + "-" + code.slice(4, 8);
 }
