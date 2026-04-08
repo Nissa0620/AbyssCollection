@@ -60,6 +60,18 @@ function init() {
   refreshUI();
 }
 
+// =====================
+// 攻撃時専用の軽量UI更新
+// 攻撃ボタン押下時はこちらを呼ぶ（refreshUI の代わり）
+// 攻撃のたびに変化する情報のみを更新する
+// =====================
+function refreshBattle() {
+  updateDisplay(state.player, state.enemy);
+  renderLogs(state.logs);
+  updateButton();
+  updateExpBar();
+}
+
 function refreshUI() {
   updateDisplay(state.player, state.enemy);
   updateInventoryTab(state.ui.inventoryTab ?? "weapon");
@@ -281,8 +293,12 @@ function doAttack() {
   if (isProcessing) return;
   isProcessing = true;
   try {
-    handlePhase();
-    refreshUI();
+    const result = handlePhase();
+    if (result === "floorChanged") {
+      refreshUI();      // フロア移動・ゲームオーバー回復時はフル更新
+    } else {
+      refreshBattle();  // 通常攻撃時は軽量更新
+    }
   } finally {
     isProcessing = false;
   }
