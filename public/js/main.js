@@ -41,7 +41,7 @@ import {
   bulkSynthesizeUltimateWeapons,
 } from "./inventory.js";
 import { getWeaponDisplayName } from "./weapon.js";
-import { saveGame, loadGame, deleteGame } from "./saveLoad.js";
+import { saveGame, loadGame, deleteGame, exportSaveCode, importSaveCode } from "./saveLoad.js";
 import { renderAchievements } from "./achievements.js";
 import { rerollMissions, initMissions } from "./research.js";
 import { sendRankingData, fetchRanking, isNameTaken } from "./ranking.js";
@@ -575,6 +575,48 @@ document.getElementById("researchCloseBtn").addEventListener("click", () => {
 
 document.getElementById("donateCloseBtn").addEventListener("click", () => {
   document.getElementById("donateOverlay").classList.add("hidden");
+});
+
+// =====================
+// 引き継ぎコード
+// =====================
+document.getElementById("exportCodeBtn").addEventListener("click", async () => {
+  const btn = document.getElementById("exportCodeBtn");
+  btn.disabled = true;
+  btn.textContent = "発行中...";
+  const code = await exportSaveCode();
+  btn.disabled = false;
+  btn.textContent = "引き継ぎコードを発行";
+  if (code) {
+    document.getElementById("exportCodeDisplay").textContent = code;
+    document.getElementById("exportCodeResult").style.display = "block";
+  } else {
+    alert("コードの発行に失敗しました。通信環境を確認してください。");
+  }
+});
+
+document.getElementById("copyCodeBtn").addEventListener("click", () => {
+  const code = document.getElementById("exportCodeDisplay").textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    document.getElementById("copyCodeBtn").textContent = "コピーしました！";
+    setTimeout(() => {
+      document.getElementById("copyCodeBtn").textContent = "コピー";
+    }, 2000);
+  });
+});
+
+document.getElementById("importCodeBtn").addEventListener("click", async () => {
+  const code = document.getElementById("importCodeInput").value.trim();
+  if (!code) return;
+  const msg = document.getElementById("importCodeMsg");
+  msg.textContent = "読み込み中...";
+  const result = await importSaveCode(code);
+  if (result.success) {
+    msg.textContent = "引き継ぎ成功！ページを再読み込みします...";
+    setTimeout(() => location.reload(), 1500);
+  } else {
+    msg.textContent = "失敗：" + result.error;
+  }
 });
 
 
