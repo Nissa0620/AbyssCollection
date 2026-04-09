@@ -9,6 +9,8 @@ const DB_NAME  = "abyssDB";
 const DB_VERSION = 1;
 const STORE_NAME = "saves";
 
+let _importLock = false;
+
 // =====================
 // UID取得待機（最大10秒）
 // =====================
@@ -119,6 +121,7 @@ let _isSaving   = false;
 let _pendingSave = false;
 
 export function saveGame() {
+  if (_importLock) return;
   if (_isSaving) {
     _pendingSave = true;
     return;
@@ -464,6 +467,7 @@ export async function importSaveCode(code) {
     const data = snap.data();
     if (Date.now() > data.expiresAt) return { success: false, error: "コードの有効期限が切れています" };
     // Firebaseに保存して再ロード
+    _importLock = true;
     await firebaseSave(data.json);
     return { success: true, json: data.json };
   } catch (e) {
