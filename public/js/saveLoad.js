@@ -470,7 +470,6 @@ export async function importSaveCode(code) {
     const json = LZString.decompressFromUTF16(data.compressed);
     if (json === null) return { success: false, error: "データの解凍に失敗しました" };
     // Firebaseに保存して再ロード
-    console.log("importSaveCode: json length =", json?.length, "type =", typeof json);
     _importLock = true;
     await firebaseSave(json);
     return { success: true, json };
