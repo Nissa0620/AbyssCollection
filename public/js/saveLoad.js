@@ -438,9 +438,10 @@ export async function loadGame() {
 
 export async function exportSaveCode() {
   try {
+    const uid = await waitForUid();
+    const code = uidToCode(uid);
     const json = JSON.stringify(state);
     const compressed = LZString.compressToUTF16(json);
-    const code = generateCode();
     const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
     await setDoc(doc(window._db, "transferCodes", code), {
       compressed,
@@ -483,11 +484,12 @@ export async function importSaveCode(code) {
 // コード生成ヘルパー
 // =====================
 
-function generateCode() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // 紛らわしい文字を除外
+function uidToCode(uid) {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let code = "";
   for (let i = 0; i < 8; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
+    const charCode = uid.charCodeAt(i % uid.length);
+    code += chars[charCode % chars.length];
   }
   return code.slice(0, 4) + "-" + code.slice(4, 8);
 }
