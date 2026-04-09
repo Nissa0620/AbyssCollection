@@ -439,10 +439,11 @@ export async function loadGame() {
 export async function exportSaveCode() {
   try {
     const json = JSON.stringify(state);
+    const compressed = LZString.compressToUTF16(json);
     const code = generateCode();
     const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
     await setDoc(doc(window._db, "transferCodes", code), {
-      json,
+      compressed,
       createdAt: Date.now(),
       expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30日
     });
@@ -466,10 +467,12 @@ export async function importSaveCode(code) {
     if (!snap.exists()) return { success: false, error: "コードが見つかりません" };
     const data = snap.data();
     if (Date.now() > data.expiresAt) return { success: false, error: "コードの有効期限が切れています" };
+    const json = LZString.decompressFromUTF16(data.compressed);
+    if (json === null) return { success: false, error: "データの解凍に失敗しました" };
     // Firebaseに保存して再ロード
     _importLock = true;
-    await firebaseSave(data.json);
-    return { success: true, json: data.json };
+    await firebaseSave(json);
+    return { success: true, json };
   } catch (e) {
     console.error("importSaveCode error:", e);
     return { success: false, error: "読み込みに失敗しました" };
