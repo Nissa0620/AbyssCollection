@@ -212,6 +212,23 @@ export async function loadGame() {
       }
     }
 
+    // ── ② Cloud Storageへの移行処理（Firestoreから）──
+    if (!json) {
+      try {
+        const uid = await waitForUid();
+        const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
+        const snap = await getDoc(doc(window._db, "saves", uid, "data", "save"));
+        if (snap.exists()) {
+          json = snap.data().json ?? null;
+          if (json) {
+            console.log("saveLoad: Firestore → Cloud Storage 移行完了");
+          }
+        }
+      } catch (e) {
+        console.warn("Firestore移行スキップ:", e);
+      }
+    }
+
     // ── ③ Firebaseから読み込み ──
     if (!json) {
       json = await firebaseLoad();
