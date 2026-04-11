@@ -216,50 +216,29 @@ export async function deleteGame() {
 
 export async function loadGame() {
   let json = null;
-  let _migrated = false;
 
   try {
-    // ── ① localStorageからの移行処理（1回限り）──
-    const legacy = localStorage.getItem(SAVE_KEY);
-    if (legacy) {
-      if (legacy.startsWith("{")) {
-        json = legacy;
-      } else {
-        json = LZString.decompressFromUTF16(legacy);
-        if (!json) json = LZString.decompress(legacy);
-      }
-      if (json) {
-        localStorage.removeItem(SAVE_KEY);
-        _migrated = true;
-        console.log("saveLoad: localStorage → Firebase 移行完了");
-      } else {
-        console.error("loadGame: legacy decompress failed");
-        localStorage.removeItem(SAVE_KEY);
-      }
-    }
+    // ── ① Cloud Storageから読み込む（最優先）──
+    // 手動セーブされたデータが存在すればここで取得される
+    json = await firebaseLoad();
 
-    // ── ② Cloud Storageから読み込み（最優先）──
-    if (!json) {
-      json = await firebaseLoad();
-    }
-
-    // ── ③ Cloud Storageになければ、IndexedDBから読み込む ──
+    // ── ② Cloud Storageにデータがなければ、IndexedDBから読み込む ──
+    // 手動セーブ未実施の場合や、Cloud Storageへのアクセスが失敗した場合のフォールバック
     if (!json) {
       try {
         const idb = await openDB();
-        const idbJson = await dbGet(idb, SAVE_KEY);
-        if (idbJson) {
-          json = idbJson;
-          await dbDelete(idb, SAVE_KEY);
-          _migrated = true;
-          console.log("saveLoad: IndexedDB → Cloud Storage 移行完了");
+        json = await dbGet(idb, SAVE_KEY);
+        if (json) {
+          console.log("saveLoad: IndexedDBからロード完了");
         }
       } catch (e) {
-        console.warn("IndexedDB移行スキップ:", e);
+        console.warn("saveLoad: IndexedDB読み込みスキップ:", e);
       }
     }
 
-    // ── ④ FirestoreからCloud Storageへの移行処理 ──
+    // ── ③ IndexedDBにもなければ、Firestoreから読み込む ──
+    // 過去にFirestoreを使っていたユーザーへのフォールバック
+    // Firestoreのデータは手動セーブするまでCloud Storageには保存されない
     if (!json) {
       try {
         const uid = await waitForUid();
@@ -268,27 +247,22 @@ export async function loadGame() {
         if (snap.exists()) {
           json = snap.data().json ?? null;
           if (json) {
-            _migrated = true;
-            console.log("saveLoad: Firestore → Cloud Storage 移行完了");
+            console.log("saveLoad: Firestoreからロード完了");
           }
         }
       } catch (e) {
-        console.warn("Firestore移行スキップ:", e);
+        console.warn("saveLoad: Firestoreフォールバックスキップ:", e);
       }
     }
 
-    // ── ⑤ 移行データをCloud Storageに保存（移行時のみ）──
-    if (json && _migrated) {
-      await firebaseSave(json);
-    }
-
-    // ── ⑥ IndexedDBにも保存 ──
+    // ── ④ 読み込んだデータをIndexedDBにも保存する ──
+    // 次回起動時のフォールバック用として常にIndexedDBを最新に保つ
     if (json) {
       try {
         const idb = await openDB();
         await dbPut(idb, SAVE_KEY, json);
       } catch (e) {
-        console.warn("IndexedDB保存スキップ:", e);
+        console.warn("saveLoad: IndexedDB保存スキップ:", e);
       }
     }
 
