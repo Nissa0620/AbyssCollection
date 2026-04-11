@@ -971,6 +971,7 @@ document.getElementById("bulkSynthConfirmBtn").addEventListener("click", () => {
 // ゲーム開始
 // =====================
 loadGame().then((loaded) => {
+  console.log("loadGame result:", loaded);
   if (!loaded) {
     init();
   } else {
