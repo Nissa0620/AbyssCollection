@@ -126,6 +126,40 @@ function dbDelete(db, key) {
 }
 
 // =====================
+// IndexedDB 自動保存
+// =====================
+
+let _idbSaving = false;
+let _idbPendingSave = false;
+
+export function saveGameLocal() {
+  if (_importLock) return;
+  if (_idbSaving) {
+    _idbPendingSave = true;
+    return;
+  }
+  _doLocalSave();
+}
+
+async function _doLocalSave() {
+  _idbSaving = true;
+  _idbPendingSave = false;
+  state.lastSaveTime = Date.now();
+  const json = JSON.stringify(state);
+  try {
+    const db = await openDB();
+    await dbPut(db, SAVE_KEY, json);
+  } catch (e) {
+    console.error("saveGameLocal error:", e);
+  } finally {
+    _idbSaving = false;
+    if (_idbPendingSave) {
+      _doLocalSave();
+    }
+  }
+}
+
+// =====================
 // saveGame（デバウンス方式）
 // =====================
 
@@ -133,12 +167,12 @@ let _isSaving   = false;
 let _pendingSave = false;
 
 export function saveGame() {
-  if (_importLock) return;
+  if (_importLock) return Promise.resolve();
   if (_isSaving) {
     _pendingSave = true;
-    return;
+    return Promise.resolve();
   }
-  _doSave();
+  return _doSave();
 }
 
 async function _doSave() {
@@ -167,6 +201,12 @@ export async function deleteGame() {
     await firebaseDelete();
   } catch (e) {
     console.error("deleteGame error:", e);
+  }
+  try {
+    const db = await openDB();
+    await dbDelete(db, SAVE_KEY);
+  } catch (e) {
+    console.warn("deleteGame IndexedDB error:", e);
   }
 }
 
@@ -212,7 +252,7 @@ export async function loadGame() {
       }
     }
 
-    // ── ② Cloud Storageへの移行処理（Firestoreから）──
+    // ── ③ Cloud Storageへの移行処理（Firestoreから）──
     if (!json) {
       try {
         const uid = await waitForUid();
@@ -229,14 +269,37 @@ export async function loadGame() {
       }
     }
 
-    // ── ③ Firebaseから読み込み ──
+    // ── ④ Cloud Storageから読み込み ──
     if (!json) {
       json = await firebaseLoad();
     }
 
-    // ── ④ 移行データをFirebaseに保存 ──
+    // ── ⑤ Cloud Storageから読み込めなかった場合、IndexedDBから読み込む ──
+    if (!json) {
+      try {
+        const idb = await openDB();
+        json = await dbGet(idb, SAVE_KEY);
+        if (json) {
+          console.log("saveLoad: IndexedDBからフォールバック読み込み完了");
+        }
+      } catch (e) {
+        console.warn("IndexedDBフォールバック読み込みスキップ:", e);
+      }
+    }
+
+    // ── ⑥ 移行データをCloud Storageに保存 ──
     if (json) {
       await firebaseSave(json);
+    }
+
+    // ── ⑦ IndexedDBにも保存 ──
+    if (json) {
+      try {
+        const idb = await openDB();
+        await dbPut(idb, SAVE_KEY, json);
+      } catch (e) {
+        console.warn("IndexedDB保存スキップ:", e);
+      }
     }
 
   } catch (e) {
@@ -526,6 +589,17 @@ export async function importSaveCode(code) {
     console.error("importSaveCode error:", e);
     return { success: false, error: "読み込みに失敗しました" };
   }
+}
+
+// =====================
+// ページを閉じる前にCloud Storageに保存を試みる
+// =====================
+
+export function setupBeforeUnloadSave() {
+  window.addEventListener("beforeunload", () => {
+    const json = JSON.stringify(state);
+    firebaseSave(json).catch(() => {});
+  });
 }
 
 // =====================

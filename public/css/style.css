@@ -375,6 +375,26 @@ button {
   cursor: pointer;
 }
 
+.manual-save-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  padding: 4px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.manual-save-btn:hover {
+  opacity: 1;
+}
+.manual-save-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 #attackBtn {
   background: #5a1a1a;
   color: #ffcccc;
