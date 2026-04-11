@@ -571,6 +571,7 @@ export async function importSaveCode(code) {
 
 export function setupBeforeUnloadSave() {
   window.addEventListener("beforeunload", () => {
+    if (_importLock) return;
     const json = JSON.stringify(state);
     firebaseSave(json).catch(() => {});
   });
