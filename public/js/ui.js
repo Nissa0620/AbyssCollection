@@ -807,7 +807,11 @@ function renderEnemyBook(buffEl, contentEl) {
     detail.className = "book-enemy-detail hidden";
 
     if (!entry) {
-      detail.innerHTML = `<div class="book-enemy-meta">出現：${floorText}　遭遇：0 / 撃破：0</div>`;
+      detail.innerHTML = `
+        <div class="book-enemy-meta">出現：${floorText}　遭遇：0 / 撃破：0</div>
+        ${titlePool.map(() => `<div class="book-title-unknown"><span>？？？</span></div>`).join("")}
+        ${legendDef ? `<div class="book-title-unknown"><span>？？？</span></div>` : ""}
+      `;
     } else {
       const titlesHtml = titlePool
         .map((title) => {
@@ -829,7 +833,12 @@ function renderEnemyBook(buffEl, contentEl) {
         .join("");
 
       const legendEntry = entry.titles?.[5];
-      const legendHtml = legendDef && legendEntry?.seen ? (() => {
+      const legendHtml = legendDef ? (() => {
+        if (!legendEntry?.seen) {
+          // 未遭遇：???で表示
+          return `<div class="book-title-unknown"><span>？？？</span></div>`;
+        }
+        // 遭遇済み以降は既存ロジック
         const displayName = enemyDef.isBoss
           ? `✨ ${legendDef.name}・支配者の${entry.name}`
           : `✨ ${legendDef.name}・深淵の${entry.name}`;
@@ -2005,6 +2014,8 @@ export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = n
 // =====================
 
 export function showHiddenBossPopup(def) {
+  // 設定によりモーダルをスキップ
+  if (!(state.ui.showHiddenBossModal ?? true)) return;
   const overlay = document.getElementById("hiddenBossOverlay");
   const nameEl  = document.getElementById("hiddenBossName");
   const sinEl   = document.getElementById("hiddenBossSin");

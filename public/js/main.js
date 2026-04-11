@@ -224,6 +224,8 @@ document.getElementById("settingBtn").addEventListener("click", () => {
   document.getElementById("showAppearModalChk").checked = state.ui.showAppearModal ?? true;
   document.getElementById("showCaptureModalChk").checked = state.ui.showCaptureModal ?? true;
   document.getElementById("includeRareInSelectAllChk").checked = state.ui.includeRareInSelectAll ?? false;
+  document.getElementById("showHiddenBossModalChk").checked = state.ui.showHiddenBossModal ?? true;
+  document.getElementById("skipNonRareDropChk").checked = state.ui.skipNonRareDrop ?? false;
   document.getElementById("settingOverlay").classList.remove("hidden");
 });
 
@@ -249,6 +251,16 @@ document.getElementById("showCaptureModalChk").addEventListener("change", (e) =>
 
 document.getElementById("includeRareInSelectAllChk").addEventListener("change", (e) => {
   state.ui.includeRareInSelectAll = e.target.checked;
+  saveGameLocal();
+});
+
+document.getElementById("showHiddenBossModalChk").addEventListener("change", (e) => {
+  state.ui.showHiddenBossModal = e.target.checked;
+  saveGameLocal();
+});
+
+document.getElementById("skipNonRareDropChk").addEventListener("change", (e) => {
+  state.ui.skipNonRareDrop = e.target.checked;
   saveGameLocal();
 });
 
@@ -936,13 +948,34 @@ document.getElementById("weaponBulkSynthBtn").addEventListener("click", () => {
 });
 
 // =====================
-// ペット一括合成ボタン → 確認ダイアログ表示
+// ペット一括合成ボタン → 条件選択オーバーレイを表示
 // =====================
 document.getElementById("petBulkSynthBtn").addEventListener("click", () => {
   _bulkSynthMode = "pet";
-  document.getElementById("bulkSynthConfirmMsg").textContent =
-    "究極個体をベースにペットを一括合成しますか？";
-  document.getElementById("bulkSynthConfirmOverlay").classList.remove("hidden");
+  document.getElementById("petBulkSynthMenuOverlay").classList.remove("hidden");
+});
+
+// 条件ボタン × 4
+const petBulkSynthConditionMap = {
+  petBulkSynthBtn1: "ultimate",
+  petBulkSynthBtn2: "legendary",
+  petBulkSynthBtn3: "elite",
+  petBulkSynthBtn4: "normal_max_passive",
+};
+
+Object.entries(petBulkSynthConditionMap).forEach(([btnId, condition]) => {
+  document.getElementById(btnId).addEventListener("click", () => {
+    document.getElementById("petBulkSynthMenuOverlay").classList.add("hidden");
+    const count = bulkSynthesizeUltimatePets(condition);
+    _bulkSynthMode = null;
+    if (count > 0) saveGameLocal();
+    refreshUI();
+  });
+});
+
+document.getElementById("petBulkSynthMenuCancelBtn").addEventListener("click", () => {
+  document.getElementById("petBulkSynthMenuOverlay").classList.add("hidden");
+  _bulkSynthMode = null;
 });
 
 // 一括合成確認：キャンセル
@@ -951,14 +984,12 @@ document.getElementById("bulkSynthCancelBtn").addEventListener("click", () => {
   _bulkSynthMode = null;
 });
 
-// 一括合成確認：実行
+// 一括合成確認：実行（武器用）
 document.getElementById("bulkSynthConfirmBtn").addEventListener("click", () => {
   document.getElementById("bulkSynthConfirmOverlay").classList.add("hidden");
   let count = 0;
   if (_bulkSynthMode === "weapon") {
     count = bulkSynthesizeUltimateWeapons();
-  } else if (_bulkSynthMode === "pet") {
-    count = bulkSynthesizeUltimatePets();
   }
   _bulkSynthMode = null;
   if (count > 0) saveGameLocal();

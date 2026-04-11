@@ -234,17 +234,22 @@ function defeatEnemy() {
     // 通常敵：武器をドロップ
     const dropped = getDropWeapon(dropMult, state.enemy.enemyId);
     if (dropped) {
-      state.player.inventory.push(dropped);
-      addLog("⚔️ " + dropped.name + " を手に入れた");
-      registerWeaponDropped(dropped.templateId, false);
-      updateWeaponBookUltimate();
-      if (isUltimateWeapon(dropped)) {
-        const alreadyHas = state.player.inventory
-          .filter((w) => w.uid !== dropped.uid)
-          .some((w) => w.templateId === dropped.templateId && !!w.isBossDrop === !!dropped.isBossDrop && isUltimateWeapon(w));
-        if (!state.achievements) state.achievements = {};
-        state.achievements.ultimateWeaponCount = (state.achievements.ultimateWeaponCount ?? 0) + 1;
-        if (!alreadyHas) showUltimatePopup(dropped, "weapon");
+      // skipNonRareDrop がオンかつ極武器でない場合はスキップ
+      if ((state.ui.skipNonRareDrop ?? false) && !isUltimateWeapon(dropped)) {
+        // 何もしない（ログも出さない）
+      } else {
+        state.player.inventory.push(dropped);
+        addLog("⚔️ " + dropped.name + " を手に入れた");
+        registerWeaponDropped(dropped.templateId, false);
+        updateWeaponBookUltimate();
+        if (isUltimateWeapon(dropped)) {
+          const alreadyHas = state.player.inventory
+            .filter((w) => w.uid !== dropped.uid)
+            .some((w) => w.templateId === dropped.templateId && !!w.isBossDrop === !!dropped.isBossDrop && isUltimateWeapon(w));
+          if (!state.achievements) state.achievements = {};
+          state.achievements.ultimateWeaponCount = (state.achievements.ultimateWeaponCount ?? 0) + 1;
+          if (!alreadyHas) showUltimatePopup(dropped, "weapon");
+        }
       }
     } else {
       addLog("何も落ちなかった...");

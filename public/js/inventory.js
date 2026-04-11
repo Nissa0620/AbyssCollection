@@ -305,22 +305,36 @@ export function bulkSynthesizeUltimateWeapons() {
   // ※ executeSynthesis() が state.player.inventory を差し替えるため
   //   オブジェクト参照は持たず、UID文字列だけを保持する（Bug #2修正）
 
-  // 1パス目：究極個体のUIDを記録
+  // 1パス目：グループごとにベースを選択
+  // 優先順位：① 極武器 → ② なければ passiveValue 最大の通常武器
   const groupMap = new Map();
   for (const w of state.player.inventory) {
     const key = `${w.templateId}_${w.isBossDrop ? "1" : "0"}`;
-    if (!groupMap.has(key)) groupMap.set(key, { baseUid: null, materialUids: [] });
+    if (!groupMap.has(key)) groupMap.set(key, { baseUid: null, hasUltimate: false, materialUids: [] });
     const entry = groupMap.get(key);
-    if (isUltimateWeapon(w) && entry.baseUid === null) {
-      entry.baseUid = w.uid;
+
+    if (lockedSet.has(String(w.uid))) continue;
+    if (w.uid === equippedUid) continue;
+
+    if (isUltimateWeapon(w)) {
+      if (!entry.hasUltimate) {
+        entry.baseUid = w.uid;
+        entry.hasUltimate = true;
+      }
+    } else if (!entry.hasUltimate) {
+      // 極武器がまだない場合、passiveValue が最大のものをベース候補にする
+      const current = state.player.inventory.find(i => i.uid === entry.baseUid);
+      if (!entry.baseUid || (w.passiveValue ?? 0) > (current?.passiveValue ?? 0)) {
+        entry.baseUid = w.uid;
+      }
     }
   }
 
-  // 2パス目：素材UIDを記録（究極個体がいるグループのみ）
+  // 2パス目：素材UIDを記録
   for (const w of state.player.inventory) {
     const key = `${w.templateId}_${w.isBossDrop ? "1" : "0"}`;
     const entry = groupMap.get(key);
-    if (!entry || entry.baseUid === null) continue;
+    if (!entry || !entry.baseUid) continue;
     if (w.uid === entry.baseUid) continue;
     if (isUltimateWeapon(w)) continue;
     if (lockedSet.has(String(w.uid))) continue;

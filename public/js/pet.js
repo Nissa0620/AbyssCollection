@@ -516,6 +516,12 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
     acquiredOrder: state.acquiredCounter++,
   };
 
+  // skipNonRareDrop がオンかつ通常個体の場合はスキップ
+  if ((state.ui.skipNonRareDrop ?? false)
+    && !isLegendary && !isLegendUltimate && !isElite) {
+    return;
+  }
+
   state.player.petList.push(pet);
 
   // 図鑑に捕獲フラグを永続保存
@@ -911,37 +917,53 @@ export function discardPets(condition) {
 // =====================
 // ペット一括合成（究極個体をベースとして各グループを自動合成）
 // =====================
-export function bulkSynthesizeUltimatePets() {
+// condition: "ultimate" | "legendary" | "elite" | "normal_max_passive"
+export function bulkSynthesizeUltimatePets(condition = "ultimate") {
   const equippedUid = state.player.equippedPet?.uid ?? null;
   let totalSynthed = 0;
 
   const lockedSet = getLockedSet();
+  const isNormal = (p) => !p.isElite && !p.isLegendary && !p.isLegendUltimate;
 
-  // 究極個体の判定：isLegendUltimate であるもの
-  // 極個体は titleId=4 かつ全ステ最大で生成されるため isUltimatePet() を通過してしまう。
-  // フラグによる除外が必須。
-  const isTrueUltimate = (p) => p.isLegendUltimate === true;
-
-  // 1パス目：真の究極個体のUIDをグループごとに記録
+  // 1パス目：グループごとにベースを選択
   const groupMap = new Map();
   for (const p of state.player.petList) {
     const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
     if (!groupMap.has(key)) groupMap.set(key, { baseUid: null, materialUids: [] });
     const entry = groupMap.get(key);
-    if (isTrueUltimate(p) && entry.baseUid === null) {
-      entry.baseUid = p.uid;
+
+    if (lockedSet.has(String(p.uid))) continue;
+    if (p.uid === equippedUid) continue;
+
+    if (condition === "ultimate") {
+      if (p.isLegendUltimate === true && entry.baseUid === null) {
+        entry.baseUid = p.uid;
+      }
+    } else if (condition === "legendary") {
+      if (p.isLegendary === true && entry.baseUid === null) {
+        entry.baseUid = p.uid;
+      }
+    } else if (condition === "elite") {
+      if (p.isElite === true && entry.baseUid === null) {
+        entry.baseUid = p.uid;
+      }
+    } else if (condition === "normal_max_passive") {
+      if (isNormal(p)) {
+        const current = state.player.petList.find(i => i.uid === entry.baseUid);
+        if (!entry.baseUid || (p.passiveValue ?? 0) > (current?.passiveValue ?? 0)) {
+          entry.baseUid = p.uid;
+        }
+      }
     }
   }
 
-  // 2パス目：素材UIDを記録
-  // 究極個体・極個体・伝説個体・レジェンド究極個体・ロック・装備中を素材から除外
+  // 2パス目：素材UIDを記録（通常個体のみ・ロック・装備中・ベース除外）
   for (const p of state.player.petList) {
     const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
     const entry = groupMap.get(key);
     if (!entry || entry.baseUid === null) continue;
     if (p.uid === entry.baseUid) continue;
-    if (isTrueUltimate(p)) continue;
-    if (p.isLegendUltimate) continue;
+    if (!isNormal(p)) continue;
     if (lockedSet.has(String(p.uid))) continue;
     if (p.uid === equippedUid) continue;
     entry.materialUids.push(p.uid);

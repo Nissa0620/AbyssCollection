@@ -585,6 +585,20 @@
               <span class="toggle-slider"></span>
             </label>
           </div>
+          <div class="setting-item">
+            <span class="setting-label">隠しボスの演出を表示する<br><small>（隠しボス出現時のポップアップ）</small></span>
+            <label class="setting-toggle">
+              <input type="checkbox" id="showHiddenBossModalChk">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-item">
+            <span class="setting-label">レア個体・極武器以外を拾わない<br><small>（通常個体・通常武器のドロップをスキップ）</small></span>
+            <label class="setting-toggle">
+              <input type="checkbox" id="skipNonRareDropChk">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
           <hr class="setting-divider">
           <!-- 引き継ぎコード -->
           <div class="transfer-section">
@@ -711,6 +725,32 @@
     </div>
 
     <!-- 一括合成確認ダイアログ -->
+    <!-- ペット一括合成 条件選択オーバーレイ -->
+    <div id="petBulkSynthMenuOverlay" class="book-overlay hidden">
+      <div class="book-modal discard-menu-modal">
+        <div class="book-header">
+          <span>ペット一括合成の条件を選択</span>
+        </div>
+        <div class="discard-menu-body">
+          <button class="discard-menu-btn" id="petBulkSynthBtn1">
+            ベース：究極個体 / 素材：通常個体
+          </button>
+          <button class="discard-menu-btn" id="petBulkSynthBtn2">
+            ベース：伝説個体 / 素材：通常個体
+          </button>
+          <button class="discard-menu-btn" id="petBulkSynthBtn3">
+            ベース：極個体 / 素材：通常個体
+          </button>
+          <button class="discard-menu-btn" id="petBulkSynthBtn4">
+            ベース：スキル効果量最大の通常個体 / 素材：その他の通常個体
+          </button>
+          <button class="discard-menu-btn discard-menu-cancel" id="petBulkSynthMenuCancelBtn">
+            キャンセル
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div id="bulkSynthConfirmOverlay" class="book-overlay hidden">
       <div class="book-modal reset-confirm-modal">
         <div class="reset-confirm-body">

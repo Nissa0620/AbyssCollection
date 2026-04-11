@@ -3409,3 +3409,29 @@ button {
   opacity: 0.8;
   min-height: 1em;
 }
+
+/* ===== ペット一括合成 条件選択オーバーレイ ===== */
+.discard-menu-modal {
+  max-width: 360px;
+  width: 90vw;
+}
+
+.discard-menu-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+}
+
+/* キャンセルボタンは他の選択肢と区別するためトーンを落とす */
+.discard-menu-cancel {
+  background: #1e1e1e;
+  color: #888;
+  border-color: #383838;
+  margin-top: 4px;
+}
+
+.discard-menu-cancel:hover {
+  background: #2a2a2a;
+  color: #aaa;
+}

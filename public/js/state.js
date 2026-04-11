@@ -93,6 +93,8 @@ export const state = {
     showAppearModal: true,   // 出現モーダル表示設定
     showCaptureModal: true,  // 捕獲モーダル表示設定
     includeRareInSelectAll: false, // 一括選択にレア個体を含めるか
+    showHiddenBossModal: true, // 隠しボス出現演出を表示するか
+    skipNonRareDrop: false, // レア・極以外を拾わない
   },
   synthesisMode: false,
   synthesis: {
