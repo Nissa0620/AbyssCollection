@@ -216,6 +216,7 @@ export async function deleteGame() {
 
 export async function loadGame() {
   let json = null;
+  let _migrated = false;
 
   try {
     // ── ① localStorageからの移行処理（1回限り）──
@@ -229,6 +230,7 @@ export async function loadGame() {
       }
       if (json) {
         localStorage.removeItem(SAVE_KEY);
+        _migrated = true;
         console.log("saveLoad: localStorage → Firebase 移行完了");
       } else {
         console.error("loadGame: legacy decompress failed");
@@ -236,23 +238,28 @@ export async function loadGame() {
       }
     }
 
-    // ── ② IndexedDBからの移行処理（1回限り）──
+    // ── ② Cloud Storageから読み込み（最優先）──
+    if (!json) {
+      json = await firebaseLoad();
+    }
+
+    // ── ③ Cloud Storageになければ、IndexedDBから読み込む ──
     if (!json) {
       try {
         const idb = await openDB();
         const idbJson = await dbGet(idb, SAVE_KEY);
         if (idbJson) {
           json = idbJson;
-          // IndexedDBのデータを削除（移行済みフラグ代わり）
           await dbDelete(idb, SAVE_KEY);
-          console.log("saveLoad: IndexedDB → Firebase 移行完了");
+          _migrated = true;
+          console.log("saveLoad: IndexedDB → Cloud Storage 移行完了");
         }
       } catch (e) {
         console.warn("IndexedDB移行スキップ:", e);
       }
     }
 
-    // ── ③ Cloud Storageへの移行処理（Firestoreから）──
+    // ── ④ FirestoreからCloud Storageへの移行処理 ──
     if (!json) {
       try {
         const uid = await waitForUid();
@@ -261,6 +268,7 @@ export async function loadGame() {
         if (snap.exists()) {
           json = snap.data().json ?? null;
           if (json) {
+            _migrated = true;
             console.log("saveLoad: Firestore → Cloud Storage 移行完了");
           }
         }
@@ -269,30 +277,12 @@ export async function loadGame() {
       }
     }
 
-    // ── ④ Cloud Storageから読み込み ──
-    if (!json) {
-      json = await firebaseLoad();
-    }
-
-    // ── ⑤ Cloud Storageから読み込めなかった場合、IndexedDBから読み込む ──
-    if (!json) {
-      try {
-        const idb = await openDB();
-        json = await dbGet(idb, SAVE_KEY);
-        if (json) {
-          console.log("saveLoad: IndexedDBからフォールバック読み込み完了");
-        }
-      } catch (e) {
-        console.warn("IndexedDBフォールバック読み込みスキップ:", e);
-      }
-    }
-
-    // ── ⑥ 移行データをCloud Storageに保存 ──
-    if (json) {
+    // ── ⑤ 移行データをCloud Storageに保存（移行時のみ）──
+    if (json && _migrated) {
       await firebaseSave(json);
     }
 
-    // ── ⑦ IndexedDBにも保存 ──
+    // ── ⑥ IndexedDBにも保存 ──
     if (json) {
       try {
         const idb = await openDB();
