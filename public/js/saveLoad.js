@@ -468,6 +468,10 @@ export async function loadGame() {
     state.achievements.hiddenBossFirstKill = {};
   }
 
+  if (state.achievements.maxDamageDealt == null) {
+    state.achievements.maxDamageDealt = 0;
+  }
+
   if (!state.book.hiddenBosses) {
     state.book.hiddenBosses = {};
   }

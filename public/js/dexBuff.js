@@ -58,6 +58,7 @@ export function recalcDexBuff(state) {
 }
 
 export function recalcWeaponDexBuff(state) {
+  const oldMax = state.player.totalHp;
   const weaponsBook = state.book.weapons ?? {};
 
   let hp = 1;
@@ -86,9 +87,15 @@ export function recalcWeaponDexBuff(state) {
 
   state.weaponDexBuff.hp = hp;
   state.weaponDexBuff.power = power;
+
+  const newMax = state.player.totalHp;
+  const diff = newMax - oldMax;
+  if (diff > 0) state.player.hp += diff;
+  if (state.player.hp > newMax) state.player.hp = newMax;
 }
 
 export function recalcHiddenBossDexBuff(state) {
+  const oldMax = state.player.totalHp;
   const HIDDEN_BOSS_DEX_BUFF   = { hp: 1.0, power: 1.0 };  // 撃破1体あたり → dexBuff に加算
   const HIDDEN_WEAPON_DEX_BUFF = { hp: 1.0, power: 1.0 };  // 武器入手1本あたり → weaponDexBuff に加算
 
@@ -117,4 +124,9 @@ export function recalcHiddenBossDexBuff(state) {
   state.dexBuff.power       += enemyPowerBonus / 100;
   state.weaponDexBuff.hp    += weaponHpBonus   / 100;
   state.weaponDexBuff.power += weaponPowerBonus / 100;
+
+  const newMax = state.player.totalHp;
+  const diff = newMax - oldMax;
+  if (diff > 0) state.player.hp += diff;
+  if (state.player.hp > newMax) state.player.hp = newMax;
 }

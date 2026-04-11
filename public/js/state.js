@@ -158,5 +158,6 @@ export const state = {
     ultimatePetCount: 0,
     ultimateWeaponCount: 0,
     hiddenBossFirstKill: {},
+    maxDamageDealt: 0,
   },
 };

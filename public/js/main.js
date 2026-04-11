@@ -772,11 +772,12 @@ async function renderRanking(field) {
   }
 
   const fieldLabels = {
-    maxFloor: (v) => `${v}階`,
-    level: (v) => `Lv.${v}`,
-    petCount: (v) => `${v}体`,
-    weaponCount: (v) => `${v}個`,
+    maxFloor:         (v) => `${v}階`,
+    level:            (v) => `Lv.${v}`,
+    petCount:         (v) => `${v}体`,
+    weaponCount:      (v) => `${v}個`,
     achievementCount: (v) => `${v ?? 0}個`,
+    maxDamage:        (v) => `${(v ?? 0).toLocaleString()}`,
   };
 
   const ul = document.createElement("ul");
@@ -801,11 +802,12 @@ async function renderRanking(field) {
 }
 
 const rankingTabNotes = {
-  maxFloor: "最深階層数",
-  level: "プレイヤーレベル",
-  petCount: "捕獲した種族数",
-  weaponCount: "取得した武器種数",
+  maxFloor:         "最深階層数",
+  level:            "プレイヤーレベル",
+  petCount:         "捕獲した種族数",
+  weaponCount:      "取得した武器種数",
   achievementCount: "解放した実績数",
+  maxDamage:        "1回の攻撃で与えた最大ダメージ",
 };
 
 document.getElementById("rankingBtn").addEventListener("click", () => {
