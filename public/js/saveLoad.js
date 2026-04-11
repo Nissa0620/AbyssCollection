@@ -536,7 +536,12 @@ export async function importSaveCode(code) {
     const { ref, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-storage.js");
     const storageRef = ref(window._storage, `saves/${data.uid}/save.txt`);
     const url = await getDownloadURL(storageRef);
-    const res = await fetch(url);
+    const token = await window._auth.currentUser.getIdToken();
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Firebase ${token}`
+      }
+    });
     if (!res.ok) return { success: false, error: "データの取得に失敗しました" };
     const json = await res.text();
     if (!json) return { success: false, error: "データが空です" };
@@ -544,6 +549,15 @@ export async function importSaveCode(code) {
     // 自分のCloud Storageに保存して再ロード
     _importLock = true;
     await firebaseSave(json);
+
+    // IndexedDBも更新して古いデータが読まれないようにする
+    try {
+      const idb = await openDB();
+      await dbPut(idb, SAVE_KEY, json);
+    } catch (e) {
+      console.warn("importSaveCode: IndexedDB保存スキップ:", e);
+    }
+
     return { success: true, json };
   } catch (e) {
     console.error("importSaveCode error:", e);
