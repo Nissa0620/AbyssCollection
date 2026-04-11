@@ -614,6 +614,7 @@ document.getElementById("importCodeBtn").addEventListener("click", async () => {
   const msg = document.getElementById("importCodeMsg");
   msg.textContent = "読み込み中...";
   const result = await importSaveCode(code);
+  console.log("importSaveCode result:", JSON.stringify(result));
   if (result.success) {
     msg.textContent = "引き継ぎ成功！ページを再読み込みします...";
     setTimeout(() => location.reload(), 1500);
@@ -740,6 +741,7 @@ document.getElementById("nameScreenImportBtn").addEventListener("click", async (
   msg.textContent = "復元中...";
   btn.disabled = true;
   const result = await importSaveCode(code);
+  console.log("importSaveCode result:", JSON.stringify(result));
   if (result.success) {
     msg.textContent = "復元成功！読み込んでいます...";
     setTimeout(() => location.reload(), 1500);
