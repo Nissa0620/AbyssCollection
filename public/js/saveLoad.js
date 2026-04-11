@@ -9,6 +9,8 @@ const DB_NAME  = "abyssDB";
 const DB_VERSION = 1;
 const STORE_NAME = "saves";
 
+let _importLock = false;
+
 // =====================
 // UID取得待機（最大10秒）
 // =====================
@@ -30,14 +32,19 @@ function waitForUid(timeoutMs = 10000) {
 }
 
 // =====================
-// Firestore セーブ・ロード
+// Cloud Storage セーブ・ロード
 // =====================
 
 async function firebaseSave(json) {
+  if (!json) {
+    console.error("firebaseSave: jsonが空です");
+    return;
+  }
   try {
     const uid = await waitForUid();
-    const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
-    await setDoc(doc(window._db, "saves", uid, "data", "save"), { json, updatedAt: Date.now() });
+    const { ref, uploadString } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-storage.js");
+    const storageRef = ref(window._storage, `saves/${uid}/save.txt`);
+    await uploadString(storageRef, json, "raw");
   } catch (e) {
     console.error("firebaseSave error:", e);
   }
@@ -46,11 +53,19 @@ async function firebaseSave(json) {
 async function firebaseLoad() {
   try {
     const uid = await waitForUid();
-    const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
-    const snap = await getDoc(doc(window._db, "saves", uid, "data", "save"));
-    if (snap.exists()) return snap.data().json ?? null;
-    return null;
+    const { ref, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-storage.js");
+    const storageRef = ref(window._storage, `saves/${uid}/save.txt`);
+    const url = await getDownloadURL(storageRef);
+    const token = await window._auth.currentUser.getIdToken();
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Firebase ${token}`
+      }
+    });
+    if (!res.ok) return null;
+    return await res.text();
   } catch (e) {
+    if (e.code === "storage/object-not-found") return null;
     console.error("firebaseLoad error:", e);
     return null;
   }
@@ -59,10 +74,13 @@ async function firebaseLoad() {
 async function firebaseDelete() {
   try {
     const uid = await waitForUid();
-    const { doc, deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
-    await deleteDoc(doc(window._db, "saves", uid, "data", "save"));
+    const { ref, deleteObject } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-storage.js");
+    const storageRef = ref(window._storage, `saves/${uid}/save.txt`);
+    await deleteObject(storageRef);
   } catch (e) {
-    console.error("firebaseDelete error:", e);
+    if (e.code !== "storage/object-not-found") {
+      console.error("firebaseDelete error:", e);
+    }
   }
 }
 
@@ -112,6 +130,40 @@ function dbDelete(db, key) {
 }
 
 // =====================
+// IndexedDB 自動保存
+// =====================
+
+let _idbSaving = false;
+let _idbPendingSave = false;
+
+export function saveGameLocal() {
+  if (_importLock) return;
+  if (_idbSaving) {
+    _idbPendingSave = true;
+    return;
+  }
+  _doLocalSave();
+}
+
+async function _doLocalSave() {
+  _idbSaving = true;
+  _idbPendingSave = false;
+  state.lastSaveTime = Date.now();
+  const json = JSON.stringify(state);
+  try {
+    const db = await openDB();
+    await dbPut(db, SAVE_KEY, json);
+  } catch (e) {
+    console.error("saveGameLocal error:", e);
+  } finally {
+    _idbSaving = false;
+    if (_idbPendingSave) {
+      _doLocalSave();
+    }
+  }
+}
+
+// =====================
 // saveGame（デバウンス方式）
 // =====================
 
@@ -119,11 +171,12 @@ let _isSaving   = false;
 let _pendingSave = false;
 
 export function saveGame() {
+  if (_importLock) return Promise.resolve();
   if (_isSaving) {
     _pendingSave = true;
-    return;
+    return Promise.resolve();
   }
-  _doSave();
+  return _doSave();
 }
 
 async function _doSave() {
@@ -153,6 +206,12 @@ export async function deleteGame() {
   } catch (e) {
     console.error("deleteGame error:", e);
   }
+  try {
+    const db = await openDB();
+    await dbDelete(db, SAVE_KEY);
+  } catch (e) {
+    console.warn("deleteGame IndexedDB error:", e);
+  }
 }
 
 // =====================
@@ -163,48 +222,52 @@ export async function loadGame() {
   let json = null;
 
   try {
-    // ── ① localStorageからの移行処理（1回限り）──
-    const legacy = localStorage.getItem(SAVE_KEY);
-    if (legacy) {
-      if (legacy.startsWith("{")) {
-        json = legacy;
-      } else {
-        json = LZString.decompressFromUTF16(legacy);
-        if (!json) json = LZString.decompress(legacy);
-      }
-      if (json) {
-        localStorage.removeItem(SAVE_KEY);
-        console.log("saveLoad: localStorage → Firebase 移行完了");
-      } else {
-        console.error("loadGame: legacy decompress failed");
-        localStorage.removeItem(SAVE_KEY);
-      }
-    }
+    // ── ① Cloud Storageから読み込む（最優先）──
+    // 手動セーブされたデータが存在すればここで取得される
+    json = await firebaseLoad();
 
-    // ── ② IndexedDBからの移行処理（1回限り）──
+    // ── ② Cloud Storageにデータがなければ、IndexedDBから読み込む ──
+    // 手動セーブ未実施の場合や、Cloud Storageへのアクセスが失敗した場合のフォールバック
     if (!json) {
       try {
         const idb = await openDB();
-        const idbJson = await dbGet(idb, SAVE_KEY);
-        if (idbJson) {
-          json = idbJson;
-          // IndexedDBのデータを削除（移行済みフラグ代わり）
-          await dbDelete(idb, SAVE_KEY);
-          console.log("saveLoad: IndexedDB → Firebase 移行完了");
+        json = await dbGet(idb, SAVE_KEY);
+        if (json) {
+          console.log("saveLoad: IndexedDBからロード完了");
         }
       } catch (e) {
-        console.warn("IndexedDB移行スキップ:", e);
+        console.warn("saveLoad: IndexedDB読み込みスキップ:", e);
       }
     }
 
-    // ── ③ Firebaseから読み込み ──
+    // ── ③ IndexedDBにもなければ、Firestoreから読み込む ──
+    // 過去にFirestoreを使っていたユーザーへのフォールバック
+    // Firestoreのデータは手動セーブするまでCloud Storageには保存されない
     if (!json) {
-      json = await firebaseLoad();
+      try {
+        const uid = await waitForUid();
+        const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
+        const snap = await getDoc(doc(window._db, "saves", uid, "data", "save"));
+        if (snap.exists()) {
+          json = snap.data().json ?? null;
+          if (json) {
+            console.log("saveLoad: Firestoreからロード完了");
+          }
+        }
+      } catch (e) {
+        console.warn("saveLoad: Firestoreフォールバックスキップ:", e);
+      }
     }
 
-    // ── ④ 移行データをFirebaseに保存 ──
+    // ── ④ 読み込んだデータをIndexedDBにも保存する ──
+    // 次回起動時のフォールバック用として常にIndexedDBを最新に保つ
     if (json) {
-      await firebaseSave(json);
+      try {
+        const idb = await openDB();
+        await dbPut(idb, SAVE_KEY, json);
+      } catch (e) {
+        console.warn("saveLoad: IndexedDB保存スキップ:", e);
+      }
     }
 
   } catch (e) {
@@ -435,14 +498,17 @@ export async function loadGame() {
 
 export async function exportSaveCode() {
   try {
-    const json = JSON.stringify(state);
-    const code = generateCode();
+    const uid = await waitForUid();
+    const code = uidToCode(uid);
+
+    // Firestoreにuid・有効期限を保存
     const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
     await setDoc(doc(window._db, "transferCodes", code), {
-      json,
+      uid,
       createdAt: Date.now(),
-      expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30日
+      expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000,
     });
+
     return code;
   } catch (e) {
     console.error("exportSaveCode error:", e);
@@ -458,14 +524,41 @@ export async function importSaveCode(code) {
   try {
     const normalized = code.replace(/-/g, "").toUpperCase();
     const formattedCode = normalized.slice(0, 4) + "-" + normalized.slice(4, 8);
+
+    // Firestoreで有効期限とuidを確認
     const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
     const snap = await getDoc(doc(window._db, "transferCodes", formattedCode));
     if (!snap.exists()) return { success: false, error: "コードが見つかりません" };
     const data = snap.data();
     if (Date.now() > data.expiresAt) return { success: false, error: "コードの有効期限が切れています" };
-    // Firebaseに保存して再ロード
-    await firebaseSave(data.json);
-    return { success: true, json: data.json };
+
+    // コード所有者のsave.txtを読み込む
+    const { ref, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-storage.js");
+    const storageRef = ref(window._storage, `saves/${data.uid}/save.txt`);
+    const url = await getDownloadURL(storageRef);
+    const token = await window._auth.currentUser.getIdToken();
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Firebase ${token}`
+      }
+    });
+    if (!res.ok) return { success: false, error: "データの取得に失敗しました" };
+    const json = await res.text();
+    if (!json) return { success: false, error: "データが空です" };
+
+    // 自分のCloud Storageに保存して再ロード
+    _importLock = true;
+    await firebaseSave(json);
+
+    // IndexedDBも更新して古いデータが読まれないようにする
+    try {
+      const idb = await openDB();
+      await dbPut(idb, SAVE_KEY, json);
+    } catch (e) {
+      console.warn("importSaveCode: IndexedDB保存スキップ:", e);
+    }
+
+    return { success: true, json };
   } catch (e) {
     console.error("importSaveCode error:", e);
     return { success: false, error: "読み込みに失敗しました" };
@@ -473,14 +566,27 @@ export async function importSaveCode(code) {
 }
 
 // =====================
+// ページを閉じる前にCloud Storageに保存を試みる
+// =====================
+
+export function setupBeforeUnloadSave() {
+  window.addEventListener("beforeunload", () => {
+    if (_importLock) return;
+    const json = JSON.stringify(state);
+    firebaseSave(json).catch(() => {});
+  });
+}
+
+// =====================
 // コード生成ヘルパー
 // =====================
 
-function generateCode() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // 紛らわしい文字を除外
+function uidToCode(uid) {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let code = "";
   for (let i = 0; i < 8; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
+    const charCode = uid.charCodeAt(i % uid.length);
+    code += chars[charCode % chars.length];
   }
   return code.slice(0, 4) + "-" + code.slice(4, 8);
 }

@@ -41,7 +41,7 @@ import {
   bulkSynthesizeUltimateWeapons,
 } from "./inventory.js";
 import { getWeaponDisplayName } from "./weapon.js";
-import { saveGame, loadGame, deleteGame, exportSaveCode, importSaveCode } from "./saveLoad.js";
+import { saveGame, saveGameLocal, loadGame, deleteGame, exportSaveCode, importSaveCode, setupBeforeUnloadSave } from "./saveLoad.js";
 import { renderAchievements } from "./achievements.js";
 import { rerollMissions, initMissions } from "./research.js";
 import { sendRankingData, fetchRanking, isNameTaken } from "./ranking.js";
@@ -136,7 +136,7 @@ function refreshSynthesisOnly() {
   updateSynthesisPreview();
   updatePetSynthesisUI();
   updateSynthesisClasses();
-  saveGame();
+  saveGameLocal();
 }
 
 function handleInventoryClick(uid) {
@@ -149,10 +149,10 @@ function handleEquip(uid) {
     const name = getWeaponDisplayName(state.player.equippedWeapon);
     addLog(`⚔️ ${name} を外した`);
     state.player.equippedWeapon = null;
-    saveGame();
+    saveGameLocal();
   } else {
     equipWeapon(uid);
-    saveGame();
+    saveGameLocal();
   }
   refreshHpBoost();
   refreshUI();
@@ -239,17 +239,17 @@ document.getElementById("settingOverlay").addEventListener("click", (e) => {
 
 document.getElementById("showAppearModalChk").addEventListener("change", (e) => {
   state.ui.showAppearModal = e.target.checked;
-  saveGame();
+  saveGameLocal();
 });
 
 document.getElementById("showCaptureModalChk").addEventListener("change", (e) => {
   state.ui.showCaptureModal = e.target.checked;
-  saveGame();
+  saveGameLocal();
 });
 
 document.getElementById("includeRareInSelectAllChk").addEventListener("change", (e) => {
   state.ui.includeRareInSelectAll = e.target.checked;
-  saveGame();
+  saveGameLocal();
 });
 
 // =====================
@@ -419,7 +419,7 @@ document.getElementById("petSortSelect").addEventListener("change", (e) => {
   });
   updatePetPanel(handlePetSynthesisClick, handlePetEquip);
   updateSynthesisClasses();
-  saveGame();
+  saveGameLocal();
 });
 
 document.getElementById("petFilterSelect").addEventListener("change", (e) => {
@@ -441,7 +441,7 @@ document.getElementById("petSynthesizeBtn").addEventListener("click", () => {
     state.petSynthesis.materialUids = [];
   }
   if (success) {
-    saveGame();
+    saveGameLocal();
   }
   refreshUI();
 });
@@ -454,7 +454,7 @@ document.getElementById("weaponSortSelect").addEventListener("change", (e) => {
   sortInventory(state.player);
   renderInventory(state.player, handleInventoryClick, handleEquip);
   updateSynthesisClasses();
-  saveGame();
+  saveGameLocal();
 });
 
 document.getElementById("weaponGroupSortSelect").addEventListener("change", (e) => {
@@ -496,7 +496,7 @@ synthBtn.addEventListener("click", () => {
     state.synthesis.materialUids = [];
   }
   if (success) {
-    saveGame();
+    saveGameLocal();
   }
   refreshUI();
 });
@@ -523,7 +523,7 @@ floorJumpBtn.addEventListener("click", () => {
   createEnemy();
   calcOverflowBonuses();
 
-  saveGame();
+  saveGameLocal();
   refreshUI();
 });
 
@@ -589,18 +589,21 @@ document.getElementById("exportCodeBtn").addEventListener("click", async () => {
   btn.textContent = "引き継ぎコードを発行";
   if (code) {
     document.getElementById("exportCodeDisplay").textContent = code;
-    document.getElementById("exportCodeResult").style.display = "block";
+    document.getElementById("exportCodeResult").classList.remove("hidden");
   } else {
     alert("コードの発行に失敗しました。通信環境を確認してください。");
   }
 });
 
+const copySVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+const checkSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 16 4 11"></polyline></svg>`;
+
 document.getElementById("copyCodeBtn").addEventListener("click", () => {
   const code = document.getElementById("exportCodeDisplay").textContent;
   navigator.clipboard.writeText(code).then(() => {
-    document.getElementById("copyCodeBtn").textContent = "コピーしました！";
+    document.getElementById("copyCodeBtn").innerHTML = checkSVG;
     setTimeout(() => {
-      document.getElementById("copyCodeBtn").textContent = "コピー";
+      document.getElementById("copyCodeBtn").innerHTML = copySVG;
     }, 2000);
   });
 });
@@ -623,7 +626,7 @@ document.getElementById("importCodeBtn").addEventListener("click", async () => {
 document.getElementById("hiddenBossRewardCloseBtn")?.addEventListener("click", () => {
   document.getElementById("hiddenBossRewardOverlay").classList.add("hidden");
   state.phase = "next";
-  saveGame();
+  saveGameLocal();
   refreshUI();
 });
 
@@ -631,7 +634,7 @@ document.getElementById("researchRerollBtn").addEventListener("click", () => {
   const success = rerollMissions();
   if (success) {
     renderResearchScreen();
-    saveGame();
+    saveGameLocal();
   }
 });
 
@@ -670,7 +673,7 @@ document.getElementById("resetConfirmBtn").addEventListener("click", () => {
 const stayChk = document.getElementById("stayOnFloorChk");
 stayChk.addEventListener("change", () => {
   state.ui.stayOnFloor = stayChk.checked;
-  saveGame();
+  saveGameLocal();
 });
 
 // =====================
@@ -724,9 +727,26 @@ document.getElementById("playerNameSubmitBtn").addEventListener("click", async (
   }
 
   state.playerName = input;
-  saveGame();
+  saveGameLocal();
   document.getElementById("nameInputOverlay").classList.add("hidden");
   sendRankingData(); // 登録直後に初回送信
+});
+
+document.getElementById("nameScreenImportBtn").addEventListener("click", async () => {
+  const code = document.getElementById("nameScreenImportInput").value.trim();
+  if (!code) return;
+  const msg = document.getElementById("nameScreenImportMsg");
+  const btn = document.getElementById("nameScreenImportBtn");
+  msg.textContent = "復元中...";
+  btn.disabled = true;
+  const result = await importSaveCode(code);
+  if (result.success) {
+    msg.textContent = "復元成功！読み込んでいます...";
+    setTimeout(() => location.reload(), 1500);
+  } else {
+    msg.textContent = "失敗：" + result.error;
+    btn.disabled = false;
+  }
 });
 
 async function renderRanking(field) {
@@ -901,7 +921,7 @@ document.getElementById("discardConfirmBtn").addEventListener("click", () => {
   }
   _discardMode = null;
   _discardCondition = null;
-  if (count > 0) saveGame();
+  if (count > 0) saveGameLocal();
   refreshUI();
 });
 
@@ -941,7 +961,7 @@ document.getElementById("bulkSynthConfirmBtn").addEventListener("click", () => {
     count = bulkSynthesizeUltimatePets();
   }
   _bulkSynthMode = null;
-  if (count > 0) saveGame();
+  if (count > 0) saveGameLocal();
   refreshUI();
 });
 
@@ -960,7 +980,7 @@ loadGame().then((loaded) => {
     const hasLegacyMission = state.research.missions.some(m => m.requiredLevel != null);
     if (hasLegacyMission) {
       initMissions();
-      saveGame();
+      saveGameLocal();
     }
 
     refreshUI();
@@ -969,9 +989,27 @@ loadGame().then((loaded) => {
   checkPlayerName();
 });
 
-// 3秒ごとに保存
+// ページを閉じる前にCloud Storageへの保存を試みる
+setupBeforeUnloadSave();
+
+// 手動セーブボタン
+const saveSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>`;
+const saveCheckSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 16 4 11"></polyline></svg>`;
+
+document.getElementById("manualSaveBtn").addEventListener("click", async () => {
+  const btn = document.getElementById("manualSaveBtn");
+  btn.disabled = true;
+  await saveGame();
+  btn.innerHTML = saveCheckSVG;
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.innerHTML = saveSVG;
+  }, 2000);
+});
+
+// 3秒ごとにIndexedDBに自動保存
 setInterval(() => {
-  saveGame();
+  saveGameLocal();
 }, 3000);
 
 // 30分ごとにランキング送信
