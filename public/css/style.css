@@ -2638,6 +2638,47 @@ button {
   color: #ff6b6b;
 }
 
+.name-transfer-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.name-transfer-label {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+.name-transfer-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.name-transfer-row input {
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: inherit;
+  width: 130px;
+  letter-spacing: 0.05em;
+}
+.name-transfer-row button {
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: inherit;
+  cursor: pointer;
+}
+#nameScreenImportMsg {
+  font-size: 0.8rem;
+  margin-top: 6px;
+  min-height: 1em;
+  opacity: 0.8;
+}
+
 #playerNameSubmitBtn {
   padding: 10px;
   background: #3a6ea5;

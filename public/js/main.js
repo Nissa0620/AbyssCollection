@@ -732,6 +732,23 @@ document.getElementById("playerNameSubmitBtn").addEventListener("click", async (
   sendRankingData(); // 登録直後に初回送信
 });
 
+document.getElementById("nameScreenImportBtn").addEventListener("click", async () => {
+  const code = document.getElementById("nameScreenImportInput").value.trim();
+  if (!code) return;
+  const msg = document.getElementById("nameScreenImportMsg");
+  const btn = document.getElementById("nameScreenImportBtn");
+  msg.textContent = "復元中...";
+  btn.disabled = true;
+  const result = await importSaveCode(code);
+  if (result.success) {
+    msg.textContent = "復元成功！読み込んでいます...";
+    setTimeout(() => location.reload(), 1500);
+  } else {
+    msg.textContent = "失敗：" + result.error;
+    btn.disabled = false;
+  }
+});
+
 async function renderRanking(field) {
   const contentEl = document.getElementById("rankingContent");
   contentEl.innerHTML = "<p style='text-align:center;color:#888;padding:16px'>読み込み中...</p>";
