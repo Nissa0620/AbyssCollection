@@ -945,7 +945,7 @@ document.getElementById("discardConfirmBtn").addEventListener("click", () => {
 document.getElementById("weaponBulkSynthBtn").addEventListener("click", () => {
   _bulkSynthMode = "weapon";
   document.getElementById("bulkSynthConfirmMsg").textContent =
-    "極個体をベースに武器を一括合成しますか？";
+    "極武器もしくはスキル効果量が最も大きい個体をベースに、武器を一括合成しますか？";
   document.getElementById("bulkSynthConfirmOverlay").classList.remove("hidden");
 });
 
