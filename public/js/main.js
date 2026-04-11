@@ -136,7 +136,7 @@ function refreshSynthesisOnly() {
   updateSynthesisPreview();
   updatePetSynthesisUI();
   updateSynthesisClasses();
-  saveGame();
+  saveGameLocal();
 }
 
 function handleInventoryClick(uid) {
@@ -149,10 +149,10 @@ function handleEquip(uid) {
     const name = getWeaponDisplayName(state.player.equippedWeapon);
     addLog(`⚔️ ${name} を外した`);
     state.player.equippedWeapon = null;
-    saveGame();
+    saveGameLocal();
   } else {
     equipWeapon(uid);
-    saveGame();
+    saveGameLocal();
   }
   refreshHpBoost();
   refreshUI();
@@ -239,17 +239,17 @@ document.getElementById("settingOverlay").addEventListener("click", (e) => {
 
 document.getElementById("showAppearModalChk").addEventListener("change", (e) => {
   state.ui.showAppearModal = e.target.checked;
-  saveGame();
+  saveGameLocal();
 });
 
 document.getElementById("showCaptureModalChk").addEventListener("change", (e) => {
   state.ui.showCaptureModal = e.target.checked;
-  saveGame();
+  saveGameLocal();
 });
 
 document.getElementById("includeRareInSelectAllChk").addEventListener("change", (e) => {
   state.ui.includeRareInSelectAll = e.target.checked;
-  saveGame();
+  saveGameLocal();
 });
 
 // =====================
@@ -419,7 +419,7 @@ document.getElementById("petSortSelect").addEventListener("change", (e) => {
   });
   updatePetPanel(handlePetSynthesisClick, handlePetEquip);
   updateSynthesisClasses();
-  saveGame();
+  saveGameLocal();
 });
 
 document.getElementById("petFilterSelect").addEventListener("change", (e) => {
@@ -441,7 +441,7 @@ document.getElementById("petSynthesizeBtn").addEventListener("click", () => {
     state.petSynthesis.materialUids = [];
   }
   if (success) {
-    saveGame();
+    saveGameLocal();
   }
   refreshUI();
 });
@@ -454,7 +454,7 @@ document.getElementById("weaponSortSelect").addEventListener("change", (e) => {
   sortInventory(state.player);
   renderInventory(state.player, handleInventoryClick, handleEquip);
   updateSynthesisClasses();
-  saveGame();
+  saveGameLocal();
 });
 
 document.getElementById("weaponGroupSortSelect").addEventListener("change", (e) => {
@@ -496,7 +496,7 @@ synthBtn.addEventListener("click", () => {
     state.synthesis.materialUids = [];
   }
   if (success) {
-    saveGame();
+    saveGameLocal();
   }
   refreshUI();
 });
@@ -523,7 +523,7 @@ floorJumpBtn.addEventListener("click", () => {
   createEnemy();
   calcOverflowBonuses();
 
-  saveGame();
+  saveGameLocal();
   refreshUI();
 });
 
@@ -626,7 +626,7 @@ document.getElementById("importCodeBtn").addEventListener("click", async () => {
 document.getElementById("hiddenBossRewardCloseBtn")?.addEventListener("click", () => {
   document.getElementById("hiddenBossRewardOverlay").classList.add("hidden");
   state.phase = "next";
-  saveGame();
+  saveGameLocal();
   refreshUI();
 });
 
@@ -634,7 +634,7 @@ document.getElementById("researchRerollBtn").addEventListener("click", () => {
   const success = rerollMissions();
   if (success) {
     renderResearchScreen();
-    saveGame();
+    saveGameLocal();
   }
 });
 
@@ -673,7 +673,7 @@ document.getElementById("resetConfirmBtn").addEventListener("click", () => {
 const stayChk = document.getElementById("stayOnFloorChk");
 stayChk.addEventListener("change", () => {
   state.ui.stayOnFloor = stayChk.checked;
-  saveGame();
+  saveGameLocal();
 });
 
 // =====================
@@ -727,7 +727,7 @@ document.getElementById("playerNameSubmitBtn").addEventListener("click", async (
   }
 
   state.playerName = input;
-  saveGame();
+  saveGameLocal();
   document.getElementById("nameInputOverlay").classList.add("hidden");
   sendRankingData(); // 登録直後に初回送信
 });
@@ -904,7 +904,7 @@ document.getElementById("discardConfirmBtn").addEventListener("click", () => {
   }
   _discardMode = null;
   _discardCondition = null;
-  if (count > 0) saveGame();
+  if (count > 0) saveGameLocal();
   refreshUI();
 });
 
@@ -944,7 +944,7 @@ document.getElementById("bulkSynthConfirmBtn").addEventListener("click", () => {
     count = bulkSynthesizeUltimatePets();
   }
   _bulkSynthMode = null;
-  if (count > 0) saveGame();
+  if (count > 0) saveGameLocal();
   refreshUI();
 });
 
@@ -963,7 +963,7 @@ loadGame().then((loaded) => {
     const hasLegacyMission = state.research.missions.some(m => m.requiredLevel != null);
     if (hasLegacyMission) {
       initMissions();
-      saveGame();
+      saveGameLocal();
     }
 
     refreshUI();
