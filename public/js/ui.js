@@ -19,7 +19,7 @@ import {
   rerollMissions,
   initMissions,
 } from "./research.js";
-import { saveGame } from "./saveLoad.js";
+import { saveGameLocal } from "./saveLoad.js";
 import { getWeaponDisplayName } from "./weapon.js";
 import { hiddenBossDefs } from "./hiddenBossData.js";
 import { registerHiddenWeaponObtained } from "./book.js";
@@ -2095,7 +2095,7 @@ export function showHiddenBossRewardModal(def, basePower, baseHp, weaponBaseAtk,
     overlay.classList.remove("hidden");
   }
 
-  saveGame();
+  saveGameLocal();
 }
 
 // =====================
@@ -2194,7 +2194,7 @@ function renderMissions() {
       const stayChk = document.getElementById("stayOnFloorChk");
       if (stayChk) stayChk.checked = true;
 
-      saveGame();
+      saveGameLocal();
       if (_refreshUICallback) _refreshUICallback();
     });
   });
@@ -2278,7 +2278,7 @@ function renderExchangeList() {
       const success = exchangeReward(btn.dataset.type);
       if (success) {
         renderResearchScreen();
-        saveGame();
+        saveGameLocal();
       }
     });
   });
@@ -2429,7 +2429,7 @@ export function openDonateModal(missionId) {
     if (success) {
       document.getElementById("donateOverlay").classList.add("hidden");
       renderResearchScreen();
-      saveGame();
+      saveGameLocal();
     }
   };
 

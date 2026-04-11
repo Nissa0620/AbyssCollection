@@ -3,7 +3,7 @@ import { addLog } from "./log.js";
 import { isLocked, getLockedSet } from "./listPrefs.js";
 import { isUltimateWeapon } from "./drop.js";
 import { getWeaponDisplayName } from "./weapon.js";
-import { saveGame } from "./saveLoad.js";
+import { saveGameLocal } from "./saveLoad.js";
 import { registerWeaponEvolved } from "./weaponBook.js";
 import { weaponTemplates } from "./data/index.js";
 import { checkAchievements } from "./achievements.js";
@@ -16,7 +16,7 @@ export function equipWeapon(uid) {
   state.player.equippedWeapon = weapon;
   const name = getWeaponDisplayName(weapon);
   addLog(`⚔️ ${name} を装備した`);
-  saveGame();
+  saveGameLocal();
 }
 
 // 合成対象を選択する
