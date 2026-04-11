@@ -532,17 +532,11 @@ export async function exportSaveCode() {
   try {
     const uid = await waitForUid();
     const code = uidToCode(uid);
-    const json = JSON.stringify(state);
-    const compressed = LZString.compressToUTF16(json);
 
-    // Cloud Storageにデータを保存
-    const { ref, uploadString } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-storage.js");
-    const storageRef = ref(window._storage, `transferCodes/${code}.txt`);
-    await uploadString(storageRef, compressed, "raw");
-
-    // Firestoreに有効期限のみ保存
+    // Firestoreにuid・有効期限を保存
     const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
     await setDoc(doc(window._db, "transferCodes", code), {
+      uid,
       createdAt: Date.now(),
       expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000,
     });
@@ -563,25 +557,23 @@ export async function importSaveCode(code) {
     const normalized = code.replace(/-/g, "").toUpperCase();
     const formattedCode = normalized.slice(0, 4) + "-" + normalized.slice(4, 8);
 
-    // Firestoreで有効期限を確認
+    // Firestoreで有効期限とuidを確認
     const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
     const snap = await getDoc(doc(window._db, "transferCodes", formattedCode));
     if (!snap.exists()) return { success: false, error: "コードが見つかりません" };
     const data = snap.data();
     if (Date.now() > data.expiresAt) return { success: false, error: "コードの有効期限が切れています" };
 
-    // Cloud Storageからデータを取得
+    // コード所有者のsave.txtを読み込む
     const { ref, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-storage.js");
-    const storageRef = ref(window._storage, `transferCodes/${formattedCode}.txt`);
+    const storageRef = ref(window._storage, `saves/${data.uid}/save.txt`);
     const url = await getDownloadURL(storageRef);
     const res = await fetch(url);
     if (!res.ok) return { success: false, error: "データの取得に失敗しました" };
-    const compressed = await res.text();
+    const json = await res.text();
+    if (!json) return { success: false, error: "データが空です" };
 
-    const json = LZString.decompressFromUTF16(compressed);
-    if (!json) return { success: false, error: "データの解凍に失敗しました" };
-
-    // Firebaseに保存して再ロード
+    // 自分のCloud Storageに保存して再ロード
     _importLock = true;
     await firebaseSave(json);
     return { success: true, json };
