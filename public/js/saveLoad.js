@@ -56,11 +56,15 @@ async function firebaseLoad() {
     const { ref, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-storage.js");
     const storageRef = ref(window._storage, `saves/${uid}/save.txt`);
     const url = await getDownloadURL(storageRef);
-    const res = await fetch(url);
+    const token = await window._auth.currentUser.getIdToken();
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Firebase ${token}`
+      }
+    });
     if (!res.ok) return null;
     return await res.text();
   } catch (e) {
-    // ファイルが存在しない場合は null を返す（エラーではない）
     if (e.code === "storage/object-not-found") return null;
     console.error("firebaseLoad error:", e);
     return null;
