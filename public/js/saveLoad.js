@@ -221,58 +221,52 @@ export async function deleteGame() {
 export async function loadGame() {
   let json = null;
 
+  // ── ① Cloud Storageから読み込む（最優先）──
   try {
-    // ── ① Cloud Storageから読み込む（最優先）──
-    // 手動セーブされたデータが存在すればここで取得される
     json = await firebaseLoad();
-
-    // ── ② Cloud Storageにデータがなければ、IndexedDBから読み込む ──
-    // 手動セーブ未実施の場合や、Cloud Storageへのアクセスが失敗した場合のフォールバック
-    if (!json) {
-      try {
-        const idb = await openDB();
-        json = await dbGet(idb, SAVE_KEY);
-        if (json) {
-          console.log("saveLoad: IndexedDBからロード完了");
-        }
-      } catch (e) {
-        console.warn("saveLoad: IndexedDB読み込みスキップ:", e);
-      }
-    }
-
-    // ── ③ IndexedDBにもなければ、Firestoreから読み込む ──
-    // 過去にFirestoreを使っていたユーザーへのフォールバック
-    // Firestoreのデータは手動セーブするまでCloud Storageには保存されない
-    if (!json) {
-      try {
-        const uid = await waitForUid();
-        const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
-        const snap = await getDoc(doc(window._db, "saves", uid, "data", "save"));
-        if (snap.exists()) {
-          json = snap.data().json ?? null;
-          if (json) {
-            console.log("saveLoad: Firestoreからロード完了");
-          }
-        }
-      } catch (e) {
-        console.warn("saveLoad: Firestoreフォールバックスキップ:", e);
-      }
-    }
-
-    // ── ④ 読み込んだデータをIndexedDBにも保存する ──
-    // 次回起動時のフォールバック用として常にIndexedDBを最新に保つ
-    if (json) {
-      try {
-        const idb = await openDB();
-        await dbPut(idb, SAVE_KEY, json);
-      } catch (e) {
-        console.warn("saveLoad: IndexedDB保存スキップ:", e);
-      }
-    }
-
   } catch (e) {
-    console.error("loadGame: storage error", e);
-    return false;
+    // Firebaseが失敗しても後続のフォールバックを続行する
+    console.warn("saveLoad: Firebase読み込み失敗、フォールバックへ:", e);
+  }
+
+  // ── ② Cloud Storageにデータがなければ、IndexedDBから読み込む ──
+  if (!json) {
+    try {
+      const idb = await openDB();
+      json = await dbGet(idb, SAVE_KEY);
+      if (json) console.log("saveLoad: IndexedDBからロード完了");
+    } catch (e) {
+      console.warn("saveLoad: IndexedDB読み込みスキップ:", e);
+    }
+  }
+
+  // ── ③ IndexedDBにもなければ、Firestoreから読み込む ──
+  if (!json) {
+    try {
+      const uid = await waitForUid();
+      const { doc, getDoc } = await import(
+        "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js"
+      );
+      const snap = await getDoc(
+        doc(window._db, "saves", uid, "data", "save")
+      );
+      if (snap.exists()) {
+        json = snap.data().json ?? null;
+        if (json) console.log("saveLoad: Firestoreからロード完了");
+      }
+    } catch (e) {
+      console.warn("saveLoad: Firestoreフォールバックスキップ:", e);
+    }
+  }
+
+  // ── ④ 読み込んだデータをIndexedDBにも保存する ──
+  if (json) {
+    try {
+      const idb = await openDB();
+      await dbPut(idb, SAVE_KEY, json);
+    } catch (e) {
+      console.warn("saveLoad: IndexedDB保存スキップ:", e);
+    }
   }
 
   if (!json) return false;
