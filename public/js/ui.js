@@ -2093,7 +2093,11 @@ export function showHiddenBossRewardModal(def, basePower, baseHp, weaponBaseAtk,
   // 実績チェック
   checkAchievements();
 
-  // モーダル表示
+  // モーダル表示（設定によりスキップ）
+  if (!(state.ui.showHiddenBossModal ?? true)) {
+    saveGameLocal();
+    return;
+  }
   const overlay = document.getElementById("hiddenBossRewardOverlay");
   if (overlay) {
     document.getElementById("hiddenBossRewardSin").textContent    = `【七大罪：${def.sin}】`;
