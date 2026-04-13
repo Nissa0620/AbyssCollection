@@ -787,7 +787,13 @@ document.getElementById("changeNameBtn").addEventListener("click", async () => {
   document.getElementById("changeNameInput").value = "";
   successEl.textContent = `「${input}」に変更しました`;
   successEl.classList.remove("hidden");
+  document.getElementById("currentNameDisplay").textContent = input;
   btn.disabled = false;
+});
+
+document.getElementById("changeNameInput").addEventListener("input", () => {
+  document.getElementById("changeNameError").classList.add("hidden");
+  document.getElementById("changeNameSuccess").classList.add("hidden");
 });
 
 document.getElementById("nameScreenImportBtn").addEventListener("click", async () => {

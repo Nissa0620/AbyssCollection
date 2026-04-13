@@ -579,83 +579,96 @@
           <button id="settingCloseBtn">✕</button>
         </div>
         <div class="setting-modal-body">
-          <div class="setting-item">
-            <span class="setting-label">出現モーダルを表示する<br><small>（伝説・究極・極個体の出現時）</small></span>
-            <label class="setting-toggle">
-              <input type="checkbox" id="showAppearModalChk">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-          <div class="setting-item">
-            <span class="setting-label">捕獲モーダルを表示する<br><small>（伝説・究極・極個体の捕獲時）</small></span>
-            <label class="setting-toggle">
-              <input type="checkbox" id="showCaptureModalChk">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-          <div class="setting-item">
-            <span class="setting-label">一括選択にレア個体を含める<br><small>（ペット合成の一括選択時）</small></span>
-            <label class="setting-toggle">
-              <input type="checkbox" id="includeRareInSelectAllChk">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-          <div class="setting-item">
-            <span class="setting-label">隠しボスの演出を表示する<br><small>（出現時・撃破報酬のポップアップ）</small></span>
-            <label class="setting-toggle">
-              <input type="checkbox" id="showHiddenBossModalChk">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-          <div class="setting-item">
-            <span class="setting-label">レア個体・極武器以外を拾わない<br><small>（通常個体・通常武器のドロップをスキップ）</small></span>
-            <label class="setting-toggle">
-              <input type="checkbox" id="skipNonRareDropChk">
-              <span class="toggle-slider"></span>
-            </label>
-          </div>
-          <!-- 名前変更 -->
-          <div class="name-change-section">
-            <h3 class="transfer-title">プレイヤー名の変更</h3>
-            <p class="name-change-current">現在の名前：<span id="currentNameDisplay"></span></p>
-            <div class="transfer-input-row">
-              <input type="text" id="changeNameInput" class="transfer-input" placeholder="新しい名前（12文字以内）" maxlength="12">
-              <button id="changeNameBtn" class="transfer-btn">変更</button>
-            </div>
-            <p id="changeNameError" class="name-input-error hidden"></p>
-            <p id="changeNameSuccess" class="name-change-success hidden"></p>
-          </div>
-          <hr class="setting-divider">
-          <!-- 引き継ぎコード -->
-          <div class="transfer-section">
-            <h3 class="transfer-title">データ引き継ぎ</h3>
 
-            <div class="transfer-export">
-              <button id="exportCodeBtn" class="transfer-btn">引き継ぎコードを発行</button>
-              <div id="exportCodeResult" class="transfer-code-result hidden">
-                <div class="transfer-code-row">
-                  <span id="exportCodeDisplay" class="transfer-code-text"></span>
-                  <button id="copyCodeBtn" class="transfer-icon-btn" title="コピー">
-                    <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                  </button>
+          <!-- セクション1: 設定 -->
+          <div class="setting-section">
+            <p class="setting-section-title">設定</p>
+            <div class="setting-item">
+              <span class="setting-label">出現モーダルを表示する<br><small>（伝説・究極・極個体の出現時）</small></span>
+              <label class="setting-toggle">
+                <input type="checkbox" id="showAppearModalChk">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">捕獲モーダルを表示する<br><small>（伝説・究極・極個体の捕獲時）</small></span>
+              <label class="setting-toggle">
+                <input type="checkbox" id="showCaptureModalChk">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">一括選択にレア個体を含める<br><small>（ペット合成の一括選択時）</small></span>
+              <label class="setting-toggle">
+                <input type="checkbox" id="includeRareInSelectAllChk">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">隠しボスの演出を表示する<br><small>（出現時・撃破報酬のポップアップ）</small></span>
+              <label class="setting-toggle">
+                <input type="checkbox" id="showHiddenBossModalChk">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item">
+              <span class="setting-label">レア個体・極武器以外を拾わない<br><small>（通常個体・通常武器のドロップをスキップ）</small></span>
+              <label class="setting-toggle">
+                <input type="checkbox" id="skipNonRareDropChk">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- セクション2: プレイヤー名の変更 -->
+          <div class="setting-section">
+            <p class="setting-section-title">プレイヤー名の変更</p>
+            <div class="name-change-section">
+              <div class="name-change-current">
+                <div class="name-change-info">
+                  <span class="name-change-name" id="currentNameDisplay"></span>
+                  <span class="name-change-sublabel">現在のプレイヤー名</span>
                 </div>
-                <small class="transfer-note">30日間有効</small>
               </div>
-            </div>
-
-            <div class="transfer-divider"></div>
-
-            <div class="transfer-import">
-              <div class="transfer-input-row">
-                <input type="text" id="importCodeInput" class="transfer-input" placeholder="XXXX-XXXX" maxlength="9">
-                <button id="importCodeBtn" class="transfer-btn">引き継ぐ</button>
+              <input type="text" id="changeNameInput" class="name-change-input" placeholder="新しい名前（12文字以内）" maxlength="12">
+              <button id="changeNameBtn" class="name-change-btn">変更</button>
+              <div class="name-change-msg">
+                <p id="changeNameError" class="name-input-error hidden"></p>
+                <p id="changeNameSuccess" class="name-change-success hidden"></p>
               </div>
-              <p id="importCodeMsg" class="transfer-msg"></p>
             </div>
           </div>
+
+          <!-- セクション3: データ引き継ぎ -->
+          <div class="setting-section">
+            <p class="setting-section-title">データ引き継ぎ</p>
+            <div class="transfer-section">
+              <div class="transfer-export">
+                <button id="exportCodeBtn" class="transfer-btn">引き継ぎコードを発行</button>
+                <div id="exportCodeResult" class="transfer-code-result hidden">
+                  <div class="transfer-code-row">
+                    <span id="exportCodeDisplay" class="transfer-code-text"></span>
+                    <button id="copyCodeBtn" class="transfer-icon-btn" title="コピー">
+                      <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <small class="transfer-note">30日間有効</small>
+                </div>
+              </div>
+              <div class="transfer-divider"></div>
+              <div class="transfer-import">
+                <div class="transfer-input-row">
+                  <input type="text" id="importCodeInput" class="transfer-input" placeholder="XXXX-XXXX" maxlength="9">
+                  <button id="importCodeBtn" class="transfer-btn">引き継ぐ</button>
+                </div>
+                <p id="importCodeMsg" class="transfer-msg"></p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
