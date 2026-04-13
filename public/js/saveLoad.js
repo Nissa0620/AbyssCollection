@@ -287,6 +287,12 @@ export async function loadGame() {
 
   // ── 以下は既存のマイグレーション処理をそのまま維持 ──
   Object.assign(state, parsed);
+
+  // 10000階上限キャップ（既存セーブデータの超過分を補正）
+  const FLOOR_CAP = 10000;
+  if (state.floor > FLOOR_CAP) state.floor = FLOOR_CAP;
+  if (state.maxFloor > FLOOR_CAP) state.maxFloor = FLOOR_CAP;
+
   state.player = {
     ...state.player,
     get totalPower() {

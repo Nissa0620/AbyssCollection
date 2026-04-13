@@ -671,7 +671,8 @@ export function updateFloorJumpOptions() {
   const select = document.getElementById("floorJumpSelect");
   if (!select) return;
 
-  const max = state.maxFloor;
+  const FLOOR_CAP = 10000;
+  const max = Math.min(state.maxFloor, FLOOR_CAP);
   const maxMultiple = Math.floor(max / 50) * 50;
 
   // maxFloor が前回と変わっていなければ再生成しない

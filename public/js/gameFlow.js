@@ -88,6 +88,18 @@ function battlePhase() {
 function nextPhase() {
   state._floorJustChanged = true; // ← フロア移動フラグ
   if (!state.ui.stayOnFloor) state.floor++;
+
+  // 10000階を上限とする。到達した場合は自動でとどまるをONにする
+  const FLOOR_CAP = 10000;
+  if (state.floor >= FLOOR_CAP) {
+    state.floor = FLOOR_CAP;
+    if (!state.ui.stayOnFloor) {
+      state.ui.stayOnFloor = true;
+      const stayChk = document.getElementById("stayOnFloorChk");
+      if (stayChk) stayChk.checked = true;
+    }
+  }
+
   createEnemy();
   state.maxFloor = Math.max(state.maxFloor, state.floor);
   state.phase = "battle";
