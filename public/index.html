@@ -614,6 +614,17 @@
               <span class="toggle-slider"></span>
             </label>
           </div>
+          <!-- 名前変更 -->
+          <div class="name-change-section">
+            <h3 class="transfer-title">プレイヤー名の変更</h3>
+            <p class="name-change-current">現在の名前：<span id="currentNameDisplay"></span></p>
+            <div class="transfer-input-row">
+              <input type="text" id="changeNameInput" class="transfer-input" placeholder="新しい名前（12文字以内）" maxlength="12">
+              <button id="changeNameBtn" class="transfer-btn">変更</button>
+            </div>
+            <p id="changeNameError" class="name-input-error hidden"></p>
+            <p id="changeNameSuccess" class="name-change-success hidden"></p>
+          </div>
           <hr class="setting-divider">
           <!-- 引き継ぎコード -->
           <div class="transfer-section">
