@@ -974,14 +974,18 @@ export function bulkSynthesizeUltimatePets(condition = "ultimate") {
   // 条件ごとの素材許容判定ヘルパー
   const isMaterialAllowed = (p, condition) => {
     if (condition === "ultimate") {
-      // 究極ベース：通常・極・伝説を素材に使える（究極個体は除外）
-      return !p.isLegendUltimate;
+      // 究極ベース：究極の余剰個体も含め全レアリティを素材に使える
+      return true;
     }
     if (condition === "legendary") {
-      // 伝説ベース：通常・極を素材に使える（伝説・究極は除外）
+      // 伝説ベース：伝説の余剰個体も含め、究極以外を素材に使える
+      return !p.isLegendUltimate;
+    }
+    if (condition === "elite") {
+      // 極ベース：極の余剰個体も含め、伝説・究極以外を素材に使える
       return !p.isLegendary && !p.isLegendUltimate;
     }
-    // elite / normal_max_passive：通常個体のみ（変更なし）
+    // normal_max_passive：通常個体のみ（変更なし）
     return isNormal(p);
   };
 

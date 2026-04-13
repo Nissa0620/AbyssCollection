@@ -330,13 +330,12 @@ export function bulkSynthesizeUltimateWeapons() {
     }
   }
 
-  // 2パス目：素材UIDを記録
+  // 2パス目：素材UIDを記録（極武器の余剰個体も素材に含める）
   for (const w of state.player.inventory) {
     const key = `${w.templateId}_${w.isBossDrop ? "1" : "0"}`;
     const entry = groupMap.get(key);
     if (!entry || !entry.baseUid) continue;
     if (w.uid === entry.baseUid) continue;
-    if (isUltimateWeapon(w)) continue;
     if (lockedSet.has(String(w.uid))) continue;
     if (w.uid === equippedUid) continue;
     entry.materialUids.push(w.uid);
