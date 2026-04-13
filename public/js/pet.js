@@ -971,13 +971,27 @@ export function bulkSynthesizeUltimatePets(condition = "ultimate") {
     }
   }
 
-  // 2パス目：素材UIDを記録（通常個体のみ・ロック・装備中・ベース除外）
+  // 条件ごとの素材許容判定ヘルパー
+  const isMaterialAllowed = (p, condition) => {
+    if (condition === "ultimate") {
+      // 究極ベース：通常・極・伝説を素材に使える（究極個体は除外）
+      return !p.isLegendUltimate;
+    }
+    if (condition === "legendary") {
+      // 伝説ベース：通常・極を素材に使える（伝説・究極は除外）
+      return !p.isLegendary && !p.isLegendUltimate;
+    }
+    // elite / normal_max_passive：通常個体のみ（変更なし）
+    return isNormal(p);
+  };
+
+  // 2パス目：素材UIDを記録（条件に応じたレアリティ・ロック・装備中・ベース除外）
   for (const p of state.player.petList) {
     const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
     const entry = groupMap.get(key);
     if (!entry || entry.baseUid === null) continue;
     if (p.uid === entry.baseUid) continue;
-    if (!isNormal(p)) continue;
+    if (!isMaterialAllowed(p, condition)) continue;
     if (lockedSet.has(String(p.uid))) continue;
     if (p.uid === equippedUid) continue;
     entry.materialUids.push(p.uid);
