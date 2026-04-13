@@ -287,6 +287,12 @@ export async function loadGame() {
 
   // ── 以下は既存のマイグレーション処理をそのまま維持 ──
   Object.assign(state, parsed);
+
+  // 10000階上限キャップ（既存セーブデータの超過分を補正）
+  const FLOOR_CAP = 10000;
+  if (state.floor > FLOOR_CAP) state.floor = FLOOR_CAP;
+  if (state.maxFloor > FLOOR_CAP) state.maxFloor = FLOOR_CAP;
+
   state.player = {
     ...state.player,
     get totalPower() {
@@ -297,7 +303,7 @@ export async function loadGame() {
       if (pet?.passive === "atkBoost" || pet?.passive === "legendAtkBoost") atkBoostTotal += (pet.passiveValue ?? 0);
       if (weapon?.passive === "atkBoost" || weapon?.passive === "legendAtkBoost") atkBoostTotal += (weapon.passiveValue ?? 0);
       const atkBoostMult = 1 + atkBoostTotal / 100;
-      const gemBonus = (state.player.gems ?? []).reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
+      const gemBonus = state.gemAtkBonus ?? 0;
       const dexMultiplier = 1 + (state.dexBuff.power - 1) + (state.weaponDexBuff.power - 1);
       return Math.floor(
         (this.basePower + (weapon ? weapon.totalAtk : 0) + petPower + gemBonus) *
@@ -319,6 +325,12 @@ export async function loadGame() {
   };
 
   if (!state.player.gems) state.player.gems = [];
+
+  // ロード時にキャッシュを全件合算で復元
+  state.gemAtkBonus = state.player.gems.reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
+
+  // 既存セーブデータの gems から uid を削除（マイグレーション）
+  state.player.gems = state.player.gems.map(({ uid, ...rest }) => rest);
 
   for (const pet of state.player.petList ?? []) {
     if (pet.level == null) pet.level = 0;
@@ -466,6 +478,10 @@ export async function loadGame() {
 
   if (!state.achievements.hiddenBossFirstKill) {
     state.achievements.hiddenBossFirstKill = {};
+  }
+
+  if (state.achievements.maxDamageDealt == null) {
+    state.achievements.maxDamageDealt = 0;
   }
 
   if (!state.book.hiddenBosses) {

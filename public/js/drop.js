@@ -28,14 +28,23 @@ export function getBossDropWeapon(bossEnemyId) {
 }
 
 function createWeapon(template) {
-  const baseAtk =
-    Math.floor(Math.random() * (template.maxAtk - template.minAtk + 1)) +
-    template.minAtk;
+  // 1%の確率で極武器（全ステ最大値）を生成
+  const isElite = Math.random() < 0.01;
+
+  const baseAtk = isElite
+    ? template.maxAtk
+    : Math.floor(Math.random() * (template.maxAtk - template.minAtk + 1)) + template.minAtk;
+
   const baseHp = template.minHp != null
-    ? Math.floor(Math.random() * (template.maxHp - template.minHp + 1)) + template.minHp
+    ? (isElite
+        ? template.maxHp
+        : Math.floor(Math.random() * (template.maxHp - template.minHp + 1)) + template.minHp)
     : 0;
+
   const passiveValue = template.passiveValue
-    ? Math.floor(Math.random() * (template.passiveValue.max - template.passiveValue.min + 1)) + template.passiveValue.min
+    ? (isElite
+        ? template.passiveValue.max
+        : Math.floor(Math.random() * (template.passiveValue.max - template.passiveValue.min + 1)) + template.passiveValue.min)
     : null;
 
   return {

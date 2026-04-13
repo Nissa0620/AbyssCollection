@@ -516,6 +516,12 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
     acquiredOrder: state.acquiredCounter++,
   };
 
+  // skipNonRareDrop がオンかつ通常個体の場合はスキップ
+  if ((state.ui.skipNonRareDrop ?? false)
+    && !isLegendary && !isLegendUltimate && !isElite) {
+    return;
+  }
+
   state.player.petList.push(pet);
 
   // 図鑑に捕獲フラグを永続保存
@@ -539,7 +545,21 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
   const legendMark = isLegendUltimate ? "🔴" : isLegendary ? "✨" : isElite ? "⭐" : "";
   const capturedTitleName = getTitleName(pet);
   addLog(`🐾${legendMark} ${capturedTitleName}${def.name} を捕獲した！`);
-  updateBookUltimate();
+
+  // 捕獲した敵のエントリだけ hasUltimate を更新（全件スキャンを避ける）
+  const _bookKey = pet.isBoss ? `boss_${pet.enemyId}` : `normal_${pet.enemyId}`;
+  const _bookEntry = state.book.enemies[_bookKey];
+  if (_bookEntry) {
+    if (!_bookEntry.hasUltimate) {
+      _bookEntry.hasUltimate = isUltimatePet(pet) ||
+        state.player.petList.some(
+          (p) => p.uid !== pet.uid &&
+                 p.enemyId === pet.enemyId &&
+                 !!p.isBoss === !!pet.isBoss &&
+                 isUltimatePet(p)
+        );
+    }
+  }
 
   const enemyFullName = state.enemy?.name ?? def.name;
   if (!state.achievements) state.achievements = {};
@@ -911,37 +931,71 @@ export function discardPets(condition) {
 // =====================
 // ペット一括合成（究極個体をベースとして各グループを自動合成）
 // =====================
-export function bulkSynthesizeUltimatePets() {
+// condition: "ultimate" | "legendary" | "elite" | "normal_max_passive"
+export function bulkSynthesizeUltimatePets(condition = "ultimate") {
   const equippedUid = state.player.equippedPet?.uid ?? null;
   let totalSynthed = 0;
 
   const lockedSet = getLockedSet();
+  const isNormal = (p) => !p.isElite && !p.isLegendary && !p.isLegendUltimate;
 
-  // 究極個体の判定：isLegendUltimate であるもの
-  // 極個体は titleId=4 かつ全ステ最大で生成されるため isUltimatePet() を通過してしまう。
-  // フラグによる除外が必須。
-  const isTrueUltimate = (p) => p.isLegendUltimate === true;
-
-  // 1パス目：真の究極個体のUIDをグループごとに記録
+  // 1パス目：グループごとにベースを選択
   const groupMap = new Map();
   for (const p of state.player.petList) {
     const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
     if (!groupMap.has(key)) groupMap.set(key, { baseUid: null, materialUids: [] });
     const entry = groupMap.get(key);
-    if (isTrueUltimate(p) && entry.baseUid === null) {
-      entry.baseUid = p.uid;
+
+    if (lockedSet.has(String(p.uid))) continue;
+    if (p.uid === equippedUid) continue;
+
+    if (condition === "ultimate") {
+      if (p.isLegendUltimate === true && entry.baseUid === null) {
+        entry.baseUid = p.uid;
+      }
+    } else if (condition === "legendary") {
+      if (p.isLegendary === true && entry.baseUid === null) {
+        entry.baseUid = p.uid;
+      }
+    } else if (condition === "elite") {
+      if (p.isElite === true && entry.baseUid === null) {
+        entry.baseUid = p.uid;
+      }
+    } else if (condition === "normal_max_passive") {
+      if (isNormal(p)) {
+        const current = state.player.petList.find(i => i.uid === entry.baseUid);
+        if (!entry.baseUid || (p.passiveValue ?? 0) > (current?.passiveValue ?? 0)) {
+          entry.baseUid = p.uid;
+        }
+      }
     }
   }
 
-  // 2パス目：素材UIDを記録
-  // 究極個体・極個体・伝説個体・レジェンド究極個体・ロック・装備中を素材から除外
+  // 条件ごとの素材許容判定ヘルパー
+  const isMaterialAllowed = (p, condition) => {
+    if (condition === "ultimate") {
+      // 究極ベース：究極の余剰個体も含め全レアリティを素材に使える
+      return true;
+    }
+    if (condition === "legendary") {
+      // 伝説ベース：伝説の余剰個体も含め、究極以外を素材に使える
+      return !p.isLegendUltimate;
+    }
+    if (condition === "elite") {
+      // 極ベース：極の余剰個体も含め、伝説・究極以外を素材に使える
+      return !p.isLegendary && !p.isLegendUltimate;
+    }
+    // normal_max_passive：通常個体のみ（変更なし）
+    return isNormal(p);
+  };
+
+  // 2パス目：素材UIDを記録（条件に応じたレアリティ・ロック・装備中・ベース除外）
   for (const p of state.player.petList) {
     const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
     const entry = groupMap.get(key);
     if (!entry || entry.baseUid === null) continue;
     if (p.uid === entry.baseUid) continue;
-    if (isTrueUltimate(p)) continue;
-    if (p.isLegendUltimate) continue;
+    if (!isMaterialAllowed(p, condition)) continue;
     if (lockedSet.has(String(p.uid))) continue;
     if (p.uid === equippedUid) continue;
     entry.materialUids.push(p.uid);

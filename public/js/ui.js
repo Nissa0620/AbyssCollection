@@ -132,9 +132,13 @@ export function renderInventory(player, onItemClick, onEquip) {
   });
 
   const filteredGroups = nameFilter
-    ? sortedGroups.filter(([templateId]) => {
+    ? sortedGroups.filter(([templateId, groupItems]) => {
         const template = weaponTemplates.find((t) => t.id === templateId);
-        if (!template) return false;
+        // templateがない場合（隠しボス武器等）はアイテムの名前で判定
+        if (!template) {
+          const itemName = (groupItems[0]?.name ?? "").toLowerCase();
+          return itemName.includes(nameFilter);
+        }
         const baseName = template.name.toLowerCase();
         if (baseName.includes(nameFilter)) return true;
         return (template.evolutions ?? []).some(
@@ -154,8 +158,13 @@ export function renderInventory(player, onItemClick, onEquip) {
       : null;
     const displayName = evoName ?? baseName;
 
-    // 通常スキル名
-    const skillLabel = template?.passive ? weaponPassiveLabel(template.passive) : "";
+    // 通常スキル名（隠しボス武器はtemplateがないためアイテムのpassiveを直接参照）
+    // legend系キーは通常スキルキーに変換してからラベルを取得（ペットのgetNormalSkillLabelと同方式）
+    const passiveKey = template?.passive ?? groupItems[0]?.passive ?? null;
+    const normalPassiveKey = passiveKey && isLegendaryPassive(passiveKey)
+      ? normalPassiveOf(passiveKey)
+      : passiveKey;
+    const skillLabel = normalPassiveKey ? weaponPassiveLabel(normalPassiveKey) : "";
 
     const groupKey = `weapon_${templateId}`;
     const fav = isFavorite(groupKey);
@@ -671,7 +680,8 @@ export function updateFloorJumpOptions() {
   const select = document.getElementById("floorJumpSelect");
   if (!select) return;
 
-  const max = state.maxFloor;
+  const FLOOR_CAP = 10000;
+  const max = Math.min(state.maxFloor, FLOOR_CAP);
   const maxMultiple = Math.floor(max / 50) * 50;
 
   // maxFloor が前回と変わっていなければ再生成しない
@@ -807,7 +817,11 @@ function renderEnemyBook(buffEl, contentEl) {
     detail.className = "book-enemy-detail hidden";
 
     if (!entry) {
-      detail.innerHTML = `<div class="book-enemy-meta">出現：${floorText}　遭遇：0 / 撃破：0</div>`;
+      detail.innerHTML = `
+        <div class="book-enemy-meta">出現：${floorText}　遭遇：0 / 撃破：0</div>
+        ${titlePool.map(() => `<div class="book-title-unknown"><span>？？？</span></div>`).join("")}
+        ${legendDef ? `<div class="book-title-unknown"><span>？？？</span></div>` : ""}
+      `;
     } else {
       const titlesHtml = titlePool
         .map((title) => {
@@ -829,7 +843,12 @@ function renderEnemyBook(buffEl, contentEl) {
         .join("");
 
       const legendEntry = entry.titles?.[5];
-      const legendHtml = legendDef && legendEntry?.seen ? (() => {
+      const legendHtml = legendDef ? (() => {
+        if (!legendEntry?.seen) {
+          // 未遭遇：???で表示
+          return `<div class="book-title-unknown"><span>？？？</span></div>`;
+        }
+        // 遭遇済み以降は既存ロジック
         const displayName = enemyDef.isBoss
           ? `✨ ${legendDef.name}・支配者の${entry.name}`
           : `✨ ${legendDef.name}・深淵の${entry.name}`;
@@ -2005,6 +2024,8 @@ export function showElitePopup(enemy, mode = "appear", pet = null, isHolding = n
 // =====================
 
 export function showHiddenBossPopup(def) {
+  // 設定によりモーダルをスキップ
+  if (!(state.ui.showHiddenBossModal ?? true)) return;
   const overlay = document.getElementById("hiddenBossOverlay");
   const nameEl  = document.getElementById("hiddenBossName");
   const sinEl   = document.getElementById("hiddenBossSin");
@@ -2082,7 +2103,11 @@ export function showHiddenBossRewardModal(def, basePower, baseHp, weaponBaseAtk,
   // 実績チェック
   checkAchievements();
 
-  // モーダル表示
+  // モーダル表示（設定によりスキップ）
+  if (!(state.ui.showHiddenBossModal ?? true)) {
+    saveGameLocal();
+    return;
+  }
   const overlay = document.getElementById("hiddenBossRewardOverlay");
   if (overlay) {
     document.getElementById("hiddenBossRewardSin").textContent    = `【七大罪：${def.sin}】`;

@@ -40,7 +40,7 @@ export const state = {
       if (pet?.passive === "atkBoost" || pet?.passive === "legendAtkBoost") atkBoostTotal += (pet.passiveValue ?? 0);
       if (weapon?.passive === "atkBoost" || weapon?.passive === "legendAtkBoost") atkBoostTotal += (weapon.passiveValue ?? 0);
       const atkBoostMult = 1 + atkBoostTotal / 100;
-      const gemBonus = (state.player.gems ?? []).reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
+      const gemBonus = state.gemAtkBonus ?? 0;
       const dexMultiplier = 1 + (state.dexBuff.power - 1) + (state.weaponDexBuff.power - 1);
       return Math.floor(
         (this.basePower + (weapon ? weapon.totalAtk : 0) + petPower + gemBonus) *
@@ -93,6 +93,8 @@ export const state = {
     showAppearModal: true,   // 出現モーダル表示設定
     showCaptureModal: true,  // 捕獲モーダル表示設定
     includeRareInSelectAll: false, // 一括選択にレア個体を含めるか
+    showHiddenBossModal: true, // 隠しボス出現演出を表示するか
+    skipNonRareDrop: false, // レア・極以外を拾わない
   },
   synthesisMode: false,
   synthesis: {
@@ -137,6 +139,7 @@ export const state = {
   legendReflectBonus: 0,
   legendDmgReduceTurn: 0,
   drainAtkBonus: 0,
+  gemAtkBonus: 0,   // gems配列の合計ATKボーナスキャッシュ
   regenTurnCount: 0,
   isHolding: null, // main.jsから設定されるコールバック（長押し判定用）
   forceStopHold: false, // ui.jsから設定：捕獲モーダル等で長押し強制停止
@@ -156,5 +159,6 @@ export const state = {
     ultimatePetCount: 0,
     ultimateWeaponCount: 0,
     hiddenBossFirstKill: {},
+    maxDamageDealt: 0,
   },
 };

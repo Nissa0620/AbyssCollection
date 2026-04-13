@@ -42,6 +42,12 @@ export function playerAttack() {
   state.enemy.hp -= damage;
   if (state.enemy.hp < 0) state.enemy.hp = 0;
 
+  // 最大ダメージ更新
+  if (!state.achievements) state.achievements = {};
+  if (damage > (state.achievements.maxDamageDealt ?? 0)) {
+    state.achievements.maxDamageDealt = damage;
+  }
+
   const critText = critMult > 1 ? " ⚡クリティカル！" : "";
   addLog("▶ " + damage + " ダメージ" + critText);
 
@@ -73,6 +79,9 @@ export function playerAttack() {
     let dmg = Math.floor(applyDamage(state.player) * totalMult);
     state.enemy.hp -= dmg;
     if (state.enemy.hp < 0) state.enemy.hp = 0;
+    if (dmg > (state.achievements.maxDamageDealt ?? 0)) {
+      state.achievements.maxDamageDealt = dmg;
+    }
     addLog("▶ " + (i === 0 && attackCount === 1 ? "2回目" : `${i + 2}回目`) + " " + dmg + " ダメージ");
     const h = getDrainHeal(dmg);
     if (h > 0) {
@@ -141,17 +150,15 @@ export function enemyAttack() {
   }
 
   let damage = applyDamage(state.enemy);
-  state.player.hp -= damage;
-  if (state.player.hp < 0) state.player.hp = 0;
 
-  // 被ダメ減少
+  // 被ダメ減少：先に軽減してからHPを引く
   const reduceMult = getDmgReduceMultiplier();
   if (reduceMult < 1) {
-    const reduced = Math.floor(damage * reduceMult);
-    const diff = damage - reduced;
-    state.player.hp = Math.min(state.player.hp + diff, state.player.totalHp);
-    damage = reduced;
+    damage = Math.floor(damage * reduceMult);
   }
+
+  state.player.hp -= damage;
+  if (state.player.hp < 0) state.player.hp = 0;
 
   addLog("◀ " + state.enemy.name + "の攻撃 " + damage + " ダメージ");
 
@@ -228,23 +235,41 @@ function defeatEnemy() {
     if (!state.player.gems) state.player.gems = [];
     gems.forEach((gem) => {
       state.player.gems.push(gem);
+      state.gemAtkBonus = (state.gemAtkBonus ?? 0) + gem.atkBonus;
       addLog("💎 " + gem.icon + gem.name + " を手に入れた！(ATK +" + gem.atkBonus + ")");
     });
   } else {
     // 通常敵：武器をドロップ
     const dropped = getDropWeapon(dropMult, state.enemy.enemyId);
     if (dropped) {
-      state.player.inventory.push(dropped);
-      addLog("⚔️ " + dropped.name + " を手に入れた");
-      registerWeaponDropped(dropped.templateId, false);
-      updateWeaponBookUltimate();
-      if (isUltimateWeapon(dropped)) {
-        const alreadyHas = state.player.inventory
-          .filter((w) => w.uid !== dropped.uid)
-          .some((w) => w.templateId === dropped.templateId && !!w.isBossDrop === !!dropped.isBossDrop && isUltimateWeapon(w));
-        if (!state.achievements) state.achievements = {};
-        state.achievements.ultimateWeaponCount = (state.achievements.ultimateWeaponCount ?? 0) + 1;
-        if (!alreadyHas) showUltimatePopup(dropped, "weapon");
+      // skipNonRareDrop がオンかつ極武器でない場合はスキップ
+      if ((state.ui.skipNonRareDrop ?? false) && !isUltimateWeapon(dropped)) {
+        // 何もしない（ログも出さない）
+      } else {
+        state.player.inventory.push(dropped);
+        addLog("⚔️ " + dropped.name + " を手に入れた");
+        registerWeaponDropped(dropped.templateId, false);
+
+        // ドロップした武器のエントリだけ hasUltimate を更新（全件スキャンを避ける）
+        const _wKey = `${dropped.isBossDrop ? "boss" : "normal"}_${dropped.templateId}`;
+        const _wEntry = state.book.weapons[_wKey];
+        if (_wEntry && !_wEntry.hasUltimate) {
+          _wEntry.hasUltimate = isUltimateWeapon(dropped) ||
+            state.player.inventory.some(
+              (w) => w.uid !== dropped.uid &&
+                     w.templateId === dropped.templateId &&
+                     !!w.isBossDrop === !!dropped.isBossDrop &&
+                     isUltimateWeapon(w)
+            );
+        }
+        if (isUltimateWeapon(dropped)) {
+          const alreadyHas = state.player.inventory
+            .filter((w) => w.uid !== dropped.uid)
+            .some((w) => w.templateId === dropped.templateId && !!w.isBossDrop === !!dropped.isBossDrop && isUltimateWeapon(w));
+          if (!state.achievements) state.achievements = {};
+          state.achievements.ultimateWeaponCount = (state.achievements.ultimateWeaponCount ?? 0) + 1;
+          if (!alreadyHas) showUltimatePopup(dropped, "weapon");
+        }
       }
     } else {
       addLog("何も落ちなかった...");
@@ -503,8 +528,10 @@ function createBossEnemy(bossEnemyId) {
   const baseHp = Math.floor(band.baseHp * (base.hpRate ?? 1.0));
   const basePower = Math.floor(band.basePower * (base.powerRate ?? 1.0));
 
-  const totalHp = Math.floor(baseHp * hpScale * title.hpRate);
-  const totalPower = Math.floor(basePower * atkScale * title.atkRate);
+  // ボスは同フロア帯の通常敵（最大強度3.00倍）を上回るよう3.5倍を適用
+  const BOSS_STRENGTH_MULT = 3.5;
+  const totalHp = Math.floor(baseHp * hpScale * title.hpRate * BOSS_STRENGTH_MULT);
+  const totalPower = Math.floor(basePower * atkScale * title.atkRate * BOSS_STRENGTH_MULT);
   const enemyExp = Math.floor((5 + state.floor * 10) * 2.0 * title.expRate);
 
   const displayName = (isLegendary || isLegendUltimate)
