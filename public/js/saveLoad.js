@@ -297,7 +297,7 @@ export async function loadGame() {
       if (pet?.passive === "atkBoost" || pet?.passive === "legendAtkBoost") atkBoostTotal += (pet.passiveValue ?? 0);
       if (weapon?.passive === "atkBoost" || weapon?.passive === "legendAtkBoost") atkBoostTotal += (weapon.passiveValue ?? 0);
       const atkBoostMult = 1 + atkBoostTotal / 100;
-      const gemBonus = (state.player.gems ?? []).reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
+      const gemBonus = state.gemAtkBonus ?? 0;
       const dexMultiplier = 1 + (state.dexBuff.power - 1) + (state.weaponDexBuff.power - 1);
       return Math.floor(
         (this.basePower + (weapon ? weapon.totalAtk : 0) + petPower + gemBonus) *
@@ -319,6 +319,12 @@ export async function loadGame() {
   };
 
   if (!state.player.gems) state.player.gems = [];
+
+  // ロード時にキャッシュを全件合算で復元
+  state.gemAtkBonus = state.player.gems.reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
+
+  // 既存セーブデータの gems から uid を削除（マイグレーション）
+  state.player.gems = state.player.gems.map(({ uid, ...rest }) => rest);
 
   for (const pet of state.player.petList ?? []) {
     if (pet.level == null) pet.level = 0;

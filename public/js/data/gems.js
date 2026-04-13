@@ -27,11 +27,11 @@ export function rollBossGems(floor) {
     const r = Math.random() * totalW;
     let gem;
     if (r < copperW) {
-      gem = { ...gemTemplates[0], uid: Date.now() + Math.random() };
+      gem = { ...gemTemplates[0] };
     } else if (r < copperW + silverW) {
-      gem = { ...gemTemplates[1], uid: Date.now() + Math.random() };
+      gem = { ...gemTemplates[1] };
     } else {
-      gem = { ...gemTemplates[2], uid: Date.now() + Math.random() };
+      gem = { ...gemTemplates[2] };
     }
     result.push(gem);
   }

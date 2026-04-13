@@ -235,6 +235,7 @@ function defeatEnemy() {
     if (!state.player.gems) state.player.gems = [];
     gems.forEach((gem) => {
       state.player.gems.push(gem);
+      state.gemAtkBonus = (state.gemAtkBonus ?? 0) + gem.atkBonus;
       addLog("💎 " + gem.icon + gem.name + " を手に入れた！(ATK +" + gem.atkBonus + ")");
     });
   } else {
@@ -248,7 +249,19 @@ function defeatEnemy() {
         state.player.inventory.push(dropped);
         addLog("⚔️ " + dropped.name + " を手に入れた");
         registerWeaponDropped(dropped.templateId, false);
-        updateWeaponBookUltimate();
+
+        // ドロップした武器のエントリだけ hasUltimate を更新（全件スキャンを避ける）
+        const _wKey = `${dropped.isBossDrop ? "boss" : "normal"}_${dropped.templateId}`;
+        const _wEntry = state.book.weapons[_wKey];
+        if (_wEntry && !_wEntry.hasUltimate) {
+          _wEntry.hasUltimate = isUltimateWeapon(dropped) ||
+            state.player.inventory.some(
+              (w) => w.uid !== dropped.uid &&
+                     w.templateId === dropped.templateId &&
+                     !!w.isBossDrop === !!dropped.isBossDrop &&
+                     isUltimateWeapon(w)
+            );
+        }
         if (isUltimateWeapon(dropped)) {
           const alreadyHas = state.player.inventory
             .filter((w) => w.uid !== dropped.uid)

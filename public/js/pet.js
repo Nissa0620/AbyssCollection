@@ -545,7 +545,21 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
   const legendMark = isLegendUltimate ? "🔴" : isLegendary ? "✨" : isElite ? "⭐" : "";
   const capturedTitleName = getTitleName(pet);
   addLog(`🐾${legendMark} ${capturedTitleName}${def.name} を捕獲した！`);
-  updateBookUltimate();
+
+  // 捕獲した敵のエントリだけ hasUltimate を更新（全件スキャンを避ける）
+  const _bookKey = pet.isBoss ? `boss_${pet.enemyId}` : `normal_${pet.enemyId}`;
+  const _bookEntry = state.book.enemies[_bookKey];
+  if (_bookEntry) {
+    if (!_bookEntry.hasUltimate) {
+      _bookEntry.hasUltimate = isUltimatePet(pet) ||
+        state.player.petList.some(
+          (p) => p.uid !== pet.uid &&
+                 p.enemyId === pet.enemyId &&
+                 !!p.isBoss === !!pet.isBoss &&
+                 isUltimatePet(p)
+        );
+    }
+  }
 
   const enemyFullName = state.enemy?.name ?? def.name;
   if (!state.achievements) state.achievements = {};
