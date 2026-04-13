@@ -1002,6 +1002,9 @@ document.getElementById("bulkSynthConfirmBtn").addEventListener("click", () => {
 // ゲーム開始
 // =====================
 loadGame().then((loaded) => {
+  // ローディング画面を非表示にする
+  document.getElementById("loadingOverlay").classList.add("hidden");
+
   if (!loaded) {
     init();
   } else {
@@ -1031,8 +1034,14 @@ const saveCheckSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height=
 
 document.getElementById("manualSaveBtn").addEventListener("click", async () => {
   const btn = document.getElementById("manualSaveBtn");
+  const savingOverlay = document.getElementById("savingOverlay");
+
   btn.disabled = true;
+  savingOverlay.classList.remove("hidden");   // セーブ中モーダルを表示
+
   await saveGame();
+
+  savingOverlay.classList.add("hidden");      // セーブ完了後に非表示
   btn.innerHTML = saveCheckSVG;
   setTimeout(() => {
     btn.disabled = false;

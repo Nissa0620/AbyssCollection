@@ -9,6 +9,22 @@
     <script>eruda.init();</script>
   </head>
   <body>
+    <!-- ローディング画面 -->
+    <div id="loadingOverlay" class="loading-overlay">
+      <div class="loading-box">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">データを読み込んでいます…</p>
+      </div>
+    </div>
+
+    <!-- セーブ中モーダル -->
+    <div id="savingOverlay" class="saving-overlay hidden">
+      <div class="saving-box">
+        <div class="loading-spinner"></div>
+        <p class="saving-text">セーブ中です。そのままお待ちください。</p>
+      </div>
+    </div>
+
     <div class="game-container">
       <div class="title-area">
         <div class="floor-jump">
