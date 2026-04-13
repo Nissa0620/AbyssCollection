@@ -132,9 +132,13 @@ export function renderInventory(player, onItemClick, onEquip) {
   });
 
   const filteredGroups = nameFilter
-    ? sortedGroups.filter(([templateId]) => {
+    ? sortedGroups.filter(([templateId, groupItems]) => {
         const template = weaponTemplates.find((t) => t.id === templateId);
-        if (!template) return false;
+        // templateがない場合（隠しボス武器等）はアイテムの名前で判定
+        if (!template) {
+          const itemName = (groupItems[0]?.name ?? "").toLowerCase();
+          return itemName.includes(nameFilter);
+        }
         const baseName = template.name.toLowerCase();
         if (baseName.includes(nameFilter)) return true;
         return (template.evolutions ?? []).some(
@@ -154,8 +158,13 @@ export function renderInventory(player, onItemClick, onEquip) {
       : null;
     const displayName = evoName ?? baseName;
 
-    // 通常スキル名
-    const skillLabel = template?.passive ? weaponPassiveLabel(template.passive) : "";
+    // 通常スキル名（隠しボス武器はtemplateがないためアイテムのpassiveを直接参照）
+    // legend系キーは通常スキルキーに変換してからラベルを取得（ペットのgetNormalSkillLabelと同方式）
+    const passiveKey = template?.passive ?? groupItems[0]?.passive ?? null;
+    const normalPassiveKey = passiveKey && isLegendaryPassive(passiveKey)
+      ? normalPassiveOf(passiveKey)
+      : passiveKey;
+    const skillLabel = normalPassiveKey ? weaponPassiveLabel(normalPassiveKey) : "";
 
     const groupKey = `weapon_${templateId}`;
     const fav = isFavorite(groupKey);
