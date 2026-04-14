@@ -2638,6 +2638,137 @@ button {
   color: #ff6b6b;
 }
 
+/* 名前変更 */
+.name-change-section {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name-change-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.name-change-current {
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.name-change-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(59,130,246,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #7ab8f5;
+  flex-shrink: 0;
+}
+
+.name-change-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-change-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.name-change-sublabel {
+  font-size: 11px;
+  color: #666;
+  margin-top: 1px;
+}
+
+.name-change-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.name-change-input {
+  width: 100%;
+  font-size: 14px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 0.5px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+}
+
+.name-change-input:focus {
+  border-color: rgba(59,130,246,0.6);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+}
+
+.name-change-input::placeholder {
+  color: #555;
+}
+
+.name-change-btn {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: 0.5px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.name-change-btn:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.name-change-btn:active {
+  transform: scale(0.98);
+}
+
+.name-change-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  transform: none;
+}
+
+.name-change-char {
+  font-size: 11px;
+  color: #555;
+  text-align: right;
+  margin-top: 4px;
+}
+
+.name-change-msg {
+  font-size: 12px;
+  margin-top: 8px;
+  min-height: 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.name-change-success {
+  color: #4ade80;
+}
+
 .name-transfer-section {
   margin-top: 16px;
   padding-top: 16px;
@@ -3075,8 +3206,29 @@ button {
 .setting-modal-body {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   padding: 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.setting-section {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.setting-section-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 2px;
 }
 
 .setting-item {
@@ -3324,7 +3476,7 @@ button {
 
 /* ===== データ引き継ぎUI ===== */
 .transfer-section {
-  padding: 8px 0;
+  padding: 0;
 }
 .transfer-title {
   font-size: 0.95rem;

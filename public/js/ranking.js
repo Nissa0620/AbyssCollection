@@ -31,12 +31,12 @@ export function calcWeaponBookCount() {
 }
 
 // ランキングデータを送信する
-export async function sendRankingData() {
+export async function sendRankingData({ force = false } = {}) {
   const db = window._db;
   if (!db || !state.playerName) return;
 
   const now = Date.now();
-  if (now - (state.lastRankingSentAt ?? 0) < RANKING_COOLDOWN_MS) return;
+  if (!force && now - (state.lastRankingSentAt ?? 0) < RANKING_COOLDOWN_MS) return;
 
   const currentData = {
     maxFloor: state.maxFloor,
@@ -57,11 +57,12 @@ export async function sendRankingData() {
     currentData.achievementCount !== last.achievementCount ||
     currentData.maxDamage !== last.maxDamage;
 
-  if (!hasChanged) return;
+  if (!force && !hasChanged) return;
 
   try {
     const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
-    await setDoc(doc(db, "rankings", state.playerName), {
+    await setDoc(doc(db, "rankings", window._uid), {
+      uid: window._uid,
       name: state.playerName,
       maxFloor: currentData.maxFloor,
       level: currentData.level,
@@ -102,9 +103,17 @@ export async function isNameTaken(name) {
   const db = window._db;
   if (!db) return false;
   try {
-    const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
-    const snap = await getDoc(doc(db, "rankings", name));
-    return snap.exists();
+    const { collection, query, where, limit, getDocs } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
+    const q = query(
+      collection(db, "rankings"),
+      where("name", "==", name),
+      limit(1)
+    );
+    const snapshot = await getDocs(q);
+    // 自分自身のドキュメントは除外（名前変更時に自分の現在名と同じ名前を入力した場合）
+    if (snapshot.empty) return false;
+    const foundDoc = snapshot.docs[0];
+    return foundDoc.id !== window._uid;
   } catch (e) {
     return false;
   }

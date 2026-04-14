@@ -226,6 +226,7 @@ document.getElementById("settingBtn").addEventListener("click", () => {
   document.getElementById("includeRareInSelectAllChk").checked = state.ui.includeRareInSelectAll ?? false;
   document.getElementById("showHiddenBossModalChk").checked = state.ui.showHiddenBossModal ?? true;
   document.getElementById("skipNonRareDropChk").checked = state.ui.skipNonRareDrop ?? false;
+  document.getElementById("currentNameDisplay").textContent = state.playerName ?? "";
   document.getElementById("settingOverlay").classList.remove("hidden");
 });
 
@@ -741,7 +742,58 @@ document.getElementById("playerNameSubmitBtn").addEventListener("click", async (
   state.playerName = input;
   saveGameLocal();
   document.getElementById("nameInputOverlay").classList.add("hidden");
-  sendRankingData(); // 登録直後に初回送信
+  sendRankingData({ force: true }); // 登録直後に初回送信
+});
+
+// =====================
+// 名前変更（設定モーダル）
+// =====================
+document.getElementById("changeNameBtn").addEventListener("click", async () => {
+  const input = document.getElementById("changeNameInput").value.trim();
+  const errorEl = document.getElementById("changeNameError");
+  const successEl = document.getElementById("changeNameSuccess");
+
+  errorEl.classList.add("hidden");
+  successEl.classList.add("hidden");
+
+  if (!input) {
+    errorEl.textContent = "名前を入力してください";
+    errorEl.classList.remove("hidden");
+    return;
+  }
+
+  if (input === state.playerName) {
+    errorEl.textContent = "現在と同じ名前です";
+    errorEl.classList.remove("hidden");
+    return;
+  }
+
+  const btn = document.getElementById("changeNameBtn");
+  btn.disabled = true;
+  errorEl.classList.add("hidden");
+
+  const taken = await isNameTaken(input);
+  if (taken) {
+    errorEl.textContent = "この名前はすでに使われています";
+    errorEl.classList.remove("hidden");
+    btn.disabled = false;
+    return;
+  }
+
+  state.playerName = input;
+  saveGameLocal();
+  await sendRankingData({ force: true });
+
+  document.getElementById("changeNameInput").value = "";
+  successEl.textContent = `「${input}」に変更しました`;
+  successEl.classList.remove("hidden");
+  document.getElementById("currentNameDisplay").textContent = input;
+  btn.disabled = false;
+});
+
+document.getElementById("changeNameInput").addEventListener("input", () => {
+  document.getElementById("changeNameError").classList.add("hidden");
+  document.getElementById("changeNameSuccess").classList.add("hidden");
 });
 
 document.getElementById("nameScreenImportBtn").addEventListener("click", async () => {
@@ -785,7 +837,7 @@ async function renderRanking(field) {
 
   data.forEach((entry, i) => {
     const li = document.createElement("li");
-    li.className = "ranking-item" + (entry.name === state.playerName ? " my-record" : "");
+    li.className = "ranking-item" + (entry.uid === window._uid ? " my-record" : "");
 
     const rank = i + 1;
     const rankClass = rank === 1 ? "gold" : rank === 2 ? "silver" : rank === 3 ? "bronze" : "";
