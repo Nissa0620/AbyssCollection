@@ -4,6 +4,7 @@ import { isLocked, getLockedSet } from "./listPrefs.js";
 import { addLog } from "./log.js";
 import { getTitleName, legendaryTitles, normalPassiveOf, isLegendaryPassive } from "./data/index.js";
 import { updateBookUltimate } from "./book.js";
+import { addEnemyDexBuff } from "./dexBuff.js";
 import { showUltimatePopup, showElitePopup, showLegendaryPopup, showLegendUltimatePopup } from "./ui.js";
 import { checkAchievements } from "./achievements.js";
 
@@ -528,6 +529,10 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
   const bookKey = pet.isBoss ? `boss_${pet.enemyId}` : `normal_${pet.enemyId}`;
   const bookEntry = state.book.enemies[bookKey];
   if (bookEntry) {
+    // 差分加算の二重防止：caught フラグを立てる前に確認
+    const effectiveTitleId = (isLegendary || isLegendUltimate) ? 5 : titleId;
+    const wasAlreadyCaught = bookEntry.titles[effectiveTitleId]?.caught === true;
+
     if (!bookEntry.titles[titleId]) {
       bookEntry.titles[titleId] = { seen: true, defeated: false };
     }
@@ -539,6 +544,16 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
         bookEntry.titles[5] = { seen: true, defeated: false };
       }
       bookEntry.titles[5].caught = true;
+    }
+
+    // 差分加算：捕獲が確定した称号のdexBuffを加算（初回のみ）
+    if (!wasAlreadyCaught) {
+      const bandData = floorTable[def.floorBand];
+      if (bandData) {
+        const caughtCount = Object.values(bookEntry.titles).filter((t) => t.caught).length;
+        const isFirstCatchForEnemy = caughtCount === 1;
+        addEnemyDexBuff(state, bandData, effectiveTitleId, isFirstCatchForEnemy);
+      }
     }
   }
 
