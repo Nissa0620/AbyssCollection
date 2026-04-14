@@ -215,32 +215,60 @@ export async function deleteGame() {
 }
 
 // =====================
+// ロード時ヘルパー
+// =====================
+
+function _tryParse(json) {
+  if (!json) return null;
+  try { return JSON.parse(json); } catch { return null; }
+}
+
+function _calcProgressScore(d) {
+  if (!d) return -1;
+  return (
+    (d.maxFloor ?? 0)       * 10000 +
+    (d.player?.level ?? 0)
+  );
+}
+
+function _pickBetter(a, b) {
+  if (!a && !b) return null;
+  if (!a) return JSON.stringify(b);
+  if (!b) return JSON.stringify(a);
+  return _calcProgressScore(b) >= _calcProgressScore(a)
+    ? JSON.stringify(b)
+    : JSON.stringify(a);
+}
+
+// =====================
 // loadGame（起動時1回だけ呼ぶ・async）
 // =====================
 
 export async function loadGame() {
   let json = null;
 
-  // ── ① Cloud Storageから読み込む（最優先）──
-  try {
-    json = await firebaseLoad();
-  } catch (e) {
-    // Firebaseが失敗しても後続のフォールバックを続行する
-    console.warn("saveLoad: Firebase読み込み失敗、フォールバックへ:", e);
+  // ── ① Cloud Storage と IndexedDB を並列取得 ──
+  const [cloudJson, idbJson] = await Promise.all([
+    firebaseLoad().catch(() => null),
+    openDB().then(db => dbGet(db, SAVE_KEY)).catch(() => null),
+  ]);
+
+  // ── ② 進行度スコアで比較し、優れている方を採用 ──
+  const cloudData = _tryParse(cloudJson);
+  const idbData   = _tryParse(idbJson);
+  json = _pickBetter(cloudData, idbData);
+
+  if (cloudData && idbData) {
+    const scoreCloud = _calcProgressScore(cloudData);
+    const scoreIdb   = _calcProgressScore(idbData);
+    console.log(`saveLoad: Cloud=${scoreCloud} / IDB=${scoreIdb} → ${scoreIdb > scoreCloud ? "IDB" : "Cloud"}を採用`);
+  } else if (cloudData) {
+    console.log("saveLoad: CloudStorageからロード完了");
+  } else if (idbData) {
+    console.log("saveLoad: IndexedDBからロード完了");
   }
 
-  // ── ② Cloud Storageにデータがなければ、IndexedDBから読み込む ──
-  if (!json) {
-    try {
-      const idb = await openDB();
-      json = await dbGet(idb, SAVE_KEY);
-      if (json) console.log("saveLoad: IndexedDBからロード完了");
-    } catch (e) {
-      console.warn("saveLoad: IndexedDB読み込みスキップ:", e);
-    }
-  }
-
-  // ── ③ IndexedDBにもなければ、Firestoreから読み込む ──
+  // ── ③ 両方ともなければ、Firestoreから読み込む（旧ユーザー向けフォールバック）──
   if (!json) {
     try {
       const uid = await waitForUid();

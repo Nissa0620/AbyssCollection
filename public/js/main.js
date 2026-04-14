@@ -1101,10 +1101,6 @@ document.getElementById("manualSaveBtn").addEventListener("click", async () => {
   }, 2000);
 });
 
-// 3秒ごとにIndexedDBに自動保存
-setInterval(() => {
-  saveGameLocal();
-}, 3000);
 
 // 30分ごとにランキング送信
 setInterval(() => {
