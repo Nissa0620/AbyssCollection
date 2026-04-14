@@ -261,7 +261,7 @@ export async function loadGame() {
   if (cloudData && idbData) {
     const scoreCloud = _calcProgressScore(cloudData);
     const scoreIdb   = _calcProgressScore(idbData);
-    console.log(`saveLoad: Cloud=${scoreCloud} / IDB=${scoreIdb} → ${scoreIdb > scoreCloud ? "IDB" : "Cloud"}を採用`);
+    console.log(`saveLoad: Cloud=${scoreCloud} / IDB=${scoreIdb} → ${scoreIdb >= scoreCloud ? "IDB" : "Cloud"}を採用`);
   } else if (cloudData) {
     console.log("saveLoad: CloudStorageからロード完了");
   } else if (idbData) {

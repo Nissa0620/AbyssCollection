@@ -1,7 +1,9 @@
 import { normalEnemies, bossEnemies, weaponTemplates, floorTable } from "./data/index.js";
 import { hiddenBossDefs } from "./hiddenBossData.js";
 
-const BASE_WEAPON_DEX_BUFF = { hp: 0.20, power: 0.20 };
+const BASE_WEAPON_DEX_BUFF   = { hp: 0.20, power: 0.20 };
+const HIDDEN_BOSS_DEX_BUFF   = { hp: 1.0, power: 1.0 };
+const HIDDEN_WEAPON_DEX_BUFF = { hp: 1.0, power: 1.0 };
 
 const allEnemies = [
   ...normalEnemies.map((e) => ({ ...e, _bookKey: `normal_${e.id}` })),
@@ -96,8 +98,6 @@ export function recalcWeaponDexBuff(state) {
 
 export function recalcHiddenBossDexBuff(state) {
   const oldMax = state.player.totalHp;
-  const HIDDEN_BOSS_DEX_BUFF   = { hp: 1.0, power: 1.0 };  // 撃破1体あたり → dexBuff に加算
-  const HIDDEN_WEAPON_DEX_BUFF = { hp: 1.0, power: 1.0 };  // 武器入手1本あたり → weaponDexBuff に加算
 
   const hiddenBosses = state.book.hiddenBosses ?? {};
 
@@ -124,6 +124,72 @@ export function recalcHiddenBossDexBuff(state) {
   state.dexBuff.power       += enemyPowerBonus / 100;
   state.weaponDexBuff.hp    += weaponHpBonus   / 100;
   state.weaponDexBuff.power += weaponPowerBonus / 100;
+
+  const newMax = state.player.totalHp;
+  const diff = newMax - oldMax;
+  if (diff > 0) state.player.hp += diff;
+  if (state.player.hp > newMax) state.player.hp = newMax;
+}
+
+// =====================
+// 差分加算ヘルパー（戦闘中の新規図鑑登録時に呼ぶ）
+// =====================
+
+export function addEnemyDexBuff(state, bandData, titleId, isFirstCatchForEnemy) {
+  const oldMax = state.player.totalHp;
+
+  // この敵で初めて捕獲した称号の場合、基本dexBuffを加算（1敵につき1回）
+  if (isFirstCatchForEnemy) {
+    state.dexBuff.hp    += bandData.dexBuff?.hp    ?? 0;
+    state.dexBuff.power += bandData.dexBuff?.power ?? 0;
+  }
+
+  // 称号ごとのtitleDexBuffを加算
+  if (Number(titleId) === 5) {
+    // 称号5（伝説）は固定値
+    state.dexBuff.hp    += 0.5;
+    state.dexBuff.power += 0.5;
+  } else {
+    const titleBuff = bandData.titleDexBuff?.[titleId];
+    if (titleBuff) {
+      state.dexBuff.hp    += titleBuff.hp    ?? 0;
+      state.dexBuff.power += titleBuff.power ?? 0;
+    }
+  }
+
+  const newMax = state.player.totalHp;
+  const diff = newMax - oldMax;
+  if (diff > 0) state.player.hp += diff;
+  if (state.player.hp > newMax) state.player.hp = newMax;
+}
+
+export function addWeaponDexBuff(state, type, evoDexBuff = null) {
+  const oldMax = state.player.totalHp;
+
+  if (type === "base") {
+    state.weaponDexBuff.hp    += BASE_WEAPON_DEX_BUFF.hp;
+    state.weaponDexBuff.power += BASE_WEAPON_DEX_BUFF.power;
+  } else if (type === "evo" && evoDexBuff) {
+    state.weaponDexBuff.hp    += evoDexBuff.hp    ?? 0;
+    state.weaponDexBuff.power += evoDexBuff.power ?? 0;
+  }
+
+  const newMax = state.player.totalHp;
+  const diff = newMax - oldMax;
+  if (diff > 0) state.player.hp += diff;
+  if (state.player.hp > newMax) state.player.hp = newMax;
+}
+
+export function addHiddenBossDexBuff(state, type) {
+  const oldMax = state.player.totalHp;
+
+  if (type === "defeated") {
+    state.dexBuff.hp    += HIDDEN_BOSS_DEX_BUFF.hp    / 100;
+    state.dexBuff.power += HIDDEN_BOSS_DEX_BUFF.power / 100;
+  } else if (type === "weaponObtained") {
+    state.weaponDexBuff.hp    += HIDDEN_WEAPON_DEX_BUFF.hp    / 100;
+    state.weaponDexBuff.power += HIDDEN_WEAPON_DEX_BUFF.power / 100;
+  }
 
   const newMax = state.player.totalHp;
   const diff = newMax - oldMax;

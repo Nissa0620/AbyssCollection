@@ -1,12 +1,14 @@
 import { state } from "./state.js";
 import { normalEnemies, bossEnemies, weaponTemplates, legendaryTitles } from "./data/index.js";
+import { hiddenBossDefs } from "./hiddenBossData.js";
 
 const RANKING_COOLDOWN_MS = 30 * 60 * 1000; // 30分
 
 // ペット図鑑登録数を計算して返す（称号ごとの捕獲済み数を合算）
+// 隠しボスは撃破＝捕獲として加算する
 export function calcPetBookCount() {
   const allEnemyDefs = [...normalEnemies, ...bossEnemies];
-  return allEnemyDefs.reduce((sum, e) => {
+  const petCount = allEnemyDefs.reduce((sum, e) => {
     const key = e.isBoss ? `boss_${e.id}` : `normal_${e.id}`;
     const entry = state.book.enemies[key];
     if (!entry) return sum;
@@ -14,6 +16,13 @@ export function calcPetBookCount() {
     const titleIds = hasLegend ? [1, 2, 3, 4, 5] : [1, 2, 3, 4];
     return sum + titleIds.filter((id) => entry.titles?.[id]?.caught).length;
   }, 0);
+
+  // 隠しボス撃破数を加算（撃破＝捕獲として扱う）
+  const hiddenCount = hiddenBossDefs.filter(
+    (def) => state.book.hiddenBosses?.[def.id]?.defeated
+  ).length;
+
+  return petCount + hiddenCount;
 }
 
 // 武器図鑑登録数を計算して返す（ベース入手 + 各進化段階取得を個別カウント）
