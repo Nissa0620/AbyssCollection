@@ -235,7 +235,7 @@ function _pickBetter(a, b) {
   if (!a && !b) return null;
   if (!a) return JSON.stringify(b);
   if (!b) return JSON.stringify(a);
-  return _calcProgressScore(b) > _calcProgressScore(a)
+  return _calcProgressScore(b) >= _calcProgressScore(a)
     ? JSON.stringify(b)
     : JSON.stringify(a);
 }
