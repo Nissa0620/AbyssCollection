@@ -27,8 +27,9 @@ export function calcPetBookCount() {
 }
 
 // 武器図鑑登録数を計算して返す（ベース入手 + 各進化段階取得を個別カウント）
+// 隠しボス武器は入手済みのものを加算する
 export function calcWeaponBookCount() {
-  return weaponTemplates.reduce((sum, t) => {
+  const weaponCount = weaponTemplates.reduce((sum, t) => {
     const key = t.isBossDrop ? `boss_${t.id}` : `normal_${t.id}`;
     const entry = state.book.weapons[key];
     if (!entry) return sum;
@@ -38,6 +39,13 @@ export function calcWeaponBookCount() {
     }
     return sum + count;
   }, 0);
+
+  // 隠しボス武器入手数を加算
+  const hiddenWeaponCount = hiddenBossDefs.filter(
+    (def) => state.book.hiddenBosses?.[def.id]?.weaponObtained
+  ).length;
+
+  return weaponCount + hiddenWeaponCount;
 }
 
 // ランキングデータを送信する
