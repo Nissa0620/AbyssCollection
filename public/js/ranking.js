@@ -3,7 +3,7 @@ import { normalEnemies, bossEnemies, weaponTemplates, legendaryTitles } from "./
 import { hiddenBossDefs } from "./hiddenBossData.js";
 
 const RANKING_COOLDOWN_MS = 30 * 60 * 1000; // 30分
-const RANKING_COLLECTION = "rankings_dev"; // developブランチ用（本番は "rankings"）
+// const RANKING_COLLECTION = "rankings_dev"; // developブランチ用（本番は "rankings"）
 
 // ペット図鑑登録数を計算して返す（称号ごとの捕獲済み数を合算）
 // 隠しボスは撃破＝捕獲として加算する
@@ -79,7 +79,7 @@ export async function sendRankingData({ force = false } = {}) {
 
   try {
     const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
-    await setDoc(doc(db, RANKING_COLLECTION, window._uid), {
+    await setDoc(doc(db, "rankings", window._uid), {
       uid: window._uid,
       name: state.playerName,
       maxFloor: currentData.maxFloor,
@@ -104,7 +104,7 @@ export async function fetchRanking(field) {
   try {
     const { collection, query, orderBy, limit, getDocs } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
     const q = query(
-      collection(db, RANKING_COLLECTION),
+      collection(db, "rankings"),
       orderBy(field, "desc"),
       limit(100)
     );
@@ -123,7 +123,7 @@ export async function isNameTaken(name) {
   try {
     const { collection, query, where, limit, getDocs } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
     const q = query(
-      collection(db, RANKING_COLLECTION),
+      collection(db, "rankings"),
       where("name", "==", name),
       limit(1)
     );
