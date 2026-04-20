@@ -30,7 +30,7 @@ export const state = {
     equippedWeapon: null,
     petList: [],
     equippedPet: null,
-    gems: [],
+    gems: { copper: 0, silver: 0, gold: 0 },
 
     get totalPower() {
       const pet = state.player.equippedPet;

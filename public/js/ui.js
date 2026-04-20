@@ -425,13 +425,19 @@ export function renderGemList() {
   const listEl      = document.getElementById("gemList");
   if (!gemSection || !summaryEl || !listEl) return;
 
-  const gems = state.player.gems ?? [];
+  const gemsRaw = state.player.gems;
+  // 新形式（オブジェクト）と旧形式（配列）の両方に対応
+  const copperCount = Array.isArray(gemsRaw)
+    ? gemsRaw.filter((g) => g.id === 1).length
+    : (gemsRaw?.copper ?? 0);
+  const silverCount = Array.isArray(gemsRaw)
+    ? gemsRaw.filter((g) => g.id === 2).length
+    : (gemsRaw?.silver ?? 0);
+  const goldCount = Array.isArray(gemsRaw)
+    ? gemsRaw.filter((g) => g.id === 3).length
+    : (gemsRaw?.gold ?? 0);
+  const totalBonus = copperCount * 3 + silverCount * 5 + goldCount * 10;
 
-  // 合計ボーナス
-  const totalBonus = gems.reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
-  const copperCount = gems.filter((g) => g.id === 1).length;
-  const silverCount = gems.filter((g) => g.id === 2).length;
-  const goldCount   = gems.filter((g) => g.id === 3).length;
   summaryEl.innerHTML = `
     <span class="gem-total-atk">ATK +${totalBonus}</span>
     <span class="gem-counts">
@@ -441,7 +447,7 @@ export function renderGemList() {
 
   listEl.innerHTML = "";
 
-  if (gems.length === 0) {
+  if (copperCount + silverCount + goldCount === 0) {
     const li = document.createElement("li");
     li.className = "pet-empty";
     li.textContent = "宝玉がありません（ボスを倒すと入手できます）";
@@ -1823,7 +1829,10 @@ export function renderStatusScreen() {
     </div>`;
   };
 
-  const gemBonus = (player.gems ?? []).reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
+  const gemsRaw = player.gems;
+  const gemBonus = Array.isArray(gemsRaw)
+    ? gemsRaw.reduce((sum, g) => sum + (g.atkBonus ?? 0), 0)
+    : ((gemsRaw?.copper ?? 0) * 3 + (gemsRaw?.silver ?? 0) * 5 + (gemsRaw?.gold ?? 0) * 10);
 
   el.innerHTML = `
     <div class="status-detail-section">

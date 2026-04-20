@@ -346,13 +346,28 @@ export async function loadGame() {
     },
   };
 
-  if (!state.player.gems) state.player.gems = [];
+  // ── gems マイグレーション ──
+  // 旧形式（配列）を新形式（個数オブジェクト）に変換する
+  if (!state.player.gems) {
+    state.player.gems = { copper: 0, silver: 0, gold: 0 };
+  } else if (Array.isArray(state.player.gems)) {
+    const arr = state.player.gems;
+    state.player.gems = {
+      copper: arr.filter((g) => g.id === 1 || g.rarity === "copper").length,
+      silver: arr.filter((g) => g.id === 2 || g.rarity === "silver").length,
+      gold:   arr.filter((g) => g.id === 3 || g.rarity === "gold").length,
+    };
+  }
+  // 不足キーの補完（念のため）
+  state.player.gems.copper = state.player.gems.copper ?? 0;
+  state.player.gems.silver = state.player.gems.silver ?? 0;
+  state.player.gems.gold   = state.player.gems.gold   ?? 0;
 
-  // ロード時にキャッシュを全件合算で復元
-  state.gemAtkBonus = state.player.gems.reduce((sum, g) => sum + (g.atkBonus ?? 0), 0);
-
-  // 既存セーブデータの gems から uid を削除（マイグレーション）
-  state.player.gems = state.player.gems.map(({ uid, ...rest }) => rest);
+  // ロード時にキャッシュを再計算
+  state.gemAtkBonus =
+    state.player.gems.copper * 3 +
+    state.player.gems.silver * 5 +
+    state.player.gems.gold   * 10;
 
   for (const pet of state.player.petList ?? []) {
     if (pet.level == null) pet.level = 0;
