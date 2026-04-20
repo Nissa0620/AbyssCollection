@@ -231,13 +231,30 @@ function defeatEnemy() {
 
   if (isBoss) {
     // ボス：宝玉をドロップ
-    const gems = rollBossGems(state.floor);
-    if (!state.player.gems) state.player.gems = [];
-    gems.forEach((gem) => {
-      state.player.gems.push(gem);
-      state.gemAtkBonus = (state.gemAtkBonus ?? 0) + gem.atkBonus;
-      addLog("💎 " + gem.icon + gem.name + " を手に入れた！(ATK +" + gem.atkBonus + ")");
-    });
+    const dropped = rollBossGems(state.floor);
+    // 念のため旧形式（配列）が残っていても上書き（通常はsaveLoad.jsのマイグレーションで変換済み）
+    if (!state.player.gems || Array.isArray(state.player.gems)) {
+      const arr = Array.isArray(state.player.gems) ? state.player.gems : [];
+      state.player.gems = {
+        copper: arr.filter((g) => g.id === 1 || g.rarity === "copper").length,
+        silver: arr.filter((g) => g.id === 2 || g.rarity === "silver").length,
+        gold:   arr.filter((g) => g.id === 3 || g.rarity === "gold").length,
+      };
+    }
+    const g = state.player.gems;
+    const gemDefs = [
+      { key: "copper", icon: "🟤", name: "銅の宝玉", atkBonus: 3 },
+      { key: "silver", icon: "⚪", name: "銀の宝玉", atkBonus: 5 },
+      { key: "gold",   icon: "🟡", name: "金の宝玉", atkBonus: 10 },
+    ];
+    for (const def of gemDefs) {
+      const n = dropped[def.key] ?? 0;
+      if (n <= 0) continue;
+      g[def.key] = (g[def.key] ?? 0) + n;
+      state.gemAtkBonus = (state.gemAtkBonus ?? 0) + def.atkBonus * n;
+      const suffix = n > 1 ? ` ×${n}` : "";
+      addLog(`💎 ${def.icon}${def.name}${suffix} を手に入れた！(ATK +${def.atkBonus * n})`);
+    }
   } else {
     // 通常敵：武器をドロップ
     const dropped = getDropWeapon(dropMult, state.enemy.enemyId);

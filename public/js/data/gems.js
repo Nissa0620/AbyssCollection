@@ -22,18 +22,16 @@ export function rollBossGems(floor) {
   // ドロップ個数: 1 + floor(tier/5)、最大5個
   const count = Math.min(1 + Math.floor(tier / 5), 5);
 
-  const result = [];
+  const result = { copper: 0, silver: 0, gold: 0 };
   for (let i = 0; i < count; i++) {
     const r = Math.random() * totalW;
-    let gem;
     if (r < copperW) {
-      gem = { ...gemTemplates[0] };
+      result.copper++;
     } else if (r < copperW + silverW) {
-      gem = { ...gemTemplates[1] };
+      result.silver++;
     } else {
-      gem = { ...gemTemplates[2] };
+      result.gold++;
     }
-    result.push(gem);
   }
   return result;
 }

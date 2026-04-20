@@ -3,6 +3,7 @@ import { normalEnemies, bossEnemies, weaponTemplates, legendaryTitles } from "./
 import { hiddenBossDefs } from "./hiddenBossData.js";
 
 const RANKING_COOLDOWN_MS = 30 * 60 * 1000; // 30分
+const RANKING_COLLECTION = "rankings_dev"; // developブランチ用（本番は "rankings"）
 
 // ペット図鑑登録数を計算して返す（称号ごとの捕獲済み数を合算）
 // 隠しボスは撃破＝捕獲として加算する
@@ -26,8 +27,9 @@ export function calcPetBookCount() {
 }
 
 // 武器図鑑登録数を計算して返す（ベース入手 + 各進化段階取得を個別カウント）
+// 隠しボス武器は入手済みのものを加算する
 export function calcWeaponBookCount() {
-  return weaponTemplates.reduce((sum, t) => {
+  const weaponCount = weaponTemplates.reduce((sum, t) => {
     const key = t.isBossDrop ? `boss_${t.id}` : `normal_${t.id}`;
     const entry = state.book.weapons[key];
     if (!entry) return sum;
@@ -37,6 +39,13 @@ export function calcWeaponBookCount() {
     }
     return sum + count;
   }, 0);
+
+  // 隠しボス武器入手数を加算
+  const hiddenWeaponCount = hiddenBossDefs.filter(
+    (def) => state.book.hiddenBosses?.[def.id]?.weaponObtained
+  ).length;
+
+  return weaponCount + hiddenWeaponCount;
 }
 
 // ランキングデータを送信する
@@ -70,7 +79,7 @@ export async function sendRankingData({ force = false } = {}) {
 
   try {
     const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
-    await setDoc(doc(db, "rankings", window._uid), {
+    await setDoc(doc(db, RANKING_COLLECTION, window._uid), {
       uid: window._uid,
       name: state.playerName,
       maxFloor: currentData.maxFloor,
@@ -95,7 +104,7 @@ export async function fetchRanking(field) {
   try {
     const { collection, query, orderBy, limit, getDocs } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
     const q = query(
-      collection(db, "rankings"),
+      collection(db, RANKING_COLLECTION),
       orderBy(field, "desc"),
       limit(100)
     );
@@ -114,7 +123,7 @@ export async function isNameTaken(name) {
   try {
     const { collection, query, where, limit, getDocs } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
     const q = query(
-      collection(db, "rankings"),
+      collection(db, RANKING_COLLECTION),
       where("name", "==", name),
       limit(1)
     );
