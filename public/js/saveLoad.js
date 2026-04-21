@@ -553,12 +553,19 @@ export async function loadGame() {
 
   // 自動合成フィールドのデフォルト補完
   if (!state.autoSynth) {
-    state.autoSynth = { petUids: [] };
+    state.autoSynth = { petUids: [], weaponUids: [] };
   }
-  // 自動合成対象に登録されているUIDが実際にpetListに存在するか検証（参照切れ除去）
+  if (!state.autoSynth.weaponUids) {
+    state.autoSynth.weaponUids = [];
+  }
+  // 自動合成対象に登録されているUIDが実際に存在するか検証（参照切れ除去）
   if (Array.isArray(state.autoSynth.petUids)) {
-    const validUids = new Set(state.player.petList.map(p => p.uid));
-    state.autoSynth.petUids = state.autoSynth.petUids.filter(uid => validUids.has(uid));
+    const validPetUids = new Set(state.player.petList.map(p => p.uid));
+    state.autoSynth.petUids = state.autoSynth.petUids.filter(uid => validPetUids.has(uid));
+  }
+  if (Array.isArray(state.autoSynth.weaponUids)) {
+    const validWeaponUids = new Set(state.player.inventory.map(w => w.uid));
+    state.autoSynth.weaponUids = state.autoSynth.weaponUids.filter(uid => validWeaponUids.has(uid));
   }
 
   for (const pet of state.player.petList ?? []) {

@@ -947,25 +947,6 @@ export function discardPets(condition) {
 }
 
 // =====================
-// 自動合成ターゲット管理
-// =====================
-export function toggleAutoSynthTarget(uid) {
-  const list = state.autoSynth.petUids;
-  const idx = list.indexOf(uid);
-  if (idx !== -1) {
-    state.autoSynth.petUids = list.filter(u => u !== uid);
-    return false; // 解除
-  }
-  if (list.length >= 4) return null; // 上限（4件）に達している
-  state.autoSynth.petUids.push(uid);
-  return true; // 登録
-}
-
-export function isAutoSynthTarget(uid) {
-  return (state.autoSynth?.petUids ?? []).includes(uid);
-}
-
-// =====================
 // 自動合成（捕獲時に即呼び出す）
 // =====================
 export function tryAutoSynth(newPet) {

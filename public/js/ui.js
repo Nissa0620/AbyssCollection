@@ -1,10 +1,10 @@
 import { state } from "./state.js";
 import { getTitleName } from "./data/index.js";
 import { addLog } from "./log.js";
-import { getSynthesisPreview } from "./inventory.js";
+import { getSynthesisPreview, toggleAutoWeaponSynthTarget, isAutoWeaponSynthTarget, tryAutoWeaponSynth } from "./inventory.js";
 import { isFavorite, toggleFavorite, isLocked, toggleLock, getLockedSet } from "./listPrefs.js";
 import { isUltimateWeapon } from "./drop.js";
-import { isUltimatePet, getPetSynthesisPreview, getPetPower, getPetHp, toggleSelectAllSamePets, passiveLabels, calcOverflowBonuses, toggleAutoSynthTarget, isAutoSynthTarget } from "./pet.js";
+import { isUltimatePet, getPetSynthesisPreview, getPetPower, getPetHp, toggleSelectAllSamePets, passiveLabels, calcOverflowBonuses } from "./pet.js";
 import {
   checkMissionCompletion,
   donatePet,
@@ -1409,8 +1409,6 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
     }
 
     const locked = lockedSet.has(String(pet.uid));
-    const isAutoSynth = isAutoSynthTarget(pet.uid);
-    const isFull = (state.autoSynth?.petUids?.length ?? 0) >= 4;
     li.innerHTML = `
       <div class="pet-item-bar"></div>
       <div class="pet-item-body">
@@ -1424,7 +1422,6 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
               : `<button class="pet-equip-btn" data-uid="${pet.uid}">装備</button>`
             }
             <button class="pet-lock-btn ${locked ? "lock-on" : ""}" data-uid="${pet.uid}">${locked ? "🔒" : "🔓"}</button>
-            <button class="pet-auto-synth-btn${isAutoSynth ? " active" : ""}" data-uid="${pet.uid}" title="${isAutoSynth ? "自動合成から解除" : "自動合成に登録"}"${!isAutoSynth && isFull ? " disabled" : ""}>🔄</button>
           </div>
         </div>
         <div class="item-row-2">
@@ -1459,14 +1456,6 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
       const nowLocked = isLocked(pet.uid);
       btn.classList.toggle("lock-on", nowLocked);
       btn.textContent = nowLocked ? "🔒" : "🔓";
-    });
-
-    // 自動合成ボタン
-    li.querySelector(".pet-auto-synth-btn")?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleAutoSynthTarget(pet.uid);
-      saveGameLocal();
-      if (_refreshUICallback) _refreshUICallback();
     });
 
     bodyEl.appendChild(li);
@@ -2116,6 +2105,7 @@ export function showHiddenBossRewardModal(def, basePower, baseHp, weaponBaseAtk,
   };
   state.player.inventory.push(weapon);
   registerHiddenWeaponObtained(def.id, def.weaponDrop.name);
+  tryAutoWeaponSynth(weapon);
 
   // 初撃破フラグ記録
   if (!state.achievements.hiddenBossFirstKill) {
@@ -2509,4 +2499,181 @@ export function renderResearchScreen() {
   renderMissions();
   renderExchangeList();
   updateRerollBtn();
+}
+
+// =====================
+// 自動合成対象設定モーダル
+// =====================
+
+// 現在どちらのモーダルを開いているか（"pet" | "weapon"）
+let _autoSynthModalType = null;
+// 「選択する」を押したスロットインデックス（0〜3）
+let _autoSynthSelectingSlot = null;
+
+export function openAutoSynthModal(type) {
+  _autoSynthModalType = type;
+  _autoSynthSelectingSlot = null;
+  renderAutoSynthModal();
+  document.getElementById("autoSynthOverlay").classList.remove("hidden");
+}
+
+function renderAutoSynthModal() {
+  const type = _autoSynthModalType;
+  const uids = type === "pet"
+    ? (state.autoSynth?.petUids ?? [])
+    : (state.autoSynth?.weaponUids ?? []);
+
+  const titleEl = document.getElementById("autoSynthModalTitle");
+  if (titleEl) titleEl.textContent = type === "pet" ? "自動合成対象（ペット）" : "自動合成対象（武器）";
+
+  for (let i = 0; i < 4; i++) {
+    const uid = uids[i] ?? null;
+    const slotEl = document.getElementById(`autoSynthSlot${i}`);
+    if (!slotEl) continue;
+
+    if (uid) {
+      let label = "";
+      if (type === "pet") {
+        const pet = state.player.petList.find(p => p.uid === uid);
+        label = pet ? `${getTitleName(pet)}${pet.name}` : "（不明）";
+      } else {
+        const weapon = state.player.inventory.find(w => w.uid === uid);
+        label = weapon ? getWeaponDisplayName(weapon) : "（不明）";
+      }
+      slotEl.innerHTML = `
+        <span class="auto-synth-slot-name">${label}</span>
+        <button class="auto-synth-clear-btn" data-slot="${i}">✕</button>
+      `;
+    } else {
+      slotEl.innerHTML = `
+        <button class="auto-synth-select-btn" data-slot="${i}">選択する</button>
+      `;
+    }
+  }
+
+  // イベントバインド
+  document.querySelectorAll(".auto-synth-select-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      _autoSynthSelectingSlot = Number(e.currentTarget.dataset.slot);
+      document.getElementById("autoSynthOverlay").classList.add("hidden");
+      document.getElementById("autoSynthPickerOverlay").classList.remove("hidden");
+      renderAutoSynthPicker();
+    });
+  });
+
+  document.querySelectorAll(".auto-synth-clear-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const slot = Number(e.currentTarget.dataset.slot);
+      const src = _autoSynthModalType === "pet"
+        ? state.autoSynth.petUids
+        : state.autoSynth.weaponUids;
+      // null埋め4要素に展開してスロット番号で削除
+      const slots = [null, null, null, null];
+      src.forEach((u, i) => { if (i < 4) slots[i] = u; });
+      slots[slot] = null;
+      const newList = slots.filter(u => u !== null);
+      if (_autoSynthModalType === "pet") {
+        state.autoSynth.petUids = newList;
+      } else {
+        state.autoSynth.weaponUids = newList;
+      }
+      saveGameLocal();
+      renderAutoSynthModal();
+    });
+  });
+}
+
+function renderAutoSynthPicker() {
+  const type = _autoSynthModalType;
+  const listEl = document.getElementById("autoSynthPickerList");
+  if (!listEl) return;
+  listEl.innerHTML = "";
+
+  const titleEl = document.getElementById("autoSynthPickerTitle");
+  if (titleEl) titleEl.textContent = type === "pet" ? "ペットを選択" : "武器を選択";
+
+  if (type === "pet") {
+    // 現在のフィルター・ソートを流用
+    const filter     = state.ui.petFilter ?? "";
+    const nameFilter = (state.ui.petNameFilter ?? "").toLowerCase();
+    const pets = state.player.petList.filter((p) => {
+      if (filter && !isSamePassiveGroup(p.passive, filter)) return false;
+      if (nameFilter && !p.name.toLowerCase().includes(nameFilter)) return false;
+      return true;
+    });
+
+    pets.forEach(pet => {
+      const li = document.createElement("li");
+      li.className = "auto-synth-picker-item";
+      const valueText = pet.passiveValue != null ? `(${pet.passiveValue}%)` : "";
+      li.innerHTML = `
+        <span>🐾 ${getTitleName(pet)}${pet.name}</span>
+        <span class="pet-passive">${passiveLabelText(pet)}${valueText}</span>
+      `;
+      li.addEventListener("click", () => {
+        selectAutoSynthTarget(pet.uid);
+      });
+      listEl.appendChild(li);
+    });
+  } else {
+    // 武器一覧（現在のフィルター・ソートを流用）
+    const filter     = state.ui.inventoryFilter ?? "";
+    const nameFilter = (state.ui.inventoryNameFilter ?? "").toLowerCase();
+    const weapons = state.player.inventory.filter(w => {
+      if (filter && w.passive !== filter) return false;
+      if (nameFilter && !getWeaponDisplayName(w).toLowerCase().includes(nameFilter)) return false;
+      return true;
+    });
+
+    weapons.forEach(weapon => {
+      const li = document.createElement("li");
+      li.className = "auto-synth-picker-item";
+      li.innerHTML = `
+        <span>⚔️ ${getWeaponDisplayName(weapon)}</span>
+        <span class="pet-atk">ATK ${weapon.totalAtk}</span>
+      `;
+      li.addEventListener("click", () => {
+        selectAutoSynthTarget(weapon.uid);
+      });
+      listEl.appendChild(li);
+    });
+  }
+}
+
+function selectAutoSynthTarget(uid) {
+  const type = _autoSynthModalType;
+  const slot = _autoSynthSelectingSlot;
+  if (slot === null) return;
+
+  // スロット配列（null埋め4要素）として管理
+  const src = type === "pet"
+    ? state.autoSynth.petUids
+    : state.autoSynth.weaponUids;
+
+  // null埋め4要素に展開
+  const slots = [null, null, null, null];
+  src.forEach((u, i) => { if (i < 4) slots[i] = u; });
+
+  // 同じUIDが他スロットにあれば除去（重複防止）
+  for (let i = 0; i < 4; i++) {
+    if (i !== slot && slots[i] === uid) slots[i] = null;
+  }
+
+  // 指定スロットに上書き
+  slots[slot] = uid;
+
+  // null除去して保存
+  const newList = slots.filter(u => u !== null);
+  if (type === "pet") {
+    state.autoSynth.petUids = newList;
+  } else {
+    state.autoSynth.weaponUids = newList;
+  }
+
+  saveGameLocal();
+
+  // ピッカーを閉じてモーダルに戻る
+  document.getElementById("autoSynthPickerOverlay").classList.add("hidden");
+  document.getElementById("autoSynthOverlay").classList.remove("hidden");
+  renderAutoSynthModal();
 }

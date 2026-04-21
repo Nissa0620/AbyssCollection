@@ -11,6 +11,7 @@ import { showUltimatePopup, showElitePopup, showLegendaryPopup, showLegendUltima
 import { hiddenBossDefs } from "./hiddenBossData.js";
 import { checkAchievements } from "./achievements.js";
 import { registerWeaponDropped } from "./weaponBook.js";
+import { tryAutoWeaponSynth } from "./inventory.js";
 import { tryCatch, hasDoubleAttack, hasTripleAttack, hasSurvivePassive, hasLegendSurvive, hasResurrection, hasLegendResurrection, getDropMultiplier, getDmgBoostMultiplier, getDmgReduceMultiplier, getReflectDamage, getLegendReflectDamage, getDrainHeal, getLegendDrainHeal, getCritMultiplier, getGiantKillerMultiplier, getBossSlayerMultiplier, tryEvade, getLastStandMultiplier, getLegendLastStandMultiplier, getRegenHeal } from "./pet.js";
 
 let enemy;
@@ -266,6 +267,7 @@ function defeatEnemy() {
         state.player.inventory.push(dropped);
         addLog("⚔️ " + dropped.name + " を手に入れた");
         registerWeaponDropped(dropped.templateId, false);
+        tryAutoWeaponSynth(dropped);
 
         // ドロップした武器のエントリだけ hasUltimate を更新（全件スキャンを避ける）
         const _wKey = `${dropped.isBossDrop ? "boss" : "normal"}_${dropped.templateId}`;
