@@ -558,6 +558,8 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
     checkPetV1Complete(state);
   }
 
+  tryAutoSynth(pet);
+
   const legendMark = isLegendUltimate ? "🔴" : isLegendary ? "✨" : isElite ? "⭐" : "";
   const capturedTitleName = getTitleName(pet);
   addLog(`🐾${legendMark} ${capturedTitleName}${def.name} を捕獲した！`);
@@ -945,73 +947,105 @@ export function discardPets(condition) {
 }
 
 // =====================
-// ペット一括合成（究極個体をベースとして各グループを自動合成）
+// 自動合成ターゲット管理
 // =====================
-// condition: "ultimate" | "legendary" | "elite" | "normal_max_passive"
-export function bulkSynthesizeUltimatePets(condition = "ultimate") {
+export function toggleAutoSynthTarget(uid) {
+  const list = state.autoSynth.petUids;
+  const idx = list.indexOf(uid);
+  if (idx !== -1) {
+    state.autoSynth.petUids = list.filter(u => u !== uid);
+    return false; // 解除
+  }
+  if (list.length >= 4) return null; // 上限（4件）に達している
+  state.autoSynth.petUids.push(uid);
+  return true; // 登録
+}
+
+export function isAutoSynthTarget(uid) {
+  return (state.autoSynth?.petUids ?? []).includes(uid);
+}
+
+// =====================
+// 自動合成（捕獲時に即呼び出す）
+// =====================
+export function tryAutoSynth(newPet) {
+  const targets = state.autoSynth?.petUids ?? [];
+  if (targets.length === 0) return;
+
+  const lockedSet = getLockedSet();
+  const equippedUid = state.player.equippedPet?.uid ?? null;
+
+  // 捕獲した個体と同じグループに登録済み個体があるか確認
+  const matchedBaseUid = targets.find((uid) => {
+    const base = state.player.petList.find(p => p.uid === uid);
+    if (!base) return false;
+    return base.enemyId === newPet.enemyId && !!base.isBoss === !!newPet.isBoss;
+  });
+
+  if (!matchedBaseUid) return;
+  if (matchedBaseUid === newPet.uid) return; // 捕獲した個体自体がベースなら合成しない
+  if (lockedSet.has(String(newPet.uid))) return; // ロック済みは合成しない
+  if (newPet.uid === equippedUid) return; // 装備中は合成しない
+
+  state.petSynthesis.baseUid = matchedBaseUid;
+  state.petSynthesis.materialUids = [newPet.uid];
+
+  const success = executePetSynthesis();
+  if (success) {
+    const base = state.player.petList.find(p => p.uid === matchedBaseUid);
+    addLog(`🔄 ${base?.name ?? "ペット"} と自動合成した`);
+  }
+}
+
+// =====================
+// ペット一括合成（最もレアな個体をベースに自動選択）
+// =====================
+export function bulkSynthesizeUltimatePets() {
   const equippedUid = state.player.equippedPet?.uid ?? null;
   let totalSynthed = 0;
 
   const lockedSet = getLockedSet();
-  const isNormal = (p) => !p.isElite && !p.isLegendary && !p.isLegendUltimate;
+
+  // レア度ランクを返すヘルパー（大きいほど高レア）
+  const getRarityRank = (p) => {
+    if (p.isLegendUltimate) return 3;
+    if (p.isLegendary)      return 2;
+    if (p.isElite)          return 1;
+    return 0;
+  };
 
   // 1パス目：グループごとにベースを選択
   const groupMap = new Map();
   for (const p of state.player.petList) {
     const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
-    if (!groupMap.has(key)) groupMap.set(key, { baseUid: null, materialUids: [] });
+    if (!groupMap.has(key)) groupMap.set(key, { baseUid: null, baseRank: -1, materialUids: [] });
     const entry = groupMap.get(key);
 
     if (lockedSet.has(String(p.uid))) continue;
     if (p.uid === equippedUid) continue;
 
-    if (condition === "ultimate") {
-      if (p.isLegendUltimate === true && entry.baseUid === null) {
+    const rank = getRarityRank(p);
+
+    if (rank > entry.baseRank) {
+      // より高レア度の個体が見つかったらベースを更新
+      entry.baseUid  = p.uid;
+      entry.baseRank = rank;
+    } else if (rank === 0 && entry.baseRank === 0) {
+      // 通常個体同士：passiveValue最大をベースにする
+      const current = state.player.petList.find(i => i.uid === entry.baseUid);
+      if ((p.passiveValue ?? 0) > (current?.passiveValue ?? 0)) {
         entry.baseUid = p.uid;
-      }
-    } else if (condition === "legendary") {
-      if (p.isLegendary === true && entry.baseUid === null) {
-        entry.baseUid = p.uid;
-      }
-    } else if (condition === "elite") {
-      if (p.isElite === true && entry.baseUid === null) {
-        entry.baseUid = p.uid;
-      }
-    } else if (condition === "normal_max_passive") {
-      if (isNormal(p)) {
-        const current = state.player.petList.find(i => i.uid === entry.baseUid);
-        if (!entry.baseUid || (p.passiveValue ?? 0) > (current?.passiveValue ?? 0)) {
-          entry.baseUid = p.uid;
-        }
       }
     }
   }
 
-  // 条件ごとの素材許容判定ヘルパー
-  const isMaterialAllowed = (p, condition) => {
-    if (condition === "ultimate") {
-      // 究極ベース：究極の余剰個体も含め全レアリティを素材に使える
-      return true;
-    }
-    if (condition === "legendary") {
-      // 伝説ベース：伝説の余剰個体も含め、究極以外を素材に使える
-      return !p.isLegendUltimate;
-    }
-    if (condition === "elite") {
-      // 極ベース：極の余剰個体も含め、伝説・究極以外を素材に使える
-      return !p.isLegendary && !p.isLegendUltimate;
-    }
-    // normal_max_passive：通常個体のみ（変更なし）
-    return isNormal(p);
-  };
-
-  // 2パス目：素材UIDを記録（条件に応じたレアリティ・ロック・装備中・ベース除外）
+  // 2パス目：素材UIDを記録（ベースより高レアは素材にしない）
   for (const p of state.player.petList) {
     const key = `${p.enemyId}_${p.isBoss ? "1" : "0"}`;
     const entry = groupMap.get(key);
     if (!entry || entry.baseUid === null) continue;
     if (p.uid === entry.baseUid) continue;
-    if (!isMaterialAllowed(p, condition)) continue;
+    if (getRarityRank(p) > entry.baseRank) continue;
     if (lockedSet.has(String(p.uid))) continue;
     if (p.uid === equippedUid) continue;
     entry.materialUids.push(p.uid);

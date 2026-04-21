@@ -4,7 +4,7 @@ import { addLog } from "./log.js";
 import { getSynthesisPreview } from "./inventory.js";
 import { isFavorite, toggleFavorite, isLocked, toggleLock, getLockedSet } from "./listPrefs.js";
 import { isUltimateWeapon } from "./drop.js";
-import { isUltimatePet, getPetSynthesisPreview, getPetPower, getPetHp, toggleSelectAllSamePets, passiveLabels, calcOverflowBonuses } from "./pet.js";
+import { isUltimatePet, getPetSynthesisPreview, getPetPower, getPetHp, toggleSelectAllSamePets, passiveLabels, calcOverflowBonuses, toggleAutoSynthTarget, isAutoSynthTarget } from "./pet.js";
 import {
   checkMissionCompletion,
   donatePet,
@@ -1409,6 +1409,8 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
     }
 
     const locked = lockedSet.has(String(pet.uid));
+    const isAutoSynth = isAutoSynthTarget(pet.uid);
+    const isFull = (state.autoSynth?.petUids?.length ?? 0) >= 4;
     li.innerHTML = `
       <div class="pet-item-bar"></div>
       <div class="pet-item-body">
@@ -1422,6 +1424,7 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
               : `<button class="pet-equip-btn" data-uid="${pet.uid}">装備</button>`
             }
             <button class="pet-lock-btn ${locked ? "lock-on" : ""}" data-uid="${pet.uid}">${locked ? "🔒" : "🔓"}</button>
+            <button class="pet-auto-synth-btn${isAutoSynth ? " active" : ""}" data-uid="${pet.uid}" title="${isAutoSynth ? "自動合成から解除" : "自動合成に登録"}"${!isAutoSynth && isFull ? " disabled" : ""}>🔄</button>
           </div>
         </div>
         <div class="item-row-2">
@@ -1456,6 +1459,14 @@ function renderPetGroupBody(bodyEl, groupPets, onPetClick, onPetEquip) {
       const nowLocked = isLocked(pet.uid);
       btn.classList.toggle("lock-on", nowLocked);
       btn.textContent = nowLocked ? "🔒" : "🔓";
+    });
+
+    // 自動合成ボタン
+    li.querySelector(".pet-auto-synth-btn")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleAutoSynthTarget(pet.uid);
+      saveGameLocal();
+      if (_refreshUICallback) _refreshUICallback();
     });
 
     bodyEl.appendChild(li);

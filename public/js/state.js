@@ -105,6 +105,9 @@ export const state = {
     baseUid: null,
     materialUids: [],
   },
+  autoSynth: {
+    petUids: [],    // 自動合成対象の個体UID（最大4件）
+  },
   research: {
     level: 0,
     totalPointsEarned: 0,

@@ -2522,6 +2522,26 @@ button {
   opacity: 1;
 }
 
+.pet-auto-synth-btn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0 2px;
+  flex-shrink: 0;
+  line-height: 1;
+  opacity: 0.4;
+}
+
+.pet-auto-synth-btn.active {
+  opacity: 1;
+}
+
+.pet-auto-synth-btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
 /* ランキング */
 .ranking-tab-note {
   text-align: center;
