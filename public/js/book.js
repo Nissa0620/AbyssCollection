@@ -4,6 +4,14 @@ import { addEnemyDexBuff, addHiddenBossDexBuff } from "./dexBuff.js";
 import { hiddenBossDefs } from "./hiddenBossData.js";
 import { isUltimatePet } from "./pet.js";
 import { isUltimateWeapon } from "./drop.js";
+import { normalEnemies, bossEnemies } from "./data/index.js";
+import { checkWeaponV1Complete } from "./weaponBook.js";
+
+// checkPetV1Complete で使うキャッシュ（モジュールロード時に1回だけ生成）
+const _allPetEnemies = [
+  ...normalEnemies.map(e => ({ ...e, _bookKey: `normal_${e.id}` })),
+  ...bossEnemies.map(e => ({ ...e, _bookKey: `boss_${e.id}` })),
+];
 
 function bookKey(enemyId, isBoss) {
   return isBoss ? `boss_${enemyId}` : `normal_${enemyId}`;
@@ -95,7 +103,46 @@ export function registerHiddenWeaponObtained(hiddenBossId, weaponName) {
     state.book.hiddenBosses[hiddenBossId].weaponObtained = true;
     addLog(`📘 武器「${weaponName}」を図鑑に登録した`);
     addHiddenBossDexBuff(state, "weaponObtained");
+    checkWeaponV1Complete(state);
   }
+}
+
+/**
+ * ペット図鑑v1のコンプチェック。
+ * コンプしていればフラグと固定値を焼き付ける。
+ * 既にコンプ済みの場合は何もしない。
+ *
+ * 注意: state.dexBuff には addHiddenBossDexBuff による隠しボス分が含まれる場合がある。
+ * ロード時は recalcHiddenBossDexBuff より前に呼ぶことで純粋なペット図鑑バフ値を焼き付ける。
+ */
+export function checkPetV1Complete(state) {
+  if (state.book.petV1Completed) return;
+
+  const bookEnemies = state.book.enemies ?? {};
+
+  for (const tpl of _allPetEnemies) {
+    const entry = bookEnemies[tpl._bookKey];
+    if (!entry) return;
+    const titles = entry.titles ?? {};
+    for (const tid of [1, 2, 3, 4, 5]) {
+      if (!titles[tid]?.caught) return;
+    }
+  }
+
+  // 隠しボスペット7体が全て入手済みか確認
+  const hiddenBosses = state.book.hiddenBosses ?? {};
+  for (const def of hiddenBossDefs) {
+    if (!hiddenBosses[def.id]?.petObtained) return;
+  }
+
+  // コンプ達成：現在のdexBuff値を固定値として焼き付ける
+  state.book.petV1Completed = true;
+  state.book.petV1DexBuff = {
+    hp:    state.dexBuff.hp,
+    power: state.dexBuff.power,
+  };
+  state.book.petV1Count = 2507;
+  console.log("[Step1] ペット図鑑v1コンプ達成 - 固定値焼き付け完了");
 }
 
 // 武器図鑑の究極フラグを更新

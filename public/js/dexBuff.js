@@ -12,6 +12,17 @@ const allEnemies = [
 
 export function recalcDexBuff(state) {
   const oldMax = state.player.totalHp;
+
+  if (state.book.petV1Completed && state.book.petV1DexBuff) {
+    state.dexBuff.hp    = state.book.petV1DexBuff.hp;
+    state.dexBuff.power = state.book.petV1DexBuff.power;
+    const newMax = state.player.totalHp;
+    const diff = newMax - oldMax;
+    if (diff > 0) state.player.hp += diff;
+    if (state.player.hp > newMax) state.player.hp = newMax;
+    return;
+  }
+
   const bookEnemies = state.book?.enemies ?? {};
 
   let hp = 1;
@@ -61,6 +72,17 @@ export function recalcDexBuff(state) {
 
 export function recalcWeaponDexBuff(state) {
   const oldMax = state.player.totalHp;
+
+  if (state.book.weaponV1Completed && state.book.weaponV1DexBuff) {
+    state.weaponDexBuff.hp    = state.book.weaponV1DexBuff.hp;
+    state.weaponDexBuff.power = state.book.weaponV1DexBuff.power;
+    const newMax = state.player.totalHp;
+    const diff = newMax - oldMax;
+    if (diff > 0) state.player.hp += diff;
+    if (state.player.hp > newMax) state.player.hp = newMax;
+    return;
+  }
+
   const weaponsBook = state.book.weapons ?? {};
 
   let hp = 1;

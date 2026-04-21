@@ -22,7 +22,7 @@ import {
 import { saveGameLocal } from "./saveLoad.js";
 import { getWeaponDisplayName } from "./weapon.js";
 import { hiddenBossDefs } from "./hiddenBossData.js";
-import { registerHiddenWeaponObtained } from "./book.js";
+import { registerHiddenWeaponObtained, checkPetV1Complete } from "./book.js";
 import { checkAchievements } from "./achievements.js";
 import {
   normalEnemies,
@@ -2079,6 +2079,14 @@ export function showHiddenBossRewardModal(def, basePower, baseHp, weaponBaseAtk,
     isElite:          false,
   };
   state.player.petList.push(pet);
+
+  // 隠しボスペット入手フラグを図鑑に記録
+  if (!state.book.hiddenBosses) state.book.hiddenBosses = {};
+  if (!state.book.hiddenBosses[def.id]) {
+    state.book.hiddenBosses[def.id] = { name: def.name, defeated: false, weaponObtained: false };
+  }
+  state.book.hiddenBosses[def.id].petObtained = true;
+  checkPetV1Complete(state);
 
   // 専用武器生成・付与
   const weapon = {

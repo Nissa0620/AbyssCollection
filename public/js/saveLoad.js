@@ -3,6 +3,8 @@ import { recalcDexBuff, recalcWeaponDexBuff, recalcHiddenBossDexBuff } from "./d
 import { getHpBoostMultiplier, getPetPower, getPetHp, calcOverflowBonuses } from "./pet.js";
 import { initMissions } from "./research.js";
 import { hiddenBossDefs } from "./hiddenBossData.js";
+import { checkPetV1Complete } from "./book.js";
+import { checkWeaponV1Complete } from "./weaponBook.js";
 
 const SAVE_KEY = "abyssSave";
 const DB_NAME  = "abyssDB";
@@ -414,8 +416,32 @@ export async function loadGame() {
     };
   }
 
+  // Step1: 図鑑v1フィールドのデフォルト補完
+  if (state.book.petV1Completed    == null) state.book.petV1Completed    = false;
+  if (state.book.petV1DexBuff      == null) state.book.petV1DexBuff      = null;
+  if (state.book.petV1Count        == null) state.book.petV1Count        = 0;
+  if (state.book.weaponV1Completed == null) state.book.weaponV1Completed = false;
+  if (state.book.weaponV1DexBuff   == null) state.book.weaponV1DexBuff   = null;
+  if (state.book.weaponV1Count     == null) state.book.weaponV1Count     = 0;
+
+  // Step1追加：hiddenBossesのpetObtainedをpetListから補完（既存ユーザー対応）
+  if (!state.book.hiddenBosses) state.book.hiddenBosses = {};
+  for (const def of hiddenBossDefs) {
+    if (!state.book.hiddenBosses[def.id]) {
+      state.book.hiddenBosses[def.id] = { name: def.name, defeated: false, weaponObtained: false };
+    }
+    if (!state.book.hiddenBosses[def.id].petObtained) {
+      const hasPet = (state.player.petList ?? []).some(p => p.isHiddenBoss && p.enemyId === def.id);
+      if (hasPet) state.book.hiddenBosses[def.id].petObtained = true;
+    }
+  }
+
   recalcDexBuff(state);
   recalcWeaponDexBuff(state);
+  // Step1: 既存ユーザー向けコンプ判定
+  // recalcHiddenBossDexBuff より前に配置することで、隠しボス分の二重加算を防ぐ
+  checkPetV1Complete(state);
+  checkWeaponV1Complete(state);
   recalcHiddenBossDexBuff(state);
   state.hpBoostMult = getHpBoostMultiplier();
 

@@ -3,7 +3,7 @@ import { normalEnemies, bossEnemies, floorTable } from "./data/index.js";
 import { isLocked, getLockedSet } from "./listPrefs.js";
 import { addLog } from "./log.js";
 import { getTitleName, legendaryTitles, normalPassiveOf, isLegendaryPassive } from "./data/index.js";
-import { updateBookUltimate } from "./book.js";
+import { updateBookUltimate, checkPetV1Complete } from "./book.js";
 import { addEnemyDexBuff } from "./dexBuff.js";
 import { showUltimatePopup, showElitePopup, showLegendaryPopup, showLegendUltimatePopup } from "./ui.js";
 import { checkAchievements } from "./achievements.js";
@@ -555,6 +555,7 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
         addEnemyDexBuff(state, bandData, effectiveTitleId, isFirstCatchForEnemy);
       }
     }
+    checkPetV1Complete(state);
   }
 
   const legendMark = isLegendUltimate ? "🔴" : isLegendary ? "✨" : isElite ? "⭐" : "";
