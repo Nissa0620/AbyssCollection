@@ -933,6 +933,12 @@ button {
   border-bottom: 1px solid #444;
 }
 
+.book-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .book-header h2 {
   margin: 0;
   font-size: 16px;
@@ -2569,8 +2575,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
-  border-bottom: 1px solid #2a2a2a;
+  padding: 14px 14px;
+  border-bottom: 1px solid #3a3a3a;
   gap: 8px;
 }
 
@@ -2603,6 +2609,23 @@ button {
 .auto-synth-target-skill {
   font-size: 11px;
   color: #aad4ff;
+}
+
+.auto-synth-remove-btn {
+  flex-shrink: 0;
+  background: none;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #888;
+  font-size: 11px;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.auto-synth-remove-btn:hover {
+  border-color: #e88;
+  color: #e88;
 }
 
 .auto-synth-target-empty {
