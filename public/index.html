@@ -108,6 +108,7 @@
       <div class="book-modal panel-modal">
         <div class="book-header">
           <span>装備</span>
+          <button id="weaponAutoSynthListBtn" class="header-auto-synth-btn">自動合成対象🔄</button>
           <button id="inventoryCloseBtn">✕</button>
         </div>
 
@@ -174,6 +175,7 @@
       <div class="book-modal panel-modal">
         <div class="book-header">
           <span>ペット</span>
+          <button id="petAutoSynthListBtn" class="header-auto-synth-btn">自動合成対象🔄</button>
           <button id="petCloseBtn">✕</button>
         </div>
 
@@ -763,33 +765,7 @@
       </div>
     </div>
 
-    <!-- 一括合成確認ダイアログ -->
-    <!-- ペット一括合成 条件選択オーバーレイ -->
-    <div id="petBulkSynthMenuOverlay" class="book-overlay hidden">
-      <div class="book-modal discard-menu-modal">
-        <div class="book-header">
-          <span>ペット一括合成の条件を選択</span>
-        </div>
-        <div class="discard-menu-body">
-          <button class="discard-menu-btn" id="petBulkSynthBtn1">
-            ベース：究極個体 / 素材：究極・伝説・極・通常個体
-          </button>
-          <button class="discard-menu-btn" id="petBulkSynthBtn2">
-            ベース：伝説個体 / 素材：伝説・極・通常個体
-          </button>
-          <button class="discard-menu-btn" id="petBulkSynthBtn3">
-            ベース：極個体 / 素材：極・通常個体
-          </button>
-          <button class="discard-menu-btn" id="petBulkSynthBtn4">
-            ベース：スキル効果量最大の通常個体<br>素材：その他の通常個体
-          </button>
-          <button class="discard-menu-btn discard-menu-cancel" id="petBulkSynthMenuCancelBtn">
-            キャンセル
-          </button>
-        </div>
-      </div>
-    </div>
-
+    <!-- 一括合成確認ダイアログ（武器・ペット共用） -->
     <div id="bulkSynthConfirmOverlay" class="book-overlay hidden">
       <div class="book-modal reset-confirm-modal">
         <div class="reset-confirm-body">
@@ -799,6 +775,19 @@
         <div class="reset-confirm-footer">
           <button id="bulkSynthCancelBtn">キャンセル</button>
           <button id="bulkSynthConfirmBtn">合成する</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 自動合成対象一覧モーダル -->
+    <div id="autoSynthOverlay" class="book-overlay hidden">
+      <div class="book-modal auto-synth-modal">
+        <div class="book-header">
+          <span id="autoSynthModalTitle">自動合成対象</span>
+          <button id="autoSynthCloseBtn">✕</button>
+        </div>
+        <div class="panel-modal-body">
+          <ul id="autoSynthTargetList"></ul>
         </div>
       </div>
     </div>

@@ -356,3 +356,56 @@ export function bulkSynthesizeUltimateWeapons() {
 
   return totalSynthed;
 }
+
+// =====================
+// 武器自動合成ターゲット管理
+// =====================
+export function toggleAutoWeaponSynthTarget(uid) {
+  const list = state.autoSynth.weaponUids;
+  const idx = list.indexOf(uid);
+  if (idx !== -1) {
+    state.autoSynth.weaponUids = list.filter(u => u !== uid);
+    return false; // 解除
+  }
+  if (list.length >= 4) return null; // 上限（4件）
+  state.autoSynth.weaponUids.push(uid);
+  return true; // 登録
+}
+
+export function isAutoWeaponSynthTarget(uid) {
+  return (state.autoSynth?.weaponUids ?? []).includes(uid);
+}
+
+// =====================
+// 武器自動合成（武器入手時に即呼び出す）
+// =====================
+export function tryAutoWeaponSynth(newWeapon) {
+  const targets = state.autoSynth?.weaponUids ?? [];
+  if (targets.length === 0) return;
+
+  const lockedSet = getLockedSet();
+  const equippedUid = state.player.equippedWeapon?.uid ?? null;
+
+  // 入手した武器と同じグループに登録済み武器があるか確認
+  const matchedBaseUid = targets.find((uid) => {
+    const base = state.player.inventory.find(w => w.uid === uid);
+    if (!base) return false;
+    return base.templateId === newWeapon.templateId
+      && !!base.isBossDrop === !!newWeapon.isBossDrop;
+  });
+
+  if (!matchedBaseUid) return;
+  if (matchedBaseUid === newWeapon.uid) return;
+  if (lockedSet.has(String(newWeapon.uid))) return;
+  if (newWeapon.uid === equippedUid) return;
+
+  state.synthesis.baseUid = matchedBaseUid;
+  state.synthesis.materialUids = [newWeapon.uid];
+
+  // executeSynthesis() 前にベース名を取得（呼び出し後はinventoryが差し替わるため）
+  const baseName = state.player.inventory.find(w => w.uid === matchedBaseUid)?.name ?? "武器";
+  const success = executeSynthesis();
+  if (success) {
+    addLog(`🔄 ${baseName} と自動合成した`);
+  }
+}
