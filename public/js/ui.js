@@ -2559,14 +2559,19 @@ function renderAutoSynthModal() {
     return;
   }
 
-  uids.forEach((uid) => {
+  uids.forEach((uid, slotIdx) => {
     const li = document.createElement("li");
     li.className = "auto-synth-target-item";
 
     if (type === "pet") {
       const pet = state.player.petList.find(p => p.uid === uid);
       if (!pet) {
-        li.innerHTML = `<span class="auto-synth-target-name">（不明）</span>`;
+        li.innerHTML = `
+          <div class="auto-synth-target-info">
+            <span class="auto-synth-target-name">（不明）</span>
+          </div>
+          <button class="auto-synth-remove-btn" data-slot="${slotIdx}">解除</button>
+        `;
       } else {
         if (pet.isLegendUltimate)    li.classList.add("pet-legend-ultimate");
         else if (pet.isLegendary)    li.classList.add("pet-legendary");
@@ -2581,12 +2586,18 @@ function renderAutoSynthModal() {
             <span class="auto-synth-target-stats">ATK ${getPetPower(pet)} / HP ${getPetHp(pet)}</span>
             <span class="auto-synth-target-skill">${passiveLabelText(pet)}${valueText}</span>
           </div>
+          <button class="auto-synth-remove-btn" data-slot="${slotIdx}">解除</button>
         `;
       }
     } else {
       const weapon = state.player.inventory.find(w => w.uid === uid);
       if (!weapon) {
-        li.innerHTML = `<span class="auto-synth-target-name">（不明）</span>`;
+        li.innerHTML = `
+          <div class="auto-synth-target-info">
+            <span class="auto-synth-target-name">（不明）</span>
+          </div>
+          <button class="auto-synth-remove-btn" data-slot="${slotIdx}">解除</button>
+        `;
       } else {
         if (isUltimateWeapon(weapon)) li.classList.add("ultimate");
 
@@ -2600,10 +2611,32 @@ function renderAutoSynthModal() {
             <span class="auto-synth-target-stats">ATK ${weapon.totalAtk} / HP ${weapon.totalHp ?? 0}</span>
             ${passiveText ? `<span class="auto-synth-target-skill">${passiveText}</span>` : ""}
           </div>
+          <button class="auto-synth-remove-btn" data-slot="${slotIdx}">解除</button>
         `;
       }
     }
 
     listEl.appendChild(li);
+  });
+
+  // 解除ボタンのイベントバインド
+  listEl.querySelectorAll(".auto-synth-remove-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const slot = Number(e.currentTarget.dataset.slot);
+      const src = _autoSynthModalType === "pet"
+        ? state.autoSynth.petUids
+        : state.autoSynth.weaponUids;
+      const slots = [null, null, null, null];
+      src.forEach((u, i) => { if (i < 4) slots[i] = u; });
+      slots[slot] = null;
+      const newList = slots.filter(u => u !== null);
+      if (_autoSynthModalType === "pet") {
+        state.autoSynth.petUids = newList;
+      } else {
+        state.autoSynth.weaponUids = newList;
+      }
+      saveGameLocal();
+      renderAutoSynthModal();
+    });
   });
 }
