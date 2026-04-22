@@ -558,11 +558,11 @@ export function tryCatch(enemyId, isBoss, titleId = 1, isLegendary = false, isLe
     checkPetV1Complete(state);
   }
 
-  tryAutoSynth(pet);
-
   const legendMark = isLegendUltimate ? "🔴" : isLegendary ? "✨" : isElite ? "⭐" : "";
   const capturedTitleName = getTitleName(pet);
   addLog(`🐾${legendMark} ${capturedTitleName}${def.name} を捕獲した！`);
+
+  tryAutoSynth(pet);
 
   // 捕獲した敵のエントリだけ hasUltimate を更新（全件スキャンを避ける）
   const _bookKey = pet.isBoss ? `boss_${pet.enemyId}` : `normal_${pet.enemyId}`;
@@ -944,6 +944,25 @@ export function discardPets(condition) {
   state.petSynthesis.materialUids = [];
 
   return targets.length;
+}
+
+// =====================
+// ペット自動合成ターゲット管理
+// =====================
+export function toggleAutoSynthTarget(uid) {
+  const list = state.autoSynth.petUids;
+  const idx = list.indexOf(uid);
+  if (idx !== -1) {
+    state.autoSynth.petUids = list.filter(u => u !== uid);
+    return false; // 解除
+  }
+  if (list.length >= 4) return null; // 上限（4件）
+  state.autoSynth.petUids.push(uid);
+  return true; // 登録
+}
+
+export function isAutoSynthTarget(uid) {
+  return (state.autoSynth?.petUids ?? []).includes(uid);
 }
 
 // =====================

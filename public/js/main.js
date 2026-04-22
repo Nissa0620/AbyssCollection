@@ -1033,23 +1033,18 @@ document.getElementById("bulkSynthConfirmBtn").addEventListener("click", () => {
 });
 
 // =====================
-// 自動合成対象設定ボタン
+// 自動合成対象一覧ボタン（見出し）
 // =====================
-document.getElementById("petAutoSynthSettingBtn").addEventListener("click", () => {
+document.getElementById("petAutoSynthListBtn").addEventListener("click", () => {
   openAutoSynthModal("pet");
 });
 
-document.getElementById("weaponAutoSynthSettingBtn").addEventListener("click", () => {
+document.getElementById("weaponAutoSynthListBtn").addEventListener("click", () => {
   openAutoSynthModal("weapon");
 });
 
 document.getElementById("autoSynthCloseBtn").addEventListener("click", () => {
   document.getElementById("autoSynthOverlay").classList.add("hidden");
-});
-
-document.getElementById("autoSynthPickerCloseBtn").addEventListener("click", () => {
-  document.getElementById("autoSynthPickerOverlay").classList.add("hidden");
-  document.getElementById("autoSynthOverlay").classList.remove("hidden");
 });
 
 // =====================

@@ -110,6 +110,7 @@
       <div class="book-modal panel-modal">
         <div class="book-header">
           <span>装備</span>
+          <button id="weaponAutoSynthListBtn" class="header-auto-synth-btn">自動合成対象🔄</button>
           <button id="inventoryCloseBtn">✕</button>
         </div>
 
@@ -128,7 +129,6 @@
         <select id="inventoryFilterSelect"><option value="">すべて</option></select>
         <button id="weaponDiscardBtn">一括廃棄▼</button>
         <button id="weaponBulkSynthBtn">一括合成</button>
-        <button id="weaponAutoSynthSettingBtn">自動合成対象</button>
       </div>
       <div class="toolbar-row-search">
         <input type="text" id="inventoryNameInput" class="toolbar-search-input" placeholder="名前で検索...">
@@ -177,6 +177,7 @@
       <div class="book-modal panel-modal">
         <div class="book-header">
           <span>ペット</span>
+          <button id="petAutoSynthListBtn" class="header-auto-synth-btn">自動合成対象🔄</button>
           <button id="petCloseBtn">✕</button>
         </div>
 
@@ -189,7 +190,6 @@
             <select id="petFilterSelect"><option value="">すべて</option></select>
             <button id="petDiscardBtn">一括廃棄▼</button>
             <button id="petBulkSynthBtn">一括合成</button>
-            <button id="petAutoSynthSettingBtn">自動合成対象</button>
           </div>
           <div class="toolbar-row-search">
             <input type="text" id="petNameInput" class="toolbar-search-input" placeholder="名前で検索...">
@@ -781,31 +781,15 @@
       </div>
     </div>
 
-    <!-- 自動合成対象設定モーダル -->
+    <!-- 自動合成対象一覧モーダル -->
     <div id="autoSynthOverlay" class="book-overlay hidden">
       <div class="book-modal auto-synth-modal">
         <div class="book-header">
           <span id="autoSynthModalTitle">自動合成対象</span>
           <button id="autoSynthCloseBtn">✕</button>
         </div>
-        <div class="auto-synth-slots">
-          <div class="auto-synth-slot" id="autoSynthSlot0"></div>
-          <div class="auto-synth-slot" id="autoSynthSlot1"></div>
-          <div class="auto-synth-slot" id="autoSynthSlot2"></div>
-          <div class="auto-synth-slot" id="autoSynthSlot3"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 自動合成対象ピッカー（一覧選択） -->
-    <div id="autoSynthPickerOverlay" class="book-overlay hidden">
-      <div class="book-modal auto-synth-picker-modal">
-        <div class="book-header">
-          <span id="autoSynthPickerTitle">選択</span>
-          <button id="autoSynthPickerCloseBtn">✕</button>
-        </div>
         <div class="panel-modal-body">
-          <ul id="autoSynthPickerList"></ul>
+          <ul id="autoSynthTargetList"></ul>
         </div>
       </div>
     </div>

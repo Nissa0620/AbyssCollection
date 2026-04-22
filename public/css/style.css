@@ -2522,86 +2522,94 @@ button {
   opacity: 1;
 }
 
-/* 自動合成対象設定モーダル */
+/* 自動合成ボタン（🔄） */
+.pet-auto-synth-btn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0 2px;
+  flex-shrink: 0;
+  line-height: 1;
+  opacity: 0.4;
+}
+
+.pet-auto-synth-btn.active {
+  opacity: 1;
+}
+
+.pet-auto-synth-btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+/* 自動合成対象ボタン（見出し） */
+.header-auto-synth-btn {
+  font-size: 12px !important;
+  color: #aaa !important;
+  background: #2a2a2a !important;
+  border: 1px solid #3a3a3a !important;
+  border-radius: 6px !important;
+  padding: 4px 8px !important;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.header-auto-synth-btn:hover {
+  background: #333 !important;
+  color: #ddd !important;
+}
+
+/* 自動合成対象一覧モーダル */
 .auto-synth-modal {
   max-height: 70vh;
 }
 
-.auto-synth-slots {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 16px;
-}
-
-.auto-synth-slot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #2a2a2a;
-  border: 1px solid #3a3a3a;
-  border-radius: 8px;
-  padding: 12px 14px;
-  min-height: 48px;
-}
-
-.auto-synth-slot-name {
-  font-size: 13px;
-  color: #ddd;
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.auto-synth-select-btn {
-  width: 100%;
-  background: none;
-  border: 1px dashed #555;
-  border-radius: 6px;
-  color: #888;
-  font-size: 13px;
-  padding: 6px 12px;
-  cursor: pointer;
-}
-
-.auto-synth-select-btn:hover {
-  border-color: #888;
-  color: #ccc;
-}
-
-.auto-synth-clear-btn {
-  background: none;
-  border: none;
-  color: #888;
-  font-size: 14px;
-  cursor: pointer;
-  padding: 0 0 0 8px;
-  flex-shrink: 0;
-}
-
-.auto-synth-clear-btn:hover {
-  color: #e88;
-}
-
-/* 自動合成ピッカー */
-.auto-synth-picker-modal {
-  max-height: 80vh;
-}
-
-.auto-synth-picker-item {
+.auto-synth-target-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 14px;
   border-bottom: 1px solid #2a2a2a;
-  cursor: pointer;
-  font-size: 13px;
-  color: #ccc;
+  gap: 8px;
 }
 
-.auto-synth-picker-item:hover {
-  background: #2a2a2a;
+.auto-synth-target-item.ultimate        { background: #1e1a0e; border-left: 3px solid #c8a030; }
+.auto-synth-target-item.pet-elite       { background: #1a1208; border-left: 3px solid #d4890a; }
+.auto-synth-target-item.pet-legendary   { background: #130820; border-left: 3px solid #a060e0; }
+.auto-synth-target-item.pet-legend-ultimate { background: #1a0000; border-left: 3px solid #c82020; }
+
+.auto-synth-target-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.auto-synth-target-name {
+  font-size: 13px;
+  color: #ddd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.auto-synth-target-stats {
+  font-size: 11px;
+  color: #888;
+}
+
+.auto-synth-target-skill {
+  font-size: 11px;
+  color: #aad4ff;
+}
+
+.auto-synth-target-empty {
+  padding: 16px;
+  text-align: center;
+  color: #666;
+  font-size: 13px;
 }
 
 /* ランキング */
