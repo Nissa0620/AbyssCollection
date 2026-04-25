@@ -654,6 +654,15 @@ export async function importSaveCode(code) {
       console.warn("importSaveCode: IndexedDB保存スキップ:", e);
     }
 
+    // 旧UID（引き継ぎ元）のランキングエントリを削除する
+    // 新端末では次回 sendRankingData 呼び出し時に rankings/{新UID} として再登録される
+    try {
+      const { deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js");
+      await deleteDoc(doc(window._db, "rankings", data.uid));
+    } catch (e) {
+      console.warn("importSaveCode: 旧ランキング削除スキップ:", e);
+    }
+
     return { success: true, json };
   } catch (e) {
     console.error("importSaveCode error:", e);
