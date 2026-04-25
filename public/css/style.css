@@ -417,6 +417,12 @@ button {
   border: 1px solid #484848;
 }
 
+#itemToggleBtn {
+  background: #323232;
+  color: #cccccc;
+  border: 1px solid #484848;
+}
+
 #bookBtn {
   background: #323232;
   color: #cccccc;
@@ -3779,4 +3785,11 @@ button {
   font-size: 13px;
   color: #aaa;
   margin: 0;
+}
+
+.item-empty-msg {
+  text-align: center;
+  padding: 24px;
+  color: #aaa;
+  font-size: 14px;
 }

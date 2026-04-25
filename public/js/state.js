@@ -77,6 +77,8 @@ export const state = {
   ui: {
     inventoryOpen: false,
     petOpen: false,
+    itemOpen: false,
+    itemTab: "gem",   // "gem" | "badge" | "other"
     sortMode: "passive",
     petSortMode: "passive",
     inventoryFilter: "",

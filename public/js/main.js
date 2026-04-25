@@ -5,7 +5,6 @@ import {
   updateDisplay,
   renderInventory,
   renderGemList,
-  updateInventoryTab,
   renderLogs,
   updateButton,
   updateInventoryVisibility,
@@ -75,9 +74,10 @@ function refreshBattle() {
 
 function refreshUI() {
   updateDisplay(state.player, state.enemy);
-  updateInventoryTab(state.ui.inventoryTab ?? "weapon");
   renderInventory(state.player, handleInventoryClick, handleEquip);
-  renderGemList();
+  if (state.ui.itemOpen) {
+    updateItemTab(state.ui.itemTab ?? "gem");
+  }
   renderLogs(state.logs);
   updateButton();
   updateInventoryVisibility();
@@ -361,21 +361,11 @@ const inventoryBtn = document.getElementById("inventoryToggleBtn");
 
 inventoryBtn.addEventListener("click", () => {
   state.ui.inventoryOpen = !state.ui.inventoryOpen;
-  if (state.ui.inventoryOpen) state.ui.petOpen = false;
+  if (state.ui.inventoryOpen) {
+    state.ui.petOpen = false;
+    state.ui.itemOpen = false;
+  }
   refreshUI();
-});
-
-// =====================
-// 宝玉 / 武器 タブ切替
-// =====================
-document.getElementById("invTabWeapon")?.addEventListener("click", () => {
-  state.ui.inventoryTab = "weapon";
-  updateInventoryTab("weapon");
-});
-document.getElementById("invTabGem")?.addEventListener("click", () => {
-  state.ui.inventoryTab = "gem";
-  updateInventoryTab("gem");
-  renderGemList();
 });
 
 // =====================
@@ -385,8 +375,71 @@ const petToggleBtn = document.getElementById("petToggleBtn");
 
 petToggleBtn.addEventListener("click", () => {
   state.ui.petOpen = !state.ui.petOpen;
-  if (state.ui.petOpen) state.ui.inventoryOpen = false;
+  if (state.ui.petOpen) {
+    state.ui.inventoryOpen = false;
+    state.ui.itemOpen = false;
+  }
   refreshUI();
+});
+
+// =====================
+// アイテムボタン
+// =====================
+document.getElementById("itemToggleBtn").addEventListener("click", () => {
+  state.ui.itemOpen = !state.ui.itemOpen;
+  if (state.ui.itemOpen) {
+    state.ui.petOpen = false;
+    state.ui.inventoryOpen = false;
+  }
+  refreshUI();
+});
+
+// アイテムモーダルを閉じる
+document.getElementById("itemCloseBtn").addEventListener("click", () => {
+  state.ui.itemOpen = false;
+  refreshUI();
+});
+
+// アイテムモーダル：背景クリックで閉じる
+document.getElementById("itemOverlay").addEventListener("click", (e) => {
+  if (e.target === document.getElementById("itemOverlay")) {
+    state.ui.itemOpen = false;
+    refreshUI();
+  }
+});
+
+// =====================
+// アイテムモーダル タブ切り替え
+// =====================
+function updateItemTab(tab) {
+  const sections = {
+    gem:   document.getElementById("itemGemSection"),
+    badge: document.getElementById("itemBadgeSection"),
+    other: document.getElementById("itemOtherSection"),
+  };
+  const tabs = {
+    gem:   document.getElementById("itemTabGem"),
+    badge: document.getElementById("itemTabBadge"),
+    other: document.getElementById("itemTabOther"),
+  };
+  Object.keys(sections).forEach((key) => {
+    sections[key]?.classList.toggle("hidden", key !== tab);
+    tabs[key]?.classList.toggle("active", key === tab);
+  });
+  if (tab === "gem") renderGemList();
+}
+
+document.getElementById("itemTabGem")?.addEventListener("click", () => {
+  state.ui.itemTab = "gem";
+  updateItemTab("gem");
+});
+document.getElementById("itemTabBadge")?.addEventListener("click", () => {
+  state.ui.itemTab = "badge";
+  updateItemTab("badge");
+});
+document.getElementById("itemTabOther")?.addEventListener("click", () => {
+  state.ui.itemTab = "other";
+  updateItemTab("other");
 });
 
 // ペットリストのイベント委譲（装備・解除・逃がす）

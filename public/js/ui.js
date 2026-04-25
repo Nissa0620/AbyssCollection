@@ -382,11 +382,19 @@ export function updateSortBtn() {
 }
 
 export function updateInventoryVisibility() {
-  const overlay = document.getElementById("inventoryOverlay");
+  const invOverlay  = document.getElementById("inventoryOverlay");
+  const itemOverlay = document.getElementById("itemOverlay");
+
   if (state.ui.inventoryOpen) {
-    overlay.classList.remove("hidden");
+    invOverlay.classList.remove("hidden");
   } else {
-    overlay.classList.add("hidden");
+    invOverlay.classList.add("hidden");
+  }
+
+  if (state.ui.itemOpen) {
+    itemOverlay.classList.remove("hidden");
+  } else {
+    itemOverlay.classList.add("hidden");
   }
 }
 
@@ -430,8 +438,8 @@ export function updateSynthesisInfo() {
 // 宝玉タブ表示
 // =====================
 export function renderGemList() {
-  if (!state.ui.inventoryOpen) return;
-  const gemSection  = document.getElementById("invGemSection");
+  if (!state.ui.itemOpen) return;
+  const gemSection  = document.getElementById("itemGemSection");
   const summaryEl   = document.getElementById("gemBonusSummary");
   const listEl      = document.getElementById("gemList");
   if (!gemSection || !summaryEl || !listEl) return;
@@ -483,28 +491,6 @@ export function renderGemList() {
   });
 }
 
-export function updateInventoryTab(tab) {
-  const weaponSection  = document.getElementById("invWeaponSection");
-  const gemSection     = document.getElementById("invGemSection");
-  const weaponTabBtn   = document.getElementById("invTabWeapon");
-  const gemTabBtn      = document.getElementById("invTabGem");
-  const weaponToolbar  = document.getElementById("invWeaponToolbar");
-  if (!weaponSection || !gemSection) return;
-
-  if (tab === "gem") {
-    weaponSection.classList.add("hidden");
-    gemSection.classList.remove("hidden");
-    weaponTabBtn?.classList.remove("active");
-    gemTabBtn?.classList.add("active");
-    if (weaponToolbar) weaponToolbar.classList.add("hidden");
-  } else {
-    weaponSection.classList.remove("hidden");
-    gemSection.classList.add("hidden");
-    weaponTabBtn?.classList.add("active");
-    gemTabBtn?.classList.remove("active");
-    if (weaponToolbar) weaponToolbar.classList.remove("hidden");
-  }
-}
 
 // =====================
 // スキルフィルタ選択肢を所持品に合わせて動的更新
