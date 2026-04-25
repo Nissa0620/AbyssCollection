@@ -5,6 +5,8 @@ import {
   updateDisplay,
   renderInventory,
   renderGemList,
+  renderBadgeList,
+  renderOtherItemList,
   renderLogs,
   updateButton,
   updateInventoryVisibility,
@@ -426,7 +428,9 @@ function updateItemTab(tab) {
     sections[key]?.classList.toggle("hidden", key !== tab);
     tabs[key]?.classList.toggle("active", key === tab);
   });
-  if (tab === "gem") renderGemList();
+  if (tab === "gem")   renderGemList();
+  if (tab === "badge") renderBadgeList();
+  if (tab === "other") renderOtherItemList();
 }
 
 document.getElementById("itemTabGem")?.addEventListener("click", () => {

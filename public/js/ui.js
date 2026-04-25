@@ -491,6 +491,97 @@ export function renderGemList() {
   });
 }
 
+// =====================
+// 証タブ表示
+// =====================
+export function renderBadgeList() {
+  if (!state.ui.itemOpen) return;
+  const section = document.getElementById("itemBadgeSection");
+  if (!section) return;
+
+  // 開放済み（証を持っている）ものだけ抽出
+  const owned = hiddenBossDefs.filter(def => state.research[def.unlockKey]);
+
+  if (owned.length === 0) {
+    section.innerHTML = `<p class="item-empty-msg">証はまだありません</p>`;
+    return;
+  }
+
+  const ul = document.createElement("ul");
+  ul.className = "gem-list";
+  owned.forEach(def => {
+    const li = document.createElement("li");
+    li.className = "pet-item gem-item";
+    li.innerHTML = `
+      <span class="pet-name">📜 ${def.itemName}</span>
+      <span class="pet-atk">${def.name} の開放証</span>
+    `;
+    ul.appendChild(li);
+  });
+
+  section.innerHTML = "";
+  section.appendChild(ul);
+}
+
+// =====================
+// その他タブ表示
+// =====================
+export function renderOtherItemList() {
+  if (!state.ui.itemOpen) return;
+  const section = document.getElementById("itemOtherSection");
+  if (!section) return;
+
+  const r = state.research;
+
+  // 交換回数が1以上のバフだけ表示
+  const buffs = [
+    {
+      count: r.atkPurchaseCount ?? 0,
+      label: "ATKバフ",
+      detail: `ATK +${r.atkBonus ?? 0}（1回につき +10）`,
+    },
+    {
+      count: r.hpPurchaseCount ?? 0,
+      label: "HPバフ",
+      detail: `HP +${r.hpBonus ?? 0}（1回につき +30）`,
+    },
+    {
+      count: r.expPurchaseCount ?? 0,
+      label: "経験値バフ",
+      detail: `経験値 +${r.expBonus ?? 0}%（1回につき +10%）`,
+    },
+    {
+      count: r.dropPurchaseCount ?? 0,
+      label: "ドロップバフ",
+      detail: `ドロップ率 +${r.dropBonus ?? 0}%（1回につき +1%）`,
+    },
+    {
+      count: r.capturePurchaseCount ?? 0,
+      label: "捕獲バフ",
+      detail: `捕獲率 +${r.captureBonus ?? 0}%（1回につき +1%）`,
+    },
+  ].filter(b => b.count > 0);
+
+  if (buffs.length === 0) {
+    section.innerHTML = `<p class="item-empty-msg">交換済みのバフはありません</p>`;
+    return;
+  }
+
+  const ul = document.createElement("ul");
+  ul.className = "gem-list";
+  buffs.forEach(b => {
+    const li = document.createElement("li");
+    li.className = "pet-item gem-item";
+    li.innerHTML = `
+      <span class="pet-name">✨ ${b.label} ×${b.count}</span>
+      <span class="pet-atk">${b.detail}</span>
+    `;
+    ul.appendChild(li);
+  });
+
+  section.innerHTML = "";
+  section.appendChild(ul);
+}
 
 // =====================
 // スキルフィルタ選択肢を所持品に合わせて動的更新
