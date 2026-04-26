@@ -551,27 +551,27 @@ export function renderOtherItemList() {
   const buffs = [
     {
       count: r.atkPurchaseCount ?? 0,
-      label: "ATKバフ",
+      label: "破壊の秘石",
       effect: "ATKが10ずつ増加",
     },
     {
       count: r.hpPurchaseCount ?? 0,
-      label: "HPバフ",
+      label: "不壊の秘石",
       effect: "HPが30ずつ増加",
     },
     {
       count: r.expPurchaseCount ?? 0,
-      label: "経験値バフ",
-      effect: "経験値が10%ずつ増加",
+      label: "叡智の秘石",
+      effect: "経験値が10ずつ増加",
     },
     {
       count: r.dropPurchaseCount ?? 0,
-      label: "ドロップバフ",
+      label: "財宝の秘石",
       effect: "ドロップ率が1%ずつ増加",
     },
     {
       count: r.capturePurchaseCount ?? 0,
-      label: "捕獲バフ",
+      label: "捕縛の秘石",
       effect: "捕獲率が1%ずつ増加",
     },
   ].filter(b => b.count > 0);
@@ -2385,28 +2385,28 @@ function renderExchangeList() {
 
   ul.innerHTML = `
     <li class="exchange-item">
-      <span>ATK +10</span>
+      <span>破壊の秘石（ATK +10）</span>
       <span>${atkCost}P</span>
       <button data-type="atk" ${r.currentPoints < atkCost ? "disabled" : ""}>交換</button>
     </li>
     <li class="exchange-item">
-      <span>HP +30</span>
+      <span>不壊の秘石（HP +30）</span>
       <span>${hpCost}P</span>
       <button data-type="hp" ${r.currentPoints < hpCost ? "disabled" : ""}>交換</button>
     </li>
     <li class="exchange-item">
-      <span>経験値 +10</span>
+      <span>叡智の秘石（経験値 +10）</span>
       <span>${expCost}P</span>
       <button data-type="exp" ${r.currentPoints < expCost ? "disabled" : ""}>交換</button>
     </li>
     <li class="exchange-item">
-      <span>ドロップ率 +0.1%（${r.dropBonus}/100回）</span>
+      <span>財宝の秘石（ドロップ率 +0.1%）（${r.dropPurchaseCount}/100回）</span>
       <span>${getDropPurchaseCost()}P</span>
       <button data-type="drop"
         ${r.currentPoints < getDropPurchaseCost() || r.dropPurchaseCount >= 100 ? "disabled" : ""}>交換</button>
     </li>
     <li class="exchange-item">
-      <span>捕獲率 +0.1%（${r.captureBonus}/100回）</span>
+      <span>捕縛の秘石（捕獲率 +0.1%）（${r.capturePurchaseCount}/100回）</span>
       <span>${getCapturePurchaseCost()}P</span>
       <button data-type="capture"
         ${r.currentPoints < getCapturePurchaseCost() || r.capturePurchaseCount >= 100 ? "disabled" : ""}>交換</button>
