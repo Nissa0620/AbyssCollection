@@ -87,7 +87,7 @@ export function renderInventory(player, onItemClick, onEquip) {
 
   // スキルフィルターのみアイテム単位で適用（nameFilterはグループ化後に適用）
   const items = filter
-    ? player.inventory.filter((item) => item.passive === filter)
+    ? player.inventory.filter((item) => isSamePassiveGroup(item.passive, filter))
     : player.inventory;
 
   if (items.length === 0) {
@@ -126,8 +126,23 @@ export function renderInventory(player, onItemClick, onEquip) {
     const maxOrderB = Math.max(...itemsB.map((w) => w.acquiredOrder ?? 0));
     if (mode === "acquiredDesc") return maxOrderB - maxOrderA;
     if (mode === "acquiredAsc")  return maxOrderA - maxOrderB;
-    if (mode === "bookAsc")      return Number(keyA) - Number(keyB);
-    if (mode === "bookDesc")     return Number(keyB) - Number(keyA);
+    if (mode === "bookAsc" || mode === "bookDesc") {
+      const repA = itemsA[0];
+      const repB = itemsB[0];
+      // 隠しボス武器（templateId が文字列）は末尾へ
+      const isHiddenA = typeof repA.templateId === "string" && isNaN(Number(repA.templateId));
+      const isHiddenB = typeof repB.templateId === "string" && isNaN(Number(repB.templateId));
+      if (isHiddenA && !isHiddenB) return mode === "bookAsc" ? 1 : -1;
+      if (!isHiddenA && isHiddenB) return mode === "bookAsc" ? -1 : 1;
+      if (isHiddenA && isHiddenB)  return 0;
+      // 通常武器(isBossDrop=false) → ボス武器(isBossDrop=true) の順
+      const bossA = (repA.isBossDrop ?? false) ? 1 : 0;
+      const bossB = (repB.isBossDrop ?? false) ? 1 : 0;
+      if (bossA !== bossB) return mode === "bookAsc" ? bossA - bossB : bossB - bossA;
+      const idA = Number(repA.templateId);
+      const idB = Number(repB.templateId);
+      return mode === "bookAsc" ? idA - idB : idB - idA;
+    }
     return 0;
   });
 
@@ -1363,8 +1378,15 @@ export function updatePetPanel(onPetClick, onPetEquip) {
     const maxOrderB = Math.max(...petsB.map((p) => p.acquiredOrder ?? 0));
     if (mode === "acquiredDesc") return maxOrderB - maxOrderA;
     if (mode === "acquiredAsc")  return maxOrderA - maxOrderB;
-    if (mode === "bookAsc")      return repA.enemyId - repB.enemyId;
-    if (mode === "bookDesc")     return repB.enemyId - repA.enemyId;
+    if (mode === "bookAsc" || mode === "bookDesc") {
+      // 通常ペット(isBoss=false) → ボスペット(isBoss=true) の順
+      const bossA = repA.isBoss ? 1 : 0;
+      const bossB = repB.isBoss ? 1 : 0;
+      if (bossA !== bossB) return mode === "bookAsc" ? bossA - bossB : bossB - bossA;
+      return mode === "bookAsc"
+        ? repA.enemyId - repB.enemyId
+        : repB.enemyId - repA.enemyId;
+    }
     return 0;
   });
 
@@ -1842,6 +1864,10 @@ export function renderStatusScreen() {
   if (pet?.passive === "legendCritDamage") critDmg += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendCritDamage") critDmg += weapon.passiveValue ?? 0;
 
+  // クリティカル率 100% 超過分をクリダメ増加率に変換して加算（戦闘計算と同一ロジック）
+  const critRateOverflow = Math.max(0, critRate - 100);
+  critDmg += critRateOverflow;
+
   // 経験値爆発
   let expBurstRate = 0;
   if (pet?.passive === "expBurst") expBurstRate += pet.passiveValue ?? 0;
@@ -1978,6 +2004,7 @@ export function renderStatusScreen() {
       ${drainRate > 0 ? row("与ダメ吸収 回復率", `${drainRate}%`) : ""}
       ${legendDrainRate > 0 ? row("✨吸血鬼 回復率", `${legendDrainRate}%`) : ""}
       ${critRate > 0 ? cappedRow("クリティカル率", critRate, 100) : ""}
+      ${critRateOverflow > 0 ? row("クリティカル率超過（クリダメ変換）", `+${critRateOverflow}%`) : ""}
       ${critDmg > 0 ? row("クリティカルダメージ増加率", `+${critDmg}%`) : ""}
       ${expBurstRate > 0 ? cappedRow("経験値爆発 発生率", expBurstRate, 100) : ""}
       ${legendExpBurstRate > 0 ? cappedRow("経験値大爆発 発生率", legendExpBurstRate, 100) : ""}

@@ -730,7 +730,6 @@ export function executePetSynthesis() {
   // 素材を削除
   state.player.petList = petList.filter((p) => !materialUids.includes(p.uid));
 
-  base.acquiredOrder = state.acquiredCounter++;
   addLog(`🐾 ${base.name} を合成！ATK ${oldPower} → ${newPower}`);
 
   state.petSynthesis.baseUid = null;
