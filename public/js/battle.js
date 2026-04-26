@@ -331,10 +331,13 @@ export function createEnemy() {
     return createBossEnemy(bossEnemyId);
   }
 
-  // 解禁済み隠しボスを収集し、0.1% で出現させる
-  const unlockedHiddenBosses = hiddenBossDefs.filter(
-    def => state.research?.[def.unlockKey]
-  );
+  // 解禁済み かつ 証がオンの隠しボスのみ収集し、0.1% で出現させる
+  const unlockedHiddenBosses = hiddenBossDefs.filter(def => {
+    if (!state.research?.[def.unlockKey]) return false;
+    // badgeEnabled が未設定（undefined）の場合はデフォルトでオン扱い
+    const enabled = state.ui?.badgeEnabled?.[def.unlockKey];
+    return enabled === undefined ? true : enabled;
+  });
   if (unlockedHiddenBosses.length > 0 && Math.random() < 0.001) {
     const def = unlockedHiddenBosses[
       Math.floor(Math.random() * unlockedHiddenBosses.length)

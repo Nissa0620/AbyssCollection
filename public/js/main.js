@@ -446,6 +446,17 @@ document.getElementById("itemTabOther")?.addEventListener("click", () => {
   updateItemTab("other");
 });
 
+// 証タブ：オンオフボタン（委譲、1回だけ登録）
+document.getElementById("itemBadgeSection").addEventListener("click", (e) => {
+  const btn = e.target.closest(".badge-toggle-btn");
+  if (!btn) return;
+  const key = btn.dataset.key;
+  if (!state.ui.badgeEnabled) state.ui.badgeEnabled = {};
+  state.ui.badgeEnabled[key] = !state.ui.badgeEnabled[key];
+  saveGameLocal();
+  renderBadgeList();
+});
+
 // ペットリストのイベント委譲（装備・解除・逃がす）
 document.getElementById("petOverlay").addEventListener("click", (e) => {
   // オーバーレイ背景クリックで閉じる

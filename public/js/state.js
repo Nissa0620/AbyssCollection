@@ -79,6 +79,7 @@ export const state = {
     petOpen: false,
     itemOpen: false,
     itemTab: "gem",   // "gem" | "badge" | "other"
+    badgeEnabled: {},   // { hiddenBossUnlocked_greed: true, ... } 開放済み証のオンオフ
     sortMode: "passive",
     petSortMode: "passive",
     inventoryFilter: "",

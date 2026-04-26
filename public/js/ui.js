@@ -439,13 +439,14 @@ export function updateSynthesisInfo() {
 // =====================
 export function renderGemList() {
   if (!state.ui.itemOpen) return;
-  const gemSection  = document.getElementById("itemGemSection");
-  const summaryEl   = document.getElementById("gemBonusSummary");
-  const listEl      = document.getElementById("gemList");
-  if (!gemSection || !summaryEl || !listEl) return;
+  const section  = document.getElementById("itemGemSection");
+  const listEl   = document.getElementById("gemList");
+  // gemBonusSummaryエリアを非表示にする
+  const summaryEl = document.getElementById("gemBonusSummary");
+  if (summaryEl) summaryEl.style.display = "none";
+  if (!section || !listEl) return;
 
   const gemsRaw = state.player.gems;
-  // 新形式（オブジェクト）と旧形式（配列）の両方に対応
   const copperCount = Array.isArray(gemsRaw)
     ? gemsRaw.filter((g) => g.id === 1).length
     : (gemsRaw?.copper ?? 0);
@@ -455,14 +456,6 @@ export function renderGemList() {
   const goldCount = Array.isArray(gemsRaw)
     ? gemsRaw.filter((g) => g.id === 3).length
     : (gemsRaw?.gold ?? 0);
-  const totalBonus = copperCount * 3 + silverCount * 5 + goldCount * 10;
-
-  summaryEl.innerHTML = `
-    <span class="gem-total-atk">ATK +${totalBonus}</span>
-    <span class="gem-counts">
-      🟤銅×${copperCount}　⚪銀×${silverCount}　🟡金×${goldCount}
-    </span>
-  `;
 
   listEl.innerHTML = "";
 
@@ -474,18 +467,23 @@ export function renderGemList() {
     return;
   }
 
-  // 種類ごとにまとめて表示（金→銀→銅）
   const grouped = [
-    { id: 3, rarity: "gold",   icon: "🟡", name: "金の宝玉",  atkBonus: 10, count: goldCount },
-    { id: 2, rarity: "silver", icon: "⚪", name: "銀の宝玉",  atkBonus: 5,  count: silverCount },
-    { id: 1, rarity: "copper", icon: "🟤", name: "銅の宝玉",  atkBonus: 3,  count: copperCount },
+    { rarity: "gold",   name: "金の宝玉",  atkBonus: 10, count: goldCount },
+    { rarity: "silver", name: "銀の宝玉",  atkBonus: 5,  count: silverCount },
+    { rarity: "copper", name: "銅の宝玉",  atkBonus: 3,  count: copperCount },
   ];
+
   grouped.filter((g) => g.count > 0).forEach((g) => {
     const li = document.createElement("li");
-    li.className = `pet-item gem-item gem-${g.rarity}`;
+    li.className = "abyss-item-card";
     li.innerHTML = `
-      <span class="pet-name">${g.icon} ${g.name} ×${g.count}</span>
-      <span class="pet-atk">ATK +${g.atkBonus} × ${g.count} = +${g.atkBonus * g.count}</span>
+      <div class="abyss-item-row1">
+        <span class="abyss-item-name">${g.name}</span>
+        <span class="abyss-item-count">${g.count.toLocaleString()}</span>
+      </div>
+      <div class="abyss-item-row2">
+        <span class="abyss-item-effect">ATKが${g.atkBonus}ずつ増加</span>
+      </div>
     `;
     listEl.appendChild(li);
   });
@@ -499,7 +497,6 @@ export function renderBadgeList() {
   const section = document.getElementById("itemBadgeSection");
   if (!section) return;
 
-  // 開放済み（証を持っている）ものだけ抽出
   const owned = hiddenBossDefs.filter(def => state.research[def.unlockKey]);
 
   if (owned.length === 0) {
@@ -507,14 +504,32 @@ export function renderBadgeList() {
     return;
   }
 
+  // badgeEnabled 未初期化の場合は初期化
+  if (!state.ui.badgeEnabled) state.ui.badgeEnabled = {};
+
   const ul = document.createElement("ul");
-  ul.className = "gem-list";
+  ul.className = "abyss-item-list";
+
   owned.forEach(def => {
+    // 未設定はデフォルトでオン
+    if (state.ui.badgeEnabled[def.unlockKey] === undefined) {
+      state.ui.badgeEnabled[def.unlockKey] = true;
+    }
+    const isOn = state.ui.badgeEnabled[def.unlockKey];
+
     const li = document.createElement("li");
-    li.className = "pet-item gem-item";
+    li.className = "abyss-item-card";
     li.innerHTML = `
-      <span class="pet-name">📜 ${def.itemName}</span>
-      <span class="pet-atk">${def.name} の開放証</span>
+      <div class="abyss-item-row1">
+        <span class="abyss-item-name">${def.itemName}</span>
+        <button class="badge-toggle-btn ${isOn ? "badge-on" : "badge-off"}"
+                data-key="${def.unlockKey}">
+          ${isOn ? "ON" : "OFF"}
+        </button>
+      </div>
+      <div class="abyss-item-row2">
+        <span class="abyss-item-effect">${def.name}に挑む証</span>
+      </div>
     `;
     ul.appendChild(li);
   });
@@ -533,32 +548,31 @@ export function renderOtherItemList() {
 
   const r = state.research;
 
-  // 交換回数が1以上のバフだけ表示
   const buffs = [
     {
       count: r.atkPurchaseCount ?? 0,
       label: "ATKバフ",
-      detail: `ATK +${r.atkBonus ?? 0}（1回につき +10）`,
+      effect: "ATKが10ずつ増加",
     },
     {
       count: r.hpPurchaseCount ?? 0,
       label: "HPバフ",
-      detail: `HP +${r.hpBonus ?? 0}（1回につき +30）`,
+      effect: "HPが30ずつ増加",
     },
     {
       count: r.expPurchaseCount ?? 0,
       label: "経験値バフ",
-      detail: `経験値 +${r.expBonus ?? 0}%（1回につき +10%）`,
+      effect: "経験値が10%ずつ増加",
     },
     {
       count: r.dropPurchaseCount ?? 0,
       label: "ドロップバフ",
-      detail: `ドロップ率 +${r.dropBonus ?? 0}%（1回につき +1%）`,
+      effect: "ドロップ率が1%ずつ増加",
     },
     {
       count: r.capturePurchaseCount ?? 0,
       label: "捕獲バフ",
-      detail: `捕獲率 +${r.captureBonus ?? 0}%（1回につき +1%）`,
+      effect: "捕獲率が1%ずつ増加",
     },
   ].filter(b => b.count > 0);
 
@@ -568,13 +582,19 @@ export function renderOtherItemList() {
   }
 
   const ul = document.createElement("ul");
-  ul.className = "gem-list";
+  ul.className = "abyss-item-list";
+
   buffs.forEach(b => {
     const li = document.createElement("li");
-    li.className = "pet-item gem-item";
+    li.className = "abyss-item-card";
     li.innerHTML = `
-      <span class="pet-name">✨ ${b.label} ×${b.count}</span>
-      <span class="pet-atk">${b.detail}</span>
+      <div class="abyss-item-row1">
+        <span class="abyss-item-name">${b.label}</span>
+        <span class="abyss-item-count">${b.count.toLocaleString()}</span>
+      </div>
+      <div class="abyss-item-row2">
+        <span class="abyss-item-effect">${b.effect}</span>
+      </div>
     `;
     ul.appendChild(li);
   });
