@@ -479,7 +479,7 @@ export function renderGemList() {
     li.innerHTML = `
       <div class="abyss-item-row1">
         <span class="abyss-item-name">${g.name}</span>
-        <span class="abyss-item-count">${g.count.toLocaleString()}</span>
+        <span class="abyss-item-count">×${g.count.toLocaleString()}</span>
       </div>
       <div class="abyss-item-row2">
         <span class="abyss-item-effect">ATKが${g.atkBonus}ずつ増加</span>
@@ -590,7 +590,7 @@ export function renderOtherItemList() {
     li.innerHTML = `
       <div class="abyss-item-row1">
         <span class="abyss-item-name">${b.label}</span>
-        <span class="abyss-item-count">${b.count.toLocaleString()}</span>
+        <span class="abyss-item-count">×${b.count.toLocaleString()}</span>
       </div>
       <div class="abyss-item-row2">
         <span class="abyss-item-effect">${b.effect}</span>
