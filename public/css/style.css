@@ -417,6 +417,12 @@ button {
   border: 1px solid #484848;
 }
 
+#itemToggleBtn {
+  background: #323232;
+  color: #cccccc;
+  border: 1px solid #484848;
+}
+
 #bookBtn {
   background: #323232;
   color: #cccccc;
@@ -2348,18 +2354,7 @@ button {
   cursor: default !important;
 }
 
-.gem-item.gem-copper {
-  border-left: 3px solid #b87333;
-}
-
-.gem-item.gem-silver {
-  border-left: 3px solid #c0c0c0;
-}
-
-.gem-item.gem-gold {
-  border-left: 3px solid #ffd700;
-  background: linear-gradient(90deg, #2a2505 0%, #1e1e1e 100%);
-}
+/* gem-item の左ボーダー装飾は廃止（新UIに移行） */
 
 /* ペット・武器 種族グループ共通 */
 .pet-group {
@@ -2578,6 +2573,12 @@ button {
   padding: 14px 14px;
   border-bottom: 1px solid #3a3a3a;
   gap: 8px;
+}
+
+#autoSynthTargetList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .auto-synth-target-item.ultimate        { background: #1e1a0e; border-left: 3px solid #c8a030; }
@@ -3779,4 +3780,95 @@ button {
   font-size: 13px;
   color: #aaa;
   margin: 0;
+}
+
+.item-empty-msg {
+  text-align: center;
+  padding: 24px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* =====================
+   アイテム一覧共通カード
+   ===================== */
+
+.abyss-item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.abyss-item-card {
+  background: #2a2a2a;
+  border: 1px solid #383838;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* 1行目：名前 ＋ 個数 or ボタン */
+.abyss-item-row1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.abyss-item-name {
+  font-size: 13px;
+  color: #e0e0e0;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.abyss-item-count {
+  font-size: 13px;
+  color: #e0e0e0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 2行目：効果テキスト（目立ちにくく） */
+.abyss-item-row2 {
+  display: flex;
+  align-items: center;
+}
+
+.abyss-item-effect {
+  font-size: 11px;
+  color: #777;
+}
+
+/* =====================
+   証オンオフボタン
+   ===================== */
+
+.badge-toggle-btn {
+  flex-shrink: 0;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: opacity 0.15s;
+}
+
+.badge-toggle-btn.badge-on {
+  background: #2a4a2a;
+  color: #6fcf6f;
+  border-color: #3a6a3a;
+}
+
+.badge-toggle-btn.badge-off {
+  background: #2a2a2a;
+  color: #666;
+  border-color: #444;
 }

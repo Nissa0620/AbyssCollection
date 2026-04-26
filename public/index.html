@@ -71,15 +71,19 @@
         <div class="action-row action-row-attack">
           <button id="attackBtn">攻撃</button>
         </div>
-        <!-- 装備・ペット：大ボタン行 -->
+        <!-- ペット・武器・アイテム：大ボタン行 -->
         <div class="action-row action-row-main">
           <button id="petToggleBtn" class="main-nav-btn">
             <span class="nav-icon">🐾</span>
             <span class="nav-label">ペット</span>
           </button>
           <button id="inventoryToggleBtn" class="main-nav-btn">
-            <span class="nav-icon">📦</span>
-            <span class="nav-label">インベントリ</span>
+            <span class="nav-icon">⚔️</span>
+            <span class="nav-label">武器</span>
+          </button>
+          <button id="itemToggleBtn" class="main-nav-btn">
+            <span class="nav-icon">🎒</span>
+            <span class="nav-label">アイテム</span>
           </button>
         </div>
         <!-- 図鑑・状態・その他：小ボタン行 -->
@@ -117,12 +121,6 @@
         <!-- 装備中武器サマリー（常時表示） -->
         <div id="equippedWeaponInfo" class="equipped-summary"></div>
 
-        <!-- タブ -->
-        <div class="inv-tabs">
-          <button id="invTabWeapon" class="inv-tab active">⚔️ 武器</button>
-          <button id="invTabGem"    class="inv-tab">💎 宝玉</button>
-        </div>
-
     <!-- ツールバー（panel-modal-bodyの外に移動） -->
     <div class="inventory-toolbar" id="invWeaponToolbar">
       <div class="toolbar-row1">
@@ -158,17 +156,45 @@
           <ul id="inventoryList"></ul>
         </div>
 
-        <!-- 宝玉タブ -->
-        <div id="invGemSection" class="panel-modal-body hidden">
-          <div id="gemBonusSummary" class="gem-bonus-summary"></div>
-          <ul id="gemList"></ul>
-        </div>
-
         <!-- 合成ボタン（モーダル下部に固定） -->
         <div class="panel-modal-footer">
           <button id="selectAllBtn" class="footer-select-all-btn hidden">一括選択</button>
           <button id="synthesizeBtn">合成する</button>
         </div>
+      </div>
+    </div>
+
+    <!-- アイテムモーダル -->
+    <div id="itemOverlay" class="book-overlay hidden">
+      <div class="book-modal panel-modal">
+        <div class="book-header">
+          <span>アイテム</span>
+          <button id="itemCloseBtn">✕</button>
+        </div>
+
+        <!-- タブ -->
+        <div class="inv-tabs">
+          <button id="itemTabGem"   class="inv-tab active">💎 宝玉</button>
+          <button id="itemTabBadge" class="inv-tab">📜 証</button>
+          <button id="itemTabOther" class="inv-tab">📦 その他</button>
+        </div>
+
+        <!-- 宝玉タブ -->
+        <div id="itemGemSection" class="panel-modal-body">
+          <div id="gemBonusSummary" class="gem-bonus-summary"></div>
+          <ul id="gemList"></ul>
+        </div>
+
+        <!-- 証タブ -->
+        <div id="itemBadgeSection" class="panel-modal-body hidden">
+          <p class="item-empty-msg">証はまだありません</p>
+        </div>
+
+        <!-- その他タブ -->
+        <div id="itemOtherSection" class="panel-modal-body hidden">
+          <p class="item-empty-msg">現在準備中です</p>
+        </div>
+
       </div>
     </div>
 
