@@ -189,7 +189,7 @@ export function renderInventory(player, onItemClick, onEquip) {
 
     const headerEl = document.createElement("div");
     headerEl.className = "pet-group-header";
-    const isHiddenBossWeaponGroup = groupItems.some((w) => w.isHiddenBossDrop);
+    const isHiddenBossWeaponGroup = typeof templateId === "string" && isNaN(Number(templateId));
     if (isHiddenBossWeaponGroup) headerEl.classList.add("hidden-boss-group");
     if (isHiddenBossWeaponGroup) groupEl.classList.add("hidden-boss-group");
     // 極武器ランプ判定（isUltimateWeapon = 全ステ最大値、ペットの極個体に相当）
