@@ -43,7 +43,7 @@ export const achievementDefs = [
   { id: "floor7000", category: "floor", label: "深淵との邂逅",   desc: "地下7000階のボスを突破する",  check: (s) => s.maxFloor > 7000 },
   { id: "floor8000", category: "floor", label: "深淵への接触",   desc: "地下8000階のボスを突破する",  check: (s) => s.maxFloor > 8000 },
   { id: "floor9000", category: "floor", label: "深淵との融合",     desc: "地下9000階のボスを突破する",  check: (s) => s.maxFloor > 9000 },
-  { id: "floor10000",category: "floor", label: "私こそが深淵",     desc: "地下10000階のボスを突破する", check: (s) => s.maxFloor > 10000 },
+  { id: "floor10000",category: "floor", label: "私こそが深淵",     desc: "地下10000階のボスを突破する", check: (s) => !!(s.achievements?.boss10000Defeated) },
 
   // --- 敵の捕獲（フロア帯別 全捕獲） ---
   ...buildCaptureAchievements(),

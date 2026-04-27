@@ -191,6 +191,7 @@ export function renderInventory(player, onItemClick, onEquip) {
     headerEl.className = "pet-group-header";
     const isHiddenBossWeaponGroup = groupItems.some((w) => w.isHiddenBossDrop);
     if (isHiddenBossWeaponGroup) headerEl.classList.add("hidden-boss-group");
+    if (isHiddenBossWeaponGroup) groupEl.classList.add("hidden-boss-group");
     // 極武器ランプ判定（isUltimateWeapon = 全ステ最大値、ペットの極個体に相当）
     const hasEliteWeapon = groupItems.some((w) => isUltimateWeapon(w));
     const weaponLampsHtml = hasEliteWeapon
@@ -582,12 +583,12 @@ export function renderOtherItemList() {
     {
       count: r.dropPurchaseCount ?? 0,
       label: "財宝の秘石",
-      effect: "ドロップ率が1%ずつ増加",
+      effect: "ドロップ率が0.1%ずつ増加",
     },
     {
       count: r.capturePurchaseCount ?? 0,
       label: "捕縛の秘石",
-      effect: "捕獲率が1%ずつ増加",
+      effect: "捕獲率が0.1%ずつ増加",
     },
   ].filter(b => b.count > 0);
 
@@ -2004,7 +2005,6 @@ export function renderStatusScreen() {
       ${drainRate > 0 ? row("与ダメ吸収 回復率", `${drainRate}%`) : ""}
       ${legendDrainRate > 0 ? row("✨吸血鬼 回復率", `${legendDrainRate}%`) : ""}
       ${critRate > 0 ? cappedRow("クリティカル率", critRate, 100) : ""}
-      ${critRateOverflow > 0 ? row("クリティカル率超過（クリダメ変換）", `+${critRateOverflow}%`) : ""}
       ${critDmg > 0 ? row("クリティカルダメージ増加率", `+${critDmg}%`) : ""}
       ${expBurstRate > 0 ? cappedRow("経験値爆発 発生率", expBurstRate, 100) : ""}
       ${legendExpBurstRate > 0 ? cappedRow("経験値大爆発 発生率", legendExpBurstRate, 100) : ""}
