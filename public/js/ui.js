@@ -87,7 +87,7 @@ export function renderInventory(player, onItemClick, onEquip) {
 
   // スキルフィルターのみアイテム単位で適用（nameFilterはグループ化後に適用）
   const items = filter
-    ? player.inventory.filter((item) => item.passive === filter)
+    ? player.inventory.filter((item) => isSamePassiveGroup(item.passive, filter))
     : player.inventory;
 
   if (items.length === 0) {
@@ -126,8 +126,23 @@ export function renderInventory(player, onItemClick, onEquip) {
     const maxOrderB = Math.max(...itemsB.map((w) => w.acquiredOrder ?? 0));
     if (mode === "acquiredDesc") return maxOrderB - maxOrderA;
     if (mode === "acquiredAsc")  return maxOrderA - maxOrderB;
-    if (mode === "bookAsc")      return Number(keyA) - Number(keyB);
-    if (mode === "bookDesc")     return Number(keyB) - Number(keyA);
+    if (mode === "bookAsc" || mode === "bookDesc") {
+      const repA = itemsA[0];
+      const repB = itemsB[0];
+      // 隠しボス武器（templateId が文字列）は末尾へ
+      const isHiddenA = typeof repA.templateId === "string" && isNaN(Number(repA.templateId));
+      const isHiddenB = typeof repB.templateId === "string" && isNaN(Number(repB.templateId));
+      if (isHiddenA && !isHiddenB) return mode === "bookAsc" ? 1 : -1;
+      if (!isHiddenA && isHiddenB) return mode === "bookAsc" ? -1 : 1;
+      if (isHiddenA && isHiddenB)  return 0;
+      // 通常武器(isBossDrop=false) → ボス武器(isBossDrop=true) の順
+      const bossA = (repA.isBossDrop ?? false) ? 1 : 0;
+      const bossB = (repB.isBossDrop ?? false) ? 1 : 0;
+      if (bossA !== bossB) return mode === "bookAsc" ? bossA - bossB : bossB - bossA;
+      const idA = Number(repA.templateId);
+      const idB = Number(repB.templateId);
+      return mode === "bookAsc" ? idA - idB : idB - idA;
+    }
     return 0;
   });
 
@@ -174,8 +189,9 @@ export function renderInventory(player, onItemClick, onEquip) {
 
     const headerEl = document.createElement("div");
     headerEl.className = "pet-group-header";
-    const isHiddenBossWeaponGroup = groupItems.some((w) => w.isHiddenBossDrop);
+    const isHiddenBossWeaponGroup = typeof templateId === "string" && isNaN(Number(templateId));
     if (isHiddenBossWeaponGroup) headerEl.classList.add("hidden-boss-group");
+    if (isHiddenBossWeaponGroup) groupEl.classList.add("hidden-boss-group");
     // 極武器ランプ判定（isUltimateWeapon = 全ステ最大値、ペットの極個体に相当）
     const hasEliteWeapon = groupItems.some((w) => isUltimateWeapon(w));
     const weaponLampsHtml = hasEliteWeapon
@@ -567,12 +583,12 @@ export function renderOtherItemList() {
     {
       count: r.dropPurchaseCount ?? 0,
       label: "財宝の秘石",
-      effect: "ドロップ率が1%ずつ増加",
+      effect: "ドロップ率が0.1%ずつ増加",
     },
     {
       count: r.capturePurchaseCount ?? 0,
       label: "捕縛の秘石",
-      effect: "捕獲率が1%ずつ増加",
+      effect: "捕獲率が0.1%ずつ増加",
     },
   ].filter(b => b.count > 0);
 
@@ -1363,8 +1379,15 @@ export function updatePetPanel(onPetClick, onPetEquip) {
     const maxOrderB = Math.max(...petsB.map((p) => p.acquiredOrder ?? 0));
     if (mode === "acquiredDesc") return maxOrderB - maxOrderA;
     if (mode === "acquiredAsc")  return maxOrderA - maxOrderB;
-    if (mode === "bookAsc")      return repA.enemyId - repB.enemyId;
-    if (mode === "bookDesc")     return repB.enemyId - repA.enemyId;
+    if (mode === "bookAsc" || mode === "bookDesc") {
+      // 通常ペット(isBoss=false) → ボスペット(isBoss=true) の順
+      const bossA = repA.isBoss ? 1 : 0;
+      const bossB = repB.isBoss ? 1 : 0;
+      if (bossA !== bossB) return mode === "bookAsc" ? bossA - bossB : bossB - bossA;
+      return mode === "bookAsc"
+        ? repA.enemyId - repB.enemyId
+        : repB.enemyId - repA.enemyId;
+    }
     return 0;
   });
 
@@ -1841,6 +1864,10 @@ export function renderStatusScreen() {
   if (weapon?.passive === "critDamage") critDmg += weapon.passiveValue ?? 0;
   if (pet?.passive === "legendCritDamage") critDmg += pet.passiveValue ?? 0;
   if (weapon?.passive === "legendCritDamage") critDmg += weapon.passiveValue ?? 0;
+
+  // クリティカル率 100% 超過分をクリダメ増加率に変換して加算（戦闘計算と同一ロジック）
+  const critRateOverflow = Math.max(0, critRate - 100);
+  critDmg += critRateOverflow;
 
   // 経験値爆発
   let expBurstRate = 0;

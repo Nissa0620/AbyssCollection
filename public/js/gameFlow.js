@@ -80,6 +80,13 @@ function battlePhase() {
     else if (burstMult > 1) addLog("✨ 経験値爆発！取得経験値が2倍！");
     gainExp(finalExp);
     healPlayerFull();
+
+    // 10000階ボスを撃破したタイミングでフラグを立てる
+    if (state.floor === 10000 && state.enemy?.isBoss) {
+      if (!state.achievements) state.achievements = {};
+      state.achievements.boss10000Defeated = true;
+    }
+
     state.enemy = null;
     state.phase = "next";
   }

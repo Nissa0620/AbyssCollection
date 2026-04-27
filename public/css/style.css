@@ -2378,6 +2378,12 @@ button {
   background: #333;
 }
 
+/* 隠しボスドロップ グループ外枠（白銀） */
+.pet-group.hidden-boss-group {
+  border-color: rgba(192, 192, 192, 0.45);
+  outline: 1px solid rgba(192, 192, 192, 0.2);
+}
+
 /* 隠しボスドロップ グループヘッダー（白銀） */
 .pet-group-header.hidden-boss-group {
   background: #2a2a2a;
